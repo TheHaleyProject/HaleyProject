@@ -1,0 +1,18 @@
+﻿
+ STRIDE : The stride is the width of a single row of pixels (a scan line), rounded up to a four-byte boundary. If the stride is positive, the bitmap is top-down. If the stride is negative, the bitmap is bottom-up.
+
+ To calculate stride, the formula we generally use is, (Bitsperpixel +7 )/8 . If we see carefully, this gives us a decimal value. But our main idea is to get integer.
+ We have 
+ 1 byte (Mono chrome, 8 bits)
+ 2 byte (Dual Color 16 bits)
+ 3 byte (24 bits)
+ 4 byte (32 bits).. We can also have 64 bits, 128 bits etc..
+
+ Example:
+
+ Monochrome: 8 bits = (8+7)/8 = 1.875 = 1 byte
+ Dual : 16 bits = (16+7)/8 = 2.875 = 2 byte.
+
+ We can clearly see that since we are adding 7 (1 digit less than that of 8), when we divide we can easily get the byte.
+
+ 1) 

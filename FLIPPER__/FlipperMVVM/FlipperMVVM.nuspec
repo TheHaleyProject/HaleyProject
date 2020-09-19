@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Haley.MVVM</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Lingam</authors>
+    <owners>Haley Project</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A lightweight MVVM implementation with IOC Containers</description>
+    <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
+    <releaseNotes>Updated Control IOC</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>WPFMVVM MVVMIOC IOCContainers</tags>
+  </metadata>
+</package>

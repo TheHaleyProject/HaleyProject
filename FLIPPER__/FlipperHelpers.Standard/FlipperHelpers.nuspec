@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Haley.Helpers.Standard</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Lingam</authors>
+    <owners>Haley Project</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Containing helper tools for Dot Net</description>
+    <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
+    <releaseNotes>Pilot Release : Has Rest API calls </releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>DotnetHelpers C# Haley Flipper</tags>
+  </metadata>
+</package>

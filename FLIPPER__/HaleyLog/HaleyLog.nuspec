@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Haley.Log</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Lingam</authors>
+    <owners>Haley Project</owners>
+    <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple logger based on .Net standard to integrate in C# Projects. Can write the logs to txt, xml and json formats.</description>
+    <releaseNotes>Pilot release</releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>Logger Haley Flipper HaleyLog</tags>
+  </metadata>
+</package>

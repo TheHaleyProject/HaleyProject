@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
+    <RootNamespace>Haley.Helpers.Standard</RootNamespace>
+    <Description>Contains Rest Helper methods built around restsharp</Description>
+    <Company>Haley Project</Company>
+    <Authors>Lingam</Authors>
+    <Copyright>Haley 2020</Copyright>
+    <PackageIcon></PackageIcon>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>Haley.Flipper.Helpers.Standard</Product>
+    <PackageId>Haley.Flipper.Helpers.Standard</PackageId>
+    <Version>1.0.0.4</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\Notes.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Notes.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.4" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
+  </ItemGroup>
+
+</Project>

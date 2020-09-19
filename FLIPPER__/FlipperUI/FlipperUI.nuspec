@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Haley.Wpf</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Lingam</authors>
+    <owners>Haley Project</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Basic WPF controls and converters</description>
+    <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
+    <releaseNotes>Pilot Release</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>WPFstyle WPFControls WPFConverters</tags>
+  </metadata>
+  <files>
+    <file src="AppResources/Dictionaries/FlipperSD.xaml" target="content\FlipperResources"/>
+    <file src="AppResources/Converters/Converter.cs" target="content\FlipperResources"/>
+  </files>
+</package>
