@@ -14,5 +14,6 @@
     <tags>WPF MVVM MVVM IOC DI Haley</tags>
 	<projectUrl>https://github.com/rmsmech/HaleyProject</projectUrl>
 	<license type="expression">MIT</license>
+	<repository type="git" url="https://github.com/rmsmech/HaleyProject" />
   </metadata>
 </package>
