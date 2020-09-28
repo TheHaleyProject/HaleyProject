@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Flipper")]
-[assembly: AssemblyDescription("Contains UI controls and Icons")]
+[assembly: AssemblyTitle("HaleyWPF")]
+[assembly: AssemblyDescription("Contains some WPF controls & Helpers")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Haley Group")]
-[assembly: AssemblyProduct("Flipper")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("TheHaleyProject")]
+[assembly: AssemblyProduct("HaleyWPF")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,8 +51,8 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.4")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: Guid("521ee2fb-0aa7-4c03-aba1-68a86ee9d645")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: Guid("b07d94ce-f1f7-4850-81c3-908b5c868e05")]
 [assembly: NeutralResourcesLanguage("en-GB")]
 
