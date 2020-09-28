@@ -8,7 +8,7 @@ EXIT)
 if exist ../../FLIPPER__/FlipperFonts/FlipperFonts.csproj nuget pack ../../FLIPPER__/FlipperFonts/FlipperFonts.csproj -Properties Configuration=Release 
 if exist ../../FLIPPER__/FlipperUI/FlipperUI.csproj nuget pack ../../FLIPPER__/FlipperUI/FlipperUI.csproj -IncludeReferencedProjects -Prop Configuration=Release  
 if exist ../../FLIPPER__/FlipperStyles/FlipperStyles.csproj nuget pack ../../FLIPPER__/FlipperStyles/FlipperStyles.csproj -IncludeReferencedProjects -Prop Configuration=Release  
-if exist ../../FLIPPER__/FlipperMVVM/FlipperMVVM.csproj nuget pack ../../FLIPPER__/FlipperMVVM/FlipperMVVM.csproj -IncludeReferencedProjects -Prop Configuration=Release 
+if exist ../../FLIPPER__/HaleyMVVM/HaleyMVVM.csproj nuget pack ../../FLIPPER__/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release 
 if exist ../../FLIPPER__/HLog\HLog.csproj nuget pack ../../FLIPPER__/HLog\HLog.csproj -Prop Configuration=Release 
 if exist ../../FLIPPER__/FlipperHelpers\FlipperHelpers.csproj nuget pack ../../FLIPPER__/FlipperHelpers\FlipperHelpers.csproj -Prop Configuration=Release 
 if exist ../../FLIPPER__/FlipperHelpers.Standard\Flipper.Helpers.Standard.csproj nuget pack ../../FLIPPER__/FlipperHelpers.Standard\Flipper.Helpers.Standard.csproj -Prop Configuration=Release 
