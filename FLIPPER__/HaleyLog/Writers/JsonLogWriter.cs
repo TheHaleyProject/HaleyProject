@@ -47,6 +47,7 @@ namespace Haley.Log.Writers
             return _convert(data);
         }
 
+
         public override void write(LogBase data, bool is_sub = false)
         {
             List<LogBase> _towriteList = new List<LogBase>();

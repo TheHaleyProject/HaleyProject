@@ -10,6 +10,7 @@ using System.IO;
 using Haley.Log;
 using Haley.Log.Interfaces;
 using Haley.Log.Models;
+using System.Threading;
 
 namespace DevelopmentConsole
 {
@@ -344,48 +345,124 @@ namespace DevelopmentConsole
     //}
     #endregion
 
+    #region Log Processing
+    //public class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
+    //        string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+    //        HLog.CreateInstance(new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.json, max_memory_count: 100));
+
+    //        HLog.ins.log("Software Initiated", property_name: "Main Module", in_memory: true);
+    //        HLog.ins.debug("What the hell");
+    //        for (int i = 1; i < 10; i++)
+    //        {
+    //            HLog.ins.log($@"Newlog entry {i}", in_memory: true);
+    //        }
+
+    //        for (int i = 1; i < 5; i++)
+    //        {
+    //            HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+    //        }
+    //        HLog.ins.dumpMemory();
+    //        HLog.ins.log($@"Beginning of new data");
+
+    //        for (int i = 0; i < 5; i++)
+    //        {
+    //            HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+    //        }
+
+    //        HLog.ins.log("New entry to check if memory is dumped");
+    //        HLog.ins.log("", property_name: "user Details");
+    //        HLog.ins.log("UserName", "rmsmech@gmail.com", is_sub: true);
+    //        HLog.ins.log("Pass", "hello@123", is_sub: true);
+
+    //        //Exception
+    //        try
+    //        {
+    //            int i = 5;
+    //            int y = i / (i - i);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            HLog.ins.log(ex, "some differernt exception at start");
+    //        }
+    //    }
+    //}
+
+    #endregion
+
+    #region Events Processing
     public class Program
     {
+        static void customtest02(itemstosend obj)
+        {
+            // what
+        }
+        static void customtest0waht()
+        {
+            // what
+        }
+        static void customtest03(somethintosend obj)
+        {
+           //Who hoooo
+        }
+
         public static void Main(string[] args)
         {
-            string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            HLog.CreateInstance(new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.json, max_memory_count: 100));
-
-            HLog.ins.log("Software Initiated",property_name:"Main Module",in_memory:true);
-            HLog.ins.debug("What the hell");
-            for (int i = 1; i < 10; i++)
+            Thread tc1 = new Thread(() =>
             {
-                HLog.ins.log($@"Newlog entry {i}", in_memory: true);
-            }
+                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customeventtest);
+            });
 
-            for (int i = 1; i < 5; i++)
+            Thread tc2 = new Thread(() =>
             {
-                HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-            }
-            HLog.ins.dumpMemory();
-            HLog.ins.log($@"Beginning of new data");
+                EventStore.Singleton.GetEvent<CustomEvent02>().subscribe(customtest02);
+                EventStore.Singleton.GetEvent<CustomEvent01>().publish();
+            });
+            Thread tc3 = new Thread(() =>
+            {
+                EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(customtest03);
+                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customtest0waht);
+                EventStore.Singleton.GetEvent<CustomEvent02>().publish(new itemstosend() { value = "This is a test" });
+            });
 
-            for (int i = 0; i < 5; i++)
-            {
-                HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-            }
-
-            HLog.ins.log("New entry to check if memory is dumped");
-            HLog.ins.log("", property_name: "user Details");
-            HLog.ins.log("UserName", "rmsmech@gmail.com", is_sub:true);
-            HLog.ins.log("Pass", "hello@123",is_sub:true);
-
-            //Exception
-            try
-            {
-                int i = 5;
-                int y = i / (i - i);
-            }
-            catch (Exception ex)
-            {
-                HLog.ins.log(ex, "some differernt exception at start");
-            }
+            tc1.Start();
+            tc2.Start();
+            tc3.Start();
+            
+        }
+        private static void customeventtest()
+        {
+            //this is for testing.
         }
     }
+
+    public class CustomEvent01 : HEvent
+    {
+
+    }
+    public class CustomEvent02 : HEvent<itemstosend>
+    {
+
+    }
+
+    public class CustomEvent03 : HEvent<somethintosend>
+    {
+
+    }
+
+    public class itemstosend
+    {
+        public string value { get; set; }
+        public itemstosend() { }
+    }
+
+    public class somethintosend :EventArgs
+    {
+        public somethintosend() { }
+    }
+
+    #endregion
 }

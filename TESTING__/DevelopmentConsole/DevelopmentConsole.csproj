@@ -97,6 +97,10 @@
       <Project>{ab40d102-03d6-453e-bfef-2dec9de47559}</Project>
       <Name>HaleyLog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FLIPPER__\HaleyMVVM\HaleyMVVM.csproj">
+      <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
+      <Name>HaleyMVVM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

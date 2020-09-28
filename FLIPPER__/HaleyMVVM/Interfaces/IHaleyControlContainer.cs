@@ -13,15 +13,15 @@ namespace Haley.MVVM.Interfaces
             where ControlType : IHaleyControl
             where ViewModelType : IHaleyControlVM, new(); 
 
-        void register<ViewModelType, ControlType>(Enum @enum)
+        void register<ViewModelType, ControlType>(string key)
            where ViewModelType : IHaleyControlVM,new()
            where ControlType : IHaleyControl;
 
         IHaleyControl obtainControl<ViewModelType>(ViewModelType InputViewModel)
         where ViewModelType : IHaleyControlVM;
 
-        IHaleyControl obtainControl(object InputViewModel, Enum @enum);
+        IHaleyControl obtainControl(object InputViewModel, string key);
 
-        object obtainVM(Enum @enum);
+        object obtainVM(string key);
     }
 }

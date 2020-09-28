@@ -17,5 +17,4 @@ namespace Haley.MVVM.EventArguments
             message = _message;
         }
     }
-
 }

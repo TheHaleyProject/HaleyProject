@@ -78,7 +78,6 @@ namespace Haley.Helpers.Common
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

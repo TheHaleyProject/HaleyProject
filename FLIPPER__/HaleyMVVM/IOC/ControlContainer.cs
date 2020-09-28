@@ -65,16 +65,23 @@ namespace Haley.MVVM.IOC
            where ViewModelType : IHaleyControlVM, new()
            where ControlType : IHaleyControl 
         {
+            //Get the enum value and its type name to prepare a string
+            string _key = _getEnumKey(@enum);
+            register<ViewModelType, ControlType>(_key);
+        }
+
+        public void register<ViewModelType, ControlType>(string key)
+            where ViewModelType : IHaleyControlVM, new()
+            where ControlType : IHaleyControl
+        {
             try
             {
-                //Get the enum value and its type name to prepare a string
-                string _key = _getEnumKey(@enum);
-                if (main_mapping.ContainsKey(_key) == true)
+                if (main_mapping.ContainsKey(key) == true)
                 {
-                    throw new ArgumentException($@"Key : {_key} is already registered to - VM : {main_mapping[_key].Item1} and View : {main_mapping[_key].Item2}");
+                    throw new ArgumentException($@"Key : {key} is already registered to - VM : {main_mapping[key].Item1} and View : {main_mapping[key].Item2}");
                 }
                 Tuple<Type, Type> key_tuple = new Tuple<Type, Type>(typeof(ViewModelType), typeof(ControlType));
-                main_mapping.Add(_key, key_tuple);
+                main_mapping.Add(key, key_tuple);
             }
             catch (Exception ex)
             {
@@ -116,31 +123,35 @@ namespace Haley.MVVM.IOC
 
         public IHaleyControl  obtainControl(object InputViewModel, Enum @enum) //Return a generic type which implements IHaleyControl 
         {
+            //Get the enum value and its type name to prepare a string
+            string _key = _getEnumKey(@enum);
+            return obtainControl(InputViewModel, _key);
+        }
+
+        public IHaleyControl obtainControl(object InputViewModel, string key)
+        {
             try
             {
-                //Get the enum value and its type name to prepare a string
-                string _key = _getEnumKey(@enum);
-
                 //Check if this key is already used or not.
                 if (main_mapping.Count == 0)
                 {
                     throw new ArgumentException("No viewmodel/views are registered yet.");
                 }
 
-                if (main_mapping.ContainsKey(_key) == false)
+                if (main_mapping.ContainsKey(key) == false)
                 {
-                    throw new ArgumentException($"Key {_key} is not registered to any controls. Please check.");
+                    throw new ArgumentException($"Key {key} is not registered to any controls. Please check.");
                 }
 
-                var result_tuple = main_mapping[_key];
+                var result_tuple = main_mapping[key];
                 Type resultViewModelType = result_tuple.Item1;
                 if (InputViewModel.GetType() != resultViewModelType)
                 {
-                    throw new ArgumentException($"For the key : {_key}, the type of view model expected is : {resultViewModelType} ");
+                    throw new ArgumentException($"For the key : {key}, the type of view model expected is : {resultViewModelType} ");
                 }
 
                 Type resultControlType = result_tuple.Item2; // Get the type of control for the provided input types
-                IHaleyControl  resultcontrol = (IHaleyControl )Activator.CreateInstance(resultControlType);
+                IHaleyControl resultcontrol = (IHaleyControl)Activator.CreateInstance(resultControlType);
                 resultcontrol.DataContext = InputViewModel; //Assinging actual viewmodel
                 return resultcontrol;
             }
@@ -152,11 +163,16 @@ namespace Haley.MVVM.IOC
 
         public object obtainVM(Enum @enum)
         {
+            //Get the enum value and its type name to prepare a string
+            string _key = _getEnumKey(@enum);
+            return obtainVM(_key);
+        }
+
+        public object obtainVM(string key)
+        {
             try
             {
-                //Get the enum value and its type name to prepare a string
-                string _key = _getEnumKey(@enum);
-                Type resultViewModelType = main_mapping[_key].Item1;
+                Type resultViewModelType = main_mapping[key].Item1;
                 //What if the viewmodel has other dependencies
                 var resultVM = Activator.CreateInstance(resultViewModelType);
                 return resultVM;
@@ -168,6 +184,7 @@ namespace Haley.MVVM.IOC
         }
 
         #endregion
+
     }
 }
 
