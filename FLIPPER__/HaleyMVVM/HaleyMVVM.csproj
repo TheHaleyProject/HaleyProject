@@ -75,7 +75,7 @@
     <Compile Include="Events\SubscriberBase.cs" />
     <Compile Include="Events\HBaseEvent.cs" />
     <Compile Include="Events\HEvent.cs" />
-    <Compile Include="Events\EventStore.cs" />
+    <Compile Include="EventStore.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Interfaces\IHaleyWindowContainer.cs" />
     <Compile Include="Interfaces\IHaleyWindow.cs" />
@@ -86,9 +86,9 @@
     <Compile Include="Interfaces\IHaleyControl.cs" />
     <Compile Include="Interfaces\IHaleyControlVM.cs" />
     <Compile Include="Interfaces\ISubscriber.cs" />
-    <Compile Include="IOC\ControlContainer.cs" />
-    <Compile Include="IOC\ContainerStore.cs" />
-    <Compile Include="IOC\WindowContainer.cs" />
+    <Compile Include="Containers\ControlContainer.cs" />
+    <Compile Include="ContainerStore.cs" />
+    <Compile Include="Containers\WindowContainer.cs" />
     <Compile Include="Models\HInvokeCommandAction.cs" />
     <Compile Include="Models\FlipperBoolDictionary.cs" />
     <Compile Include="Models\ChangeNotifierModel.cs" />

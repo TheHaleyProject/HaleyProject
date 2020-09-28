@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Haley.MVVM.Interfaces;
 using Haley.MVVM.EventArguments;
 using Haley.MVVM.Events;
+using Haley.MVVM.Containers;
 
-namespace Haley.MVVM.IOC
+namespace Haley.MVVM
 {
     public static class ContainerStore
     {

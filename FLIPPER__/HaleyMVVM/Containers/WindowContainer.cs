@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Haley.MVVM.Interfaces;
 using Haley.MVVM.EventArguments;
 
-namespace Haley.MVVM.IOC
+namespace Haley.MVVM.Containers
 {
     public class WindowContainer : IHaleyWindowContainer  //Implementation of the DialogService Interface.
     {

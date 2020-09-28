@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Haley.MVVM.Containers;
+using Haley.MVVM.Events;
+using Haley.MVVM.EventArguments;
 
-namespace Haley.MVVM.Events
+namespace Haley.MVVM
 {
     public class EventStore
     {
