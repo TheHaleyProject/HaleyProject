@@ -10,42 +10,7 @@ using System.Windows.Interactivity;
 #pragma warning disable IDE1006 // Naming Styles
 namespace Haley.MVVM.Models
 {
-   public class FlipperDelegateCommand : ICommand
-    {
-
-        Action<object> _method_to_execute;
-        Func<object, bool> _function_to_check;
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            if (_function_to_check == null) return true;
-            return _function_to_check.Invoke(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            _method_to_execute?.Invoke(parameter);
-        }
-
-        public FlipperDelegateCommand(Action<object> ActualMethodToExecute, Func<object, bool> ActualFunctionToCheck)
-        {
-            _method_to_execute = ActualMethodToExecute;
-            _function_to_check = ActualFunctionToCheck;
-        }
-
-        public FlipperDelegateCommand(Action<object> ActualMethodToExecute)
-        {
-            new FlipperDelegateCommand(ActualMethodToExecute,null);
-        }
-    }
-
-    public sealed class FlipperInvokeCommandAction : TriggerAction<DependencyObject>
+    public sealed class HInvokeCommandAction : TriggerAction<DependencyObject>
     {
         #region Dependency Properties
 
@@ -58,7 +23,7 @@ namespace Haley.MVVM.Models
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(FlipperInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(HInvokeCommandAction), null);
 
         public object CommandParameter
         {
@@ -68,7 +33,7 @@ namespace Haley.MVVM.Models
 
         // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(FlipperInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(HInvokeCommandAction), null);
 
         public object EventParameter
         {
@@ -78,7 +43,7 @@ namespace Haley.MVVM.Models
 
         // Using a DependencyProperty as the backing store for EventParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EventParameterProperty =
-            DependencyProperty.Register(nameof(EventParameter), typeof(object), typeof(FlipperInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(EventParameter), typeof(object), typeof(HInvokeCommandAction), null);
 
         #endregion
 

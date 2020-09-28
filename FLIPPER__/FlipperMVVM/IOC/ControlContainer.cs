@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.MVVM.Interfaces;
+using Haley.MVVM.EventArguments;
 
 namespace Haley.MVVM.IOC
 {
-    public class UserControlService
+    public class ControlContainer : IHaleyControlContainer
     {
         #region Initation
         private Dictionary<Type, Type> viewmodel_controls_mappings { get; set; } //Generic dictionary to store the controls
         private Dictionary<string,Tuple<Type,Type>> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
 
-        public UserControlService()
+        public ControlContainer()
         {
             viewmodel_controls_mappings = new Dictionary<Type, Type>();
             main_mapping = new Dictionary<string, Tuple<Type, Type>>();
@@ -42,8 +43,8 @@ namespace Haley.MVVM.IOC
         #region Register Methods
 
         public void register<ViewModelType, ControlType>()
-            where ViewModelType : IFlipperControlVM
-            where ControlType : IFlipperControl
+            where ViewModelType : IHaleyControlVM, new()
+            where ControlType : IHaleyControl 
         {
             try
             {
@@ -61,8 +62,8 @@ namespace Haley.MVVM.IOC
         }
 
         public void register<ViewModelType, ControlType>(Enum @enum)
-           where ViewModelType : IFlipperControlVM
-           where ControlType : IFlipperControl
+           where ViewModelType : IHaleyControlVM, new()
+           where ControlType : IHaleyControl 
         {
             try
             {
@@ -84,9 +85,9 @@ namespace Haley.MVVM.IOC
         #endregion
 
         #region Retrieval Methods
-
-        public IFlipperControl obtainControl<ViewModelType>(ViewModelType InputViewModel) //Return a generic type which implements IFlipperControl
-        where ViewModelType : IFlipperControlVM
+        //Return a generic type which implements IHaleyControl 
+        public IHaleyControl  obtainControl<ViewModelType>(ViewModelType InputViewModel) 
+        where ViewModelType : IHaleyControlVM
         {
             try
             {
@@ -102,7 +103,7 @@ namespace Haley.MVVM.IOC
 
                 Type ResultControlType = viewmodel_controls_mappings[typeof(ViewModelType)]; //We are using the typeof(viewmodeltype) merely as a reference so that it can fetch the corresponding control from the dictionary. We assign the actual "InputViewModel" as Datacontext later.
 
-                IFlipperControl ResultControl = (IFlipperControl)Activator.CreateInstance(ResultControlType);
+                IHaleyControl  ResultControl = (IHaleyControl )Activator.CreateInstance(ResultControlType);
                 ResultControl.DataContext = InputViewModel;
 
                 return ResultControl;
@@ -113,7 +114,7 @@ namespace Haley.MVVM.IOC
             }
         }
 
-        public IFlipperControl obtainControl(object InputViewModel, Enum @enum) //Return a generic type which implements IFlipperControl
+        public IHaleyControl  obtainControl(object InputViewModel, Enum @enum) //Return a generic type which implements IHaleyControl 
         {
             try
             {
@@ -139,7 +140,7 @@ namespace Haley.MVVM.IOC
                 }
 
                 Type resultControlType = result_tuple.Item2; // Get the type of control for the provided input types
-                IFlipperControl resultcontrol = (IFlipperControl)Activator.CreateInstance(resultControlType);
+                IHaleyControl  resultcontrol = (IHaleyControl )Activator.CreateInstance(resultControlType);
                 resultcontrol.DataContext = InputViewModel; //Assinging actual viewmodel
                 return resultcontrol;
             }
@@ -149,13 +150,14 @@ namespace Haley.MVVM.IOC
             }
         }
 
-        public object obtainVMInstance(Enum @enum)
+        public object obtainVM(Enum @enum)
         {
             try
             {
                 //Get the enum value and its type name to prepare a string
                 string _key = _getEnumKey(@enum);
                 Type resultViewModelType = main_mapping[_key].Item1;
+                //What if the viewmodel has other dependencies
                 var resultVM = Activator.CreateInstance(resultViewModelType);
                 return resultVM;
             }

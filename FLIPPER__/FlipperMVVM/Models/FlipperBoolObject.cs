@@ -10,38 +10,6 @@ using Haley.MVVM.Interfaces;
 
 namespace Haley.MVVM.Models
 {
-    public abstract class ChangeNotifierModel: INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void onPropertyChanged([CallerMemberName] string propname = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
-        }
-        public ChangeNotifierModel() { }
-    }
-
-    /// <summary>
-    /// It should be in the form of Dictionary<Object, bool> 
-    /// </summary>
-    public class FlipperBoolDictionary : ChangeNotifierModel
-    {
-        private object _key;
-        public object key
-        {
-            get { return _key; }
-            set { _key = value; onPropertyChanged(); }
-        }
-
-        private object _value;
-        public object value
-        {
-            get { return _value; }
-            set { _value = value; onPropertyChanged(); }
-        }
-
-        public FlipperBoolDictionary() { }
-    }
-
     /// <summary>
     /// Can be used to identify IsSelected for custom objects.
     /// </summary>

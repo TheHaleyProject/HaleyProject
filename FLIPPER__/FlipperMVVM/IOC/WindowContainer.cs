@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.MVVM.Interfaces;
+using Haley.MVVM.EventArguments;
 
 namespace Haley.MVVM.IOC
 {
-    public class WindowService : IFlipperWindowService  //Implementation of the DialogService Interface.
+    public class WindowContainer : IHaleyWindowContainer  //Implementation of the DialogService Interface.
     {
         private Dictionary<Type, Type> view_viewmodel_mapping;
-        public WindowService()
+        public WindowContainer()
         {
             view_viewmodel_mapping = new Dictionary<Type, Type>();
         }
 
         public void register<ViewModelType, ViewType>()
-            where ViewModelType : IFlipperWindowVM
-            where ViewType : IFlipperWindow
+            where ViewModelType : IHaleyWindowVM,new()
+            where ViewType : IHaleyWindow 
         {
             if (view_viewmodel_mapping.ContainsKey(typeof(ViewModelType)) == true)
             {
@@ -26,20 +27,20 @@ namespace Haley.MVVM.IOC
             view_viewmodel_mapping.Add(typeof(ViewModelType), typeof(ViewType));
         }
 
-        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IFlipperWindowVM
+        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
         {
-            IFlipperWindow Result = _getWindowToDisplay(InputViewModel);
+            IHaleyWindow  Result = _getWindowToDisplay(InputViewModel);
             if (Result == null) return null;
             return Result.ShowDialog(); //Once initiated, it will automatically unsubscribe as well.
         }
 
-        public void show<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IFlipperWindowVM
+        public void show<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
         {
-            IFlipperWindow Result = _getWindowToDisplay(InputViewModel);
+            IHaleyWindow  Result = _getWindowToDisplay(InputViewModel);
             Result.Show();
         }
 
-       private IFlipperWindow _getWindowToDisplay<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IFlipperWindowVM
+       private IHaleyWindow  _getWindowToDisplay<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
         {
             if (view_viewmodel_mapping.Count == 0) return null;
             if (view_viewmodel_mapping.ContainsKey(typeof(ViewModelType)) == false) //Note: We are using typeof(viewmodeltype)
@@ -48,8 +49,8 @@ namespace Haley.MVVM.IOC
             }
             Type ViewType = view_viewmodel_mapping[typeof(ViewModelType)];
 
-            //Using System.Activator, create an instance of the above retrieved view and display it. Remember all views are already implementing IFlipperWindow interface. So, Casting the object as the IFlipperWindow.
-            IFlipperWindow WindowToDisplay = (IFlipperWindow)System.Activator.CreateInstance(ViewType);
+            //Using System.Activator, create an instance of the above retrieved view and display it. Remember all views are already implementing IHaleyWindow  interface. So, Casting the object as the IHaleyWindow .
+            IHaleyWindow  WindowToDisplay = (IHaleyWindow )System.Activator.CreateInstance(ViewType);
             WindowToDisplay.DataContext = InputViewModel;
 
             //Once we receive the view to display in above stage, we can display the view to the user and obtain the DialogResult using the button clicks.To achieve button clicks events, we need to write codes in the Code behind. To avoid this, we are creating a below listener class to ensure MVVM implementations and separation of logics.
@@ -69,8 +70,8 @@ namespace Haley.MVVM.IOC
         //2. At the end of the action, it triggers the event inside the ViewModel (OnClosingEvent; it is actually publishing the status about the end of process.) 
         //3. Status can either be true or false. Which means, we can either close the window or keep it active. 
         //4. So, View, which has subscribed to that event, receives that status and saves as dialog result. If dialog result is true, then it will close the winodw else it will keep it active.
-        public IFlipperWindow subscriber { get; set; }
-        public IFlipperWindowVM publisher { get; set; }
+        public IHaleyWindow  subscriber { get; set; }
+        public IHaleyWindowVM publisher { get; set; }
 
         public void subscribe()
         {
@@ -96,7 +97,7 @@ namespace Haley.MVVM.IOC
             }
         }
 
-        public CustomObserverPattern(IFlipperWindow subscriberView, IFlipperWindowVM publisherViewModel)
+        public CustomObserverPattern(IHaleyWindow  subscriberView, IHaleyWindowVM publisherViewModel)
         {
             subscriber = subscriberView;
             publisher = publisherViewModel;

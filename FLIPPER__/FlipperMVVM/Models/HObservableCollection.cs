@@ -14,8 +14,8 @@ namespace Haley.MVVM.Models
     //Base idea is that we register a handler for the propertychanged events of the objects. Whenever this property changes, we trigger the collectionchanged event.
     //We can also setup some delegate methods to perform boolean operations to validate whether to trigger the collectionchanged event or not.
 
-    public sealed class FlipperObservableCollection<T>  : ObservableCollection<T>
-        where T: INotifyPropertyChanged //FlipperObservableCollection will accept only items that has INotifyPropertyChanged implemented.
+    public sealed class HObservableCollection<T>  : ObservableCollection<T>
+        where T: INotifyPropertyChanged //HObservableCollection will accept only items that has INotifyPropertyChanged implemented.
       //We are inheriting ObservableCollection Class.
       //We are adorning with a sealed modifier so that it will not be inherited by some other class.
     {
@@ -26,13 +26,13 @@ namespace Haley.MVVM.Models
         }
 
         //We have multiple ways how a list can be added to the Observable collection. It can be adding IEnumerable, or List or even Add items one by one.
-        public delegate bool delCanTrigger(object parameters); //GOFY delegate.. hahahahaha. I'm going home..
+        public delegate bool CanTriggerDelegate(object parameters); 
 
         public object trigger_params { get; set; }
         /// <summary>
         /// Set a delegate method which takes an object argument and returns a bool. Do remember to set your parameters as well. By default,the parameters are null.
         /// </summary>
-        public delCanTrigger trigger_delegate { get; set; }
+        public CanTriggerDelegate trigger_delegate { get; set; }
 
 
         #region Collection Adding Methods
@@ -41,7 +41,7 @@ namespace Haley.MVVM.Models
         /// Can add 
         /// </summary>
         /// <param name="Items"></param>
-        public FlipperObservableCollection(List<T> Items) : this() //You can also use Base(Items) in case you need to make use of the methods present inside the abstract classes. For new initialization
+        public HObservableCollection(List<T> Items) : this() //You can also use Base(Items) in case you need to make use of the methods present inside the abstract classes. For new initialization
         {
             if (Items == null) return;
             //if (Items.Count == 0 || Items == null) return;
@@ -52,7 +52,7 @@ namespace Haley.MVVM.Models
             Items.ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public FlipperObservableCollection(IEnumerable<T> Items) : this() //For new initialization
+        public HObservableCollection(IEnumerable<T> Items) : this() //For new initialization
         {
             if (Items == null) return;
             //if (Items.ToList().Count == 0 || Items == null) return;
@@ -82,7 +82,7 @@ namespace Haley.MVVM.Models
 
         #endregion
 
-        public FlipperObservableCollection() : base()
+        public HObservableCollection() : base()
         { _registerCollection(); }
 
         #region Event Handlers
