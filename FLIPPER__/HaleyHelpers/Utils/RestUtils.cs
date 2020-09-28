@@ -10,12 +10,12 @@ using System.IO;
 using System.Net.Http;
 using System.Runtime;
 using System.Runtime.CompilerServices;
-using Haley.Helpers.Common;
-using Haley.Helpers.Enums;
+using Haley.Helpers.Utils;
+using Haley.Helpers.Models;
 
-namespace Haley.Helpers.API
+namespace Haley.Helpers.Utils
 {
-    public static class RestAPI__
+    public static class RestUtils
     {
         public static string jwt { get; set; } //Users responsibility to set this value.
         public static string token_prefix { get; set; }
@@ -34,8 +34,8 @@ namespace Haley.Helpers.API
                 Dictionary<string, string> result = new Dictionary<string, string>(); //Dowload path , Sha value
                 //Check if the directory is working
                 var _result = await invoke(null, download_url, is_anonymous: true); //Whenever we send a request, it checks whether it
-                if (_result.StatusCode != HttpStatusCode.OK) return result;
-                dynamic _dir_files = JsonConvert.DeserializeObject(_result.Content); //Gets all the files inside the directory
+                if (_result.status_code != HttpStatusCode.OK) return result;
+                dynamic _dir_files = JsonConvert.DeserializeObject(_result.content); //Gets all the files inside the directory
 
                 foreach (var _file in _dir_files) //We get the list of all files in the folder. We can either choose to download single file or all the files.
                 {
@@ -81,10 +81,10 @@ namespace Haley.Helpers.API
                 string _sha = null;
 
                 var github_response = await invoke(null, github_file_url, is_anonymous: true); //Whenever we send a request, it checks whether it
-                if (github_response.StatusCode != HttpStatusCode.OK) return (null,null);
+                if (github_response.status_code != HttpStatusCode.OK) return (null,null);
 
                     //Get content
-                    dynamic _content = JsonConvert.DeserializeObject(github_response.Content);
+                    dynamic _content = JsonConvert.DeserializeObject(github_response.content);
                     //Since we know that it is from github, we also know that it is supposed to have download url
                     if (_content.download_url != null)
                     {
@@ -119,7 +119,7 @@ namespace Haley.Helpers.API
             }
         }
 
-        public static async Task<IRestResponse> invoke(object content, string url, RestMethod rest_method = RestMethod.Get, bool request_as_query = false, bool is_anonymous = false, ReturnFormat return_format = ReturnFormat.Json, bool should_serialize = true)
+        public static async Task<Models.RestResponse> invoke(object content, string url, RestMethod rest_method = RestMethod.Get, bool request_as_query = false, bool is_anonymous = false, ReturnFormat return_format = ReturnFormat.Json, bool should_serialize = true)
         {
             try
             {
@@ -135,10 +135,15 @@ namespace Haley.Helpers.API
             }
         }
 
-        public static async Task<IRestResponse> invoke(Dictionary<RestParamType,object> content, string url, RestMethod rest_method = RestMethod.Get, bool is_anonymous = false, ReturnFormat return_format = ReturnFormat.Json, bool should_serialize = true)
+        public static async Task<Models.RestResponse> invoke(Dictionary<RestParamType,object> content, string url, RestMethod rest_method = RestMethod.Get, bool is_anonymous = false, ReturnFormat return_format = ReturnFormat.Json, bool should_serialize = true)
         {
+            //var _url = _getBaseUrl(url);
+
             //INVOKE
+            //var client = new RestClient(_url.base_url);
             var client = new RestClient();
+            Models.RestResponse _result = new Models.RestResponse();
+
             Method _method = Method.GET;
             switch(rest_method)
             {
@@ -152,6 +157,7 @@ namespace Haley.Helpers.API
                     _method = Method.POST;
                     break;
             }
+            //var _request = new RestRequest(_url.method_url, _method); //Each request can have only one method.
             var _request = new RestRequest(url, _method); //Each request can have only one method.
 
             //ADD HEADERS
@@ -183,7 +189,7 @@ namespace Haley.Helpers.API
                     _rest_return_format = DataFormat.Xml;
                     break;
                 case ReturnFormat.None:
-                    _rest_return_format = DataFormat.None;
+                    //_rest_return_format = DataFormat.None;
                     break;
             }
             _request.RequestFormat = _rest_return_format;
@@ -194,7 +200,17 @@ namespace Haley.Helpers.API
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 //var _response = await client.ExecuteAsync(_request);
                 var _response = client.Execute(_request);
-                return _response;
+                _result.content = _response.Content;
+                _result.server_url = _response.Server;
+                _result.is_success = _response.IsSuccessful;
+                _result.status_code = _response.StatusCode;
+                _result.contents_raw = _response.RawBytes;
+                _result.content_encoding = _response.ContentEncoding;
+                _result.content_length = _response.ContentLength;
+                _result.error_message = _response.ErrorMessage;
+                _result.exception = _response.ErrorException;
+                _result.response_uri = _response.ResponseUri;
+                return _result;
             }
             catch (Exception ex)
             {
@@ -253,6 +269,21 @@ namespace Haley.Helpers.API
             }
 
             return true;
+        }
+
+        private static (string base_url, string method_url) _getBaseUrl(string input_url)
+        {
+            try
+            {
+                var _uri = new Uri(input_url);
+                string _base = _uri.GetLeftPart(UriPartial.Authority);
+                string _method = input_url.Substring(_base.Length);
+                return (_base, _method);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

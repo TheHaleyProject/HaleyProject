@@ -4,15 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.Helpers.Enums
+namespace Haley.Helpers.Utils
 {
-    public enum resize_affect_mode
-    {
-        pixelSize,
-        pixelSize_dpi,
-        pixelSize_imageSize,
-    }
-
     public enum RestMethod
     {
         Post,

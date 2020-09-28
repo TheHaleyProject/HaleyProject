@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 
 
-namespace Haley.Helpers.Common
+namespace Haley.Helpers.Utils
 {
         public static class Extensions
         {

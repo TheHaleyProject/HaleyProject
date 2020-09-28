@@ -7,7 +7,7 @@ using System.Management;
 using System.IO;
 using System.Reflection;
 
-namespace Haley.Helpers.Common
+namespace Haley.Helpers.Utils
 {
     internal class ID
     {
@@ -66,7 +66,7 @@ namespace Haley.Helpers.Common
         
     }
 
-    public static class CommonAPI
+    public static class GeneralUtils
     {
         public static bool downloadEmbeddedResource(string resource_name, Assembly assembly_name, string save_dir_path, string save_file_name = null)
         {
