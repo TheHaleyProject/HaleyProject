@@ -41,7 +41,8 @@ namespace Haley.MVVM.Models
 
         public HCommand(Action<object> ActualMethodToExecute)
         {
-            new HCommand(ActualMethodToExecute,null);
+            _method_to_execute = ActualMethodToExecute;
+            _function_to_check = null;
         }
     }
 
