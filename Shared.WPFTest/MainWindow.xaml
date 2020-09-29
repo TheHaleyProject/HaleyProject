@@ -1,0 +1,17 @@
+﻿<Window x:Class="Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="400">
+    <StackPanel HorizontalAlignment="Center" Margin="10" DataContext="{Binding}" x:Name="spnlmain">
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Invoke Command 1" Margin="10,0" Command="{Binding CMD_Method1}" CommandParameter="1"/>
+            <Button Content="Invoke Command 2" Command="{Binding CMD_Method2}" CommandParameter="2"/>
+        </StackPanel>
+        <TextBlock  Text="{Binding message, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock  Text="{Binding Text, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+</Window>

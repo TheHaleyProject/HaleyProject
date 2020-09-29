@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using System.Windows;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 namespace Haley.MVVM.Utils
 {
+
     public sealed class ImageUtils //Sealing, so that others cannot inherit it as an abstract and develop on their own.
     {
-        #region Public Methods
+    #region Public Methods
 
-        #region RESIZE
+    #region RESIZE
         public static ImageSource resizeImage(string path, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
         {
             try
@@ -100,9 +101,9 @@ namespace Haley.MVVM.Utils
                 throw ex;
             }
         }
-        #endregion
+    #endregion
 
-        #region CONVERSION
+    #region CONVERSION
         public static byte[] imageToByte(Image input_image)
         {
             try
@@ -311,7 +312,7 @@ namespace Haley.MVVM.Utils
                 throw ex;
             }
         }
-        #endregion
+    #endregion
 
         public static bool saveImageSource(ImageSource input_image, string file_path, BitmapEncoder encoder = null)
         {
@@ -360,9 +361,9 @@ namespace Haley.MVVM.Utils
             }
         }
        
-        #endregion
+    #endregion
 
-        #region Private Methods
+    #region Private Methods
 
         private static ImageSource _resizeImage_pixelOnly(BitmapSource base_source, int pixel_height, int pixel_width, bool fit_width, bool maintain_ratio = true)
         {
@@ -482,14 +483,14 @@ namespace Haley.MVVM.Utils
             }
         }
 
-        #endregion
+    #endregion
 
-        #region Asynchronous SubClass
+    #region Asynchronous SubClass
         public sealed class Async
         {
 
         }
-        #endregion
+    #endregion
 
     }
 }
