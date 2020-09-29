@@ -13,7 +13,7 @@ namespace Haley.MVVM.Models
     /// <summary>
     /// Can be used to identify IsSelected for custom objects.
     /// </summary>
-    public class FlipperBoolObject : ChangeNotifierModel, ICheckedItem
+    public class FlipperBoolObject : ChangeNotifier, ICheckedItem
     {
         private bool _is_checked;
         public bool is_checked

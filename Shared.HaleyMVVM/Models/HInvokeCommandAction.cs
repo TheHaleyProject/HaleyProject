@@ -5,14 +5,14 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Interactivity;
+using Microsoft.Xaml.Behaviors;
 
 #pragma warning disable IDE1006 // Naming Styles
 namespace Haley.MVVM.Models
 {
     public sealed class HInvokeCommandAction : TriggerAction<DependencyObject>
     {
-        #region Dependency Properties
+#region Dependency Properties
 
         public ICommand Command
 
@@ -45,7 +45,7 @@ namespace Haley.MVVM.Models
         public static readonly DependencyProperty EventParameterProperty =
             DependencyProperty.Register(nameof(EventParameter), typeof(object), typeof(HInvokeCommandAction), null);
 
-        #endregion
+#endregion
 
         private string _command_name;
         public string CommandName
@@ -57,7 +57,7 @@ namespace Haley.MVVM.Models
             }
         }
 
-        #region Methods
+#region Methods
         protected override void Invoke(object parameter)
         {
             EventParameter = parameter; //Assigning the event parameter.
@@ -102,7 +102,7 @@ namespace Haley.MVVM.Models
 
             return result_cmd;
         }
-        #endregion
+#endregion
     }
 }
 #pragma warning restore IDE1006 // Naming Styles

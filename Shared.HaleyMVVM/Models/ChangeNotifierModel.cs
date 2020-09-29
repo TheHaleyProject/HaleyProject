@@ -10,14 +10,14 @@ using Haley.MVVM.Interfaces;
 
 namespace Haley.MVVM.Models
 {
-    public abstract class ChangeNotifierModel: INotifyPropertyChanged
+    public abstract class ChangeNotifier: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void onPropertyChanged([CallerMemberName] string propname = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
         }
-        public ChangeNotifierModel() { }
+        public ChangeNotifier() { }
     }
    
 }

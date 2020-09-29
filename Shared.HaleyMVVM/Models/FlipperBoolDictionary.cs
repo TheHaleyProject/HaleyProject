@@ -13,7 +13,7 @@ namespace Haley.MVVM.Models
     /// <summary>
     /// It should be in the form of Dictionary<Object, bool> 
     /// </summary>
-    public class FlipperBoolDictionary : ChangeNotifierModel
+    public class FlipperBoolDictionary : ChangeNotifier
     {
         private object _key;
         public object key

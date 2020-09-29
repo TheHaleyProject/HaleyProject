@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Interactivity;
 
 #pragma warning disable IDE1006 // Naming Styles
 namespace Haley.MVVM.Models
