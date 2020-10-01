@@ -5,7 +5,7 @@ echo File nuget.exe is not present in current folder. Cannot proceed further
 PAUSE
 EXIT)
 
-if exist ../../FLIPPER__/HaleyMVVM/HaleyMVVM.csproj nuget pack ../../FLIPPER__/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release 
+if exist ../../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj nuget pack ../../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release 
 
 
 Echo Process completed successfully. 

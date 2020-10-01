@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
@@ -10,27 +11,12 @@ using Haley.MVVM.Containers;
 
 namespace Haley.MVVM
 {
-    public static class ContainerStore
+    public class ContainerStore
     {
-        private static ControlContainer _control_container;
-        public static ControlContainer controls
-        {
-            get 
-            {
-                if (_control_container == null) _control_container = new ControlContainer();
-                return _control_container; 
-            }
-        }
+        public ControlContainer controls { get; set; }
+        public WindowContainer windows { get; set; }
 
-        private static WindowContainer _window_container;
-        public static WindowContainer windows
-        {
-            get 
-            {
-                if (_window_container == null) _window_container = new WindowContainer();
-                return _window_container; 
-            }
-        }
-
+        public ContainerStore() { controls = new ControlContainer(); windows = new WindowContainer(); }
+        public static ContainerStore Singleton = new ContainerStore();
     }
 }
