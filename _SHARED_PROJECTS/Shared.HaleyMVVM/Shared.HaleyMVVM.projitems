@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8c8b69c6-d351-4d8d-8f16-f9ed4085aca4</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared.HaleyMVVM</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)DI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\EventInvokedArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\HBaseEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\HEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\SubscriberBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICheckedItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FlipperBoolDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FlipperBoolObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
+  </ItemGroup>
+</Project>
