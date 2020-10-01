@@ -195,12 +195,12 @@ namespace Haley.Log
         #endregion
 
         #region Static Implementations
-        private static HLog _ins;
-        public static HLog ins { get { return _ins; }}
+        private static HLog _singleton;
+        public static HLog Singleton { get { return _singleton; }}
      
-        public static void CreateInstance(HLog sourceLog)
+        public static void CreateSingleton(HLog sourceLog)
         {
-            _ins = sourceLog;
+            _singleton = sourceLog;
         }
         private static Dictionary<LogType, HLog> _store;
         public static HLog GetLog(LogType type)
