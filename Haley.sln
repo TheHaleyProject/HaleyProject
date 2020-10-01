@@ -3,20 +3,42 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyWpf", "FLIPPER__\HaleyWPF\HaleyWpf.csproj", "{D1C340F8-0DA5-4121-B39C-25A8D7E8D79F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D27767B-10F2-42DC-BD84-3D4EEDBF842D}"
 	ProjectSection(SolutionItems) = preProject
 		Script.txt = Script.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development", "TESTING__\Development\Development.csproj", "{72513BDE-C10F-4CAD-9F3B-630DE42DB489}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyWpf", "_CORE_PROJECTS\HaleyWPF\HaleyWpf.csproj", "{D1C340F8-0DA5-4121-B39C-25A8D7E8D79F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentWPF", "TESTING__\DevelopmentWPF\DevelopmentWPF.csproj", "{F21E9AC8-6B35-43AC-BAE9-81A73E12587A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development", "_TESTING_PROJECTS\Development\Development.csproj", "{72513BDE-C10F-4CAD-9F3B-630DE42DB489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentWPF", "_TESTING_PROJECTS\DevelopmentWPF\DevelopmentWPF.csproj", "{F21E9AC8-6B35-43AC-BAE9-81A73E12587A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyMVVM", "_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj", "{2B30F59F-50AF-40D7-A0D5-9C8C12733A62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentConsole", "_TESTING_PROJECTS\DevelopmentConsole\DevelopmentConsole.csproj", "{41BF72E9-0EAC-4689-B605-FD3A569FC013}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyHelpers", "_CORE_PROJECTS\HaleyHelpers\HaleyHelpers.csproj", "{D2EBCB6B-25ED-49A8-A243-F9F4376CF6A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyLog", "_CORE_PROJECTS\HaleyLog\HaleyLog.csproj", "{AB40D102-03D6-453E-BFEF-2DEC9DE47559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "_TESTING_PROJECTS\Test\WPFTest.csproj", "{517F747C-A2CE-4670-8BC3-E574617B64F0}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.MVVM", "_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.Haley.MVVM.shproj", "{8C8B69C6-D351-4D8D-8F16-F9ED4085ACA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVMCore", "_CORE_PROJECTS\HaleyMVVMCore\HaleyMVVMCore.csproj", "{BF38B439-322C-47C3-BE24-22C6880FF797}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.WPFTest", "_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.shproj", "{BAB354C2-2354-49E2-916E-E04C7FF6C55D}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.Utils", "_SHARED_PROJECTS\Haley.Shared.Enums\Shared.Haley.Utils.shproj", "{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest.Core", "_TESTING_PROJECTS\WPFTest.Core\WPFTest.Core.csproj", "{981D9C5B-2A08-4A62-9F14-5E7F01549B0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyRuleEngine", "_CORE_PROJECTS\HaleyRuleEngine\HaleyRuleEngine.csproj", "{375B8734-C155-44EB-9D66-09B3C6D20E11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A04A754A-F561-43EB-98BC-25455CB7FC81}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyMVVM", "FLIPPER__\HaleyMVVM\HaleyMVVM.csproj", "{2B30F59F-50AF-40D7-A0D5-9C8C12733A62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PUBLIC PACKAGES", "PUBLIC PACKAGES", "{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,40 +49,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PUBLIC PACKAGES", "PUBLIC P
 		NuGetOutput\PUBLIC\PublishPackage.bat = NuGetOutput\PUBLIC\PublishPackage.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentConsole", "TESTING__\DevelopmentConsole\DevelopmentConsole.csproj", "{41BF72E9-0EAC-4689-B605-FD3A569FC013}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyHelpers", "FLIPPER__\HaleyHelpers\HaleyHelpers.csproj", "{D2EBCB6B-25ED-49A8-A243-F9F4376CF6A5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyLog", "FLIPPER__\HaleyLog\HaleyLog.csproj", "{AB40D102-03D6-453E-BFEF-2DEC9DE47559}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "..\Test\Test\WPFTest.csproj", "{517F747C-A2CE-4670-8BC3-E574617B64F0}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.MVVM", "Shared.HaleyMVVM\Shared.Haley.MVVM.shproj", "{8C8B69C6-D351-4D8D-8F16-F9ED4085ACA4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVMCore", "HaleyMVVMCore\HaleyMVVMCore.csproj", "{BF38B439-322C-47C3-BE24-22C6880FF797}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.WPFTest", "Shared.WPFTest\Shared.WPFTest.shproj", "{BAB354C2-2354-49E2-916E-E04C7FF6C55D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest.Core", "WPFTest.Core\WPFTest.Core.csproj", "{981D9C5B-2A08-4A62-9F14-5E7F01549B0F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyRuleEngine", "HaleyRuleEngine\HaleyRuleEngine.csproj", "{375B8734-C155-44EB-9D66-09B3C6D20E11}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.Utils", "Haley.Shared.Enums\Shared.Haley.Utils.shproj", "{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Haley.Shared.Enums\Haley.Shared.Enums.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
-		Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
 		Shared.WPFTest\Shared.WPFTest.projitems*{517f747c-a2ce-4670-8bc3-e574617b64f0}*SharedItemsImports = 4
-		Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
+		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
 		Shared.WPFTest\Shared.WPFTest.projitems*{981d9c5b-2a08-4a62-9f14-5e7f01549b0f}*SharedItemsImports = 5
-		Haley.Shared.Enums\Haley.Shared.Enums.projitems*{99f9ac58-39f1-44b2-bac0-3e7aaac68ce5}*SharedItemsImports = 13
-		Shared.WPFTest\Shared.WPFTest.projitems*{bab354c2-2354-49e2-916e-e04c7ff6c55d}*SharedItemsImports = 13
-		Haley.Shared.Enums\Haley.Shared.Enums.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
-		Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
-		Haley.Shared.Enums\Haley.Shared.Enums.projitems*{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{99f9ac58-39f1-44b2-bac0-3e7aaac68ce5}*SharedItemsImports = 13
+		_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.projitems*{bab354c2-2354-49e2-916e-e04c7ff6c55d}*SharedItemsImports = 13
+		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,13 +160,13 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{72513BDE-C10F-4CAD-9F3B-630DE42DB489} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{F21E9AC8-6B35-43AC-BAE9-81A73E12587A} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
-		{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}
 		{41BF72E9-0EAC-4689-B605-FD3A569FC013} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{517F747C-A2CE-4670-8BC3-E574617B64F0} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{8C8B69C6-D351-4D8D-8F16-F9ED4085ACA4} = {85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}
 		{BAB354C2-2354-49E2-916E-E04C7FF6C55D} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
-		{981D9C5B-2A08-4A62-9F14-5E7F01549B0F} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5} = {85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}
+		{981D9C5B-2A08-4A62-9F14-5E7F01549B0F} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
+		{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
