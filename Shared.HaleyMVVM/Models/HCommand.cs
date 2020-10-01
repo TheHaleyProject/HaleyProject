@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Windows;
 
 #pragma warning disable IDE1006 // Naming Styles
-namespace Haley.MVVM.Models
+namespace Haley.Models
 {
    public class HCommand : ICommand
     {

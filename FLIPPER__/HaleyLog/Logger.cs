@@ -7,9 +7,10 @@ using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 using System.Security.AccessControl;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
+using Haley.Abstractions;
+using Haley.Models;
 using System.ComponentModel;
+using Haley.Enums;
 
 namespace Haley.Log
 {

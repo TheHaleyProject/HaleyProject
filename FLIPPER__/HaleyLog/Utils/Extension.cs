@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Xml.Linq;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Cryptography;
-using System.Runtime.Serialization;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace Haley.Log.Extensions
+namespace Haley.Utils
 {
     public static class Extension
     {

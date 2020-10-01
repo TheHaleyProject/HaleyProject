@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
 
-namespace Haley.MVVM.Models
+namespace Haley.Models
 {
     //Whenever a collection is changed, like something is added or removed, notifications are raised. However, when the properties inside the objects of the collection are changed, we never get notified. So to solve this issue, we need to find a way to trigger the collectionchanged event whenever a property of the object changes.
     //Base idea is that we register a handler for the propertychanged events of the objects. Whenever this property changes, we trigger the collectionchanged event.

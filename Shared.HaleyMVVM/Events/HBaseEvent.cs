@@ -1,11 +1,11 @@
-﻿using Haley.MVVM.Interfaces;
+﻿using Haley.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.MVVM.Events
+namespace Haley.Events
 {
     /// <summary>
     /// Implementing a simple observer pattern

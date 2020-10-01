@@ -7,7 +7,7 @@ using System.Management;
 using System.IO;
 using System.Reflection;
 
-namespace Haley.Helpers.Utils
+namespace Haley.Utils
 {
     internal class ID
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Haley.MVVM.EventArguments;
+using Haley.EventArguments;
 
-namespace Haley.MVVM.Interfaces
+namespace Haley.Abstractions
 {
         public interface IHaleyWindowVM 
         {

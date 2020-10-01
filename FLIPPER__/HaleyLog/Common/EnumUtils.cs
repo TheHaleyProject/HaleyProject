@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Haley.Log.Interfaces
+namespace Haley.Enums
 {
     public enum MessageType
     {

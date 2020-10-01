@@ -12,6 +12,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)DI\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
@@ -35,7 +36,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
   </ItemGroup>
 </Project>

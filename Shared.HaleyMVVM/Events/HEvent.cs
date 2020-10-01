@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.MVVM.Events
+namespace Haley.Events
 {
 
     public class HEvent : HBaseEvent

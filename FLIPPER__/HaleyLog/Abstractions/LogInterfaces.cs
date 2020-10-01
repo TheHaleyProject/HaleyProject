@@ -1,9 +1,10 @@
-﻿using Haley.Log.Models;
+﻿using Haley.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Haley.Enums;
 
-namespace Haley.Log.Interfaces
+namespace Haley.Abstractions
 {
    public interface ILog
     {

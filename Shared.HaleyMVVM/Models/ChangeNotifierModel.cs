@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using Haley.MVVM.Interfaces;
+using Haley.Abstractions;
 
-namespace Haley.MVVM.Models
+namespace Haley.Models
 {
     public abstract class ChangeNotifier: INotifyPropertyChanged
     {

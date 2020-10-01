@@ -7,10 +7,12 @@ using System.Windows;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Haley.Enums;
 
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-namespace Haley.MVVM.Utils
+
+namespace Haley.Utils
 {
 
     public sealed class ImageUtils //Sealing, so that others cannot inherit it as an abstract and develop on their own.

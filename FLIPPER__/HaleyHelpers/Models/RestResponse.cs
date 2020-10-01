@@ -10,9 +10,8 @@ using System.IO;
 using System.Net.Http;
 using System.Runtime;
 using System.Runtime.CompilerServices;
-using Haley.Helpers.Utils;
 
-namespace Haley.Helpers.Models
+namespace Haley.Models
 {
     public class RestResponse
     {

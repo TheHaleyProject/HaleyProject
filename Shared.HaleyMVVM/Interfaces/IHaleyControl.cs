@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace Haley.MVVM.Interfaces
+namespace Haley.Abstractions
 {
     public interface IHaleyControl 
     {

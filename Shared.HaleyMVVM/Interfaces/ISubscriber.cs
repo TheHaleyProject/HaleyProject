@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.MVVM.Interfaces
+namespace Haley.Abstractions
 {
     public interface ISubscriber
     {

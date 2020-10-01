@@ -8,7 +8,7 @@ using System.Windows;
 using Microsoft.Xaml.Behaviors;
 
 #pragma warning disable IDE1006 // Naming Styles
-namespace Haley.MVVM.Models
+namespace Haley.Models
 {
     public sealed class HInvokeCommandAction : TriggerAction<DependencyObject>
     {

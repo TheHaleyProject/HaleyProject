@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Haley.MVVM.Interfaces;
-using Haley.MVVM.EventArguments;
+using Haley.Abstractions;
+using Haley.EventArguments;
 
 namespace Haley.MVVM.Containers
 {

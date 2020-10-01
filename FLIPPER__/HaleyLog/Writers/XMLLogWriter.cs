@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
+using Haley.Abstractions;
+using Haley.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
-using Haley.Log.Extensions;
+using Haley.Utils;
 using System.Xml;
 
 namespace Haley.Log.Writers

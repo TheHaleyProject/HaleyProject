@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Haley.Abstractions;
+using Haley.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
-using Haley.Log.Interfaces;
 
-namespace Haley.Log.Models
+namespace Haley.Models
 {
     [XmlRoot("BaseLog")]
-    public class LogBase :ILog
+    public class LogBase : ILog
     {
         [XmlAttribute("Id")]
         public string Id { get; set; }
@@ -39,7 +38,7 @@ namespace Haley.Log.Models
         [XmlIgnore]
         public bool MessageSpecified { get { return !string.IsNullOrEmpty(Message); } }
         #endregion
-        public LogBase(){ Id = Guid.NewGuid().ToString(); Children = new List<LogBase>(); }
+        public LogBase() { Id = Guid.NewGuid().ToString(); Children = new List<LogBase>(); }
     }
 
     [XmlRoot("Property")]

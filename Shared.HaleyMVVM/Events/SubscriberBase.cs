@@ -1,4 +1,4 @@
-﻿using Haley.MVVM.Interfaces;
+﻿using Haley.Abstractions;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.MVVM.Events
+namespace Haley.Events
 {
     public class SubscriberBase : ISubscriber
     {

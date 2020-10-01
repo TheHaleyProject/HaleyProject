@@ -1,4 +1,4 @@
-﻿using Haley.MVVM.Interfaces;
+﻿using Haley.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.MVVM.Events;
+using Haley.Events;
 using Haley.MVVM;
 using Test.Events;
 using Test.ViewModels;

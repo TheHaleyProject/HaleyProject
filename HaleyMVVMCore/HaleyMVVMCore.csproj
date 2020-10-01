@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Haley.MVVM.Core</AssemblyName>
     <RootNamespace>Haley.MVVM.Core</RootNamespace>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Authors>Lingam</Authors>
     <Product>Haley MVVM Core</Product>
     <Company>TheHaleyProject</Company>
@@ -24,6 +24,8 @@
   </PropertyGroup>
 
   <Import Project="..\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
+
+  <Import Project="..\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />

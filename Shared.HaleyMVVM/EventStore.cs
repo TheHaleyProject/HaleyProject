@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.MVVM.Containers;
-using Haley.MVVM.Events;
-using Haley.MVVM.EventArguments;
+using Haley.Events;
+using Haley.EventArguments;
 
 namespace Haley.MVVM
 {

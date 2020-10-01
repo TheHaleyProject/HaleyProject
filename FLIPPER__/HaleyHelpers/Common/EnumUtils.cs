@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Haley.Helpers.Utils
+namespace Haley.Enums
 {
     public enum RestMethod
     {
@@ -13,7 +13,6 @@ namespace Haley.Helpers.Utils
         Put,
         Delete
     }
-
     public enum RestParamType
     {
         QueryString,

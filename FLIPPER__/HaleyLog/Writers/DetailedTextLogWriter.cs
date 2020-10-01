@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Haley.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Xml.Linq;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Cryptography;
-using System.Runtime.CompilerServices;
 
 namespace Haley.Log.Writers
 {
     internal class DetailedTextLogWriter : LogWriterBase
     {
-        public DetailedTextLogWriter(string file_location, string file_name) : base(file_location,file_name,"txt") { }
+        public DetailedTextLogWriter(string file_location, string file_name) : base(file_location, file_name, "txt") { }
 
         public override void write(LogBase data, bool is_sub = false)
         {

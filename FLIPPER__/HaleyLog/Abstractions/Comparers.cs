@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Haley.Log.Interfaces
+namespace Haley.Abstractions
 {
     public class LogEqualityComparer : IEqualityComparer<ILog>
     {

@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Xml.Linq;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.Security.Cryptography;
+﻿using Haley.Enums;
 using Haley.Log.Writers;
-using System.Xml;
-using System.Security.AccessControl;
+using System;
+using System.IO;
+using System.Linq;
 
-namespace Haley.Log.Interfaces
+namespace Haley.Abstractions
 {
-    public abstract class LoggerBase 
+    public abstract class LoggerBase
     {
         protected string output_path { get; set; }
         protected string output_file_name { get; set; }
@@ -38,7 +29,7 @@ namespace Haley.Log.Interfaces
             }
             catch (Exception ex)
             {
-                throw new ArgumentException("Log writer doesn't have sufficient rights to write in the directory",ex);
+                throw new ArgumentException("Log writer doesn't have sufficient rights to write in the directory", ex);
             }
         } //First step to be done.
         #endregion
@@ -71,15 +62,15 @@ namespace Haley.Log.Interfaces
         #endregion
 
         #region Main Abstractions
-        public abstract string log(string message, MessageType msg_type = MessageType.information, string property_name = null, bool in_memory = false,bool is_sub = false);
-        public abstract string log(Exception exception,string comments = null,string property_name = null, bool in_memory = false, bool is_sub = false);
+        public abstract string log(string message, MessageType msg_type = MessageType.information, string property_name = null, bool in_memory = false, bool is_sub = false);
+        public abstract string log(Exception exception, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false);
         public abstract string log(string key, string value, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false);
 
         public abstract void dumpMemory();
 
-#endregion
+        #endregion
 
-#region Initiations
+        #region Initiations
         public LoggerBase(string _output_path, string _output_file_name, OutputType _output_type)
         {
             output_path = _output_path;
@@ -94,7 +85,7 @@ namespace Haley.Log.Interfaces
         }
         private void _defineLogWriter()
         {
-            _writer = new SimpleTextWriter(output_path,output_file_name);
+            _writer = new SimpleTextWriter(output_path, output_file_name);
             switch (output_type)
             {
                 case OutputType.json:
@@ -108,6 +99,6 @@ namespace Haley.Log.Interfaces
                     break;
             }
         }
-#endregion
+        #endregion
     }
 }

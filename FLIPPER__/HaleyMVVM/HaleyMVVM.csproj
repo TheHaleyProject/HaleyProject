@@ -81,5 +81,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\..\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
+  <Import Project="..\..\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
