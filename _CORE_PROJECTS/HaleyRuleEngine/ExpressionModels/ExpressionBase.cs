@@ -13,7 +13,7 @@ namespace Haley.Models
     {
         public string id { get; }
         public string comments { get; set; }
-        public AxiomResponse response { get; set; }
+        public AxiomResponse response { get; set; } //Here we are storing runtime resposne which is not good.
         private AxiomAction<T> action;
         public void invoke(T target,params object[] args)
         {

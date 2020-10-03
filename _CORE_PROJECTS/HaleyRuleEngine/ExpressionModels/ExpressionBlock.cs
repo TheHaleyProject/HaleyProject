@@ -5,6 +5,7 @@ using Haley.Enums;
 using Haley.Abstractions;
 using System.ComponentModel;
 using System.Linq;
+using System.Xml;
 
 namespace Haley.Models
 {
@@ -12,9 +13,12 @@ namespace Haley.Models
     {
         public string id { get;  }
         private LogicalOperator @operator;
+
+        //Below list of blocks and expressions remain same throughout runtime.
         private List<ExpressionBlock<T>> blocks = new List<ExpressionBlock<T>>();
         private List<ExpressionBase<T>> expressions = new List<ExpressionBase<T>>();
 
+        //Below list holds only temporary value for each target object. So, clear it before validating new object.
         private List<AxiomResponse> response_list = new List<AxiomResponse>();
         private ActionStatus block_status = ActionStatus.None;
 
@@ -23,6 +27,9 @@ namespace Haley.Models
             //We run all the axiom actions irrepsective of the operator. However, we should return result only based on the operator
             try
             {
+                response_list = new List<AxiomResponse>();
+                block_status = ActionStatus.None;
+
                 //First run all actions and then invoke sub expressions
                 //TODO : Run asynchronously
                 expressions.ForEach(p =>
