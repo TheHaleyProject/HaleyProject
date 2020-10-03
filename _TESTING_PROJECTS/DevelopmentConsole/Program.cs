@@ -473,20 +473,43 @@ namespace DevelopmentConsole
         public static void Main(string[] args)
         {
             //Rule is made of rule block and each rule block contains axioms
-            var _rules = makeRules<string>();
+            var _rules_2 = makeRules<PersonModel>();
+            var _expressions_2 = RuleEngine.CompileRules<PersonModel>(_rules_2);
 
-            List<string> _strlist = new List<string>();
-            _strlist.Add("hello world");
-            _strlist.Add("Welcome hello world");
-            _strlist.Add("Welcome World"); 
-            _strlist.Add("what a turn of events");
-            _strlist.Add("Welcome senguttuvan to this world");
-            _strlist.Add("5");
-            var _expressions  = RuleEngine.CompileRules<string>(_rules);
-            foreach (var _str in _strlist)
+            List<PersonModel> _pmlist = new List<PersonModel>();
+            PersonModel _sengmodel = new PersonModel() { name = "Senguttuvan" };
+            PersonModel _bhd = new PersonModel() { name = "bhadri" };
+            PersonModel _bhadri = new PersonModel() { name = "Bhadri" };
+            PersonModel _bhadri2 = new PersonModel() { name = "hello world" };
+            PersonModel _bhadri3 = new PersonModel() { name = "Welcome World" };
+
+            _pmlist.Add(_sengmodel);
+            _pmlist.Add(_bhd);
+            _pmlist.Add(_bhadri);
+            _pmlist.Add(_bhadri2);
+            _pmlist.Add(_bhadri3);
+
+            foreach (var _pm in _pmlist)
             {
-               RuleEngine.ProcessRules<string>(_str,ref _expressions);
+                RuleEngine.ProcessRules<PersonModel>(_pm, ref _expressions_2);
             }
+
+            ////Rule is made of rule block and each rule block contains axioms
+            //var _rules = makeRules<string>();
+            //var _expressions = RuleEngine.CompileRules<string>(_rules);
+
+            //List<string> _strlist = new List<string>();
+            //_strlist.Add("hello world");
+            //_strlist.Add("Welcome hello world");
+            //_strlist.Add("Welcome World"); 
+            //_strlist.Add("what a turn of events");
+            //_strlist.Add("Welcome senguttuvan to this world");
+            //_strlist.Add("5");
+
+            //foreach (var _str in _strlist)
+            //{
+            //   RuleEngine.ProcessRules<string>(_str,ref _expressions);
+            //}
         }
 
         private static List<Rule> makeRules<T>()
@@ -541,8 +564,24 @@ namespace DevelopmentConsole
         
         public static object getProperty<T>(T target,string property_name)
         {
+            if (target is PersonModel)
+            {
+              var _item =  Convert.ChangeType(target, typeof(PersonModel));
+                return ((PersonModel)_item).name;
+            }
             return "Senguttuvan";
         }
+
+    }
+
+    public class PersonModel
+    {
+        public string name { get; set; }
+        public override string ToString()
+        {
+            return name;
+        }
+        public PersonModel() { }
     }
     #endregion
 }

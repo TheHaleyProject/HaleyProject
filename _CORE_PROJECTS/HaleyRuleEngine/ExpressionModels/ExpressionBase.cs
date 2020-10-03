@@ -33,6 +33,7 @@ namespace Haley.Models
                     response.exception = AxiomException.NullInputException;
                 }
                 response.setID(id);
+                comments = response.comments;
             }
         }
 
