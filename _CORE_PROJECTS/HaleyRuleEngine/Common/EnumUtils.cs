@@ -1,40 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Haley.Enums
 {
-    public enum RuleResponse
+    public enum ActionStatus
     {
-        Unknown,
-        Success,
-        Failed,
-        PropertyNotFoundException ,
-        SourceValueNotFoundException,
-        Not ,
-        OperatorSymbolNotFound,
-        TargetValue1NotFound,
-        TargetValue2NotFound,
-        ValueTypeConversionError,
-        ValidationLogicMissingForOperator 
+        [Description("exception")]
+        Exception,
+        [Description("warning")]
+        Warning,
+        [Description("passed")]
+        Pass,
+        [Description("failed")]
+        Fail,
+        [Description("none")]
+        None,
     }
 
-    public enum RuleOperator
+    public enum AxiomException
     {
-        Unknown,
+        NoException,
+        NullInputException,
+        PropertyNotFoundException,
+        SourceValueNotFoundException,
+        TargetValueNotFoundException,
+        OperatorSymbolNotFound,
+        ValueTypeConversionError
+    }
+
+
+    public enum AxiomOperator
+    {
+        [Description("none")]
+        Empty,
+        [Description("equals")]
         Equals,
-        DoesntEquals,
+        [Description("doesn't equals")]
+        NotEquals,
+        [Description("is greater than")]
         GreaterThan,
+        [Description("is lesser than")]
         LessThan,
+        [Description("contains")]
         Contains,
+        [Description("doesn not contains")]
+        NotContains,
+        [Description("starts with")]
         StartsWith,
-        DoesntContains ,
-        Between,
+        [Description("ends with")]
+        EndsWith,
+        //Between,
+    }
+
+    public enum LogicalOperator
+    {
         And,
         Or,
-        AndAlso,
-        OrElse
+    }
+
+    public enum AxiomType
+    {
+        BinaryAxiom,
+        PropertyAxiom,
+        PropertyAxiomGeneric,
+        ComparisonAxiom,
+        ComparisonAxiomGeneric,
+        MethodAxiom
     }
 }

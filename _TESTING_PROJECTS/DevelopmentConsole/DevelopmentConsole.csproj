@@ -93,13 +93,17 @@
       <Project>{a5ced5b4-0da6-42ce-953f-988bb94f14b2}</Project>
       <Name>HaleyHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FLIPPER__\HaleyLog\HaleyLog.csproj">
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyLog\HaleyLog.csproj">
       <Project>{ab40d102-03d6-453e-bfef-2dec9de47559}</Project>
       <Name>HaleyLog</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FLIPPER__\HaleyMVVM\HaleyMVVM.csproj">
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
       <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
       <Name>HaleyMVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyRuleEngine\HaleyRuleEngine.csproj">
+      <Project>{375b8734-c155-44eb-9d66-09b3c6d20e11}</Project>
+      <Name>HaleyRuleEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

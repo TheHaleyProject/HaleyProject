@@ -9,6 +9,7 @@
     <Import_RootNamespace>Haley.Shared.Enums</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
   </ItemGroup>
 </Project>

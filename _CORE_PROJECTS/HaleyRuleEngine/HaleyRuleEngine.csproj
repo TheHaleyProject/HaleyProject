@@ -6,4 +6,6 @@
     <RootNamespace>Haley.RuleEngine</RootNamespace>
   </PropertyGroup>
 
+  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
+
 </Project>
