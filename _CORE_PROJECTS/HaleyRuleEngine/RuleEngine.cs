@@ -46,17 +46,30 @@ namespace Haley.RuleEngine
             return _expblock;
         }
         #endregion
+    }
 
+    public class RuleEngine<T>
+    {
+        private Dictionary<Rule, ExpressionBlock<T>> rule_dic = new Dictionary<Rule, ExpressionBlock<T>>();
 
-        public static void ProcessRules<T>(T target,ref Dictionary<Rule, ExpressionBlock<T>> rule_dictionary, params object[] args)
+        public void ProcessRules(T target)
         {
-            foreach (var item in rule_dictionary)
+            foreach (var item in rule_dic)
             {
                 item.Value.validate(target);
                 item.Key.status = item.Value.getBlockStatus();
             }
         }
 
-        
+        public void Compile(List<Rule> rules)
+        {
+            rule_dic = RuleEngine.CompileRules<T>(rules);
+        }
+
+        public Dictionary<Rule, ExpressionBlock<T>> getRuleDictionary()
+        {
+            return rule_dic;
+        }
+        public RuleEngine(){}
     }
 }

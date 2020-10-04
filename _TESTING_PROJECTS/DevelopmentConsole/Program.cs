@@ -472,9 +472,11 @@ namespace DevelopmentConsole
     {
         public static void Main(string[] args)
         {
+            RuleEngine<PersonModel> _personRE = new RuleEngine<PersonModel>();
             //Rule is made of rule block and each rule block contains axioms
             var _rules_2 = makeRules<PersonModel>();
-            var _expressions_2 = RuleEngine.CompileRules<PersonModel>(_rules_2);
+            //var _expressions_2 = RuleEngine.CompileRules<PersonModel>(_rules_2);
+            _personRE.Compile(_rules_2);
 
             List<PersonModel> _pmlist = new List<PersonModel>();
             PersonModel _sengmodel = new PersonModel() { name = "Senguttuvan" };
@@ -493,7 +495,8 @@ namespace DevelopmentConsole
 
             foreach (var _pm in _pmlist)
             {
-                RuleEngine.ProcessRules<PersonModel>(_pm, ref _expressions_2);
+                //RuleEngine.ProcessRules<PersonModel>(_pm, ref _expressions_2);
+                _personRE.ProcessRules(_pm);
             }
 
             ////Rule is made of rule block and each rule block contains axioms
