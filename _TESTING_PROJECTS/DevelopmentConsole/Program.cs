@@ -8,9 +8,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.IO;
 using Haley.Log;
-using Haley.Log.Interfaces;
-using Haley.Log.Models;
+using Haley.Abstractions;
+using Haley.Models;
+using Haley.Events;
 using System.Threading;
+using Haley.MVVM;
+using Haley.RuleEngine;
+using Haley.Enums;
+using System.CodeDom;
 
 namespace DevelopmentConsole
 {
@@ -394,75 +399,201 @@ namespace DevelopmentConsole
     #endregion
 
     #region Events Processing
+    //public class Program
+    //{
+    //    static void customtest02(itemstosend obj)
+    //    {
+    //        // what
+    //    }
+    //    static void customtest0waht()
+    //    {
+    //        // what
+    //    }
+    //    static void customtest03(somethintosend obj)
+    //    {
+    //       //Who hoooo
+    //    }
+
+    //    public static void Main(string[] args)
+    //    {
+    //        Thread tc1 = new Thread(() =>
+    //        {
+    //            EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customeventtest);
+    //        });
+
+    //        Thread tc2 = new Thread(() =>
+    //        {
+    //            EventStore.Singleton.GetEvent<CustomEvent02>().subscribe(customtest02);
+    //            EventStore.Singleton.GetEvent<CustomEvent01>().publish();
+    //        });
+    //        Thread tc3 = new Thread(() =>
+    //        {
+    //            EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(customtest03);
+    //            EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customtest0waht);
+    //            EventStore.Singleton.GetEvent<CustomEvent02>().publish(new itemstosend() { value = "This is a test" });
+    //        });
+
+    //        tc1.Start();
+    //        tc2.Start();
+    //        tc3.Start();
+            
+    //    }
+    //    private static void customeventtest()
+    //    {
+    //        //this is for testing.
+    //    }
+    //}
+
+    //public class CustomEvent01 : HEvent
+    //{
+
+    //}
+    //public class CustomEvent02 : HEvent<itemstosend>
+    //{
+
+    //}
+    //public class CustomEvent03 : HEvent<somethintosend>
+    //{
+
+    //}
+    //public class itemstosend
+    //{
+    //    public string value { get; set; }
+    //    public itemstosend() { }
+    //}
+    //public class somethintosend :EventArgs
+    //{
+    //    public somethintosend() { }
+    //}
+    #endregion
+
+    #region RuleEngine Processing
     public class Program
     {
-        static void customtest02(itemstosend obj)
-        {
-            // what
-        }
-        static void customtest0waht()
-        {
-            // what
-        }
-        static void customtest03(somethintosend obj)
-        {
-           //Who hoooo
-        }
-
         public static void Main(string[] args)
         {
-            Thread tc1 = new Thread(() =>
-            {
-                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customeventtest);
-            });
+            //Rule is made of rule block and each rule block contains axioms
+            var _rules_2 = makeRules<PersonModel>();
+            var _expressions_2 = RuleEngine.CompileRules<PersonModel>(_rules_2);
 
-            Thread tc2 = new Thread(() =>
-            {
-                EventStore.Singleton.GetEvent<CustomEvent02>().subscribe(customtest02);
-                EventStore.Singleton.GetEvent<CustomEvent01>().publish();
-            });
-            Thread tc3 = new Thread(() =>
-            {
-                EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(customtest03);
-                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customtest0waht);
-                EventStore.Singleton.GetEvent<CustomEvent02>().publish(new itemstosend() { value = "This is a test" });
-            });
+            List<PersonModel> _pmlist = new List<PersonModel>();
+            PersonModel _sengmodel = new PersonModel() { name = "Senguttuvan" };
+            PersonModel _bhd = new PersonModel() { name = "bhadri" };
+            PersonModel _bhadri = new PersonModel() { name = "Bhadri" };
+            PersonModel _bhadri2 = new PersonModel() { name = "hello world" };
+            PersonModel _bhadri3 = new PersonModel() { name = "Welcome World" };
+            PersonModel _bhadri4 = new PersonModel() { name = "56" };
 
-            tc1.Start();
-            tc2.Start();
-            tc3.Start();
-            
+            _pmlist.Add(_sengmodel);
+            _pmlist.Add(_bhd);
+            _pmlist.Add(_bhadri);
+            _pmlist.Add(_bhadri2);
+            _pmlist.Add(_bhadri3);
+            _pmlist.Add(_bhadri4);
+
+            foreach (var _pm in _pmlist)
+            {
+                RuleEngine.ProcessRules<PersonModel>(_pm, ref _expressions_2);
+            }
+
+            ////Rule is made of rule block and each rule block contains axioms
+            //var _rules = makeRules<string>();
+            //var _expressions = RuleEngine.CompileRules<string>(_rules);
+
+            //List<string> _strlist = new List<string>();
+            //_strlist.Add("hello world");
+            //_strlist.Add("Welcome hello world");
+            //_strlist.Add("Welcome World"); 
+            //_strlist.Add("what a turn of events");
+            //_strlist.Add("Welcome senguttuvan to this world");
+            //_strlist.Add("5");
+
+            //foreach (var _str in _strlist)
+            //{
+            //   RuleEngine.ProcessRules<string>(_str,ref _expressions);
+            //}
         }
-        private static void customeventtest()
+
+        private static List<Rule> makeRules<T>()
         {
-            //this is for testing.
+            List<Rule> _rules = new List<Rule>();
+
+            //RULES
+            Rule _rule1 = new Rule("Base Rule 1");
+            _rule1.description = "This is to check how the engine works";
+
+            Rule _rule2 = new Rule("Rule 2");
+            _rule2.description = "This is to check how the engine works";
+
+            Rule _rule3 = new Rule("Rule 3");
+            _rule3.description = "This is to check how the engine works";
+
+            Rule _rule4 = new Rule("Rule 4");
+            _rule4.description = "This is to check how the engine works";
+
+            //AXIOMS
+            IAxiom _axiom1 = new BinaryAxiom(AxiomOperator.Contains, "hello world");
+            IAxiom _axiom2 = new BinaryAxiom(AxiomOperator.StartsWith, "Welcome");
+            IAxiom _axiom3 = new BinaryAxiom(AxiomOperator.NotContains, "hello");
+            IAxiom _axiom4 = new BinaryAxiom(AxiomOperator.EndsWith, "world");
+            IAxiom _axiom5 = new PropertyAxiom<T>(AxiomOperator.Equals, "name", "Senguttuvan", getProperty);
+            IAxiom _axiom6 = new PropertyAxiom(AxiomOperator.Equals, "name", "Senguttuvan") { ignore_case = false };
+
+            AxiomAction<T> _customValidation = (T target, object[] args) => {
+                    return new AxiomResponse(ActionStatus.Pass, "This is just a custom check");
+                };
+            IAxiom _axiom7 = new MethodAxiom<T>(_customValidation, "TestMethod", "This is just a test","sengu",2,3,5.6,false) { ignore_case = false };
+            IAxiom _axiom8 = new PropertyAxiom(AxiomOperator.GreaterThan,"name", "10");
+            IAxiom _axiom9 = new PropertyAxiom(AxiomOperator.LessThan,"name", "50");
+
+            //ASSIGN AXIOMS TO RULES
+            _rule1.block = new RuleBlock(LogicalOperator.Or);
+            _rule1.block.add(_axiom1);
+            _rule1.block.add(_axiom2);
+            _rules.Add(_rule1);
+
+            _rule2.block = new RuleBlock();
+            _rule2.block.add(_axiom3);
+            _rule2.block.add(_axiom4);
+            _rules.Add(_rule2);
+
+            _rule3.block = new RuleBlock(LogicalOperator.Or);
+                RuleBlock _subblock = new RuleBlock();
+                _subblock.add(_axiom5);
+                _subblock.add(_axiom6);
+
+            _rule3.block.add(_subblock);
+            _rule3.block.add(_axiom7);
+            _rules.Add(_rule3);
+
+            _rule4.block = new RuleBlock();
+            _rule4.block.add(_axiom8);
+            _rule4.block.add(_axiom9);
+            _rules.Add(_rule4);
+
+            return _rules;
         }
+        
+        public static object getProperty<T>(T target,string property_name)
+        {
+            if (target is PersonModel)
+            {
+              var _item =  Convert.ChangeType(target, typeof(PersonModel));
+                return ((PersonModel)_item).name;
+            }
+            return "Senguttuvan";
+        }
+
     }
 
-    public class CustomEvent01 : HEvent
+    public class PersonModel
     {
-
+        public string name { get; set; }
+        public override string ToString()
+        {
+            return name;
+        }
+        public PersonModel() { }
     }
-    public class CustomEvent02 : HEvent<itemstosend>
-    {
-
-    }
-
-    public class CustomEvent03 : HEvent<somethintosend>
-    {
-
-    }
-
-    public class itemstosend
-    {
-        public string value { get; set; }
-        public itemstosend() { }
-    }
-
-    public class somethintosend :EventArgs
-    {
-        public somethintosend() { }
-    }
-
     #endregion
 }
