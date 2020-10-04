@@ -10,6 +10,7 @@ namespace Haley.RuleEngine
 {
     public class RuleEngine
     {
+        #region Static Methods
         public static Dictionary<Rule, ExpressionBlock<T>> CompileRules<T>(List<Rule> rule_list)
         {
             Dictionary<Rule, ExpressionBlock<T>> result = new Dictionary<Rule, ExpressionBlock<T>>();
@@ -20,15 +21,6 @@ namespace Haley.RuleEngine
                 result.Add(rule, _expBlockForRule);
             }
             return result;
-        }
-
-        public static void ProcessRules<T>(T target,ref Dictionary<Rule, ExpressionBlock<T>> rule_dictionary, params object[] args)
-        {
-            foreach (var item in rule_dictionary)
-            {
-                item.Value.validate(target, args);
-                item.Key.status = item.Value.getBlockStatus();
-            }
         }
 
         private static ExpressionBlock<T> CompileBlocks<T>(RuleBlock _ruleBlock)
@@ -46,12 +38,25 @@ namespace Haley.RuleEngine
             List<ExpressionBlock<T>> _block_list = new List<ExpressionBlock<T>>();
             foreach (var sub_block in _ruleBlock.getBlocks())
             {
-               _block_list.Add(CompileBlocks<T>(sub_block));
+                _block_list.Add(CompileBlocks<T>(sub_block));
             }
 
             //TODO: FIX PARAMETER ARGUMENTS FOR THE EXPRESSION BLOCK
-            ExpressionBlock<T> _expblock = new ExpressionBlock<T>(_ruleBlock.getOperator(), _exp_list, _block_list); 
+            ExpressionBlock<T> _expblock = new ExpressionBlock<T>(_ruleBlock.getOperator(), _exp_list, _block_list);
             return _expblock;
         }
+        #endregion
+
+
+        public static void ProcessRules<T>(T target,ref Dictionary<Rule, ExpressionBlock<T>> rule_dictionary, params object[] args)
+        {
+            foreach (var item in rule_dictionary)
+            {
+                item.Value.validate(target);
+                item.Key.status = item.Value.getBlockStatus();
+            }
+        }
+
+        
     }
 }

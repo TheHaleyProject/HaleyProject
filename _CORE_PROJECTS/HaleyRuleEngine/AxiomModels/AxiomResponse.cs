@@ -37,7 +37,6 @@ namespace Haley.Models
         {
             status = _status; 
             comments = _comments;
-            exception = AxiomException.NoException;
         }
     }
 }

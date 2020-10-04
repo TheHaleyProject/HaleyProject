@@ -15,7 +15,7 @@ namespace Haley.RuleEngine
 
         private IAxiom axiom;
 
-        public AxiomResponse Make<T>(T target,params object[] args) 
+        public AxiomResponse Make<T>(T target, params object[] runtime_args) 
         {
             try
             {
@@ -25,7 +25,7 @@ namespace Haley.RuleEngine
                 if (axiom_type == typeof(MethodAxiom<T>))
                 {
                     var _m_axiom = ((MethodAxiom<T>)axiom);
-                    return _m_axiom.action.Invoke(target, args); //This is the only place where the args is used as of now.
+                    return _m_axiom.action.Invoke(target, _m_axiom.parameters); //This is the only place where the parameters is used as of now.
                 }
 
                 //GET SOURCE AND TARGET
@@ -92,7 +92,7 @@ namespace Haley.RuleEngine
             object result = null;
 
             //Try to get the property directly or else consider it as a expando object and try to get the property
-            PropertyInfo pinfo = target.GetType().GetProperty(prop_name, BindingFlags.IgnoreCase);
+            PropertyInfo pinfo = target.GetType().GetProperty(prop_name); //Property name should be accurate. Cannot have ignore case.
             if (pinfo != null) result = pinfo.GetValue(target);
             if (pinfo == null && target is IDynamicMetaObjectProvider) //For expando objects
             {
@@ -114,7 +114,8 @@ namespace Haley.RuleEngine
                 var source_value = ConvertToString(_source_value);
                 var target_value = ConvertToString(_target_value);
 
-                sbuilder.AppendLine($@"Validation: {axiom.ToString()}");
+                sbuilder.AppendLine($@"To validate : {source_value} {axiom.@operator.ToString()} {target_value}");
+                sbuilder.AppendLine($@"Axiom: {axiom.ToString()}");
                 sbuilder.AppendLine($@"Source value : {source_value}.");
                 sbuilder.AppendLine($@"Target value : {target_value}.");
 
@@ -180,7 +181,7 @@ namespace Haley.RuleEngine
             }
             catch (Exception ex)
             {
-                return new AxiomResponse(ActionStatus.Exception, ex.ToString());
+                return new AxiomResponse(ActionStatus.Exception, ex.ToString()) { exception = AxiomException.FormatException};
             }
 
         }

@@ -482,12 +482,14 @@ namespace DevelopmentConsole
             PersonModel _bhadri = new PersonModel() { name = "Bhadri" };
             PersonModel _bhadri2 = new PersonModel() { name = "hello world" };
             PersonModel _bhadri3 = new PersonModel() { name = "Welcome World" };
+            PersonModel _bhadri4 = new PersonModel() { name = "56" };
 
             _pmlist.Add(_sengmodel);
             _pmlist.Add(_bhd);
             _pmlist.Add(_bhadri);
             _pmlist.Add(_bhadri2);
             _pmlist.Add(_bhadri3);
+            _pmlist.Add(_bhadri4);
 
             foreach (var _pm in _pmlist)
             {
@@ -526,6 +528,9 @@ namespace DevelopmentConsole
             Rule _rule3 = new Rule("Rule 3");
             _rule3.description = "This is to check how the engine works";
 
+            Rule _rule4 = new Rule("Rule 4");
+            _rule4.description = "This is to check how the engine works";
+
             //AXIOMS
             IAxiom _axiom1 = new BinaryAxiom(AxiomOperator.Contains, "hello world");
             IAxiom _axiom2 = new BinaryAxiom(AxiomOperator.StartsWith, "Welcome");
@@ -537,7 +542,9 @@ namespace DevelopmentConsole
             AxiomAction<T> _customValidation = (T target, object[] args) => {
                     return new AxiomResponse(ActionStatus.Pass, "This is just a custom check");
                 };
-            IAxiom _axiom7 = new MethodAxiom<T>(_customValidation, "TestMethod", "This is just a test") { ignore_case = false };
+            IAxiom _axiom7 = new MethodAxiom<T>(_customValidation, "TestMethod", "This is just a test","sengu",2,3,5.6,false) { ignore_case = false };
+            IAxiom _axiom8 = new PropertyAxiom(AxiomOperator.GreaterThan,"name", "10");
+            IAxiom _axiom9 = new PropertyAxiom(AxiomOperator.LessThan,"name", "50");
 
             //ASSIGN AXIOMS TO RULES
             _rule1.block = new RuleBlock(LogicalOperator.Or);
@@ -558,6 +565,11 @@ namespace DevelopmentConsole
             _rule3.block.add(_subblock);
             _rule3.block.add(_axiom7);
             _rules.Add(_rule3);
+
+            _rule4.block = new RuleBlock();
+            _rule4.block.add(_axiom8);
+            _rule4.block.add(_axiom9);
+            _rules.Add(_rule4);
 
             return _rules;
         }

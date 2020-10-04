@@ -24,6 +24,7 @@ namespace Haley.Enums
     public enum AxiomException
     {
         NoException,
+        FormatException,
         NullInputException,
         PropertyNotFoundException,
         SourceValueNotFoundException,

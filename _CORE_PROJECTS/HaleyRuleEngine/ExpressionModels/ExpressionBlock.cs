@@ -22,7 +22,7 @@ namespace Haley.Models
         private List<AxiomResponse> response_list = new List<AxiomResponse>();
         private ActionStatus block_status = ActionStatus.None;
 
-        public void validate(T target,params object[] args)
+        public void validate(T target)
         {
             //We run all the axiom actions irrepsective of the operator. However, we should return result only based on the operator
             try
@@ -34,13 +34,13 @@ namespace Haley.Models
                 //TODO : Run asynchronously
                 expressions.ForEach(p =>
                 {
-                    p.invoke(target, args);
+                    p.invoke(target);
                     lock(response_list)
                     {
                         response_list.Add(p.response);
                     }
                 });
-                blocks.ForEach(p => p.validate(target,args));
+                blocks.ForEach(p => p.validate(target));
 
                 //After validation is done, get block level status and also, flattened response list.
                 block_status = _getStatus();
