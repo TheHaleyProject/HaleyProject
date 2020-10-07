@@ -4,19 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Haley.Flipper.MVVM.Interfaces;
-using Haley.Flipper.MVVM.Models;
+using Haley.Abstractions;
+using Haley.Events;
+using Haley.Models;
 
 namespace DevelopmentWPF.ViewModels
 {
-    public class VMMain : ChangeNotifierModel, IFlipperViewModel
+    public class VMMain : ChangeNotifier, IHaleyWindowVM, IHaleyControlVM
     {
-        public bool? event_result { get ; set ; }
-        public void seed(object parameter)
-        {
-
-        }
-
         private bool _ischecked;
         public bool ischecked
         {
@@ -25,6 +20,9 @@ namespace DevelopmentWPF.ViewModels
         }
 
         private string _content;
+
+        public event EventHandler<FrameClosingEventArgs> OnWindowsClosed;
+
         public string content
         {
             get { return _content; }

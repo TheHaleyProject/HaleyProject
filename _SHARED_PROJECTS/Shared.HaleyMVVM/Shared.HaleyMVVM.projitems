@@ -9,13 +9,22 @@
     <Import_RootNamespace>Shared.HaleyMVVM</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)DI\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\HaleyInjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Containers\DIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToControlConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToStringListConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\MultiValueBinderConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ReducerConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\VerificationConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\EventInvokedArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventStore.cs" />
@@ -26,13 +35,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyDIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FlipperBoolDictionary.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\FlipperBoolObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />

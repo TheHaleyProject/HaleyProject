@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.Flipper.MVVM.Interfaces;
+using Haley.Abstractions;
 
 namespace DevelopmentWPF.Controls
 {
     /// <summary>
     /// Interaction logic for ctrl01.xaml
     /// </summary>
-    public partial class ctrl01 : UserControl, IFlipperControl
+    public partial class ctrl01 : UserControl, IHaleyControl
     {
         public ctrl01()
         {

@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Haley.Flipper.MVVM.Interfaces;
+using Haley.Abstractions;
 using System.ComponentModel;
-using Haley.Flipper.MVVM.Models;
+using Haley.Models;
+using Haley.Events;
+using System.Windows.Input;
 
 namespace DevelopmentWPF.ViewModels
 {
-    public class VMSubMain : ChangeNotifierModel, IFlipperViewModel
+    public class VMSubMain : ChangeNotifier, IHaleyControlVM
     {
-        public bool? event_result { get; set; }
-        public void seed(object parameter)
-        {
-
-        }
 
         private bool _ischecked;
         public bool ischecked
@@ -25,12 +22,13 @@ namespace DevelopmentWPF.ViewModels
         }
 
         private string _content;
+        public event EventHandler<FrameClosingEventArgs> OnControlClosed;
+
         public string content
         {
             get { return _content; }
             set { _content = value; onPropertyChanged(); }
         }
-
         public VMSubMain() { ischecked = false; content = $@"this is from {nameof(VMSubMain)}"; }
     }
 }

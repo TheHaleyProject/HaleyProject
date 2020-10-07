@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace Haley.EventArguments
+namespace Haley.Events
 {
     public class FrameClosingEventArgs : EventArgs
     {

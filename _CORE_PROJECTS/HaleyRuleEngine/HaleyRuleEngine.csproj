@@ -4,6 +4,19 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Haley.RuleEngine</AssemblyName>
     <RootNamespace>Haley.RuleEngine</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.2</Version>
+    <Authors>Lingam</Authors>
+    <Company>TheHaleyProject</Company>
+    <Product>Haley Rule Engine</Product>
+    <Description>A simple rule engine to process your busniess rules. The rule engine can be easily modified to meet your requirements.</Description>
+    <Copyright>2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>RuleEngine, ExpressionEngine, Haley,</PackageTags>
+    <PackageReleaseNotes>Pilot Release</PackageReleaseNotes>
   </PropertyGroup>
 
   <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />

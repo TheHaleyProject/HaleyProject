@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Haley.EventArguments;
+using Haley.Events;
 
 namespace Haley.Abstractions
 {
