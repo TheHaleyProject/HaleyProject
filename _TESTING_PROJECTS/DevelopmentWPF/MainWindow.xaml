@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevelopmentWPF"
+        xmlns:haley="clr-namespace:Haley.MVVM;assembly=Haley.MVVM"
+        xmlns:haleyCv="clr-namespace:Haley.MVVM.Converters;assembly=Haley.MVVM"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:uc="clr-namespace:DevelopmentWPF.Controls"
         mc:Ignorable="d"
@@ -16,7 +18,7 @@
                     <x:Type TypeName="local:TestApp"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            <local:multiBindingConverter x:Key="cnv_multibinding"/>
+            <haleyCv:EnumToControlConverter x:Key="cnv_enumto_control"/>
         </ResourceDictionary>
     </Window.Resources>
     
@@ -24,17 +26,11 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <ComboBox Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumTestApp}}" SelectedItem="{Binding controlEnum}"/>
-
-        <ContentControl DataContext="{Binding}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ContentControl.Content>
-                <MultiBinding Converter="{StaticResource cnv_multibinding}">
-                    <Binding Path="controlEnum"/>
-                    <Binding Path="current_viewModel"/>
-                </MultiBinding>
-            </ContentControl.Content>
-        </ContentControl>
+        <uc:ctrl03 Grid.Row="2"/>
+        <ContentControl Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding controlEnum, Converter={StaticResource cnv_enumto_control}}"/>
     </Grid>
 </Window>

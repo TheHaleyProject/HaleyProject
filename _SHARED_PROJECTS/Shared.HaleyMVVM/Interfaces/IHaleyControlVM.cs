@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Haley.EventArguments;
+using Haley.Events;
 
 namespace Haley.Abstractions
 {
 
-    public interface IHaleyControlVM
-    {
-        event PropertyChangedEventHandler PropertyChanged;
-        event EventHandler<FrameClosingEventArgs> OnControlClosed;
-        void seed(object parameters);
-    }
+    public interface IHaleyControlVM { }
 }

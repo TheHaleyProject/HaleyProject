@@ -14,8 +14,7 @@ using System.Windows.Media;
 
 namespace Haley.Utils
 {
-
-    public sealed class ImageUtils //Sealing, so that others cannot inherit it as an abstract and develop on their own.
+    public sealed class ImageUtils 
     {
     #region Public Methods
 

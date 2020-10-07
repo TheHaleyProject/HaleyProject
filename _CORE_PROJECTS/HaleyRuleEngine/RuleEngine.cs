@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using Haley.Abstractions;
 using Haley.Enums;
@@ -8,7 +9,7 @@ using Haley.Models;
 
 namespace Haley.RuleEngine
 {
-    public class RuleEngine
+    public sealed class RuleEngine
     {
         #region Static Methods
         public static Dictionary<Rule, ExpressionBlock<T>> CompileRules<T>(List<Rule> rule_list)
@@ -48,16 +49,28 @@ namespace Haley.RuleEngine
         #endregion
     }
 
-    public class RuleEngine<T>
+    public sealed class RuleEngine<T>
     {
         private Dictionary<Rule, ExpressionBlock<T>> rule_dic = new Dictionary<Rule, ExpressionBlock<T>>();
+
+        private Dictionary<Rule, List<T>> _passed_items = new Dictionary<Rule, List<T>>();
+        private Dictionary<Rule, List<T>> _all_items = new Dictionary<Rule, List<T>>();
 
         public void ProcessRules(T target)
         {
             foreach (var item in rule_dic)
             {
+                //Each rule should be added to the dictionary
+                if (!_passed_items.ContainsKey(item.Key)) _passed_items.Add(item.Key, new List<T>());
+                if (!_all_items.ContainsKey(item.Key)) _all_items.Add(item.Key, new List<T>());
                 item.Value.validate(target);
-                item.Key.status = item.Value.getBlockStatus();
+                var _status = item.Value.getBlockStatus();
+                item.Key.status = _status;
+                if (_status == ActionStatus.Pass)
+                {
+                    _passed_items[item.Key].Add(target);
+                }
+                _all_items[item.Key].Add(target); //Add all items
             }
         }
 
@@ -66,7 +79,19 @@ namespace Haley.RuleEngine
             rule_dic = RuleEngine.CompileRules<T>(rules);
         }
 
-        public Dictionary<Rule, ExpressionBlock<T>> getRuleDictionary()
+        public Dictionary<Rule, List<T>> getResults(bool only_passed_items = true)
+        {
+            if (only_passed_items) return _passed_items;
+            return _all_items;
+        }
+
+        public void clearResults()
+        {
+            _passed_items = new Dictionary<Rule, List<T>>();
+            _all_items = new Dictionary<Rule, List<T>>();
+        }
+
+        public Dictionary<Rule, ExpressionBlock<T>> getRules()
         {
             return rule_dic;
         }

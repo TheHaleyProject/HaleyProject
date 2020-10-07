@@ -4,25 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.EventArguments;
+using Haley.Events;
 
 namespace Haley.MVVM.Containers
 {
-    public class ControlContainer : IHaleyControlContainer
+    public sealed class ControlContainer : IHaleyControlContainer
     {
         #region Initation
-        private Dictionary<Type, Type> viewmodel_controls_mappings { get; set; } //Generic dictionary to store the controls
-        private Dictionary<string,Tuple<Type,Type>> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
+        private IHaleyDIContainer _di_instance = new DIContainer();
+        private Dictionary<string,(Type ViewModelType, Type ViewType)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
 
-        public ControlContainer()
+        public ControlContainer(IHaleyDIContainer _injection_container = null)
         {
-            viewmodel_controls_mappings = new Dictionary<Type, Type>();
-            main_mapping = new Dictionary<string, Tuple<Type, Type>>();
+            main_mapping = new Dictionary<string, (Type ViewModelType, Type ViewType)>();
+            if (_injection_container != null)
+            {
+                _di_instance= _injection_container;
+            }
         }
+
         #endregion
 
         #region Helper Methods
-
         private string _getEnumKey(Enum @enum)
         {
             try
@@ -41,47 +44,60 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Register Methods
-
-        public void register<ViewModelType, ControlType>()
-            where ViewModelType : IHaleyControlVM, new()
+        public void register<ViewModelType, ControlType>(ViewModelType InputViewModel = null, bool use_vm_as_key = false)
+            where ViewModelType :class, IHaleyControlVM
             where ControlType : IHaleyControl 
         {
-            try
+            //Get the full name of the CONTROL type (Not the view model type). This is done , so that it could help in locating viewmodel.
+            string _key = null;
+            if (use_vm_as_key)
             {
-                if (viewmodel_controls_mappings.ContainsKey(typeof(ViewModelType)) == true)
-                {
-                    throw new ArgumentException($"{typeof(ViewModelType)} is already registered to {viewmodel_controls_mappings[typeof(ViewModelType)]}");
-                }
-
-                viewmodel_controls_mappings.Add(typeof(ViewModelType), typeof(ControlType));
+                _key = typeof(ViewModelType).FullName;
             }
-            catch (Exception ex)
+            else
             {
-                throw;
+                _key=  typeof(ControlType).FullName;
             }
+                
+            register<ViewModelType, ControlType>(_key, InputViewModel);
         }
 
-        public void register<ViewModelType, ControlType>(Enum @enum)
-           where ViewModelType : IHaleyControlVM, new()
+        public void register<ViewModelType, ControlType>(Enum @enum, ViewModelType InputViewModel = null)
+           where ViewModelType : class, IHaleyControlVM
            where ControlType : IHaleyControl 
         {
             //Get the enum value and its type name to prepare a string
             string _key = _getEnumKey(@enum);
-            register<ViewModelType, ControlType>(_key);
+            register<ViewModelType, ControlType>(_key, InputViewModel);
         }
 
-        public void register<ViewModelType, ControlType>(string key)
-            where ViewModelType : IHaleyControlVM, new()
+        public void register<ViewModelType, ControlType>(string key, ViewModelType InputViewModel = null)
+            where ViewModelType : class, IHaleyControlVM
             where ControlType : IHaleyControl
         {
             try
             {
+                //First add the internal main mappings.
                 if (main_mapping.ContainsKey(key) == true)
                 {
-                    throw new ArgumentException($@"Key : {key} is already registered to - VM : {main_mapping[key].Item1} and View : {main_mapping[key].Item2}");
+                    throw new ArgumentException($@"Key : {key} is already registered to - VM : {main_mapping[key].ViewModelType.GetType()} and View : {main_mapping[key].ViewType.GetType()}");
                 }
-                Tuple<Type, Type> key_tuple = new Tuple<Type, Type>(typeof(ViewModelType), typeof(ControlType));
-                main_mapping.Add(key, key_tuple);
+                var _tuple = (typeof(ViewModelType), typeof(ControlType));
+                main_mapping.Add(key, _tuple);
+
+                //Now add the viewmodel to the DI
+                var _status = _di_instance.checkIfRegistered(typeof(ViewModelType));
+                if (!_status.status)
+                {
+                    if (InputViewModel == null)
+                    {
+                        _di_instance.Register<ViewModelType>(); //Resolve and add to concrete container
+                    }
+                    else
+                    {
+                        _di_instance.Register<ViewModelType>(InputViewModel);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -93,49 +109,26 @@ namespace Haley.MVVM.Containers
 
         #region Retrieval Methods
         //Return a generic type which implements IHaleyControl 
-        public IHaleyControl  obtainControl<ViewModelType>(ViewModelType InputViewModel) 
-        where ViewModelType : IHaleyControlVM
+        public IHaleyControl obtainControl<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) where ViewModelType : class, IHaleyControlVM
         {
-            try
-            {
-                if (viewmodel_controls_mappings.Count == 0)
-                {
-                    throw new ArgumentException("No viewmodels are registered yet.");
-                }
-
-                if (viewmodel_controls_mappings.ContainsKey(typeof(ViewModelType)) == false)
-                {
-                    throw new ArgumentException($"{typeof(ViewModelType)} is not registered to any controls. Please check.");
-                }
-
-                Type ResultControlType = viewmodel_controls_mappings[typeof(ViewModelType)]; //We are using the typeof(viewmodeltype) merely as a reference so that it can fetch the corresponding control from the dictionary. We assign the actual "InputViewModel" as Datacontext later.
-
-                IHaleyControl  ResultControl = (IHaleyControl )Activator.CreateInstance(ResultControlType);
-                ResultControl.DataContext = InputViewModel;
-
-                return ResultControl;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            string _key = typeof(ViewModelType).FullName;
+            return obtainControl(_key, InputViewModel, create_new_vm);
         }
-
-        public IHaleyControl  obtainControl(object InputViewModel, Enum @enum) //Return a generic type which implements IHaleyControl 
+        public IHaleyControl  obtainControl(Enum @enum, object InputViewModel =null, bool create_new_vm = false)
         {
             //Get the enum value and its type name to prepare a string
             string _key = _getEnumKey(@enum);
-            return obtainControl(InputViewModel, _key);
+            return obtainControl(_key,InputViewModel,create_new_vm);
         }
 
-        public IHaleyControl obtainControl(object InputViewModel, string key)
+        public IHaleyControl obtainControl(string key, object InputViewModel = null, bool create_new_vm = false) 
         {
             try
             {
                 //Check if this key is already used or not.
                 if (main_mapping.Count == 0)
                 {
-                    throw new ArgumentException("No viewmodel/views are registered yet.");
+                    throw new ArgumentException("No viewmodel/views are registered for the control container.");
                 }
 
                 if (main_mapping.ContainsKey(key) == false)
@@ -144,14 +137,15 @@ namespace Haley.MVVM.Containers
                 }
 
                 var result_tuple = main_mapping[key];
-                Type resultViewModelType = result_tuple.Item1;
-                if (InputViewModel.GetType() != resultViewModelType)
-                {
-                    throw new ArgumentException($"For the key : {key}, the type of view model expected is : {resultViewModelType} ");
-                }
-
-                Type resultControlType = result_tuple.Item2; // Get the type of control for the provided input types
+                Type resultViewModelType = result_tuple.ViewModelType;
+                Type resultControlType = result_tuple.ViewType; // Get the type of control for the provided input types
                 IHaleyControl resultcontrol = (IHaleyControl)Activator.CreateInstance(resultControlType);
+
+                if (InputViewModel == null)
+                {
+                    InputViewModel = _di_instance.Resolve(resultViewModelType, create_new_vm);
+                }
+            
                 resultcontrol.DataContext = InputViewModel; //Assinging actual viewmodel
                 return resultcontrol;
             }
@@ -161,20 +155,29 @@ namespace Haley.MVVM.Containers
             }
         }
 
-        public object obtainVM(Enum @enum)
+        public object obtainVM(Enum key, bool create_new_vm = false)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = _getEnumKey(@enum);
+            string _key = _getEnumKey(key);
             return obtainVM(_key);
         }
 
-        public object obtainVM(string key)
+        public object obtainVM(string key, bool create_new_vm = false)
         {
             try
             {
-                Type resultViewModelType = main_mapping[key].Item1;
-                //What if the viewmodel has other dependencies
-                var resultVM = Activator.CreateInstance(resultViewModelType);
+                if (main_mapping.Count == 0)
+                {
+                    throw new ArgumentException("No viewmodel/views are registered for the control container.");
+                }
+
+                if (!main_mapping.ContainsKey(key))
+                {
+                    throw new ArgumentException($"Key {key} for the type is not registered to any controls. Please check.");
+                }
+
+                Type resultViewModelType =  main_mapping[key].ViewModelType;
+                var resultVM = _di_instance.Resolve(resultViewModelType,create_new_vm);
                 return resultVM;
             }
             catch (Exception ex)
@@ -182,9 +185,7 @@ namespace Haley.MVVM.Containers
                 throw ex;
             }
         }
-
         #endregion
-
     }
 }
 

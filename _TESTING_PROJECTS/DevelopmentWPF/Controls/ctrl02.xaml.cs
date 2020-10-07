@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.Flipper.MVVM.Interfaces;
+using Haley.Abstractions;
 using DevelopmentWPF.ViewModels;
 
 namespace DevelopmentWPF.Controls
@@ -20,7 +20,7 @@ namespace DevelopmentWPF.Controls
     /// <summary>
     /// Interaction logic for ctrl02.xaml
     /// </summary>
-    public partial class ctrl02 : UserControl, IFlipperControl
+    public partial class ctrl02 : UserControl, IHaleyControl
     {
         public ctrl02()
         {

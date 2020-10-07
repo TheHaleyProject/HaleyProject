@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DevelopmentWPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox Text="{Binding content, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Width="80"></TextBox>
         <RadioButton IsChecked="{Binding ischecked}" Content="{Binding content}"/>
-    </Grid>
+    </StackPanel>
 </UserControl>

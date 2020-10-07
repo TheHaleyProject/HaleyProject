@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Haley.Utils
 {
-    internal static class StringHelpers
+    public static class StringHelpers
     {
         public static string getEnumDesctiption(Enum @enum)
         {
@@ -15,14 +15,9 @@ namespace Haley.Utils
         }
         public static string getString(object value)
         {
+            if (value == null) return null;
             Type InputType = value.GetType();
-            //Convert Input to String.
-            if (InputType == typeof(string)) return (string)value;
-            if (InputType == typeof(int)) return ((int)value).ToString();
-            if (InputType == typeof(double)) return ((double)value).ToString();
-            if (InputType == typeof(bool)) return ((bool)value).ToString();
-            if (InputType.BaseType == typeof(Enum)) return ((Enum)value).ToString();
-            return null;
+            return (Convert.ChangeType(value, value.GetType()))?.ToString() ?? null;
         }
 
         public static object getObject(object value, Type targetType)
@@ -32,7 +27,7 @@ namespace Haley.Utils
             if (targetType == typeof(double)) return double.Parse((string)value);
             if (targetType == typeof(bool)) return bool.Parse((string)value);
             if (targetType.BaseType == typeof(Enum)) return value;
-            return null;
+            return value;
         }
     }
 }

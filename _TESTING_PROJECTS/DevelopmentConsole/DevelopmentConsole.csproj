@@ -106,5 +106,6 @@
       <Name>HaleyRuleEngine</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
