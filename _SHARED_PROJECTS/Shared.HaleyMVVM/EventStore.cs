@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Haley.MVVM.Containers;
 using Haley.Events;
-using Haley.EventArguments;
 
 namespace Haley.MVVM
 {
-    public class EventStore
+    public sealed class EventStore
     {
         private Dictionary<Type, HBaseEvent> _event_collection = new Dictionary<Type, HBaseEvent>();
         // Core idea is that a list of delegates are stored. During run time, the delegates are invoked.

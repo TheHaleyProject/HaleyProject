@@ -9,7 +9,7 @@ using Haley.Models;
 
 namespace Haley.RuleEngine
 {
-    public class RuleEngine
+    public sealed class RuleEngine
     {
         #region Static Methods
         public static Dictionary<Rule, ExpressionBlock<T>> CompileRules<T>(List<Rule> rule_list)
@@ -49,7 +49,7 @@ namespace Haley.RuleEngine
         #endregion
     }
 
-    public class RuleEngine<T>
+    public sealed class RuleEngine<T>
     {
         private Dictionary<Rule, ExpressionBlock<T>> rule_dic = new Dictionary<Rule, ExpressionBlock<T>>();
 

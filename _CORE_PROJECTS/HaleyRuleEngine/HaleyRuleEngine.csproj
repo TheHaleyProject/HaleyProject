@@ -5,7 +5,7 @@
     <AssemblyName>Haley.RuleEngine</AssemblyName>
     <RootNamespace>Haley.RuleEngine</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Authors>Lingam</Authors>
     <Company>TheHaleyProject</Company>
     <Product>Haley Rule Engine</Product>

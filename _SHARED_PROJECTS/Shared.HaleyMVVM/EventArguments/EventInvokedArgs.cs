@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Haley.EventArguments
+namespace Haley.Events
 {
     public class EventInvokedArgs : EventArgs
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.EventArguments;
+using Haley.Events;
 
 namespace Haley.MVVM.Containers
 {
-    public class ControlContainer : IHaleyControlContainer
+    public sealed class ControlContainer : IHaleyControlContainer
     {
         #region Initation
         private Dictionary<Type, Type> viewmodel_controls_mappings { get; set; } //Generic dictionary to store the controls

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.EventArguments;
+using Haley.Events;
 
 namespace Haley.MVVM.Containers
 {
-    public class WindowContainer : IHaleyWindowContainer  //Implementation of the DialogService Interface.
+    public sealed class WindowContainer : IHaleyWindowContainer  //Implementation of the DialogService Interface.
     {
         private Dictionary<Type, Type> view_viewmodel_mapping;
         public WindowContainer()

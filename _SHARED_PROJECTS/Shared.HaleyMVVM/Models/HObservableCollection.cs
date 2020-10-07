@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
+using System.Runtime.InteropServices;
 
 namespace Haley.Models
 {
@@ -25,16 +26,11 @@ namespace Haley.Models
             CollectionChanged += _collectionChanged;
         }
 
-        //We have multiple ways how a list can be added to the Observable collection. It can be adding IEnumerable, or List or even Add items one by one.
-        public delegate bool CanTriggerDelegate(object parameters); 
-
-        public object trigger_params { get; set; }
         /// <summary>
         /// Set a delegate method which takes an object argument and returns a bool. Do remember to set your parameters as well. By default,the parameters are null.
         /// </summary>
-        public CanTriggerDelegate trigger_delegate { get; set; }
-
-
+        public TriggerDelegate trigger { get; set; }
+        public delegate bool TriggerDelegate(params object[] args);
         #region Collection Adding Methods
 
         /// <summary>
@@ -85,6 +81,9 @@ namespace Haley.Models
         public HObservableCollection() : base()
         { _registerCollection(); }
 
+        public HObservableCollection(Func<object, bool> _trigger) : base()
+        { _registerCollection(); trigger = trigger; }
+
         #region Event Handlers
 
         private void _collectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -108,7 +107,7 @@ namespace Haley.Models
 
         private void _propertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (trigger_delegate == null || trigger_delegate.Invoke(trigger_params) == true) //If the trigger is null or else the trigger returns true, then invoke collection changed.
+            if (trigger == null || trigger.Invoke(sender, e) == true) //If the trigger is null or else the trigger returns true, then invoke collection changed.
             {
                 NotifyCollectionChangedEventArgs TempArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, sender, sender, IndexOf((T)sender));
                 OnCollectionChanged(TempArgs); //Invoking the collection changed event (of the base class), which in turn will be handled by the R_CollectionChanged

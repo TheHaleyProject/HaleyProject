@@ -10,7 +10,7 @@ namespace Haley.Abstractions
     public interface ICheckedItem : INotifyPropertyChanged
     {
         bool is_checked { get; set; }
-        String name { get; set; }
+        string name { get; set; }
         int id { get; set; }
     }
 
