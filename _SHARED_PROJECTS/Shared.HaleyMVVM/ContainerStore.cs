@@ -12,15 +12,15 @@ namespace Haley.MVVM
 {
     public sealed class ContainerStore
     {
-        public DIContainer DI { get; set; }
-        public ControlContainer controls { get; set; }
-        public WindowContainer windows { get; set; }
+        public IHaleyDIContainer DI { get; set; }
+        public IHaleyControlContainer controls { get; set; }
+        public IHaleyWindowContainer windows { get; set; }
 
         public ContainerStore() 
-        { 
-          controls = new ControlContainer(); 
-          windows = new WindowContainer();
-          DI = new DIContainer();
+        {
+            DI = new DIContainer() {};
+            controls = new ControlContainer(DI); 
+            windows = new WindowContainer(DI);
         }
         public static ContainerStore Singleton = new ContainerStore();
     }

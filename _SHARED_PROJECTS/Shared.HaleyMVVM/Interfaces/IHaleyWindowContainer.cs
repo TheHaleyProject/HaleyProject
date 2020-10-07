@@ -9,14 +9,13 @@ namespace Haley.Abstractions
 {
   public interface IHaleyWindowContainer 
         {
-            void register<ViewModelType, ViewType>() 
-                where ViewModelType : IHaleyWindowVM, new()
-                where ViewType : IHaleyWindow ; 
-
-            bool? showDialog<ViewModelType>(ViewModelType InputViewModel) 
-                where ViewModelType : IHaleyWindowVM;
-            void show<ViewModelType>(ViewModelType InputViewModel) 
-                where ViewModelType : IHaleyWindowVM;
+      void register<ViewModelType, ViewType>(ViewModelType instance = null)
+                    where ViewModelType : class, IHaleyWindowVM
+                    where ViewType : IHaleyWindow;
+        bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) 
+                where ViewModelType: class, IHaleyWindowVM;
+        void show<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false)
+          where ViewModelType : class, IHaleyWindowVM;
     }
 
 }

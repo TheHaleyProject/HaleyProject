@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace Haley.MVVM.Containers
 {
-    public sealed class DIContainer
+    public sealed class DIContainer : IHaleyDIContainer
     {
         #region ATTRIBUTES
         //This is where we store all our types. When request is made for an contract type (key), we create an instance based on the value concrete type(value) and return back
@@ -18,8 +18,45 @@ namespace Haley.MVVM.Containers
         private readonly IDictionary<Type, object> abstract_singleton_mappings = new Dictionary<Type, object>();
         private readonly IDictionary<Type, object> concrete_singleton_mappings = new Dictionary<Type, object>();
         #endregion
-        #region Properties
 
+        #region Properties
+        public bool ignore_if_registered { get; set; }
+        public bool overwrite_if_registered { get; set; }
+        #endregion
+
+        #region Public Methods
+        public (bool status, Type registered_type, string message) checkIfRegistered(Type input_type)
+        {
+            //Check if the provided input is present in any of the repository. If yes, then return error stating that it is already registered.
+            Type _registered_type = null;
+            string _message = null;
+            bool _is_registered = false;
+            //CHECK TYPE REPOSITORY
+            if (type_mappings.ContainsKey(input_type))
+            {
+                _is_registered = true;
+                _registered_type = type_mappings[input_type];
+                _message = $@"The {input_type} is already registered with {_registered_type} as type mapping.";
+            }
+
+            //CHECK ABSTRACT SINGLETON REPOSITORY
+            if (abstract_singleton_mappings.ContainsKey(input_type))
+            {
+                _is_registered = true;
+                _registered_type = (abstract_singleton_mappings[input_type]).GetType();
+                _message = $@"The {input_type} is already registered with {_registered_type} as asbtract singleton mapping.";
+            }
+
+            //CHECK CONCRETE SINGLETON REPOSITORY
+            if (concrete_singleton_mappings.ContainsKey(input_type))
+            {
+                _is_registered = true;
+                _registered_type = input_type;
+                _message = $@"The {input_type} is already registered with as a singleton object.";
+            }
+
+            return (_is_registered, _registered_type, _message);
+        }
         #endregion
         #region Private Methods
         private object _createInstance(Type concrete_type)
@@ -67,48 +104,22 @@ namespace Haley.MVVM.Containers
             }
             return constructor.Invoke(parameters.ToArray());
         }
-        private (bool status, Type registered_type, string message) _checkIfRegistered(Type input_type)
+        private bool _validateExistence(Type key, Type value)
         {
-            //Check if the provided input is present in any of the repository. If yes, then return error stating that it is already registered.
-            Type _registered_type = null;
-            string _message = null;
-            bool _is_registered = false;
-            //CHECK TYPE REPOSITORY
-            if (type_mappings.ContainsKey(input_type))
-            {
-                _is_registered = true;
-                _registered_type = type_mappings[input_type];
-                _message = $@"The {input_type} is already registered with {_registered_type} as type mapping.";
-            }
-
-            //CHECK ABSTRACT SINGLETON REPOSITORY
-            if (abstract_singleton_mappings.ContainsKey(input_type))
-            {
-                _is_registered = true;
-                _registered_type = (abstract_singleton_mappings[input_type]).GetType();
-                _message = $@"The {input_type} is already registered with {_registered_type} as asbtract singleton mapping.";
-            }
-
-            //CHECK CONCRETE SINGLETON REPOSITORY
-            if (concrete_singleton_mappings.ContainsKey(input_type))
-            {
-                _is_registered = true;
-                _registered_type = input_type;
-                _message = $@"The {input_type} is already registered with as a singleton object.";
-            }
-
-            return (_is_registered, _registered_type, _message);
-        }
-        private void _validateExistence(Type key, Type value)
-        {
-            var _status = _checkIfRegistered(key);
+            var _status = checkIfRegistered(key);
+            //If registered and also ignore
             if (_status.status)
             {
-                if (_status.registered_type != value)
+                if (!ignore_if_registered)
                 {
-                    throw new ArgumentException(_status.message);
+                    //Throw the error, only if you should not ignore the registered status.
+                    if (_status.registered_type != value)
+                    {
+                        throw new ArgumentException(_status.message);
+                    }
                 }
             }
+            return _status.status; //Returns if registered.
         }
         private object _getObject(Type input_type)
         {
@@ -161,8 +172,15 @@ namespace Haley.MVVM.Containers
             {
                 Type _key = typeof(TContract);
                 Type _value = typeof(TConcrete);
-                _validateExistence(_key, _value);
-                type_mappings.Add(_key, _value);
+                if (_validateExistence(_key, _value))
+                {
+                    if (!overwrite_if_registered) return;
+                    type_mappings[_key] = _value;
+                }
+                else
+                {
+                    type_mappings.Add(_key, _value);
+                }
             }
         }
         public void Register<TContract, TConcrete>(TConcrete instance) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
@@ -171,31 +189,52 @@ namespace Haley.MVVM.Containers
             Type _value = typeof(TConcrete);
 
             _validateConcreteType(_value);
-            _validateExistence(_key, _value);
-            abstract_singleton_mappings.Add(_key, instance); //Don't add value. Add instance
+            if (_validateExistence(_key, _value))
+            {
+                if (!overwrite_if_registered) return;
+                abstract_singleton_mappings[_key] = _value;
+            }
+            else
+            {
+                abstract_singleton_mappings.Add(_key, _value);
+            }
         }
-        public void Register<TConcrete>(TConcrete instance) where TConcrete : class  //TImplementation should either implement or inherit from TContract
+        public void Register<TConcrete>(TConcrete instance = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
         {
             Type _key = typeof(TConcrete);
             _validateConcreteType(_key);
-            _validateExistence(_key, _key);
-            concrete_singleton_mappings.Add(_key, instance);
+
+            if (instance == null)
+            {
+                instance = (TConcrete)_createInstance(typeof(TConcrete)); //Create instance resolving all dependencies
+            }
+
+            if (_validateExistence(_key, _key))
+            {
+                if (!overwrite_if_registered) return;
+                concrete_singleton_mappings[_key] = instance;
+            }
+            else
+            {
+                concrete_singleton_mappings.Add(_key, instance);
+            }
         }
 
         #endregion
 
         #region Resolution Methods
        
-        public T Resolve<T>()
+        public T Resolve<T>(bool generate_new_instance = false)
         {
-            return (T)Resolve(typeof(T));
+            return (T)Resolve(typeof(T),generate_new_instance);
         }
-        public object Resolve(Type input_type)
+        public object Resolve(Type input_type,bool generate_new_instance = false)
         {
+            if (generate_new_instance) return _createInstance(input_type);
            return _getObject(input_type);
         }
         #endregion
 
-        public DIContainer() { }
+        public DIContainer() { overwrite_if_registered = false; ignore_if_registered = false; }
     }
 }

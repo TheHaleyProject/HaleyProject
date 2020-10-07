@@ -9,10 +9,5 @@ using Haley.Events;
 namespace Haley.Abstractions
 {
 
-    public interface IHaleyControlVM
-    {
-        event PropertyChangedEventHandler PropertyChanged;
-        event EventHandler<FrameClosingEventArgs> OnControlClosed;
-        void seed(object parameters);
-    }
+    public interface IHaleyControlVM { }
 }

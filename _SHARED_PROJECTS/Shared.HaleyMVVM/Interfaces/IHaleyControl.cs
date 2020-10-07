@@ -11,7 +11,4 @@ namespace Haley.Abstractions
     {
         object DataContext { get; set; }
     }
-
-   
-
 }

@@ -5,8 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Haley.Flipper.MVVM.Interfaces;
-using Haley.Flipper.MVVM.IOC;
+using Haley.Abstractions;
+using Haley.MVVM;
 using DevelopmentWPF.Controls;
 using DevelopmentWPF.ViewModels;
 using System.Windows.Data;
@@ -19,17 +19,14 @@ namespace DevelopmentWPF
     /// </summary>
     public partial class App : Application
     {
-       public static UserControlService ControlIOCService { get; set; }
-
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            ControlIOCService = new UserControlService();
-            ControlIOCService.register<VMSubMain, ctrl01>(TestApp.control01);
-            ControlIOCService.register<VMMain, ctrl02>(TestApp.control02);
-            ControlIOCService.register<VMSubMain, ctrl03>(TestApp.control03);
+            ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
+            ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
+            ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
+            ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
 
-            MainWindow wndiw = new MainWindow();
-            wndiw.ShowDialog();
+            ContainerStore.Singleton.windows.showDialog<CoreVM>();
         }
     }
 
@@ -43,27 +40,9 @@ namespace DevelopmentWPF
 
     public enum TestApp02
     {
-        helloVM,
-        WhyVm
+        Control4,
+        control5
     }
 
-    public class multiBindingConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            try
-            {
-                return App.ControlIOCService.obtainControl(values[1], (Enum)values[0]);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
 }
