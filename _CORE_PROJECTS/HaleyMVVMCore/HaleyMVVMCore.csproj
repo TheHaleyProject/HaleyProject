@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>Haley.MVVM.Core</AssemblyName>
     <RootNamespace>Haley.MVVM.Core</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.0.1.1</Version>
     <Authors>Lingam</Authors>
     <Product>Haley MVVM Core</Product>
     <Company>TheHaleyProject</Company>
@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Haley @ 2020</Copyright>
-    <PackageReleaseNotes>Release</PackageReleaseNotes>
+    <PackageReleaseNotes>Added KeyToControlConverter</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1</FileVersion>

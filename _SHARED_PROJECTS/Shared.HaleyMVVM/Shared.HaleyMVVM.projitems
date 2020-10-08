@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Containers\DIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyToControlConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToControlConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumDescriptionConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToStringListConverter.cs" />
