@@ -609,21 +609,9 @@ namespace DevelopmentConsole
             try
             {
                 IHaleyDIContainer _di = ContainerStore.Singleton.DI;
+                _di.Register<IPrintService, PrintService>();
 
-                string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                HLog _new = new HLog(_path, "HaleyTestApp", OutputType.txt_simple);
-                HLog.CreateSingleton(_new);
-                _di.Register<LoggerBase, HLog>(HLog.Singleton);
-                var _log = _di.Resolve<LoggerBase>();
-                _log.log("123");
-                _log.log("zcvzcv");
-                _log.log("adsawerqwe");
-                _log.log("1dfge44323");
-                var _hw = _di.Resolve<Helloworld>();
-                _hw.write("123");
-                _hw.write("zcvzcv");
-                _hw.write("adsawerqwe");
-                _hw.write("1dfge44323");
+                _di.Register<TestService>();
             }
             catch (Exception ex)
             {
@@ -661,7 +649,21 @@ namespace DevelopmentConsole
         string name { get; set; }
     }
 
-    
+    public class TestService
+    {
+        public IPrintService PrintSer { get; set; }
+        public TestService(IPrintService _printService) { PrintSer = _printService; }
+    }
+
+    public interface IPrintService
+    {
+
+    }
+    public class PrintService : IPrintService
+    {
+        public PrintService() { }
+    }
+
 
     public class Helloworld
 {

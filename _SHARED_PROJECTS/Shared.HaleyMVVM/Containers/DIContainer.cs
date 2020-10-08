@@ -62,8 +62,15 @@ namespace Haley.MVVM.Containers
         #region Private Methods
         private object _createInstance(Type concrete_type)
         {
+            _validateConcreteType(concrete_type);
             ConstructorInfo constructor = null;
             var constructors = concrete_type.GetConstructors();
+
+            if (constructors.Length == 0)
+            {
+                throw new ArgumentException($@"No constructors found. Unable to create an instance for {concrete_type.Name}");
+            }
+
             if (constructors.Length > 1)
             {
                 //If we have more items, get the first constructor that has [HaleyInject]
@@ -162,7 +169,7 @@ namespace Haley.MVVM.Containers
         /// <param name="is_singleton"></param>
         public void Register<TContract, TConcrete>(bool is_singleton = false) where TConcrete : class, TContract  //TConcrete should either implement or inherit from TContract
         {
-            _validateConcreteType(typeof(TConcrete));
+            _validateConcreteType(typeof(TConcrete)); //Also called inside the create instance for validation
             if (is_singleton)
             {
                 //if true, create a concrete implmentation and store it in instance repository.
