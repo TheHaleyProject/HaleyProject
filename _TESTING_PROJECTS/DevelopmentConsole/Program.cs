@@ -608,16 +608,10 @@ namespace DevelopmentConsole
         {
             try
             {
-                var _DIcontainer = ContainerStore.Singleton.DI;
-                _DIcontainer.Register<pmodel>(new pmodel() { name = "This is senguttuvan" });
-                pmodel _pmode2 = new pmodel() { name = "This is invoked" };
-                _DIcontainer.Register<Ihello, pmodel>(true); //registering the type
-                var _obj2 = _DIcontainer.Resolve(typeof(pmodel));
-                var _obj = _DIcontainer.Resolve<pmodel>();
-                var _obj3 = _DIcontainer.Resolve<something>();
-                var _obj4 = _DIcontainer.Resolve<Ihello>();
-                _obj4.name = "This is modified";
-                var _obj5 = _DIcontainer.Resolve<Ihello>();
+                IHaleyDIContainer _di = ContainerStore.Singleton.DI;
+                _di.Register<IPrintService, PrintService>();
+
+                _di.Register<TestService>();
             }
             catch (Exception ex)
             {
@@ -636,7 +630,8 @@ namespace DevelopmentConsole
 
     public abstract class modelabstract : Ihello
     {
-        public string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public modelabstract() { }
     }
 
     public class something : modelabstract
@@ -644,6 +639,7 @@ namespace DevelopmentConsole
         public pmodel pmodel { get; set; }
         public something(int k) { pmodel = new pmodel() { }; }
         [HaleyInject]
+        public something() { }
         public something( string _hello) { pmodel = new pmodel() { name = _hello }; }
 
     }
@@ -652,4 +648,38 @@ namespace DevelopmentConsole
     {
         string name { get; set; }
     }
+
+    public class TestService
+    {
+        public IPrintService PrintSer { get; set; }
+        public TestService(IPrintService _printService) { PrintSer = _printService; }
+    }
+
+    public interface IPrintService
+    {
+
+    }
+    public class PrintService : IPrintService
+    {
+        public PrintService() { }
+    }
+
+
+    public class Helloworld
+{
+        public something _somethig { get; set; }
+        public LoggerBase loggerBase { get; set; }
+
+    public void write(string _text)
+    {
+        loggerBase.log(_text);
+    }
+
+    public Helloworld() { }
+        [HaleyInject]
+        public Helloworld(LoggerBase _log) { loggerBase = _log; }
+       
+        public Helloworld(something _some) { }
+    }
 }
+
