@@ -7,6 +7,7 @@ using Haley.Abstractions;
 using Haley.Events;
 using System.Reflection;
 using System.Configuration;
+using System.CodeDom;
 
 namespace Haley.MVVM.Containers
 {
@@ -187,16 +188,20 @@ namespace Haley.MVVM.Containers
         {
             Type _key = typeof(TContract);
             Type _value = typeof(TConcrete);
-
+           
             _validateConcreteType(_value);
+            if (instance == null)
+            {
+                instance = (TConcrete)_createInstance(_value); //Create instance resolving all dependencies
+            }
             if (_validateExistence(_key, _value))
             {
                 if (!overwrite_if_registered) return;
-                abstract_singleton_mappings[_key] = _value;
+                abstract_singleton_mappings[_key] = instance; //Remember to assign the instance
             }
             else
             {
-                abstract_singleton_mappings.Add(_key, _value);
+                abstract_singleton_mappings.Add(_key, instance);
             }
         }
         public void Register<TConcrete>(TConcrete instance = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
@@ -226,12 +231,14 @@ namespace Haley.MVVM.Containers
        
         public T Resolve<T>(bool generate_new_instance = false)
         {
-            return (T)Resolve(typeof(T),generate_new_instance);
+            var _obj = Resolve(typeof(T), generate_new_instance);
+            return (T) _obj;
         }
         public object Resolve(Type input_type,bool generate_new_instance = false)
         {
             if (generate_new_instance) return _createInstance(input_type);
-           return _getObject(input_type);
+            var _obj = _getObject(input_type);
+            return _obj;
         }
         #endregion
 
