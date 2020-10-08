@@ -6,6 +6,20 @@ namespace Haley.Utils
 {
     public static class StringHelpers
     {
+        public static string getEnumAsKey(Enum @enum)
+        {
+            try
+            {
+                string enum_type_name = @enum.GetType().Name;
+                string enum_value_name = @enum.ToString();
+                string enum_key = enum_type_name + "." + enum_value_name; //Concatenated value for storing as key
+                return enum_key;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public static string getEnumDesctiption(Enum @enum)
         {
             FieldInfo fi = @enum.GetType().GetField(@enum.ToString());

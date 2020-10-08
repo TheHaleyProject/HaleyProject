@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
 using Haley.Events;
+using Haley.Utils;
 
 namespace Haley.MVVM.Containers
 {
@@ -20,24 +21,6 @@ namespace Haley.MVVM.Containers
             if (_injection_container != null)
             {
                 _di_instance= _injection_container;
-            }
-        }
-
-        #endregion
-
-        #region Helper Methods
-        private string _getEnumKey(Enum @enum)
-        {
-            try
-            {
-                string enum_type_name = @enum.GetType().Name;
-                string enum_value_name = @enum.ToString();
-                string enum_key = enum_type_name + "." + enum_value_name; //Concatenated value for storing as key
-                return enum_key;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 
@@ -67,7 +50,7 @@ namespace Haley.MVVM.Containers
            where ControlType : IHaleyControl 
         {
             //Get the enum value and its type name to prepare a string
-            string _key = _getEnumKey(@enum);
+            string _key = StringHelpers.getEnumAsKey(@enum);
             register<ViewModelType, ControlType>(_key, InputViewModel);
         }
 
@@ -117,7 +100,7 @@ namespace Haley.MVVM.Containers
         public IHaleyControl  obtainControl(Enum @enum, object InputViewModel =null, bool create_new_vm = false)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = _getEnumKey(@enum);
+            string _key = StringHelpers.getEnumAsKey(@enum);
             return obtainControl(_key,InputViewModel,create_new_vm);
         }
 
@@ -158,7 +141,7 @@ namespace Haley.MVVM.Containers
         public object obtainVM(Enum key, bool create_new_vm = false)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = _getEnumKey(key);
+            string _key = StringHelpers.getEnumAsKey(key);
             return obtainVM(_key);
         }
 
