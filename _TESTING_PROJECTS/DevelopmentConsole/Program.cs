@@ -609,15 +609,14 @@ namespace DevelopmentConsole
         {
             try
             {
-                IHaleyDIContainer _di = ContainerStore.Singleton.DI;
-
-                var _thread = new Thread(() => { _di.Register<IPrintService, PrintService>(); });
-                var _thread2 = new Thread(() => { _di.Register<TestService>(); });
+                string _key=null;
+                var _thread = new Thread(() => { _key =EventStore.Singleton.GetEvent<MessageEvent>().subscribe(handleMethod); });
+                var _thread2 = new Thread(() => { EventStore.Singleton.GetEvent<MessageEvent>().publish("life is a fantasy"); });
                 _thread.Start();
-                _thread2.Start();
-                _thread2.Join();
                 _thread.Join();
-                var _ts = _di.Resolve<TestService>();
+                _thread2.Start();
+                EventStore.Singleton.GetEvent<MessageEvent>().unSubscribe(_key);
+                EventStore.Singleton.GetEvent<MessageEvent>().publish("life is not a fantasy");
             }
             catch (Exception ex)
             {
@@ -625,6 +624,11 @@ namespace DevelopmentConsole
                 throw;
             }
             
+        }
+
+        private static void handleMethod(string _message)
+        {
+
         }
     }
     public class pmodel : Ihello
