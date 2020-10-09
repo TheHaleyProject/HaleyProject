@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Haley.Abstractions;
 using Haley.Events;
 using System.Collections.Concurrent;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Haley.MVVM.Containers
 {
@@ -54,24 +56,12 @@ namespace Haley.MVVM.Containers
         #region Show Methods
         public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) where ViewModelType : class, IHaleyWindowVM
         {
-            if (InputViewModel == null)
-            {
-                InputViewModel = _di_instance.Resolve<ViewModelType>(create_new_vm);
-            }
-
-            IHaleyWindow Result = _getWindowToDisplay(InputViewModel);
-            if (Result == null) return null;
-            return Result.ShowDialog(); //Once initiated, it will automatically unsubscribe as well.
+            return _invokeDisplay(InputViewModel, create_new_vm, false); //This is modal
         }
 
         public void show<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) where ViewModelType : class, IHaleyWindowVM
         {
-            if (InputViewModel == null)
-            {
-                InputViewModel = _di_instance.Resolve<ViewModelType>(create_new_vm);
-            }
-            IHaleyWindow Result = _getWindowToDisplay(InputViewModel);
-            Result.Show();
+            _invokeDisplay(InputViewModel, create_new_vm, true); //This is modeless
         }
 
         #endregion
@@ -85,10 +75,10 @@ namespace Haley.MVVM.Containers
                 throw new ArgumentException($"{typeof(ViewModelType)} is not registered to any Views. Please check again.");
             }
             Type ViewType = view_vm_mapping[typeof(ViewModelType)];
+            IHaleyWindow WindowToDisplay = null;
 
             //Using System.Activator, create an instance of the above retrieved view and display it. Remember all views are already implementing IHaleyWindow  interface. So, Casting the object as the IHaleyWindow .
-            IHaleyWindow WindowToDisplay = (IHaleyWindow)System.Activator.CreateInstance(ViewType);
-            WindowToDisplay.DataContext = InputViewModel;
+             WindowToDisplay = _createWindowInstance<ViewModelType>(ViewType, InputViewModel);
 
             //Once we receive the view to display in above stage, we can display the view to the user and obtain the DialogResult using the button clicks.To achieve button clicks events, we need to write codes in the Code behind. To avoid this, we are creating a below listener class to ensure MVVM implementations and separation of logics.
 
@@ -97,6 +87,59 @@ namespace Haley.MVVM.Containers
             HaleyObserver CustomOP = new HaleyObserver(WindowToDisplay, InputViewModel);
             CustomOP.subscribe();
             return WindowToDisplay;
+        }
+        private IHaleyWindow _createWindowInstance<ViewModelType>(Type ViewType,ViewModelType Instance) where ViewModelType : IHaleyWindowVM
+        {
+            IHaleyWindow WindowToDisplay = (IHaleyWindow)System.Activator.CreateInstance(ViewType);
+            WindowToDisplay.DataContext = Instance;
+            return WindowToDisplay;
+        }
+        private bool? _getresult<ViewModelType>(ViewModelType InputViewModel, bool is_modeless=false) where ViewModelType : class, IHaleyWindowVM
+        {
+            bool? _result = false;
+            IHaleyWindow _hwindow = null;
+            _hwindow = _getWindowToDisplay(InputViewModel);
+            if (_hwindow != null)
+            {
+                if(is_modeless)
+                {
+                    _hwindow.Show(); //Modeless
+                }
+                else
+                {
+                    _result = _hwindow.ShowDialog(); //Modal
+                }
+            }
+            return _result;
+        }
+        private bool? _invokeDisplay<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false, bool is_modeless= false) where ViewModelType : class, IHaleyWindowVM
+        {
+            bool? _result = null;
+            if (InputViewModel == null)
+            {
+                InputViewModel = _di_instance.Resolve<ViewModelType>(create_new_vm);
+            }
+            //If Thread is not STA
+            if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
+            {
+                Thread new_ui_thread = new Thread(() =>
+                {
+                    _result = _getresult(InputViewModel, is_modeless);
+                });
+                new_ui_thread.SetApartmentState(ApartmentState.STA);
+                new_ui_thread.Start();
+                new_ui_thread.Join();
+            }
+            else
+            {
+                _result = _getresult(InputViewModel);
+            }
+
+            //Dispatcher.CurrentDispatcher.Invoke(new Action(() =>
+            //{
+
+            //}));
+            return _result;
         }
         #endregion
     }
