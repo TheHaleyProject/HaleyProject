@@ -15,7 +15,7 @@ namespace Haley.MVVM.Converters
         {
             try
             {
-                if (!(value is string)) return null;
+                if (!(value.GetType() == typeof(string))) return null;
                 return ContainerStore.Singleton.controls.obtainControl((string)value);
             }
             catch (Exception)
