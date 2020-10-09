@@ -20,7 +20,7 @@ namespace Haley.Events
             {
                 // Using params keyword, because we can have zero or more parameters
                 //This should invoke all the delegates
-                foreach (var _subscriber in _subscribers)
+                foreach (var _subscriber in _subscribers.ToList())
                 {
                     _subscriber.sendMessage(arguments);
                 }
