@@ -602,6 +602,7 @@ namespace DevelopmentConsole
     //}
     #endregion
 
+    #region MVVM
     public class Program
     {
         public static void Main(string[] args)
@@ -609,9 +610,14 @@ namespace DevelopmentConsole
             try
             {
                 IHaleyDIContainer _di = ContainerStore.Singleton.DI;
-                _di.Register<IPrintService, PrintService>();
 
-                _di.Register<TestService>();
+                var _thread = new Thread(() => { _di.Register<IPrintService, PrintService>(); });
+                var _thread2 = new Thread(() => { _di.Register<TestService>(); });
+                _thread.Start();
+                _thread2.Start();
+                _thread2.Join();
+                _thread.Join();
+                var _ts = _di.Resolve<TestService>();
             }
             catch (Exception ex)
             {
@@ -621,19 +627,16 @@ namespace DevelopmentConsole
             
         }
     }
-
     public class pmodel : Ihello
     {
         public string name { get; set; }
         public pmodel() { }
         }
-
     public abstract class modelabstract : Ihello
     {
         public virtual string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public modelabstract() { }
     }
-
     public class something : modelabstract
     {
         public pmodel pmodel { get; set; }
@@ -643,18 +646,15 @@ namespace DevelopmentConsole
         public something( string _hello) { pmodel = new pmodel() { name = _hello }; }
 
     }
-
     public interface Ihello
     {
         string name { get; set; }
     }
-
     public class TestService
     {
         public IPrintService PrintSer { get; set; }
         public TestService(IPrintService _printService) { PrintSer = _printService; }
     }
-
     public interface IPrintService
     {
 
@@ -663,8 +663,6 @@ namespace DevelopmentConsole
     {
         public PrintService() { }
     }
-
-
     public class Helloworld
 {
         public something _somethig { get; set; }
@@ -681,5 +679,7 @@ namespace DevelopmentConsole
        
         public Helloworld(something _some) { }
     }
+    #endregion
+
 }
 

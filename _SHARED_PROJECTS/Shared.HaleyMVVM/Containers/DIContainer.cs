@@ -8,6 +8,7 @@ using Haley.Events;
 using System.Reflection;
 using System.Configuration;
 using System.CodeDom;
+using System.Collections.Concurrent;
 
 namespace Haley.MVVM.Containers
 {
@@ -15,9 +16,9 @@ namespace Haley.MVVM.Containers
     {
         #region ATTRIBUTES
         //This is where we store all our types. When request is made for an contract type (key), we create an instance based on the value concrete type(value) and return back
-        private readonly IDictionary<Type, Type> type_mappings = new Dictionary<Type, Type>();
-        private readonly IDictionary<Type, object> abstract_singleton_mappings = new Dictionary<Type, object>();
-        private readonly IDictionary<Type, object> concrete_singleton_mappings = new Dictionary<Type, object>();
+        private readonly ConcurrentDictionary<Type, Type> type_mappings = new ConcurrentDictionary<Type, Type>();
+        private readonly ConcurrentDictionary<Type, object> abstract_singleton_mappings = new ConcurrentDictionary<Type, object>();
+        private readonly ConcurrentDictionary<Type, object> concrete_singleton_mappings = new ConcurrentDictionary<Type, object>();
         #endregion
 
         #region Properties
@@ -36,7 +37,7 @@ namespace Haley.MVVM.Containers
             if (type_mappings.ContainsKey(input_type))
             {
                 _is_registered = true;
-                _registered_type = type_mappings[input_type];
+                type_mappings.TryGetValue(input_type, out _registered_type);
                 _message = $@"The {input_type} is already registered with {_registered_type} as type mapping.";
             }
 
@@ -44,8 +45,9 @@ namespace Haley.MVVM.Containers
             if (abstract_singleton_mappings.ContainsKey(input_type))
             {
                 _is_registered = true;
-                _registered_type = (abstract_singleton_mappings[input_type]).GetType();
-                _message = $@"The {input_type} is already registered with {_registered_type} as asbtract singleton mapping.";
+                object _registerd_object;
+                abstract_singleton_mappings.TryGetValue(input_type, out _registerd_object);
+                _message = $@"The {input_type} is already registered with {_registered_type.GetType()} as asbtract singleton mapping.";
             }
 
             //CHECK CONCRETE SINGLETON REPOSITORY
@@ -132,24 +134,27 @@ namespace Haley.MVVM.Containers
         private object _getObject(Type input_type)
         {
             if (input_type == null) throw new ArgumentNullException(nameof(input_type));
+            object _output = null;
             //If any singleton repository contains the type, return the value.
             if (abstract_singleton_mappings.ContainsKey(input_type))
             {
-                return abstract_singleton_mappings[input_type];
+                abstract_singleton_mappings.TryGetValue(input_type, out _output);
             }
 
             if (concrete_singleton_mappings.ContainsKey(input_type))
             {
-                return concrete_singleton_mappings[input_type];
+                concrete_singleton_mappings.TryGetValue(input_type, out _output);
             }
 
             //If a type mapping is done, then create instance of the registered implmentation type.
             if (type_mappings.ContainsKey(input_type))
             {
-                Type concrete_type = type_mappings[input_type];
+                Type concrete_type;
+                type_mappings.TryGetValue(input_type,out concrete_type);
                 return _createInstance(concrete_type);
             }
 
+            if (_output != null) return _output;
             return _createInstance(input_type);
         }
         private void _validateConcreteType(Type concrete_type)
@@ -187,7 +192,7 @@ namespace Haley.MVVM.Containers
                 }
                 else
                 {
-                    type_mappings.Add(_key, _value);
+                    type_mappings.TryAdd(_key, _value);
                 }
             }
         }
@@ -208,7 +213,7 @@ namespace Haley.MVVM.Containers
             }
             else
             {
-                abstract_singleton_mappings.Add(_key, instance);
+                abstract_singleton_mappings.TryAdd(_key, instance);
             }
         }
         public void Register<TConcrete>(TConcrete instance = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
@@ -228,7 +233,7 @@ namespace Haley.MVVM.Containers
             }
             else
             {
-                concrete_singleton_mappings.Add(_key, instance);
+                concrete_singleton_mappings.TryAdd(_key, instance);
             }
         }
 
@@ -249,6 +254,10 @@ namespace Haley.MVVM.Containers
         }
         #endregion
 
-        public DIContainer() { overwrite_if_registered = false; ignore_if_registered = false; }
+        public DIContainer() 
+        {
+            overwrite_if_registered = false;
+            ignore_if_registered = false; 
+        }
     }
 }

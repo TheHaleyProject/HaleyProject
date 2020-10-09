@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace Haley.Events
 {
@@ -12,46 +13,34 @@ namespace Haley.Events
     /// </summary>
     public abstract class HBaseEvent
     {
-        private List<ISubscriber> _subscribers = new List<ISubscriber>();
+        //private ConcurrentBag<ISubscriber> _subscribers = new ConcurrentBag<ISubscriber>();
+        private ConcurrentDictionary<string, ISubscriber> _subscribers = new ConcurrentDictionary<string, ISubscriber>();
 
         protected virtual void basePublish(params object[] arguments)
         {
-            lock(_subscribers)
-            {
                 // Using params keyword, because we can have zero or more parameters
                 //This should invoke all the delegates
-                foreach (var _subscriber in _subscribers.ToList())
+                foreach (var _subscriber in _subscribers)
                 {
-                    _subscriber.sendMessage(arguments);
+                    _subscriber.Value.sendMessage(arguments);
                 }
-            }
         }
 
         protected virtual void baseSubscribe(ISubscriber subscriber)
         {
-            lock(_subscribers)
-            {
-                if (_subscribers.Any(p => p.id == subscriber.id)) return;
-                _subscribers.Add(subscriber);
-            }
+                if (_subscribers.ContainsKey(subscriber.id)) return;
+                _subscribers.TryAdd(subscriber.id, subscriber);
         }
 
         protected virtual bool baseUnSubscribe(string subscriber_id)
         {
-            lock (_subscribers)
-            {
-                var _toremove = _subscribers.FirstOrDefault(p => p.id == subscriber_id);
-                if (_toremove != null)
-                {
-                    _subscribers.Remove(_toremove);
-                    return true;
-                }
-            }
-            return false;
+            ISubscriber _removed_value;
+            var _removed = _subscribers.TryRemove(subscriber_id, out _removed_value);
+            return _removed;
         }
         protected virtual void baseUnSubscriberAll()
         {
-            _subscribers = new List<ISubscriber>();
+            _subscribers = new ConcurrentDictionary<string, ISubscriber>();
         }
 
     }

@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
 using Haley.Events;
+using System.Collections.Concurrent;
 
 namespace Haley.MVVM.Containers
 {
     public sealed class WindowContainer : IHaleyWindowContainer  //Implementation of the DialogService Interface.
     {
         private IHaleyDIContainer _di_instance = new DIContainer() { };
-        private Dictionary<Type, Type> view_vm_mapping = new Dictionary<Type, Type>();
+        private ConcurrentDictionary<Type, Type> view_vm_mapping = new ConcurrentDictionary<Type, Type>();
         
         public WindowContainer(IHaleyDIContainer _injection_container = null) 
         {
@@ -32,7 +33,7 @@ namespace Haley.MVVM.Containers
             {
                 throw new ArgumentException($"{typeof(ViewModelType)} is already registered to {typeof(ViewType)}");
             }
-            view_vm_mapping.Add(typeof(ViewModelType), typeof(ViewType));
+            view_vm_mapping.TryAdd(typeof(ViewModelType), typeof(ViewType));
 
             var _status = _di_instance.checkIfRegistered(typeof(ViewModelType));
             if (!_status.status)

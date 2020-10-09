@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Haley.Abstractions;
 using Haley.Events;
 using Haley.Utils;
+using System.Collections.Concurrent;
 
 namespace Haley.MVVM.Containers
 {
@@ -13,11 +14,11 @@ namespace Haley.MVVM.Containers
     {
         #region Initation
         private IHaleyDIContainer _di_instance = new DIContainer();
-        private Dictionary<string,(Type ViewModelType, Type ViewType)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
+        private ConcurrentDictionary<string,(Type ViewModelType, Type ViewType)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
 
         public ControlContainer(IHaleyDIContainer _injection_container = null)
         {
-            main_mapping = new Dictionary<string, (Type ViewModelType, Type ViewType)>();
+            main_mapping = new ConcurrentDictionary<string, (Type ViewModelType, Type ViewType)>();
             if (_injection_container != null)
             {
                 _di_instance= _injection_container;
@@ -66,7 +67,7 @@ namespace Haley.MVVM.Containers
                     throw new ArgumentException($@"Key : {key} is already registered to - VM : {main_mapping[key].ViewModelType.GetType()} and View : {main_mapping[key].ViewType.GetType()}");
                 }
                 var _tuple = (typeof(ViewModelType), typeof(ControlType));
-                main_mapping.Add(key, _tuple);
+                main_mapping.TryAdd(key, _tuple);
 
                 //Now add the viewmodel to the DI
                 var _status = _di_instance.checkIfRegistered(typeof(ViewModelType));
