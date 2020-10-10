@@ -602,16 +602,21 @@ namespace DevelopmentConsole
     //}
     #endregion
 
+    #region MVVM
     public class Program
     {
         public static void Main(string[] args)
         {
             try
             {
-                IHaleyDIContainer _di = ContainerStore.Singleton.DI;
-                _di.Register<IPrintService, PrintService>();
-
-                _di.Register<TestService>();
+                string _key=null;
+                var _thread = new Thread(() => { _key =EventStore.Singleton.GetEvent<MessageEvent>().subscribe(handleMethod); });
+                var _thread2 = new Thread(() => { EventStore.Singleton.GetEvent<MessageEvent>().publish("life is a fantasy"); });
+                _thread.Start();
+                _thread.Join();
+                _thread2.Start();
+                EventStore.Singleton.GetEvent<MessageEvent>().unSubscribe(_key);
+                EventStore.Singleton.GetEvent<MessageEvent>().publish("life is not a fantasy");
             }
             catch (Exception ex)
             {
@@ -620,20 +625,22 @@ namespace DevelopmentConsole
             }
             
         }
-    }
 
+        private static void handleMethod(string _message)
+        {
+
+        }
+    }
     public class pmodel : Ihello
     {
         public string name { get; set; }
         public pmodel() { }
         }
-
     public abstract class modelabstract : Ihello
     {
         public virtual string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public modelabstract() { }
     }
-
     public class something : modelabstract
     {
         public pmodel pmodel { get; set; }
@@ -643,18 +650,15 @@ namespace DevelopmentConsole
         public something( string _hello) { pmodel = new pmodel() { name = _hello }; }
 
     }
-
     public interface Ihello
     {
         string name { get; set; }
     }
-
     public class TestService
     {
         public IPrintService PrintSer { get; set; }
         public TestService(IPrintService _printService) { PrintSer = _printService; }
     }
-
     public interface IPrintService
     {
 
@@ -663,8 +667,6 @@ namespace DevelopmentConsole
     {
         public PrintService() { }
     }
-
-
     public class Helloworld
 {
         public something _somethig { get; set; }
@@ -681,5 +683,7 @@ namespace DevelopmentConsole
        
         public Helloworld(something _some) { }
     }
+    #endregion
+
 }
 

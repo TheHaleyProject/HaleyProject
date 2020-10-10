@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevelopmentWPF"
         xmlns:haley="clr-namespace:Haley.MVVM;assembly=Haley.MVVM"
+        xmlns:hap="clr-namespace:Haley.Models;assembly=Haley.MVVM"
         xmlns:haleyCv="clr-namespace:Haley.MVVM.Converters;assembly=Haley.MVVM"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:uc="clr-namespace:DevelopmentWPF.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" hap:HaleyAP.InjectVM="True">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -28,7 +29,6 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
         <ComboBox Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumTestApp}}" SelectedItem="{Binding controlEnum}"/>
         <uc:ctrl03 Grid.Row="2"/>
         <ContentControl Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding controlEnum, Converter={StaticResource cnv_enumto_control}}"/>

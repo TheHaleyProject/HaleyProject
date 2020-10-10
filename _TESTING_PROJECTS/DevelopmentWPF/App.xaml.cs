@@ -11,6 +11,7 @@ using DevelopmentWPF.Controls;
 using DevelopmentWPF.ViewModels;
 using System.Windows.Data;
 using System.Globalization;
+using System.Threading;
 
 namespace DevelopmentWPF
 {
@@ -21,12 +22,20 @@ namespace DevelopmentWPF
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
-            ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
-            ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
-            ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
+            try
+            {
+                MainWindow ms = new MainWindow();
+                ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
+                ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
+                ms.ShowDialog();
 
-            ContainerStore.Singleton.windows.showDialog<CoreVM>();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 
