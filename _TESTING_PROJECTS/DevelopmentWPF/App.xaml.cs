@@ -26,10 +26,13 @@ namespace DevelopmentWPF
             {
                 MainWindow ms = new MainWindow();
                 ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
-                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
+                ContainerStore.Singleton.windows.register<CoreVM, MainWindow>(use_vm_as_key:false);
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02,is_singleton:false);
                 ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
                 ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
-                ms.ShowDialog();
+                ContainerStore.Singleton.windows.show<CoreVM>();
+                MainWindow _newwindow = new MainWindow();
+                _newwindow.ShowDialog();
 
             }
             catch (Exception ex)

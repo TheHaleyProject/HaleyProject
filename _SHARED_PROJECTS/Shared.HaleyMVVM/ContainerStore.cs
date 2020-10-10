@@ -13,8 +13,8 @@ namespace Haley.MVVM
     public sealed class ContainerStore
     {
         public IHaleyDIContainer DI { get; set; }
-        public IHaleyControlContainer controls { get; set; }
-        public IHaleyWindowContainer windows { get; set; }
+        public IHaleyControlContainer<IHaleyControlVM,IHaleyControl> controls { get; set; }
+        public IHaleyWindowContainer<IHaleyWindowVM,IHaleyWindow> windows { get; set; }
 
         public ContainerStore() 
         {
