@@ -25,23 +25,12 @@ namespace DevelopmentWPF
             try
             {
                 MainWindow ms = new MainWindow();
-                Thread t1 = new Thread(() => {
-                    ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
-                    ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
-                    ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
-                    ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
-
-                });
-                t1.Start();
-                t1.Join();
-
-                Thread t3 = new Thread(() =>
-                {
-                    CoreVM vm = new CoreVM();
-                    ContainerStore.Singleton.windows.showDialog<CoreVM>(vm);
-                });
-                t3.Start();
-                t3.Join();
+                ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
+                ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
+                CoreVM vm = new CoreVM();
+                ContainerStore.Singleton.windows.showDialog<CoreVM>(vm);
 
             }
             catch (Exception ex)

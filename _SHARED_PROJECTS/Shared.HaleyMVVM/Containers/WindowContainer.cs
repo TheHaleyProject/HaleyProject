@@ -40,28 +40,20 @@ namespace Haley.MVVM.Containers
             var _status = _di_instance.checkIfRegistered(typeof(ViewModelType));
             if (!_status.status)
             {
-                if (instance == null)
-                {
-                    _di_instance.Register<ViewModelType>();
-                }
-                else
-                {
-                    _di_instance.Register<ViewModelType>(instance);
-                }
+                _di_instance.Register<ViewModelType>(instance); //If instance is null, a new instance will be created by DI
             }
-            
         }
         #endregion
 
         #region Show Methods
-        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) where ViewModelType : class, IHaleyWindowVM
+        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false) where ViewModelType : class, IHaleyWindowVM
         {
-            return _invokeDisplay(InputViewModel, create_new_vm, false); //This is modal
+            return _invokeDisplay(InputViewModel, generate_vm_instance, false); //This is modal
         }
 
-        public void show<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false) where ViewModelType : class, IHaleyWindowVM
+        public void show<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false) where ViewModelType : class, IHaleyWindowVM
         {
-            _invokeDisplay(InputViewModel, create_new_vm, true); //This is modeless
+            _invokeDisplay(InputViewModel, generate_vm_instance, true); //This is modeless
         }
 
         #endregion
@@ -69,8 +61,7 @@ namespace Haley.MVVM.Containers
         #region Private Methods
         private IHaleyWindow _getWindowToDisplay<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
         {
-            if (view_vm_mapping.Count == 0) return null;
-            if (view_vm_mapping.ContainsKey(typeof(ViewModelType)) == false) //Note: We are using typeof(viewmodeltype)
+            if (view_vm_mapping.ContainsKey(typeof(ViewModelType)) == false || view_vm_mapping.Count == 0) //Note: We are using typeof(viewmodeltype)
             {
                 throw new ArgumentException($"{typeof(ViewModelType)} is not registered to any Views. Please check again.");
             }
@@ -112,12 +103,12 @@ namespace Haley.MVVM.Containers
             }
             return _result;
         }
-        private bool? _invokeDisplay<ViewModelType>(ViewModelType InputViewModel = null, bool create_new_vm = false, bool is_modeless= false) where ViewModelType : class, IHaleyWindowVM
+        private bool? _invokeDisplay<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false, bool is_modeless= false) where ViewModelType : class, IHaleyWindowVM
         {
             bool? _result = null;
             if (InputViewModel == null)
             {
-                InputViewModel = _di_instance.Resolve<ViewModelType>(create_new_vm);
+                InputViewModel = _di_instance.Resolve<ViewModelType>(generate_vm_instance);
             }
             //If Thread is not STA
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
@@ -135,10 +126,6 @@ namespace Haley.MVVM.Containers
                 _result = _getresult(InputViewModel);
             }
 
-            //Dispatcher.CurrentDispatcher.Invoke(new Action(() =>
-            //{
-
-            //}));
             return _result;
         }
         #endregion

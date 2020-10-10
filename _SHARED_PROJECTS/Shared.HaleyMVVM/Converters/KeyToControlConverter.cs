@@ -19,7 +19,7 @@ namespace Haley.MVVM.Converters
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
                 bool flag = (param != 0); //If param is not zero, then true
-                return ContainerStore.Singleton.controls.obtainControl((string)value, create_new_vm: flag);
+                return ContainerStore.Singleton.controls.obtainControl((string)value, generate_vm_instance: flag);
             }
             catch (Exception)
             {

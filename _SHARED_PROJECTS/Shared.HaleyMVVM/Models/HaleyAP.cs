@@ -72,7 +72,7 @@ namespace Haley.Models
                     //If d is usercontrol and also implements ihaleycontrol, then resolve the viewmodel
                     string _key = GetContainerKey(d);
                     if (_key == null) _key = d.GetType().FullName;
-                    var _vm = ContainerStore.Singleton.controls.obtainVM(_key, GetCreateNewInstance(d));
+                    var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetCreateNewInstance(d));
                     ((UserControl)d).DataContext = _vm;
                 }
                 catch (Exception)
