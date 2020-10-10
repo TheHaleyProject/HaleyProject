@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Reflection;
 using System.ComponentModel;
+using Haley.Abstractions;
 
 namespace Haley.MVVM.Converters
 {
@@ -18,7 +19,7 @@ namespace Haley.MVVM.Converters
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
                 bool flag = (param != 0); //If param is not zero, then true
-                return ContainerStore.Singleton.controls.obtainControl((Enum)value, generate_vm_instance: flag);
+                return ContainerStore.Singleton.controls.generateView((Enum)value, generate_vm_instance: flag);
             }
             catch (Exception)
             {

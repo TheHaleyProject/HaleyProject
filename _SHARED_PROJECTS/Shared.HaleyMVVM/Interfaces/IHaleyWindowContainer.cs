@@ -7,16 +7,19 @@ using System.ComponentModel;
 
 namespace Haley.Abstractions
 {
-  public interface IHaleyWindowContainer 
-        {
-      void register<ViewModelType, ViewType>(ViewModelType instance = null)
-                    where ViewModelType : class, IHaleyWindowVM
-                    where ViewType : IHaleyWindow;
-        bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false) 
-                where ViewModelType: class, IHaleyWindowVM;
-        void show<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false)
-          where ViewModelType : class, IHaleyWindowVM;
-        IHaleyWindowVM generateViewModel(Type key, bool generate_vm_instance = false);
-    }
+    public interface IHaleyWindowContainer<BaseVMType, BaseViewType> : IHaleyUIContainer<BaseVMType, BaseViewType>
+    {
+        #region ShowDialog Methods
+        bool? showDialog<VMType>(VMType InputViewModel = null, bool generate_vm_instance = false) where VMType : class, BaseVMType;
+        bool? showDialog(string key, object InputViewModel = null, bool generate_vm_instance = false);
+        bool? showDialog(Enum key, object InputViewModel = null, bool generate_vm_instance = false);
 
+        #endregion
+
+        #region Show Methods
+        void show<VMType>(VMType InputViewModel = null, bool generate_vm_instance = false) where VMType : class, BaseVMType;
+        void show(string key, object InputViewModel = null, bool generate_vm_instance = false);
+        void show(Enum key, object InputViewModel = null, bool generate_vm_instance = false);
+        #endregion
+    }
 }
