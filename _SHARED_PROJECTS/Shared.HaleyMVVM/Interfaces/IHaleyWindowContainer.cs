@@ -16,6 +16,7 @@ namespace Haley.Abstractions
                 where ViewModelType: class, IHaleyWindowVM;
         void show<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false)
           where ViewModelType : class, IHaleyWindowVM;
+        IHaleyWindowVM generateViewModel(Type key, bool generate_vm_instance = false);
     }
 
 }

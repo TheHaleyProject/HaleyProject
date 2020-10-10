@@ -29,8 +29,7 @@ namespace DevelopmentWPF
                 ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02);
                 ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
                 ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
-                CoreVM vm = new CoreVM();
-                ContainerStore.Singleton.windows.showDialog<CoreVM>(vm);
+                ms.ShowDialog();
 
             }
             catch (Exception ex)

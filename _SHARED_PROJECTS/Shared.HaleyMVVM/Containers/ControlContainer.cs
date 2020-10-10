@@ -171,6 +171,12 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region VM Retrieval Methods
+        public  (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum)
+        {
+            //Get the enum value and its type name to prepare a string
+            string _key = StringHelpers.getEnumAsKey(@enum);
+            return getMappingValue(_key);
+        }
         public (Type viewmodel_type, Type view_type,bool is_singleton) getMappingValue(string key)
         {
             if (main_mapping.Count == 0 || ! main_mapping.ContainsKey(key))

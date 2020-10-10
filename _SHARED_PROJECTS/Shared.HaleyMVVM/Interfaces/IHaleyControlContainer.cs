@@ -33,6 +33,7 @@ namespace Haley.Abstractions
         #region VM ObtainMethods
         IHaleyControlVM generateViewModel(Enum @enum, bool generate_vm_instance = false);
         IHaleyControlVM generateViewModel(string key, bool generate_vm_instance = false);
+        (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum);
         (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(string key);
         #endregion
     }

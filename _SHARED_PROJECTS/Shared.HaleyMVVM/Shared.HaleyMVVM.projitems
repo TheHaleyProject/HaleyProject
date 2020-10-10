@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISubscriber.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />

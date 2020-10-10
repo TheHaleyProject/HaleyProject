@@ -9,6 +9,8 @@ using Haley.Events;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Windows.Threading;
+using Haley.Models;
+using Haley.Utils;
 
 namespace Haley.MVVM.Containers
 {
@@ -58,8 +60,35 @@ namespace Haley.MVVM.Containers
 
         #endregion
 
-        #region Private Methods
-        private IHaleyWindow _getWindowToDisplay<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
+        #region Retrieval Methods
+        public IHaleyWindowVM generateViewModel(Type view_type, bool generate_vm_instance = false)
+        {
+            try
+            {
+                var _mapping = view_vm_mapping.Values.FirstOrDefault(p => p == view_type);
+                IHaleyWindowVM _result = null;
+                if (_mapping != null)
+                {
+                    _result = (IHaleyWindowVM)_di_instance.Resolve(_mapping, generate_vm_instance);
+                }
+                return _result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private IHaleyWindowVM _generateViewModel<ViewModelType>(bool generate_vm_instance = false) where ViewModelType : class, IHaleyWindowVM
+        {
+            IHaleyWindowVM _result = (IHaleyWindowVM)_di_instance.Resolve<ViewModelType>(generate_vm_instance);
+            return _result;
+
+        }
+            #endregion
+
+            #region Private Methods
+            private IHaleyWindow _getWindowToDisplay<ViewModelType>(ViewModelType InputViewModel) where ViewModelType : IHaleyWindowVM
         {
             if (view_vm_mapping.ContainsKey(typeof(ViewModelType)) == false || view_vm_mapping.Count == 0) //Note: We are using typeof(viewmodeltype)
             {
@@ -108,7 +137,7 @@ namespace Haley.MVVM.Containers
             bool? _result = null;
             if (InputViewModel == null)
             {
-                InputViewModel = _di_instance.Resolve<ViewModelType>(generate_vm_instance);
+                InputViewModel = (ViewModelType)generateViewModel(typeof(ViewModelType));
             }
             //If Thread is not STA
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
@@ -131,44 +160,5 @@ namespace Haley.MVVM.Containers
         #endregion
     }
 
-    public class HaleyObserver
-    {
-        //This is kind of interlinked. Ideally, View is the one which initiates the Close command. 
-        // For example,  1. when we press a button in View, it sends a command to ViewModel to perform a Action.
-        //2. At the end of the action, it triggers the event inside the ViewModel (OnClosingEvent; it is actually publishing the status about the end of process.) 
-        //3. Status can either be true or false. Which means, we can either close the window or keep it active. 
-        //4. So, View, which has subscribed to that event, receives that status and saves as dialog result. If dialog result is true, then it will close the winodw else it will keep it active.
-        public IHaleyWindow  subscriber { get; set; }
-        public IHaleyWindowVM publisher { get; set; }
-
-        public void subscribe()
-        {
-            publisher.OnWindowsClosed += _onWindowsClosedHandler;
-        }
-
-        public void unSubscribe() // This takes care of unsubscribing the events
-        {
-            publisher.OnWindowsClosed -= _onWindowsClosedHandler;
-        }
-
-        private void _onWindowsClosedHandler(object sender, FrameClosingEventArgs e)
-        {
-            if (e.event_result.HasValue)
-            {
-                subscriber.DialogResult = e.event_result; //The event result will be invoked when a user presses a button. When user presses a button, it will invoke the event stored inside the viewmodel with an input value (bool, in our case). Thus, the event inside the viewmodel is invoked with a value which in turn is stored in the dialogresult.
-                unSubscribe(); //the moment we get the dialog resut. we can unsubscribe.
-            }
-            else
-            {
-                unSubscribe(); // Under any case, we need to unsubscribe first before closing the dialog window.
-                subscriber.Close(); //If user manages to close the dialog without using the predefined button, then the window is closed.
-            }
-        }
-
-        public HaleyObserver(IHaleyWindow  subscriberView, IHaleyWindowVM publisherViewModel)
-        {
-            subscriber = subscriberView;
-            publisher = publisherViewModel;
-        }
-    }
+    
 }
