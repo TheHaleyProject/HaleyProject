@@ -58,7 +58,8 @@ namespace DevelopmentWPF
         {
             if (e.PropertyName == nameof(controlEnum))
             {
-                current_viewModel = (IHaleyControlVM) ContainerStore.Singleton.controls.obtainVM(controlEnum);
+                var _vm = ContainerStore.Singleton.controls.generateViewModel(controlEnum,false);
+                current_viewModel = _vm;
             }
         }
     }

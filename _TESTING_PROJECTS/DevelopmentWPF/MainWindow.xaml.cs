@@ -26,7 +26,6 @@ namespace DevelopmentWPF
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new CoreVM();
         }
     }
 }

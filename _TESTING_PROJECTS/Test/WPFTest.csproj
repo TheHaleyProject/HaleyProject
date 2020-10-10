@@ -118,7 +118,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HaleyProject\FLIPPER__\HaleyMVVM\HaleyMVVM.csproj">
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
       <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
       <Name>HaleyMVVM</Name>
     </ProjectReference>

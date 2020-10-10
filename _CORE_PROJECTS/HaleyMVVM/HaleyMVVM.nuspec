@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light weight MVVM implementation with Event store, IOC store, DI</description>
     <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
-    <releaseNotes>Fixed bugs in abstract type repository</releaseNotes>
+    <releaseNotes>Added KeyToControlConverter</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>WPF MVVM MVVM IOC DI Haley</tags>
 	<projectUrl>https://github.com/rmsmech/HaleyProject</projectUrl>
