@@ -29,6 +29,11 @@ namespace Haley.MVVM.Containers
             string _key = typeof(ViewModelType).FullName;
             return showDialog(_key, InputViewModel, generate_vm_instance);
         }
+        public bool? showDialog<ViewType>(bool generate_vm_instance = false) where ViewType : IHaleyWindow
+        {
+            string _key = typeof(ViewType).FullName;
+            return showDialog(_key, null, generate_vm_instance);
+        }
         public bool? showDialog(string key, object InputViewModel = null, bool generate_vm_instance = false)
         {
             return _invokeDisplay(key, InputViewModel,generate_vm_instance, is_modeless: false); //This is modal
@@ -40,6 +45,11 @@ namespace Haley.MVVM.Containers
         {
             string _key = typeof(ViewModelType).FullName;
             show(_key, InputViewModel, generate_vm_instance);
+        }
+        public void show<ViewType>(bool generate_vm_instance = false) where ViewType : IHaleyWindow
+        {
+            string _key = typeof(ViewType).FullName;
+            show(_key, null, generate_vm_instance);
         }
         public void show(Enum key, object InputViewModel = null, bool generate_vm_instance = false)
         {
