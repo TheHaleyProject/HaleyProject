@@ -57,6 +57,8 @@ namespace Haley.MVVM.Containers
         #region Private Methods
         private object _createInstance(Type concrete_type)
         {
+            object _instance = null;
+
             _validateConcreteType(concrete_type);
             ConstructorInfo constructor = null;
             var constructors = concrete_type.GetConstructors();
@@ -91,21 +93,48 @@ namespace Haley.MVVM.Containers
             //If parameter less construction, return a new creation.
             if (constructor_params.Length == 0)
             {
-                return Activator.CreateInstance(concrete_type);
+                _instance = Activator.CreateInstance(concrete_type);
+            }
+            else
+            {
+                List<object> parameters = new List<object>(constructor_params.Length);
+                foreach (ParameterInfo pinfo in constructor_params)
+                {
+                    Type _paramtype = pinfo.ParameterType;
+                    if (_paramtype == typeof(string) || _paramtype.IsValueType || _paramtype.IsByRef)
+                    {
+                        throw new ArgumentException($@"Value type dependency error. The constructor for {concrete_type.Name} depends on a value type {pinfo.Name}. Constructor cannot have value type parameters.");
+                    }
+                    //recursively resolve the references
+                    parameters.Add(Resolve(pinfo.ParameterType));
+                }
+                _instance = constructor.Invoke(parameters.ToArray());
             }
 
-            List<object> parameters = new List<object>(constructor_params.Length);
-            foreach (ParameterInfo pinfo in constructor_params)
+            //Assign properties
+            var _props = concrete_type.GetProperties().Where(
+                p => Attribute.IsDefined(p, typeof(HaleyInjectAttribute)));
+
+            if (_props.Count() > 0)
             {
-                Type _paramtype = pinfo.ParameterType;
-                if (_paramtype == typeof(string) || _paramtype.IsValueType || _paramtype.IsByRef)
+                foreach (PropertyInfo pinfo in _props)
                 {
-                    throw new ArgumentException($@"Value type dependency error. The constructor for {concrete_type.Name} depends on a value type {pinfo.Name}. Constructor cannot have value type parameters.");
+                    try
+                    {
+                        var resolved_value =  Resolve(pinfo.PropertyType);
+                        Type _prop_type = pinfo.PropertyType;
+                        if (!(_prop_type == typeof(string) || _prop_type.IsValueType || _prop_type.IsByRef))
+                        {
+                            pinfo.SetValue(_instance, resolved_value);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
                 }
-                //recursively resolve the references
-                parameters.Add(Resolve(pinfo.ParameterType));
             }
-            return constructor.Invoke(parameters.ToArray());
+            return _instance;
         }
         private bool _validateExistence(Type key, Type value)
         {
@@ -209,7 +238,6 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Resolution Methods
-       
         public T Resolve<T>(bool generate_new_instance = false)
         {
             var _obj = Resolve(typeof(T), generate_new_instance);

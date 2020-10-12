@@ -609,14 +609,9 @@ namespace DevelopmentConsole
         {
             try
             {
-                string _key=null;
-                var _thread = new Thread(() => { _key =EventStore.Singleton.GetEvent<MessageEvent>().subscribe(handleMethod); });
-                var _thread2 = new Thread(() => { EventStore.Singleton.GetEvent<MessageEvent>().publish("life is a fantasy"); });
-                _thread.Start();
-                _thread.Join();
-                _thread2.Start();
-                EventStore.Singleton.GetEvent<MessageEvent>().unSubscribe(_key);
-                EventStore.Singleton.GetEvent<MessageEvent>().publish("life is not a fantasy");
+                ContainerStore.Singleton.DI.Register<IPrintService, PrintService>();
+                var value = ContainerStore.Singleton.DI.Resolve<TestService>();
+                value.PrintSer.print("Im  senguttuvan");
             }
             catch (Exception ex)
             {
@@ -656,15 +651,22 @@ namespace DevelopmentConsole
     }
     public class TestService
     {
+        [HaleyInject]
+        public string _world { get; set; }
+        [HaleyInject]
         public IPrintService PrintSer { get; set; }
-        public TestService(IPrintService _printService) { PrintSer = _printService; }
+        public TestService() { }
     }
     public interface IPrintService
     {
-
+        void print(string message);
     }
     public class PrintService : IPrintService
     {
+        public void print(string message)
+        {
+            Console.WriteLine(message);
+        }
         public PrintService() { }
     }
     public class Helloworld
