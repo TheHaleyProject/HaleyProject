@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="HaleySnippets.ed30e57a-9680-48d2-9654-afd0c201b547" Version="1.0.4" Language="en-US" Publisher="HaleyProject" />
+        <Identity Id="HaleySnippets.ed30e57a-9680-48d2-9654-afd0c201b547" Version="1.0.5" Language="en-US" Publisher="HaleyProject" />
         <DisplayName>HaleySnippets</DisplayName>
         <Description xml:space="preserve">Snippets for Haley Project</Description>
         <Icon>Haley.png</Icon>
