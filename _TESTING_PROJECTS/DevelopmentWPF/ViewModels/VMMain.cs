@@ -16,8 +16,9 @@ namespace DevelopmentWPF.ViewModels
         public bool ischecked
         {
             get { return _ischecked; }
-            set { _ischecked = value; onPropertyChanged(); }
+            set {SetProp(ref _ischecked, value); }
         }
+
 
         private string _content;
 

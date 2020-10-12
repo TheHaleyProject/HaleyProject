@@ -9,7 +9,7 @@
     <Company>TheHaleyProject</Company>
     <Authors>Lingam</Authors>
     <Copyright>Haley 2020</Copyright>
-    <PackageIcon></PackageIcon>
+    <PackageIcon>Haley.png</PackageIcon>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <None Remove="Scripts\Notes.txt" />
+    <None Include="..\..\Haley.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -17,7 +17,15 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>RuleEngine, ExpressionEngine, Haley,</PackageTags>
     <PackageReleaseNotes>Pilot Release</PackageReleaseNotes>
+    <PackageIcon>Haley.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Haley.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
 
