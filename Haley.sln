@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PUBLIC PACKAGES", "PUBLIC P
 		NuGetOutput\PUBLIC\PublishPackage.bat = NuGetOutput\PUBLIC\PublishPackage.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleySnippets", "HaleySnippets\HaleySnippets.csproj", "{4BAE19DA-7077-41E5-B93A-562F89210B79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleySnippets", "_CORE_PROJECTS\HaleySnippets\HaleySnippets.csproj", "{4BAE19DA-7077-41E5-B93A-562F89210B79}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
