@@ -66,7 +66,7 @@ namespace Haley.Models
         private static void InjectVMPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //For controls
-           if ((d is UserControl && d is IHaleyControl)|| (d is Window && d is IHaleyWindow))
+           if (d is IHaleyControl|| d is IHaleyWindow)
             {
                 try
                 {
@@ -78,7 +78,7 @@ namespace Haley.Models
                         var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetCreateNewInstance(d));
                         if (_vm != null) //Only if not null, assign it.
                         {
-                            ((UserControl)d).DataContext = _vm;
+                            ((IHaleyControl)d).DataContext = _vm;
                         }
                     }
                     else if (d is IHaleyWindow)
@@ -86,7 +86,7 @@ namespace Haley.Models
                         var _vm = ContainerStore.Singleton.windows.generateViewModel(_key, GetCreateNewInstance(d));
                         if (_vm != null) //Only if not null, assign it.
                         {
-                            ((Window)d).DataContext = _vm;
+                            ((IHaleyWindow)d).DataContext = _vm;
                         }
                     }
                 }

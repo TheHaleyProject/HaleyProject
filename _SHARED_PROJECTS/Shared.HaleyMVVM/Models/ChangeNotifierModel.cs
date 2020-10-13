@@ -17,6 +17,16 @@ namespace Haley.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propname));
         }
+
+        protected virtual bool SetProp<T>(ref T _attribute, T _value, [CallerMemberName] string propname = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(_attribute, _value)) return false; //If both are equal don't proceed.
+
+            _attribute = _value;
+            onPropertyChanged(propname);
+            return true;
+        }
+
         public ChangeNotifier() { }
     }
    

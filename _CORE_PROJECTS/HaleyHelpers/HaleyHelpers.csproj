@@ -9,13 +9,13 @@
     <Company>TheHaleyProject</Company>
     <Authors>Lingam</Authors>
     <Copyright>Haley 2020</Copyright>
-    <PackageIcon></PackageIcon>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <PackageIcon>Haley.png</PackageIcon>
+    <AssemblyVersion>1.0.0.4</AssemblyVersion>
+    <FileVersion>1.0.0.4</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>Haley Helpers</Product>
     <PackageId>Haley.Helpers</PackageId>
-    <Version>1.0.0.3</Version>
+    <Version>1.0.0.4</Version>
     <AssemblyName>Haley.Helpers.Standard</AssemblyName>
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <None Remove="Scripts\Notes.txt" />
+    <None Include="..\..\Haley.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
