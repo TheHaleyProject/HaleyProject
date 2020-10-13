@@ -47,7 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
   </ItemGroup>

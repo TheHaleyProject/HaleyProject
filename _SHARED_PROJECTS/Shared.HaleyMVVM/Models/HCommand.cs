@@ -6,14 +6,24 @@ using System.Windows.Input;
 using System.Reflection;
 using System.Windows;
 
-#pragma warning disable IDE1006 // Naming Styles
 namespace Haley.Models
 {
-   public class HCommand : ICommand
+   public class HCommand : HCommand<object>
     {
+        public HCommand(Action<object> ActionMethod, Func<object, bool> ValidationFunction) :base(ActionMethod, ValidationFunction)
+        {
+        }
 
-        Action<object> _method_to_execute;
-        Func<object, bool> _function_to_check;
+        public HCommand(Action<object> ActionMethod) : base(ActionMethod)
+        {
+        }
+    }
+
+    
+    public abstract class HCommand<T> : ICommand
+    {
+        Action<T> _action_method;
+        Func<object, bool> _validation_function;
 
         public event EventHandler CanExecuteChanged
         {
@@ -21,29 +31,27 @@ namespace Haley.Models
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public bool CanExecute(object parameter)
+        public virtual bool CanExecute(object parameter)
         {
-            if (_function_to_check == null) return true;
-            return _function_to_check.Invoke(parameter);
+            if (_validation_function == null) return true;
+            return _validation_function.Invoke(parameter);
         }
 
-        public void Execute(object parameter)
+        public virtual void Execute(object parameter)
         {
-            _method_to_execute?.Invoke(parameter);
+            _action_method?.Invoke((T)parameter);
         }
 
-        public HCommand(Action<object> ActualMethodToExecute, Func<object, bool> ActualFunctionToCheck)
+        public HCommand(Action<T> ActionMethod, Func<object, bool> ValidationFunction)
         {
-            _method_to_execute = ActualMethodToExecute;
-            _function_to_check = ActualFunctionToCheck;
+            _action_method = ActionMethod;
+            _validation_function = ValidationFunction;
         }
 
-        public HCommand(Action<object> ActualMethodToExecute)
+        public HCommand(Action<T> ActionMethod)
         {
-            _method_to_execute = ActualMethodToExecute;
-            _function_to_check = null;
+            _action_method = ActionMethod;
+            _validation_function = null;
         }
     }
-
 }
-#pragma warning restore IDE1006 // Naming Styles

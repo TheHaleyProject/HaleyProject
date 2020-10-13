@@ -10,7 +10,7 @@ using Microsoft.Xaml.Behaviors;
 #pragma warning disable IDE1006 // Naming Styles
 namespace Haley.Models
 {
-    public sealed class HInvokeCommandAction : TriggerAction<DependencyObject>
+    public sealed class EventToCommand : TriggerAction<DependencyObject>
     {
 #region Dependency Properties
 
@@ -23,7 +23,7 @@ namespace Haley.Models
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(HInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(EventToCommand), null);
 
         public object CommandParameter
         {
@@ -33,7 +33,7 @@ namespace Haley.Models
 
         // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(HInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(EventToCommand), null);
 
         public object EventParameter
         {
@@ -43,7 +43,7 @@ namespace Haley.Models
 
         // Using a DependencyProperty as the backing store for EventParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EventParameterProperty =
-            DependencyProperty.Register(nameof(EventParameter), typeof(object), typeof(HInvokeCommandAction), null);
+            DependencyProperty.Register(nameof(EventParameter), typeof(object), typeof(EventToCommand), null);
 
 #endregion
 
