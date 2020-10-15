@@ -73,7 +73,7 @@ namespace Haley.MVVM.Containers
         }
         private void _validateConcreteType(Type concrete_type)
         {
-            if (concrete_type.IsAbstract || concrete_type.IsEnum || concrete_type.IsInterface || concrete_type.IsByRef)
+            if (concrete_type.IsAbstract || concrete_type.IsEnum || concrete_type.IsInterface)
             {
                 throw new ArgumentException($@"Concrete type cannot be an abstract class or enum or interface. Unable to register {concrete_type}");
             }
@@ -253,11 +253,15 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Register Methods
-        public void Register<TContract, TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
+
+        private void _register<TConcrete>(Type _input_type,IMappingProvider dependencyProvider, object instance, bool is_type_register = true)
         {
-            Type _input_type = typeof(TContract);
             Type _target_type = typeof(TConcrete);
-            
+
+            //Check if already registered
+            bool _exists = _validateExistence(_input_type, _target_type);
+            if (_exists && (!overwrite_if_registered)) return;
+
             //Validate
             _validateConcreteType(_target_type);
 
@@ -267,44 +271,48 @@ namespace Haley.MVVM.Containers
                 instance = (TConcrete)_createInstance(_target_type, dependencyProvider, GenerateNewInstance.TargetOnly); //Create instance resolving all dependencies
             }
 
-            (Type targetType, object Instance) _new_tuple = (_target_type, instance);
+            switch (_exists)
+            {
+                case true: //Update
+                    if (is_type_register)
+                    {
+                        (Type _type, object _inst) _current_tuple;
+                        abstract_type_mappings.TryGetValue(_input_type, out _current_tuple);
+                        abstract_type_mappings.TryUpdate(_input_type, (_target_type, instance), _current_tuple); //Remember to assign the instance
+                    }
+                    else
+                    {
+                        object _current_value;
+                        concrete_mappings.TryGetValue(_target_type, out _current_value);
+                        concrete_mappings.TryUpdate(_target_type, instance, _current_value); //Remember to assign the instance
+                    }
+                    break;
+                case false: //Add
+                    if (is_type_register)
+                    {
+                        abstract_type_mappings.TryAdd(_input_type, (_target_type, instance));
+                    }
+                    else
+                    {
+                        concrete_mappings.TryAdd(_target_type, instance);
+                    }
+                    break;
+            }
+        }
 
-            //Validate existing presence
-            if (_validateExistence(_input_type, _target_type))
-            {
-                if (!overwrite_if_registered) return;
-                
-                (Type _type, object _inst) _current_tuple;
-                abstract_type_mappings.TryGetValue(_input_type, out _current_tuple);
-                abstract_type_mappings.TryUpdate(_input_type, _new_tuple, _current_tuple); //Remember to assign the instance
-            }
-            else
-            {
-                abstract_type_mappings.TryAdd(_input_type, _new_tuple);
-            }
+        public void Register<TContract, TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
+        {
+            Type _input_type = typeof(TContract);
+
+            _register<TConcrete>(_input_type, dependencyProvider, instance, true);
+
         }
 
         public void Register<TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
         {
-            Type _target_type = typeof(TConcrete);
-            _validateConcreteType(_target_type);
+            Type _input_type = typeof(TConcrete); //Both input and concrete type are same.
 
-            if (instance == null)
-            {
-                instance = (TConcrete)_createInstance(typeof(TConcrete), dependencyProvider, GenerateNewInstance.TargetOnly); //Create instance resolving all dependencies
-            }
-
-            if (_validateExistence(_target_type, _target_type))
-            {
-                if (!overwrite_if_registered) return;
-                object _current_value;
-                concrete_mappings.TryGetValue(_target_type, out _current_value);
-                concrete_mappings.TryUpdate(_target_type, instance, _current_value); //Remember to assign the instance
-            }
-            else
-            {
-                concrete_mappings.TryAdd(_target_type, instance);
-            }
+            _register<TConcrete>(_input_type, dependencyProvider, instance,false);
         }
 
         #endregion
