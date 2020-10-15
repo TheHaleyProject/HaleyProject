@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Haley.Abstractions;
 using Haley.Events;
 using Haley.Utils;
 using System.Collections.Concurrent;
+using Haley.Enums;
 
-namespace Haley.MVVM.Containers
+namespace Haley.Abstractions
 {
-    public abstract class UIContainerBases<BaseViewModelType,BaseViewType> : IHaleyUIContainer<BaseViewModelType, BaseViewType>
+    public abstract class UIContainerBase<BaseViewModelType,BaseViewType> : IHaleyUIContainer<BaseViewModelType, BaseViewType>
     {
         #region Initation
-        protected IHaleyDIContainer _di_instance = new DIContainer();
+        protected IHaleyDIContainer _di_instance;
         protected ConcurrentDictionary<string,(Type VMtype, Type ViewType,bool is_singleton)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
 
-        public UIContainerBases(IHaleyDIContainer _injection_container = null)
+        public UIContainerBase(IHaleyDIContainer _injection_container)
         {
             main_mapping = new ConcurrentDictionary<string, (Type VMtype, Type ViewType, bool is_singleton)>();
             if (_injection_container != null)
@@ -35,11 +35,11 @@ namespace Haley.MVVM.Containers
             string _key = null;
             if (use_vm_as_key)
             {
-                _key = typeof(viewmodelType).FullName;
+                _key = typeof(viewmodelType).ToString();
             }
             else
             {
-                _key = typeof(viewType).FullName;
+                _key = typeof(viewType).ToString();
             }
 
            return register<viewmodelType, viewType>(_key, InputViewModel, is_singleton);
@@ -88,7 +88,7 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Private Methods
-        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, bool generate_vm_instance = false)
+        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, GenerateNewInstance instance_level = GenerateNewInstance.None)
         {
             var _mapping_value = getMappingValue(key);
 
@@ -97,33 +97,41 @@ namespace Haley.MVVM.Containers
 
             //Generate a ViewModel. First validate, how it is registered.
             //If this is false, then always generate instance
-            if (!_mapping_value.is_singleton) generate_vm_instance = true; //Irrespective of what the user asks.
-            BaseViewModelType resultViewModel = _generateViewModel(key, _mapping_value.viewmodel_type, generate_vm_instance);
+            if (!_mapping_value.is_singleton)
+            {
+                //If user asks for None, then assign current level
+                if (instance_level == GenerateNewInstance.None)
+                {
+                    instance_level = GenerateNewInstance.TargetOnly;
+                }
+            }
+            BaseViewModelType resultViewModel = _generateViewModel(key, _mapping_value.viewmodel_type, instance_level);
 
             return (resultViewModel, resultcontrol);
         }
-        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, bool generate_vm_instance = false)
+        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, GenerateNewInstance instance_level = GenerateNewInstance.None)
         {
+            //At present, if viewmodel instnce has to be created, return instance creation level as current
             BaseViewModelType _result;
-            _result = (BaseViewModelType)_di_instance.Resolve(viewmodelType, generate_vm_instance);
+            _result = (BaseViewModelType)_di_instance.Resolve(input_type:viewmodelType,instance_level:instance_level);
             return _result;
         }
         #endregion
 
         #region View Retrieval Methods
         //Return a generic type which implements BaseViewType 
-        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, bool generate_vm_instance = false) where viewmodelType : class, BaseViewModelType
+        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None) where viewmodelType : class, BaseViewModelType
         {
-            string _key = typeof(viewmodelType).FullName;
-            return generateView(_key, InputViewModel, generate_vm_instance);
+            string _key = typeof(viewmodelType).ToString();
+            return generateView(_key, InputViewModel, instance_level);
         }
-        public BaseViewType generateView(Enum @enum, object InputViewModel = null, bool generate_vm_instance = false)
+        public BaseViewType generateView(Enum @enum, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
-            return generateView(_key, InputViewModel,generate_vm_instance);
+            return generateView(_key, InputViewModel,instance_level);
         }
-        public abstract BaseViewType generateView(string key, object InputViewModel = null, bool generate_vm_instance = false);
+        public abstract BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
         
         #endregion
 
@@ -141,7 +149,6 @@ namespace Haley.MVVM.Containers
                 throw new ArgumentException($"Key {key} is not registered to any controls. Please check.");
             }
 
-
             (Type _viewmodel_type, Type _view_type, bool _is_singleton) _registered_tuple = (null, null, true);
             main_mapping.TryGetValue(key, out _registered_tuple);
 
@@ -156,20 +163,20 @@ namespace Haley.MVVM.Containers
 
             return _registered_tuple;
         }
-        public BaseViewModelType generateViewModel(Enum @enum, bool generate_vm_instance)
+        public BaseViewModelType generateViewModel(Enum @enum, GenerateNewInstance instance_level = GenerateNewInstance.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
-            BaseViewModelType _result = generateViewModel(_key, generate_vm_instance);
+            BaseViewModelType _result = generateViewModel(_key, instance_level);
             return _result;
         }
-        public BaseViewModelType generateViewModel(string key, bool generate_vm_instance = false) //If required we can even return the actural viewmodel concrete type as well.
+        public BaseViewModelType generateViewModel(string key, GenerateNewInstance instance_level = GenerateNewInstance.None) //If required we can even return the actural viewmodel concrete type as well.
         {
             try
             {
                 BaseViewModelType _result;
                 var _mappingValue = getMappingValue(key);
-                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type, generate_vm_instance);
+                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type,null, instance_level);
                 return _result;
             }
             catch (Exception ex)
@@ -178,7 +185,6 @@ namespace Haley.MVVM.Containers
             }
         }
         #endregion
-
     }
 }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Haley.Enums;
 
 namespace Haley.Abstractions
 {
@@ -23,14 +24,14 @@ namespace Haley.Abstractions
         #endregion
 
         #region View Generation Methods
-        BaseViewType generateView<VMType>(VMType InputViewModel=null, bool generate_vm_instance = false) where VMType : class, BaseVMType;
-        BaseViewType generateView(string key, object InputViewModel = null, bool generate_vm_instance = false);
-        BaseViewType generateView(Enum key, object InputViewModel = null,bool generate_vm_instance = false);
+        BaseViewType generateView<VMType>(VMType InputViewModel=null, GenerateNewInstance instance_level = GenerateNewInstance.None) where VMType : class, BaseVMType;
+        BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        BaseViewType generateView(Enum key, object InputViewModel = null,GenerateNewInstance instance_level = GenerateNewInstance.None);
         #endregion
 
         #region ViewModel Generation methods
-        BaseVMType generateViewModel(Enum @enum, bool generate_vm_instance = false);
-        BaseVMType generateViewModel(string key, bool generate_vm_instance = false);
+        BaseVMType generateViewModel(Enum @enum, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        BaseVMType generateViewModel(string key, GenerateNewInstance instance_level = GenerateNewInstance.None);
         (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum);
         (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(string key);
         #endregion

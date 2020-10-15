@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Reflection;
 using System.ComponentModel;
+using Haley.Enums;
 
 namespace Haley.MVVM.Converters
 {
@@ -18,8 +19,23 @@ namespace Haley.MVVM.Converters
                 if (!(value.GetType() == typeof(string))) return null;
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                bool flag = (param != 0); //If param is not zero, then true
-                return ContainerStore.Singleton.controls.generateView((string)value, generate_vm_instance: flag);
+                GenerateNewInstance _newinstance = GenerateNewInstance.None;
+                switch (param)
+                {
+                    //None
+                    case 0:
+                        _newinstance = GenerateNewInstance.None;
+                        break;
+                    //TargetOnly
+                    case 1:
+                        _newinstance = GenerateNewInstance.TargetOnly;
+                        break;
+                    //All level
+                    case 2:
+                        _newinstance = GenerateNewInstance.AllDependencies;
+                        break;
+                }
+                return ContainerStore.Singleton.controls.generateView((string)value, instance_level: _newinstance);
             }
             catch (Exception)
             {

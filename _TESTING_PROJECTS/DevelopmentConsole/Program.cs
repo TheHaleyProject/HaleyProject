@@ -18,6 +18,7 @@ using Haley.Enums;
 using Haley.Utils;
 using System.CodeDom;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace DevelopmentConsole
 {
@@ -605,6 +606,7 @@ namespace DevelopmentConsole
     #region MVVM
     public class Program
     {
+        public ICommand _newcommand => new HCommand<string>(handleMethod);
         public static void Main(string[] args)
         {
             try
@@ -621,7 +623,7 @@ namespace DevelopmentConsole
             
         }
 
-        private static void handleMethod(string _message)
+        private void handleMethod(string _message)
         {
 
         }

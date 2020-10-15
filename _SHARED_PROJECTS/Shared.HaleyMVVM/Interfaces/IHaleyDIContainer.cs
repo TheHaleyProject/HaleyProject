@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Haley.Enums;
 
 namespace Haley.Abstractions
 {
@@ -18,9 +19,9 @@ namespace Haley.Abstractions
         /// <typeparam name="TContract"></typeparam>
         /// <typeparam name="TConcrete"></typeparam>
         /// <param name="is_singleton"></param>
-        void Register<TContract, TConcrete>(TConcrete instance = null) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
-        void Register<TConcrete>(TConcrete instance = null) where TConcrete : class;  
-        T Resolve<T>(bool generate_new_instance = false);
-        object Resolve(Type input_type, bool generate_new_instance = false);
+        void Register<TContract, TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
+        void Register<TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class;  
+        T Resolve<T>(IMappingProvider dependency_provider = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        object Resolve(Type input_type, IMappingProvider dependency_provider = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
     }
 }

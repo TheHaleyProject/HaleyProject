@@ -10,6 +10,7 @@ using Haley.Abstractions;
 using System.Windows;
 using System.Windows.Controls;
 using Haley.MVVM;
+using Haley.Enums;
 
 namespace Haley.Models
 {
@@ -34,19 +35,19 @@ namespace Haley.Models
         #endregion
 
         #region CreateNewInstance
-        public static bool GetCreateNewInstance(DependencyObject obj)
+        public static GenerateNewInstance GetCreateNewInstance(DependencyObject obj)
         {
-            return (bool)obj.GetValue(CreateNewInstanceProperty);
+            return (GenerateNewInstance)obj.GetValue(CreateNewInstanceProperty);
         }
 
-        public static void SetCreateNewInstance(DependencyObject obj, bool value)
+        public static void SetCreateNewInstance(DependencyObject obj, GenerateNewInstance value)
         {
             obj.SetValue(CreateNewInstanceProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for CreateNewInstance.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CreateNewInstanceProperty =
-            DependencyProperty.RegisterAttached("CreateNewInstance", typeof(bool), typeof(HaleyAP), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("CreateNewInstance", typeof(GenerateNewInstance), typeof(HaleyAP), new PropertyMetadata(GenerateNewInstance.None));
         #endregion
 
         public static bool GetInjectVM(DependencyObject obj)
@@ -72,7 +73,7 @@ namespace Haley.Models
                 {
                     //If d is usercontrol and also implements ihaleycontrol, then resolve the viewmodel
                     string _key = GetContainerKey(d);
-                    if (_key == null) _key = d.GetType().FullName;
+                    if (_key == null) _key = d.GetType().ToString();
                     if (d is IHaleyControl)
                     {
                         var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetCreateNewInstance(d));

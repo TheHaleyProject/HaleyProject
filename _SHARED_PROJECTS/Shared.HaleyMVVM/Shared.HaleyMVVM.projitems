@@ -9,10 +9,11 @@
     <Import_RootNamespace>Shared.HaleyMVVM</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\HaleyIgnoreAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\HaleyInjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Containers\UIContainerBases.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\DIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
@@ -43,9 +44,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MappingProviderBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IMappingProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />

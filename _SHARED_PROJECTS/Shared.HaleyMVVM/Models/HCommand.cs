@@ -20,7 +20,7 @@ namespace Haley.Models
     }
 
     
-    public abstract class HCommand<T> : ICommand
+    public class HCommand<T> : ICommand
     {
         Action<T> _action_method;
         Func<object, bool> _validation_function;
