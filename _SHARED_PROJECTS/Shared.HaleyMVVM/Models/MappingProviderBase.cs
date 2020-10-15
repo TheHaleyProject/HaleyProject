@@ -24,13 +24,13 @@ namespace Haley.Models
 
             if (instance_type != null)
             {
-                if (!string.IsNullOrEmpty(_key)) _key += ".";
+                if (!string.IsNullOrEmpty(_key)) _key += "##";
                 _key += $@"{instance_type.ToString()}";
             }
 
             if (!string.IsNullOrEmpty(name))
             {
-                if (!string.IsNullOrEmpty(_key)) _key += ".";
+                if (!string.IsNullOrEmpty(_key)) _key += "##";
                 _key += name;
             }
 
@@ -40,18 +40,18 @@ namespace Haley.Models
         #endregion
 
         #region Add
-        public bool Add(object instance, Type parent = null, InjectionTarget target = InjectionTarget.All)
+        public bool Add<TConcrete>(string name, TConcrete instance, Type parent = null, InjectionTarget target = InjectionTarget.All)
         {
-            return Add(null, instance, parent, target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
+            return Add(name, instance,typeof(TConcrete), parent, target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
         }
-        public bool Add<T>(T instance, Type parent = null, InjectionTarget target = InjectionTarget.All)
+        public bool Add<TContract, TConcrete>(TConcrete instance, Type parent = null, InjectionTarget target = InjectionTarget.All) where TConcrete : TContract
         {
-            return Add(null,instance, parent, target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
+            return Add(null,instance,typeof(TContract), parent: parent,target: target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
         }
 
-        public bool Add(string name, object instance, Type parent = null, InjectionTarget target = InjectionTarget.All)
+        public bool Add(string name, object instance, Type target_type =null, Type parent = null, InjectionTarget target = InjectionTarget.All)
         {
-            var key = _getKey(name, instance.GetType(),parent);
+            var key = _getKey(name,target_type ?? instance.GetType(),parent);
             return _mappings.TryAdd(key, (instance,target));
         }
         #endregion

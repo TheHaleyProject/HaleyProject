@@ -157,8 +157,8 @@ namespace Haley.MVVM.Containers
             object _instance = null;
             _validateConcreteType(concrete_type);
             ConstructorInfo constructor = _getConstructor(concrete_type);
-            _resolveConstructorParameters(ref constructor, concrete_type, dependency_provider, instance_level, out _instance);
-            _resolveProperties(concrete_type, dependency_provider, instance_level, out _instance);
+            _resolveConstructorParameters(ref constructor, concrete_type, dependency_provider, instance_level, ref _instance);
+            _resolveProperties(concrete_type, dependency_provider, instance_level, ref _instance);
             return _instance;
         }
         #endregion
@@ -197,10 +197,8 @@ namespace Haley.MVVM.Containers
             }
             return constructor;
         }
-        private void _resolveConstructorParameters(ref ConstructorInfo constructor, Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, out object _instance)
+        private void _resolveConstructorParameters(ref ConstructorInfo constructor, Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, ref object _instance)
         {
-            _instance = null;
-
             //Resolve the param arugments for the constructor.
             ParameterInfo[] constructor_params = constructor.GetParameters();
 
@@ -225,9 +223,8 @@ namespace Haley.MVVM.Containers
             }
 
         }
-        private void _resolveProperties(Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, out object _instance)
+        private void _resolveProperties(Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, ref object _instance)
         {
-            _instance = null;
             //Resolve only properties that are of type Haley inject and also ignore if it has haleyignore
             var _props = concrete_type.GetProperties().Where(
                 p => Attribute.IsDefined(p, typeof(HaleyInjectAttribute)));
@@ -300,34 +297,60 @@ namespace Haley.MVVM.Containers
             }
         }
 
-        public void Register<TContract, TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
+        public void Register<TContract, TConcrete>(TConcrete instance = null) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
         {
             Type _input_type = typeof(TContract);
 
-            _register<TConcrete>(_input_type, dependencyProvider, instance, true);
+            _register<TConcrete>(_input_type, null, instance, true);
 
         }
 
-        public void Register<TConcrete>(TConcrete instance = null, IMappingProvider dependencyProvider = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
+        public void Register<TConcrete>(TConcrete instance = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
         {
             Type _input_type = typeof(TConcrete); //Both input and concrete type are same.
 
-            _register<TConcrete>(_input_type, dependencyProvider, instance,false);
+            _register<TConcrete>(_input_type, null, instance,false);
+        }
+
+        public void Register<TContract, TConcrete>(IMappingProvider dependencyProvider) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
+        {
+            Type _input_type = typeof(TContract);
+
+            _register<TConcrete>(_input_type, dependencyProvider, null, true);
+
+        }
+
+        public void Register<TConcrete>( IMappingProvider dependencyProvider) where TConcrete : class  //TImplementation should either implement or inherit from TContract
+        {
+            Type _input_type = typeof(TConcrete); //Both input and concrete type are same.
+
+            _register<TConcrete>(_input_type, dependencyProvider, null, false);
         }
 
         #endregion
 
         #region Resolution Methods
 
-        public T Resolve<T>(IMappingProvider dependency_provider = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public T Resolve<T>(GenerateNewInstance instance_level = GenerateNewInstance.None)
+        {
+            var _obj = Resolve(typeof(T), instance_level);
+            return (T)_obj;
+        }
+        public object Resolve(Type input_type, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        {
+            return _resolve(null,input_type,null, null, instance_level, InjectionTarget.All);
+        }
+        public T Resolve<T>(IMappingProvider dependency_provider, GenerateNewInstance instance_level = GenerateNewInstance.TargetOnly)
         {
             var _obj = Resolve(typeof(T), dependency_provider, instance_level);
             return (T)_obj;
         }
-        public object Resolve(Type input_type, IMappingProvider dependency_provider = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public object Resolve(Type input_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level = GenerateNewInstance.TargetOnly)
         {
-            return _resolve(null,input_type,null, dependency_provider, instance_level, InjectionTarget.All);
+            if (instance_level == GenerateNewInstance.None) instance_level = GenerateNewInstance.TargetOnly;
+            return _resolve(null, input_type, null, dependency_provider, instance_level, InjectionTarget.All);
         }
+
         #endregion
         public DIContainer() 
         {

@@ -6,9 +6,7 @@ PAUSE
 EXIT)
 
 Echo Processing NugetPackage
-if exist ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj nuget pack ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release 
 
-Echo Processing SymbolsPackage
 if exist ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj nuget pack ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release -Symbols -SymbolPackageFormat snupkg
 
 Echo Process completed successfully. 

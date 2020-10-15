@@ -17,9 +17,11 @@ namespace Haley.Abstractions
         ConcurrentDictionary<string, (object _instance, InjectionTarget _target)> _mappings { get; }
 
         #region Add
-        bool Add(string name, object instance,Type parent = null , InjectionTarget target = InjectionTarget.All);
-        bool Add(object instance, Type parent = null, InjectionTarget target = InjectionTarget.All);
-        bool Add<T>(T instance, Type parent = null ,InjectionTarget target = InjectionTarget.All);
+        //Concrete mapping
+        bool Add<TConcrete>(string name, TConcrete instance,Type parent = null , InjectionTarget target = InjectionTarget.All);
+     
+        bool Add<TContract,TConcrete>(TConcrete instance, Type parent = null ,InjectionTarget target = InjectionTarget.All) where TConcrete:TContract;
+        bool Add(string name, object instance, Type target_type = null, Type parent = null, InjectionTarget target = InjectionTarget.All);
         #endregion
 
         #region Remove

@@ -176,7 +176,7 @@ namespace Haley.Abstractions
             {
                 BaseViewModelType _result;
                 var _mappingValue = getMappingValue(key);
-                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type,null, instance_level);
+                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type, instance_level);
                 return _result;
             }
             catch (Exception ex)
