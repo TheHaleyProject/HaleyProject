@@ -44,13 +44,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A04A
 		Script.txt = Script.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PUBLIC PACKAGES", "PUBLIC PACKAGES", "{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetPackaing", "NugetPackaing", "{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A}"
 	ProjectSection(SolutionItems) = preProject
-		NuGetOutput\PUBLIC\CopyPackagesToLocalSource.bat = NuGetOutput\PUBLIC\CopyPackagesToLocalSource.bat
-		NuGetOutput\PUBLIC\CreateNugetPackage-64.bat = NuGetOutput\PUBLIC\CreateNugetPackage-64.bat
-		NuGetOutput\PUBLIC\CreateNugetPackage-AnyCPU-Individual.bat = NuGetOutput\PUBLIC\CreateNugetPackage-AnyCPU-Individual.bat
-		NuGetOutput\PUBLIC\CreateNugetPackage-AnyCPU.bat = NuGetOutput\PUBLIC\CreateNugetPackage-AnyCPU.bat
-		NuGetOutput\PUBLIC\PublishPackage.bat = NuGetOutput\PUBLIC\PublishPackage.bat
+		NuGetOutput\CopyCorePackages.bat = NuGetOutput\CopyCorePackages.bat
+		NuGetOutput\CopyPackagesToLocalSource.bat = NuGetOutput\CopyPackagesToLocalSource.bat
+		NuGetOutput\CreateNugetPackage-64.bat = NuGetOutput\CreateNugetPackage-64.bat
+		NuGetOutput\CreateNugetPackage-AnyCPU.bat = NuGetOutput\CreateNugetPackage-AnyCPU.bat
+		NuGetOutput\PublishPackage.bat = NuGetOutput\PublishPackage.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleySnippets", "_CORE_PROJECTS\HaleySnippets\HaleySnippets.csproj", "{4BAE19DA-7077-41E5-B93A-562F89210B79}"

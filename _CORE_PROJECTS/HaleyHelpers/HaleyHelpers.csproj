@@ -20,6 +20,8 @@
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
