@@ -103,7 +103,7 @@ namespace Haley.MVVM.Containers
         {
             //Begin with null output.
             instance = null;
-            if (input_type == null) throw new ArgumentNullException(nameof(input_type));
+            if (input_type == null) { throw new ArgumentNullException(nameof(input_type)); }
 
             //if external mapping is null, no point in proceeding.
             if (dependency_provider == null) return;
@@ -347,7 +347,8 @@ namespace Haley.MVVM.Containers
         }
         public object Resolve(Type input_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level = GenerateNewInstance.TargetOnly)
         {
-            if (instance_level == GenerateNewInstance.None) instance_level = GenerateNewInstance.TargetOnly;
+            if (instance_level == GenerateNewInstance.None)
+            { instance_level = GenerateNewInstance.TargetOnly; }
             return _resolve(null, input_type, null, dependency_provider, instance_level, InjectionTarget.All);
         }
 

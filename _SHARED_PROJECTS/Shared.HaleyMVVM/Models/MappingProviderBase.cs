@@ -37,6 +37,10 @@ namespace Haley.Models
             return _key;
         }
 
+        private (object instance, InjectionTarget target) _getValue(string _key)
+        {
+
+        }
         #endregion
 
         #region Add
@@ -79,7 +83,21 @@ namespace Haley.Models
         {
             (object, InjectionTarget) _newtuple = (null, InjectionTarget.All);
             var key = _getKey(name,instance_type, parent);
+            //First try to get the value for whole key
             _mappings.TryGetValue(key, out _newtuple);
+            if (_newtuple.Item1 == null)
+            {
+                //Try to check if we can get value for name
+                if (!string.IsNullOrEmpty(name))
+                {
+                    _mappings.TryGetValue(name, out _newtuple);
+                    //Ensure that the retrieved output (ifany) is of instance type
+                    if (_newtuple.Item1 == null)
+                    {
+
+                    }
+                }
+            }
             return _newtuple;
         }
 
