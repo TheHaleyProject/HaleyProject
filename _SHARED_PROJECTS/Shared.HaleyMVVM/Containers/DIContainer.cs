@@ -251,12 +251,12 @@ namespace Haley.MVVM.Containers
 
         #region Register Methods
 
-        private void _register<TConcrete>(Type _input_type,IMappingProvider dependencyProvider, object instance, bool is_type_register = true)
+        private void _register<TConcrete>(Type input_type,IMappingProvider dependencyProvider, object instance, bool is_type_register = true)
         {
             Type _target_type = typeof(TConcrete);
 
             //Check if already registered
-            bool _exists = _validateExistence(_input_type, _target_type);
+            bool _exists = _validateExistence(input_type, _target_type);
             if (_exists && (!overwrite_if_registered)) return;
 
             //Validate
@@ -274,8 +274,8 @@ namespace Haley.MVVM.Containers
                     if (is_type_register)
                     {
                         (Type _type, object _inst) _current_tuple;
-                        abstract_type_mappings.TryGetValue(_input_type, out _current_tuple);
-                        abstract_type_mappings.TryUpdate(_input_type, (_target_type, instance), _current_tuple); //Remember to assign the instance
+                        abstract_type_mappings.TryGetValue(input_type, out _current_tuple);
+                        abstract_type_mappings.TryUpdate(input_type, (_target_type, instance), _current_tuple); //Remember to assign the instance
                     }
                     else
                     {
@@ -287,7 +287,7 @@ namespace Haley.MVVM.Containers
                 case false: //Add
                     if (is_type_register)
                     {
-                        abstract_type_mappings.TryAdd(_input_type, (_target_type, instance));
+                        abstract_type_mappings.TryAdd(input_type, (_target_type, instance));
                     }
                     else
                     {
