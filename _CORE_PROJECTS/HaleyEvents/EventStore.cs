@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Haley.MVVM.Containers;
-using Haley.Events;
 using System.Collections.Concurrent;
 
-namespace Haley.MVVM
+namespace Haley.Events
 {
     public sealed class EventStore
     {

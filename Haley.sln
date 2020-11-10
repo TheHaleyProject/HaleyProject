@@ -55,7 +55,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetPackaing", "NugetPacka
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleySnippets", "_CORE_PROJECTS\HaleySnippets\HaleySnippets.csproj", "{4BAE19DA-7077-41E5-B93A-562F89210B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyMVVM.Test", "_TESTING_PROJECTS\HaleyMVVM.Test\HaleyMVVM.Test.csproj", "{284CD7AE-8A92-4070-8E06-3D225169D906}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVM.Test", "_TESTING_PROJECTS\HaleyMVVM.Test\HaleyMVVM.Test.csproj", "{284CD7AE-8A92-4070-8E06-3D225169D906}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyEvents", "_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj", "{6524CEE1-4782-4361-8711-9444BAF8BFFB}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -177,6 +179,14 @@ Global
 		{284CD7AE-8A92-4070-8E06-3D225169D906}.Release|Any CPU.Build.0 = Release|Any CPU
 		{284CD7AE-8A92-4070-8E06-3D225169D906}.Release|x64.ActiveCfg = Release|Any CPU
 		{284CD7AE-8A92-4070-8E06-3D225169D906}.Release|x64.Build.0 = Release|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Debug|x64.Build.0 = Debug|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|x64.ActiveCfg = Release|Any CPU
+		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

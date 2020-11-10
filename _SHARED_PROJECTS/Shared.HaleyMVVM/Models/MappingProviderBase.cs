@@ -39,7 +39,7 @@ namespace Haley.Models
 
         private (object instance, InjectionTarget target) _getValue(string _key)
         {
-
+            return (null, InjectionTarget.All);
         }
         #endregion
 

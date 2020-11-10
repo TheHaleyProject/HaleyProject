@@ -9,7 +9,7 @@
     <Authors>Lingam</Authors>
     <Product>Haley MVVM Core</Product>
     <Company>TheHaleyProject</Company>
-    <Description>A light weight MVVM implementation with Event store, IOC store, DI</Description>
+    <Description>A light weight MVVM implementation with IOC Containes, Delegate Commands, NotifyPropertyChanged Base Model.</Description>
     <PackageTags>WPF MVVM MVVM IOC DI Haley</PackageTags>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
