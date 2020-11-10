@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\HaleyInjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\DIContainer.cs" />

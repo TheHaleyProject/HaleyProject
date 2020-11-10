@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.Events;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Windows.Threading;

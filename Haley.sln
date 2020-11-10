@@ -44,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A04A
 		Script.txt = Script.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetPackaing", "NugetPackaing", "{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetPackaging", "NugetPackaging", "{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A}"
 	ProjectSection(SolutionItems) = preProject
 		NuGetOutput\CopyCorePackages.bat = NuGetOutput\CopyCorePackages.bat
 		NuGetOutput\CopyPackagesToLocalSource.bat = NuGetOutput\CopyPackagesToLocalSource.bat
@@ -57,7 +57,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleySnippets", "_CORE_PROJ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVM.Test", "_TESTING_PROJECTS\HaleyMVVM.Test\HaleyMVVM.Test.csproj", "{284CD7AE-8A92-4070-8E06-3D225169D906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyEvents", "_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj", "{6524CEE1-4782-4361-8711-9444BAF8BFFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyEvents", "_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj", "{6524CEE1-4782-4361-8711-9444BAF8BFFB}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

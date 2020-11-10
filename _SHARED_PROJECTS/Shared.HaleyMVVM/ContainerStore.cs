@@ -5,7 +5,6 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.Events;
 using Haley.MVVM.Containers;
 
 namespace Haley.MVVM

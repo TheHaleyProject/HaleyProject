@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj" />
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVMCore\HaleyMVVMCore.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.Events;
 using System.Reflection;
 using System.Configuration;
 using System.CodeDom;

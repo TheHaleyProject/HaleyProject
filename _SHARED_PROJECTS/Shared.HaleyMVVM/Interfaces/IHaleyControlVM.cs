@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Haley.Events;
 
 namespace Haley.Abstractions
 {
-
     public interface IHaleyControlVM { }
 }
