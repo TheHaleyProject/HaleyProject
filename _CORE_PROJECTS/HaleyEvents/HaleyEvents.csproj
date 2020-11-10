@@ -14,6 +14,8 @@
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <PackageIcon>Haley.png</PackageIcon>
     <PackageTags>Event</PackageTags>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +24,10 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
 
 </Project>
