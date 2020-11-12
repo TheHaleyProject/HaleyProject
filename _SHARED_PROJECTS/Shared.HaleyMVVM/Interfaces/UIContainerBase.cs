@@ -88,7 +88,7 @@ namespace Haley.Abstractions
         #endregion
 
         #region Private Methods
-        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             var _mapping_value = getMappingValue(key);
 
@@ -100,16 +100,16 @@ namespace Haley.Abstractions
             if (!_mapping_value.is_singleton)
             {
                 //If user asks for None, then assign current level
-                if (instance_level == GenerateNewInstance.None)
+                if (instance_level == GenerateNewInstanceFor.None)
                 {
-                    instance_level = GenerateNewInstance.TargetOnly;
+                    instance_level = GenerateNewInstanceFor.TargetObjectOnly;
                 }
             }
             BaseViewModelType resultViewModel = _generateViewModel(key, _mapping_value.viewmodel_type, instance_level);
 
             return (resultViewModel, resultcontrol);
         }
-        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             //At present, if viewmodel instnce has to be created, return instance creation level as current
             BaseViewModelType _result;
@@ -120,18 +120,18 @@ namespace Haley.Abstractions
 
         #region View Retrieval Methods
         //Return a generic type which implements BaseViewType 
-        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None) where viewmodelType : class, BaseViewModelType
+        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where viewmodelType : class, BaseViewModelType
         {
             string _key = typeof(viewmodelType).ToString();
             return generateView(_key, InputViewModel, instance_level);
         }
-        public BaseViewType generateView(Enum @enum, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public BaseViewType generateView(Enum @enum, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             return generateView(_key, InputViewModel,instance_level);
         }
-        public abstract BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        public abstract BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
         
         #endregion
 
@@ -163,14 +163,14 @@ namespace Haley.Abstractions
 
             return _registered_tuple;
         }
-        public BaseViewModelType generateViewModel(Enum @enum, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public BaseViewModelType generateViewModel(Enum @enum, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             BaseViewModelType _result = generateViewModel(_key, instance_level);
             return _result;
         }
-        public BaseViewModelType generateViewModel(string key, GenerateNewInstance instance_level = GenerateNewInstance.None) //If required we can even return the actural viewmodel concrete type as well.
+        public BaseViewModelType generateViewModel(string key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) //If required we can even return the actural viewmodel concrete type as well.
         {
             try
             {

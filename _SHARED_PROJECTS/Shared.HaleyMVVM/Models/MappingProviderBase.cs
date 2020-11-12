@@ -7,112 +7,111 @@ namespace Haley.Models
 {
     public class MappingProviderBase : IMappingProvider
     {
+        public MappingProviderBase() { _mappings = new ConcurrentDictionary<string, (object concrete_instance, InjectionTarget _target)>(); }
+
         #region ATTRIBUTES
         //Add parameter or property values.
-        //Key = $parentType$.$targetType$.$key$
-        public ConcurrentDictionary<string, (object _instance, InjectionTarget _target)> _mappings { get; }
+        //Key = $contractParentType.$contractType.$contractName
+        public ConcurrentDictionary<string, (object concrete_instance, InjectionTarget _target)> _mappings { get; }
         #endregion
 
         #region Private Methods
-        private string _getKey(string name, Type instance_type, Type parent)
+        private string _getKey(string contract_name, Type contract_type, Type contract_parent)
         {
+            //Key = $contractParentType.$contractType.$contractName
             string _key = "";
-            if (parent != null)
+            if (contract_parent != null)
             {
-                _key = $@"{parent.ToString()}";
+                _key = $@"{contract_parent.ToString()}";
             }
 
-            if (instance_type != null)
-            {
-                if (!string.IsNullOrEmpty(_key)) _key += "##";
-                _key += $@"{instance_type.ToString()}";
-            }
-
-            if (!string.IsNullOrEmpty(name))
+            if (contract_type != null)
             {
                 if (!string.IsNullOrEmpty(_key)) _key += "##";
-                _key += name;
+                _key += $@"{contract_type.ToString()}";
             }
 
+            if (!string.IsNullOrEmpty(contract_name))
+            {
+                if (!string.IsNullOrEmpty(_key)) _key += "##";
+                _key += contract_name;
+            }
             return _key;
         }
 
-        private (object instance, InjectionTarget target) _getValue(string _key)
+        private (object concrete_instance, InjectionTarget target) _getValue(string _key)
         {
-            return (null, InjectionTarget.All);
+            (object concrete_instance, InjectionTarget _target) output_tuple = (null, InjectionTarget.All);
+            _mappings.TryGetValue(_key, out output_tuple);
+            return output_tuple;
         }
         #endregion
 
         #region Add
-        public bool Add<TConcrete>(string name, TConcrete instance, Type parent = null, InjectionTarget target = InjectionTarget.All)
+        public bool Add<TConcrete>(string contract_name, TConcrete concrete_instance, Type contract_parent = null, InjectionTarget target = InjectionTarget.All)
         {
-            return Add(name, instance,typeof(TConcrete), parent, target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
-        }
-        public bool Add<TContract, TConcrete>(TConcrete instance, Type parent = null, InjectionTarget target = InjectionTarget.All) where TConcrete : TContract
-        {
-            return Add(null,instance,typeof(TContract), parent: parent,target: target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
+            return Add(contract_name, concrete_instance, typeof(TConcrete), contract_parent, target); 
         }
 
-        public bool Add(string name, object instance, Type target_type =null, Type parent = null, InjectionTarget target = InjectionTarget.All)
+        public bool Add<TContract, TConcrete>(TConcrete concrete_instance, Type contract_parent = null, InjectionTarget target = InjectionTarget.All) where TConcrete : TContract
         {
-            var key = _getKey(name,target_type ?? instance.GetType(),parent);
-            return _mappings.TryAdd(key, (instance,target));
+            return Add(null, concrete_instance, typeof(TContract), contract_parent: contract_parent, target: target); //Here key is null, because, it should take $parentType$.$instanceType$ as key.
         }
+
+        public bool Add(string contract_name, object concrete_instance, Type contract_type = null, Type contract_parent = null, InjectionTarget target = InjectionTarget.All)
+        {
+            var key = _getKey(contract_name, contract_type ?? concrete_instance.GetType(), contract_parent);
+            return _mappings.TryAdd(key, (concrete_instance, target));
+        }
+
         #endregion
 
         #region Remove
-        public bool Remove<T>(Type parent = null)
+        public bool Remove(string contract_name, Type contract_type = null, Type contract_parent = null)
         {
-            return Remove(null,typeof(T), parent);
+            //For this concrete type is the contract type.
+            (object concrete_instance, InjectionTarget _target) _removed_tuple = (null, InjectionTarget.All);
+            var key = _getKey(contract_name, contract_type, contract_parent);
+            return _mappings.TryRemove(key, out _removed_tuple);
         }
 
-        public bool Remove(Type instance_type, Type parent = null)
+        public bool Remove<T>(Type contract_parent = null)
         {
-            return Remove(null,instance_type, parent);
+            return Remove(null, typeof(T), contract_parent);
         }
-        public bool Remove(string name, Type instance_type = null, Type parent = null)
+
+        public bool Remove(Type contract_type, Type contract_parent = null)
         {
-            (object, InjectionTarget) _newtuple = (null, InjectionTarget.All);
-            var key = _getKey(name,instance_type, parent);
-            return _mappings.TryRemove(key, out _newtuple);
+            return Remove(null, contract_type, contract_parent);
         }
         #endregion
 
         #region Resolve
-        public (object instance, InjectionTarget target) Resolve(string name, Type instance_type = null, Type parent = null)
+
+        public (object concrete_instance, InjectionTarget target) Resolve<TContract>(string contract_name =null,  Type contract_parent = null)
         {
-            (object, InjectionTarget) _newtuple = (null, InjectionTarget.All);
-            var key = _getKey(name,instance_type, parent);
+            return Resolve(typeof(TContract),contract_name,contract_parent);
+        }
+
+        public (object concrete_instance, InjectionTarget target) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null)
+        {
+            (object concrete_instance, InjectionTarget target) _output_tuple = (null, InjectionTarget.All);
+            var key = _getKey(contract_name, contract_type, contract_parent);
+
             //First try to get the value for whole key
-            _mappings.TryGetValue(key, out _newtuple);
-            if (_newtuple.Item1 == null)
+            _mappings.TryGetValue(key, out _output_tuple);
+            if (_output_tuple.concrete_instance == null)
             {
                 //Try to check if we can get value for name
-                if (!string.IsNullOrEmpty(name))
+                if (!string.IsNullOrEmpty(contract_name))
                 {
-                    _mappings.TryGetValue(name, out _newtuple);
-                    //Ensure that the retrieved output (ifany) is of instance type
-                    if (_newtuple.Item1 == null)
-                    {
-
-                    }
+                    _mappings.TryGetValue(contract_name, out _output_tuple);
                 }
             }
-            return _newtuple;
+            return _output_tuple;
         }
-
-        public (object instance, InjectionTarget target) Resolve(Type instance_type, Type parent = null)
-        {
-            return Resolve(null,instance_type, parent);
-        }
-        public virtual (T instance, InjectionTarget target) Resolve<T>(Type parent = null)
-        {
-            var _result = Resolve(null,typeof(T), parent);
-            return ((T)_result.instance, _result.target);
-        }
-        
         #endregion
 
-        public MappingProviderBase() {_mappings= new ConcurrentDictionary<string, (object _instance, InjectionTarget _target)>(); }
+
     }
 }

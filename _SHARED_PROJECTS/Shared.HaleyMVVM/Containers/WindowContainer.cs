@@ -19,44 +19,44 @@ namespace Haley.MVVM.Containers
         public WindowContainer(IHaleyDIContainer _injection_container) : base(_injection_container) { }
 
         #region ShowDialog Methods
-        public bool? showDialog(Enum key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public bool? showDialog(Enum key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             string _key = StringHelpers.getEnumAsKey(key);
             return showDialog(_key, InputViewModel, instance_level);
         }
-        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None) where ViewModelType : class, IHaleyWindowVM
+        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where ViewModelType : class, IHaleyWindowVM
         {
             string _key = typeof(ViewModelType).ToString();
             return showDialog(_key, InputViewModel, instance_level);
         }
-        public bool? showDialog<ViewType>(GenerateNewInstance instance_level = GenerateNewInstance.None) where ViewType : IHaleyWindow
+        public bool? showDialog<ViewType>(GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where ViewType : IHaleyWindow
         {
             string _key = typeof(ViewType).ToString();
             return showDialog(_key, null, instance_level);
         }
-        public bool? showDialog(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public bool? showDialog(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             return _invokeDisplay(key, InputViewModel,instance_level, is_modeless: false); //This is modal
         }
         #endregion
 
         #region Show Methods
-        public void show<ViewModelType>(ViewModelType InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None) where ViewModelType : class, IHaleyWindowVM
+        public void show<ViewModelType>(ViewModelType InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where ViewModelType : class, IHaleyWindowVM
         {
             string _key = typeof(ViewModelType).FullName;
             show(_key, InputViewModel, instance_level);
         }
-        public void show<ViewType>(GenerateNewInstance instance_level = GenerateNewInstance.None) where ViewType : IHaleyWindow
+        public void show<ViewType>(GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where ViewType : IHaleyWindow
         {
             string _key = typeof(ViewType).FullName;
             show(_key, null, instance_level);
         }
-        public void show(Enum key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public void show(Enum key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             string _key = StringHelpers.getEnumAsKey(key);
             show(_key, InputViewModel, instance_level);
         }
-        public void show(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public void show(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             _invokeDisplay(key, InputViewModel, instance_level,is_modeless: true); //This is modeless
         }
@@ -64,7 +64,7 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Overridden Methods
-        public override IHaleyWindow generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public override IHaleyWindow generateView(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Private Methods
-        private bool? _invokeDisplay(string key, object InputViewModel, GenerateNewInstance instance_level, bool is_modeless)
+        private bool? _invokeDisplay(string key, object InputViewModel, GenerateNewInstanceFor instance_level, bool is_modeless)
         {
             bool? _result = null;
 

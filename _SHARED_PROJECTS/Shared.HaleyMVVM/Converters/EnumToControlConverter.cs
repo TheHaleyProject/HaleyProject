@@ -19,20 +19,20 @@ namespace Haley.MVVM.Converters
             {
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                GenerateNewInstance _newinstance = GenerateNewInstance.None;
+                GenerateNewInstanceFor _newinstance = GenerateNewInstanceFor.None;
                 switch(param)
                 {
                     //None
                     case 0:
-                        _newinstance = GenerateNewInstance.None;
+                        _newinstance = GenerateNewInstanceFor.None;
                         break;
                         //TargetOnly
                     case 1:
-                        _newinstance = GenerateNewInstance.TargetOnly;
+                        _newinstance = GenerateNewInstanceFor.TargetObjectOnly;
                         break;
                         //All level
                     case 2:
-                        _newinstance = GenerateNewInstance.AllDependencies;
+                        _newinstance = GenerateNewInstanceFor.CascadeAll;
                         break;
                 }
                 return ContainerStore.Singleton.controls.generateView((Enum)value, instance_level: _newinstance);

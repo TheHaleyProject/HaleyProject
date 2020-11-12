@@ -11,15 +11,14 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using Haley.Enums;
 using System.Runtime.InteropServices;
+using System.Windows.Documents;
 
 namespace Haley.MVVM.Containers
 {
     public sealed class DIContainer : IHaleyDIContainer
     {
         #region ATTRIBUTES
-        //This is where we store all our types. When request is made for an contract type (key), we create an instance based on the value concrete type(value) and return back
-        private readonly ConcurrentDictionary<Type, (Type, object)> abstract_type_mappings = new ConcurrentDictionary<Type, (Type, object)>();
-        private readonly ConcurrentDictionary<Type, object> concrete_mappings = new ConcurrentDictionary<Type, object>();
+        private readonly ConcurrentDictionary<string, (Type contract_type, Type concrete_type, object concrete_instance)> _mappings = new ConcurrentDictionary<string, (Type contract_type, Type concrete_type, object concrete_instance)>();
         #endregion
 
         #region Properties
@@ -28,41 +27,36 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Validations
-        public (bool status, Type registered_type, string message) checkIfRegistered(Type input_type)
+        public (bool status, Type registered_type, string message) checkIfRegistered(string key)
         {
-            //Check if the provided input is present in any of the repository. If yes, then return error stating that it is already registered.
-            (Type target_type, object instance) _registered_tuple = (null,null);
+            (Type contract_type, Type concrete_type, object concrete_instance) _registered_tuple = (null, null, null);
+
             string _message = null;
             bool _is_registered = false;
 
-            //CHECK ABSTRACT SINGLETON REPOSITORY
-            if (abstract_type_mappings.ContainsKey(input_type))
+            if (_mappings.ContainsKey(key))
             {
                 _is_registered = true;
-                abstract_type_mappings.TryGetValue(input_type, out _registered_tuple);
-                _message = $@"The {input_type} is already registered against the type {_registered_tuple.target_type}.";
+                _mappings.TryGetValue(key, out _registered_tuple);
+                _message = $@"The key : {key} is already registered against the type {_registered_tuple.concrete_type}.";
             }
 
-            //CHECK CONCRETE SINGLETON REPOSITORY
-            if (concrete_mappings.ContainsKey(input_type))
-            {
-                _is_registered = true;
-                _registered_tuple = (input_type, null); //Not returning the value.
-                _message = $@"The concrete type: {input_type} is already registered.";
-            }
-
-            return (_is_registered, _registered_tuple.target_type, _message);
+            return (_is_registered, _registered_tuple.concrete_type, _message);
         }
-        private bool _validateExistence(Type input_type, Type target_type)
+        public (bool status, Type registered_type, string message) checkIfRegistered(Type contract_type)
         {
-            var _status = checkIfRegistered(input_type);
+            return checkIfRegistered(contract_type?.ToString());
+        }
+        private bool _validateExistence(Type contract_type, Type concrete_type)
+        {
+            var _status = checkIfRegistered(contract_type);
             //If registered and also ignore
             if (_status.status)
             {
                 if (!ignore_if_registered)
                 {
                     //Throw the error, only if you should not ignore the registered status.
-                    if (_status.registered_type != target_type)
+                    if (_status.registered_type != concrete_type)
                     {
                         throw new ArgumentException(_status.message);
                     }
@@ -79,85 +73,179 @@ namespace Haley.MVVM.Containers
         }
         #endregion
 
-        #region Private Creation Methods
-        private object _resolve(string name, Type input_type, Type parent_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level,InjectionTarget targetInjection)
+        #region Register Methods
+
+        private void _register(Type contract_type, Type concrete_type, object concrete_instance,IMappingProvider dependencyProvider, string custom_key)
         {
-            object _obj = null;
-            //Try to resolve using external mapping.
-            _externalMappingResolve(dependency_provider, name, input_type, parent_type, instance_level, targetInjection, out _obj);
+            //Validate if the contract type is alredy registered. If so, against correct concrete type.
+            bool _exists = _validateExistence(contract_type, concrete_type);
+
+            //If it already exists and we should not over write, then do not proceed.
+            if (_exists && (!overwrite_if_registered)) return;
+
+            //Validate if the concrete type can be registered
+            _validateConcreteType(concrete_type);
+
+            //Generate instance only if the provided value is null
+            if (concrete_instance == null )
+            {
+                concrete_instance = _createInstance(concrete_type, dependencyProvider, GenerateNewInstanceFor.TargetObjectOnly); //Create instance resolving all dependencies
+            }
+
+            //Process the registry key
+            if (string.IsNullOrEmpty(custom_key) || string.IsNullOrWhiteSpace(custom_key))
+            {
+                custom_key = contract_type.ToString();
+            }
+
+            //Generate new tuple
+            var _new_tuple = (contract_type, concrete_type, concrete_instance);
+
+            //We have already validate if overwrite is required or not. If we reach this point, then overwrite is required.
+            if (_exists)
+            {
+                //Overwrite the existing value 
+                (Type contract_type, Type concrete_type, object concrete_instance) _current_tuple;
+                _mappings.TryGetValue(custom_key, out _current_tuple);
+                _mappings.TryUpdate(custom_key, _new_tuple, _current_tuple); //Remember to assign the instance
+            }
+            else
+            { 
+               _mappings.TryAdd(custom_key, _new_tuple);
+            }
+        }
+        public void Register<TConcrete>(string key = null) where TConcrete : class
+        {
+            //For this method, both contract and concrete type are same.
+            _register(typeof(TConcrete), typeof(TConcrete), null, null, key);
+        }
+        public void Register<TConcrete>(TConcrete instance, string key = null) where TConcrete : class
+        {
+            //For this method, both contract and concrete type are same.
+            _register(typeof(TConcrete), typeof(TConcrete), instance, null, key);
+        }
+        public void Register<TConcrete>(IMappingProvider dependencyProvider, string key = null) where TConcrete : class
+        {
+            //For this method, both contract and concrete type are same.
+            _register(typeof(TConcrete), typeof(TConcrete), null,dependencyProvider, key);
+        }
+        public void Register<TContract, TConcrete>(TConcrete instance, string key = null) where TConcrete : class, TContract
+        {
+            _register(typeof(TContract), typeof(TConcrete), instance, null, key);
+        }
+        public void Register<TContract, TConcrete>(string key = null) where TConcrete : class, TContract
+        {
+            _register(typeof(TContract), typeof(TConcrete), null, null, key);
+        }
+        public void Register<TContract, TConcrete>(IMappingProvider dependencyProvider, string key = null) where TConcrete : class, TContract
+        {
+            _register(typeof(TContract), typeof(TConcrete), null, dependencyProvider, key);
+        }
+
+        #endregion
+
+        #region Resolution Methods
+        public T Resolve<T>(GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        {
+            var _obj = Resolve(typeof(T), instance_level);
+            return (T)_obj;
+        }
+        public object Resolve(Type input_type, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        {
+            return _resolve(null,input_type,null, null, instance_level, InjectionTarget.All);
+        }
+        public T Resolve<T>(IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.TargetObjectWithParameters)
+        {
+            var _obj = Resolve(typeof(T), mapping_provider, instance_level);
+            return (T)_obj;
+        }
+        public object Resolve(Type input_type, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.TargetObjectWithParameters)
+        {
+            if (instance_level == GenerateNewInstanceFor.None)
+            { instance_level = GenerateNewInstanceFor.TargetObjectWithParameters; }
+            return _resolve(null, input_type, null, mapping_provider, instance_level, InjectionTarget.All);
+        }
+        public object Resolve(string custom_key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        {
+            throw new NotImplementedException();
+        }
+        public object Resolve(string custom_key, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.TargetObjectWithParameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Private Creation Methods
+        private object _resolve(string contract_name, Type contract_type, Type contract_parent, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level, InjectionTarget targetInjection)
+        {
+            object concrete_instance = null;
+
+            //If dependency provider is not null, then try to resolve using external mapping.
+            _externalMappingResolve(mapping_provider, contract_name, contract_type, contract_parent, instance_level, targetInjection, out concrete_instance);
 
             //If still object is null, try resolving using internal mapping.
-            if (_obj == null)
+            if (concrete_instance == null)
             {
-                if (input_type == typeof(string) || input_type.IsValueType)
+                if (contract_type == typeof(string) || contract_type.IsValueType)
                 {
-                    throw new ArgumentException($@"Value type dependency error. The {parent_type ?? input_type} contains a value dependency {name ??""}. Try adding a mapping provider for injecting value types.");
+                    throw new ArgumentException($@"Value type dependency error. The {contract_parent ?? contract_type} contains a value dependency {contract_name ?? ""}. Try adding a mapping provider for injecting value types.");
                 }
-                _internalMappingResolve(input_type,dependency_provider, instance_level,out _obj);
+                _internalMappingResolve(contract_type, mapping_provider, instance_level, out concrete_instance);
             }
 
-            return _obj;
+            return concrete_instance;
         }
-        private void _externalMappingResolve(IMappingProvider dependency_provider,string name, Type input_type, Type parent_type, GenerateNewInstance instance_level, InjectionTarget targetType, out object instance)
+        private void _externalMappingResolve(IMappingProvider mapping_provider, string contract_name, Type contract_type, Type contract_parent, GenerateNewInstanceFor instance_level, InjectionTarget targetType, out object concrete_instance)
         {
             //Begin with null output.
-            instance = null;
-            if (input_type == null) { throw new ArgumentNullException(nameof(input_type)); }
+            concrete_instance = null;
+            if (contract_type == null) { throw new ArgumentNullException(nameof(contract_type)); }
 
             //if external mapping is null, no point in proceeding.
-            if (dependency_provider == null) return;
-            var _dip_values = dependency_provider.Resolve(name, input_type, parent_type);
+            if (mapping_provider == null) return;
+            var _dip_values = mapping_provider.Resolve(contract_type,contract_name, contract_parent);
 
             //if external mapping resolves to a value, ensure that this injection is for suitable target or it should be for all
-            if (_dip_values.instance != null && (targetType ==_dip_values.target ||targetType == InjectionTarget.All))
+            if (_dip_values.concrete_instance != null && (targetType == _dip_values.target || targetType == InjectionTarget.All))
             {
-                instance = _dip_values.instance;
+                concrete_instance = _dip_values.concrete_instance;
             }
         }
-        private void _internalMappingResolve(Type input_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, out object instance)
+        private void _internalMappingResolve(Type contract_type, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level, out object concrete_instance, string custom_key = null)
         {
-            instance = null;
-
-            if (input_type == null) throw new ArgumentNullException(nameof(input_type));
-
-            Type _concrete_type = input_type; //It is possible that inputtype could be an abstract type. Then in this case, we validate the type mappings and change this.
-
-            //Priority 1. Type Mappings.
-            if (instance == null && abstract_type_mappings.ContainsKey(input_type))
+            concrete_instance = null;
+            if (string.IsNullOrEmpty(custom_key) || string.IsNullOrWhiteSpace(custom_key))
             {
-                (Type target_type, object _inst) _registered_tuple = (null, null);
-                abstract_type_mappings.TryGetValue(input_type, out _registered_tuple);
-                //if the request was for an instance creation, then we return null.
-                if (instance_level == GenerateNewInstance.None)
+                custom_key = contract_type.ToString();
+            }
+
+            if (contract_type == null) throw new ArgumentNullException(nameof(contract_type));
+
+            if (concrete_instance == null && _mappings.ContainsKey(custom_key))
+            {
+                (Type _contract_type, Type _concrete_type, object _concrete_instance) _registered_tuple = (null, null,null);
+                _mappings.TryGetValue(custom_key, out _registered_tuple);
+
+                //if the request doesn't specify instance creation, then we return the singleton object.
+                if (instance_level == GenerateNewInstanceFor.None)
                 {
-                    instance = _registered_tuple._inst; //Sending the singleton instance value.
+                    concrete_instance = _registered_tuple._concrete_instance;
                 }
                 else
                 {
-                    instance = null;
-                    _concrete_type = _registered_tuple.target_type; //This is the actual type for the provided input type.
+                    concrete_instance = _createInstance(_registered_tuple._concrete_type, mapping_provider, instance_level);
                 }
             }
-
-            //Priority 2.Concrete Mappings.
-            if (instance == null && instance_level == GenerateNewInstance.None &&  concrete_mappings.ContainsKey(input_type))
-            {
-                concrete_mappings.TryGetValue(input_type, out instance);
-            }
-
-            if (instance != null) return;
-
-            //Here, we switch with concrete type.
-            instance = _createInstance(_concrete_type, dependency_provider, instance_level);
         }
-        private object _createInstance(Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level)
+        private object _createInstance(Type concrete_type, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level)
         {
-            if (instance_level == GenerateNewInstance.TargetOnly) instance_level = GenerateNewInstance.None; //If creation is target only, then further dependencies should not generate instance.
+            if (instance_level == GenerateNewInstanceFor.TargetObjectOnly) instance_level = GenerateNewInstanceFor.None; //If creation is target only, then further dependencies should not generate instance.
             object _instance = null;
             _validateConcreteType(concrete_type);
             ConstructorInfo constructor = _getConstructor(concrete_type);
-            _resolveConstructorParameters(ref constructor, concrete_type, dependency_provider, instance_level, ref _instance);
-            _resolveProperties(concrete_type, dependency_provider, instance_level, ref _instance);
+            _resolveConstructorParameters(ref constructor, concrete_type, mapping_provider, instance_level, ref _instance);
+            _resolveProperties(concrete_type, mapping_provider, instance_level, ref _instance);
             return _instance;
         }
         #endregion
@@ -196,7 +284,7 @@ namespace Haley.MVVM.Containers
             }
             return constructor;
         }
-        private void _resolveConstructorParameters(ref ConstructorInfo constructor, Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, ref object _instance)
+        private void _resolveConstructorParameters(ref ConstructorInfo constructor, Type concrete_type, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level, ref object _instance)
         {
             //Resolve the param arugments for the constructor.
             ParameterInfo[] constructor_params = constructor.GetParameters();
@@ -216,13 +304,13 @@ namespace Haley.MVVM.Containers
                     //If dependency provider is not null, then try to rsolve using it. if this value is also null, then try to resolve using actual provider
 
                     //RESOLVE RECURSIVELY
-                    parameters.Add(_resolve(pinfo.Name, pinfo.ParameterType, concrete_type, dependency_provider, instance_level,InjectionTarget.Constructor));
+                    parameters.Add(_resolve(pinfo.Name, pinfo.ParameterType, concrete_type, mapping_provider, instance_level, InjectionTarget.Constructor));
                 }
                 _instance = constructor.Invoke(parameters.ToArray());
             }
 
         }
-        private void _resolveProperties(Type concrete_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level, ref object _instance)
+        private void _resolveProperties(Type concrete_type, IMappingProvider mapping_provider, GenerateNewInstanceFor instance_level, ref object _instance)
         {
             //Resolve only properties that are of type Haley inject and also ignore if it has haleyignore
             var _props = concrete_type.GetProperties().Where(
@@ -236,8 +324,8 @@ namespace Haley.MVVM.Containers
                     {
                         Type _prop_type = pinfo.PropertyType;
 
-                        var resolved_value = _resolve(pinfo.Name, _prop_type, concrete_type, dependency_provider, instance_level,InjectionTarget.Property);
-                      if (resolved_value != null) pinfo.SetValue(_instance, resolved_value);
+                        var resolved_value = _resolve(pinfo.Name, _prop_type, concrete_type, mapping_provider, instance_level, InjectionTarget.Property);
+                        if (resolved_value != null) pinfo.SetValue(_instance, resolved_value);
                     }
                     catch (Exception)
                     {
@@ -246,111 +334,6 @@ namespace Haley.MVVM.Containers
                 }
             }
         }
-        #endregion
-
-        #region Register Methods
-
-        private void _register<TConcrete>(Type input_type,IMappingProvider dependencyProvider, object instance, bool is_type_register = true)
-        {
-            Type _target_type = typeof(TConcrete);
-
-            //Check if already registered
-            bool _exists = _validateExistence(input_type, _target_type);
-            if (_exists && (!overwrite_if_registered)) return;
-
-            //Validate
-            _validateConcreteType(_target_type);
-
-            //Generate or add instance
-            if (instance == null)
-            {
-                instance = (TConcrete)_createInstance(_target_type, dependencyProvider, GenerateNewInstance.TargetOnly); //Create instance resolving all dependencies
-            }
-
-            switch (_exists)
-            {
-                case true: //Update
-                    if (is_type_register)
-                    {
-                        (Type _type, object _inst) _current_tuple;
-                        abstract_type_mappings.TryGetValue(input_type, out _current_tuple);
-                        abstract_type_mappings.TryUpdate(input_type, (_target_type, instance), _current_tuple); //Remember to assign the instance
-                    }
-                    else
-                    {
-                        object _current_value;
-                        concrete_mappings.TryGetValue(_target_type, out _current_value);
-                        concrete_mappings.TryUpdate(_target_type, instance, _current_value); //Remember to assign the instance
-                    }
-                    break;
-                case false: //Add
-                    if (is_type_register)
-                    {
-                        abstract_type_mappings.TryAdd(input_type, (_target_type, instance));
-                    }
-                    else
-                    {
-                        concrete_mappings.TryAdd(_target_type, instance);
-                    }
-                    break;
-            }
-        }
-
-        public void Register<TContract, TConcrete>(TConcrete instance = null) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
-        {
-            Type _input_type = typeof(TContract);
-
-            _register<TConcrete>(_input_type, null, instance, true);
-
-        }
-
-        public void Register<TConcrete>(TConcrete instance = null) where TConcrete : class  //TImplementation should either implement or inherit from TContract
-        {
-            Type _input_type = typeof(TConcrete); //Both input and concrete type are same.
-
-            _register<TConcrete>(_input_type, null, instance,false);
-        }
-
-        public void Register<TContract, TConcrete>(IMappingProvider dependencyProvider) where TConcrete : class, TContract  //TImplementation should either implement or inherit from TContract
-        {
-            Type _input_type = typeof(TContract);
-
-            _register<TConcrete>(_input_type, dependencyProvider, null, true);
-
-        }
-
-        public void Register<TConcrete>( IMappingProvider dependencyProvider) where TConcrete : class  //TImplementation should either implement or inherit from TContract
-        {
-            Type _input_type = typeof(TConcrete); //Both input and concrete type are same.
-
-            _register<TConcrete>(_input_type, dependencyProvider, null, false);
-        }
-
-        #endregion
-
-        #region Resolution Methods
-
-        public T Resolve<T>(GenerateNewInstance instance_level = GenerateNewInstance.None)
-        {
-            var _obj = Resolve(typeof(T), instance_level);
-            return (T)_obj;
-        }
-        public object Resolve(Type input_type, GenerateNewInstance instance_level = GenerateNewInstance.None)
-        {
-            return _resolve(null,input_type,null, null, instance_level, InjectionTarget.All);
-        }
-        public T Resolve<T>(IMappingProvider dependency_provider, GenerateNewInstance instance_level = GenerateNewInstance.TargetOnly)
-        {
-            var _obj = Resolve(typeof(T), dependency_provider, instance_level);
-            return (T)_obj;
-        }
-        public object Resolve(Type input_type, IMappingProvider dependency_provider, GenerateNewInstance instance_level = GenerateNewInstance.TargetOnly)
-        {
-            if (instance_level == GenerateNewInstance.None)
-            { instance_level = GenerateNewInstance.TargetOnly; }
-            return _resolve(null, input_type, null, dependency_provider, instance_level, InjectionTarget.All);
-        }
-
         #endregion
         public DIContainer() 
         {

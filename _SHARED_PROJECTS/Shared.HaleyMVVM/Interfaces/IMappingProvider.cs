@@ -14,26 +14,23 @@ namespace Haley.Abstractions
    public interface IMappingProvider
     {
         //Readonly dictionary
-        ConcurrentDictionary<string, (object _instance, InjectionTarget _target)> _mappings { get; }
+        ConcurrentDictionary<string, (object concrete_instance, InjectionTarget _target)> _mappings { get; }
 
         #region Add
-        //Concrete mapping
-        bool Add<TConcrete>(string name, TConcrete instance,Type parent = null , InjectionTarget target = InjectionTarget.All);
-     
-        bool Add<TContract,TConcrete>(TConcrete instance, Type parent = null ,InjectionTarget target = InjectionTarget.All) where TConcrete:TContract;
-        bool Add(string name, object instance, Type target_type = null, Type parent = null, InjectionTarget target = InjectionTarget.All);
+        bool Add<TConcrete>(string contract_name, TConcrete concrete_instance,Type contract_parent = null , InjectionTarget target = InjectionTarget.All);
+        bool Add<TContract,TConcrete>(TConcrete concrete_instance, Type contract_parent = null ,InjectionTarget target = InjectionTarget.All) where TConcrete:TContract;
+        bool Add(string contract_name, object concrete_instance, Type contract_type = null, Type contract_parent = null, InjectionTarget target = InjectionTarget.All);
         #endregion
 
         #region Remove
-        bool Remove(string name, Type instance_type =null, Type parent = null);
-        bool Remove<T>(Type parent = null);
-        bool Remove(Type instance_type, Type parent = null);
+        bool Remove(string contract_name, Type concrete_type =null, Type contract_parent = null);
+        bool Remove<T>(Type contract_parent = null);
+        bool Remove(Type concrete_type, Type contract_parent = null);
         #endregion
 
         #region Resolve
-        (T instance,InjectionTarget target) Resolve<T>(Type parent = null);
-        (object instance, InjectionTarget target) Resolve(string name, Type instance_type = null,Type parent = null);
-        (object instance, InjectionTarget target) Resolve(Type instance_type, Type parent = null);
+        (object concrete_instance, InjectionTarget target) Resolve<TContract>(string contract_name = null, Type contract_parent = null);
+        (object concrete_instance, InjectionTarget target) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null);
         #endregion
     }
 }

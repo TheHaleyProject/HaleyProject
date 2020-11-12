@@ -39,7 +39,7 @@ namespace HaleyMVVM.Test
             _di.Register<Person>(p_expected);
 
             //Act
-            var p_actual = _di.Resolve<Person>(GenerateNewInstance.TargetOnly); //Since generating new instance, this should not be equal
+            var p_actual = _di.Resolve<Person>(GenerateNewInstanceFor.TargetObjectOnly); //Since generating new instance, this should not be equal
 
             //Assert
             Assert.NotEqual(p_expected, p_actual);

@@ -24,14 +24,14 @@ namespace Haley.Abstractions
         #endregion
 
         #region View Generation Methods
-        BaseViewType generateView<VMType>(VMType InputViewModel=null, GenerateNewInstance instance_level = GenerateNewInstance.None) where VMType : class, BaseVMType;
-        BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
-        BaseViewType generateView(Enum key, object InputViewModel = null,GenerateNewInstance instance_level = GenerateNewInstance.None);
+        BaseViewType generateView<VMType>(VMType InputViewModel=null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where VMType : class, BaseVMType;
+        BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
+        BaseViewType generateView(Enum key, object InputViewModel = null,GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
         #endregion
 
         #region ViewModel Generation methods
-        BaseVMType generateViewModel(Enum @enum, GenerateNewInstance instance_level = GenerateNewInstance.None);
-        BaseVMType generateViewModel(string key, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        BaseVMType generateViewModel(Enum @enum, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
+        BaseVMType generateViewModel(string key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
         (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum);
         (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(string key);
         #endregion

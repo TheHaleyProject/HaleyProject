@@ -14,7 +14,7 @@ namespace Haley.MVVM.Containers
     {
         public ControlContainer(IHaleyDIContainer _injection_container):base(_injection_container) { }
 
-        public override IHaleyControl generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public override IHaleyControl generateView(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
         {
             try
             {
@@ -36,9 +36,6 @@ namespace Haley.MVVM.Containers
                 throw ex;
             }
         }
-
-        
-
     }
 }
 
