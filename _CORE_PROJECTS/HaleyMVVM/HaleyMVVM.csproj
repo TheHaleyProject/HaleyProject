@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Haley.MVVM</RootNamespace>
     <AssemblyName>Haley.MVVM</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -81,7 +81,12 @@
     <None Include="HaleyProject.snk" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HaleyIOC\HaleyIOC.csproj">
+      <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
+      <Name>HaleyIOC</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\..\_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
   <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

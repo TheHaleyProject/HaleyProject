@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Haley.IOC;
+using Haley.Models;
 
 namespace HaleyMVVM.Test.Models
 {

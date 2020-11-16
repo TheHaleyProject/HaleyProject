@@ -88,12 +88,12 @@ namespace Haley.Models
 
         #region Resolve
 
-        public (object concrete_instance, InjectionTarget target) Resolve<TContract>(string contract_name =null,  Type contract_parent = null)
+        public (object concrete_instance, InjectionTarget injection) Resolve<TContract>(string contract_name =null,  Type contract_parent = null)
         {
             return Resolve(typeof(TContract),contract_name,contract_parent);
         }
 
-        public (object concrete_instance, InjectionTarget target) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null)
+        public (object concrete_instance, InjectionTarget injection) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null)
         {
             (object concrete_instance, InjectionTarget target) _output_tuple = (null, InjectionTarget.All);
             var key = _getKey(contract_name, contract_type, contract_parent);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
 using Haley.MVVM.Containers;
+using Haley.IOC;
 
 namespace Haley.MVVM
 {

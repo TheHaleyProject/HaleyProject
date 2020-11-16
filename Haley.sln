@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVM.Test", "_TESTING_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyEvents", "_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj", "{6524CEE1-4782-4361-8711-9444BAF8BFFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyIOC", "_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj", "{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
@@ -187,6 +189,14 @@ Global
 		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|x64.ActiveCfg = Release|Any CPU
 		{6524CEE1-4782-4361-8711-9444BAF8BFFB}.Release|x64.Build.0 = Release|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Debug|x64.Build.0 = Debug|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|x64.ActiveCfg = Release|Any CPU
+		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

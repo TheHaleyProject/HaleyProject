@@ -9,19 +9,4 @@ namespace Haley.Enums
         pixelSize_dpi,
         pixelSize_imageSize,
     }
-
-    public enum GenerateNewInstanceFor
-    {
-        None,
-        TargetObjectOnly,
-        TargetObjectWithParameters,
-        CascadeAll
-    }
-
-    public enum InjectionTarget
-    {
-        All,
-        Constructor,
-        Property
-    }
 }

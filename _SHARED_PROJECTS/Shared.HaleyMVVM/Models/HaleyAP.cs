@@ -35,19 +35,19 @@ namespace Haley.Models
         #endregion
 
         #region CreateNewInstance
-        public static GenerateNewInstanceFor GetCreateNewInstance(DependencyObject obj)
+        public static InstanceGeneration GetCreateNewInstance(DependencyObject obj)
         {
-            return (GenerateNewInstanceFor)obj.GetValue(CreateNewInstanceProperty);
+            return (InstanceGeneration)obj.GetValue(CreateNewInstanceProperty);
         }
 
-        public static void SetCreateNewInstance(DependencyObject obj, GenerateNewInstanceFor value)
+        public static void SetCreateNewInstance(DependencyObject obj, InstanceGeneration value)
         {
             obj.SetValue(CreateNewInstanceProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for CreateNewInstance.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CreateNewInstanceProperty =
-            DependencyProperty.RegisterAttached("CreateNewInstance", typeof(GenerateNewInstanceFor), typeof(HaleyAP), new PropertyMetadata(GenerateNewInstanceFor.None));
+            DependencyProperty.RegisterAttached("CreateNewInstance", typeof(InstanceGeneration), typeof(HaleyAP), new PropertyMetadata(InstanceGeneration.None));
         #endregion
 
         public static bool GetInjectVM(DependencyObject obj)

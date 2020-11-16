@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel;
-using System.Windows.Input;
 using System.Reflection;
-using System.Windows;
-using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.Concurrent;
 using Haley.Enums;
 
@@ -29,8 +25,8 @@ namespace Haley.Abstractions
         #endregion
 
         #region Resolve
-        (object concrete_instance, InjectionTarget target) Resolve<TContract>(string contract_name = null, Type contract_parent = null);
-        (object concrete_instance, InjectionTarget target) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null);
+        (object concrete_instance, InjectionTarget injection) Resolve<TContract>(string contract_name = null, Type contract_parent = null);
+        (object concrete_instance, InjectionTarget injection) Resolve(Type contract_type, string contract_name = null, Type contract_parent = null);
         #endregion
     }
 }

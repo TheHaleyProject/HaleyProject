@@ -613,15 +613,15 @@ namespace DevelopmentConsole
             _di.Register<IPower, NormalPower>(_np);
             var _person1 = _di.Resolve<Person>(); //Should return SS
             Console.WriteLine(_person1._power.name);
-            var _person2 = _di.Resolve<Person>(GenerateNewInstanceFor.TargetObjectOnly); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
+            var _person2 = _di.Resolve<Person>(InstanceGeneration.TargetObjectOnly); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
             Console.WriteLine(_person2._power.name);
-            var _person3 = _di.Resolve<Person>(GenerateNewInstanceFor.CascadeAll); //Should return batman
+            var _person3 = _di.Resolve<Person>(InstanceGeneration.CascadeAll); //Should return batman
             Console.WriteLine(_person3._power.name);
             MappingProviderBase _mpb = new MappingProviderBase();
             _mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
             var _person4 = _di.Resolve<Person>(_mpb); //Should return batman
             Console.WriteLine(_person4._power.name);
-            var _person5 = _di.Resolve<Person>(_mpb, GenerateNewInstanceFor.CascadeAll); //Should return batman
+            var _person5 = _di.Resolve<Person>(_mpb, InstanceGeneration.CascadeAll); //Should return batman
             Console.WriteLine(_person5._power.name);
         }
     }

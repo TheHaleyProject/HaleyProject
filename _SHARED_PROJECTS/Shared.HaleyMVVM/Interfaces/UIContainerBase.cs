@@ -88,7 +88,7 @@ namespace Haley.Abstractions
         #endregion
 
         #region Private Methods
-        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, TransientAffectMode transient_mode = TransientAffectMode.None)
         {
             var _mapping_value = getMappingValue(key);
 
@@ -100,38 +100,38 @@ namespace Haley.Abstractions
             if (!_mapping_value.is_singleton)
             {
                 //If user asks for None, then assign current level
-                if (instance_level == GenerateNewInstanceFor.None)
+                if (instance_level == InstanceGeneration.None)
                 {
-                    instance_level = GenerateNewInstanceFor.TargetObjectOnly;
+                    instance_level = InstanceGeneration.TargetOnly;
                 }
             }
             BaseViewModelType resultViewModel = _generateViewModel(key, _mapping_value.viewmodel_type, instance_level);
 
             return (resultViewModel, resultcontrol);
         }
-        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, InstanceGeneration instance_level = InstanceGeneration.None)
         {
             //At present, if viewmodel instnce has to be created, return instance creation level as current
             BaseViewModelType _result;
-            _result = (BaseViewModelType)_di_instance.Resolve(input_type:viewmodelType,instance_level:instance_level);
+            _result = (BaseViewModelType)_di_instance.ResolveTransient(viewmodelType, instance_level);
             return _result;
         }
         #endregion
 
         #region View Retrieval Methods
         //Return a generic type which implements BaseViewType 
-        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) where viewmodelType : class, BaseViewModelType
+        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, InstanceGeneration instance_level = InstanceGeneration.None) where viewmodelType : class, BaseViewModelType
         {
             string _key = typeof(viewmodelType).ToString();
             return generateView(_key, InputViewModel, instance_level);
         }
-        public BaseViewType generateView(Enum @enum, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        public BaseViewType generateView(Enum @enum, object InputViewModel = null, InstanceGeneration instance_level = InstanceGeneration.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             return generateView(_key, InputViewModel,instance_level);
         }
-        public abstract BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None);
+        public abstract BaseViewType generateView(string key, object InputViewModel = null, InstanceGeneration instance_level = InstanceGeneration.None);
         
         #endregion
 
@@ -163,20 +163,20 @@ namespace Haley.Abstractions
 
             return _registered_tuple;
         }
-        public BaseViewModelType generateViewModel(Enum @enum, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None)
+        public BaseViewModelType generateViewModel(Enum @enum, InstanceGeneration instance_level = InstanceGeneration.None)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             BaseViewModelType _result = generateViewModel(_key, instance_level);
             return _result;
         }
-        public BaseViewModelType generateViewModel(string key, GenerateNewInstanceFor instance_level = GenerateNewInstanceFor.None) //If required we can even return the actural viewmodel concrete type as well.
+        public BaseViewModelType generateViewModel(string key, InstanceGeneration instance_level = InstanceGeneration.None) //If required we can even return the actural viewmodel concrete type as well.
         {
             try
             {
                 BaseViewModelType _result;
                 var _mappingValue = getMappingValue(key);
-                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type, instance_level);
+                _result = (BaseViewModelType)_di_instance.ResolveTransient(_mappingValue.viewmodel_type, instance_level);
                 return _result;
             }
             catch (Exception ex)

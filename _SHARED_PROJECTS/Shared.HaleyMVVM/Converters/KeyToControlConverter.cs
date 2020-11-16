@@ -8,6 +8,7 @@ using System.Reflection;
 using System.ComponentModel;
 using Haley.Enums;
 
+
 namespace Haley.MVVM.Converters
 {
     public class KeyToControlConverter : IValueConverter
@@ -19,20 +20,23 @@ namespace Haley.MVVM.Converters
                 if (!(value.GetType() == typeof(string))) return null;
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                GenerateNewInstanceFor _newinstance = GenerateNewInstanceFor.None;
+                InstanceGeneration _newinstance = InstanceGeneration.None;
                 switch (param)
                 {
                     //None
                     case 0:
-                        _newinstance = GenerateNewInstanceFor.None;
+                        _newinstance = InstanceGeneration.None;
                         break;
                     //TargetOnly
                     case 1:
-                        _newinstance = GenerateNewInstanceFor.TargetObjectOnly;
+                        _newinstance = InstanceGeneration.TargetOnly;
                         break;
                     //All level
                     case 2:
-                        _newinstance = GenerateNewInstanceFor.CascadeAll;
+                        _newinstance = InstanceGeneration.TargetWithProperties;
+                        break;
+                    case 3:
+                        _newinstance = InstanceGeneration.TargetWithAllDependencies;
                         break;
                 }
                 return ContainerStore.Singleton.controls.generateView((string)value, instance_level: _newinstance);
