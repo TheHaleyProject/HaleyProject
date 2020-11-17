@@ -15,13 +15,15 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Haley @ 2020</Copyright>
-    <PackageReleaseNotes>Added HaleyInject to properties</PackageReleaseNotes>
+    <PackageReleaseNotes>Signed</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.4.2</AssemblyVersion>
-    <FileVersion>1.0.4.2</FileVersion>
+    <AssemblyVersion>1.0.4.3</AssemblyVersion>
+    <FileVersion>1.0.4.3</FileVersion>
     <PackageIcon>Haley.png</PackageIcon>
 	<IncludeSymbols>true</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<SignAssembly>true</SignAssembly>
+	<AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -12,6 +12,7 @@ using DevelopmentWPF.ViewModels;
 using System.Windows.Data;
 using System.Globalization;
 using System.Threading;
+using Haley.Enums;
 
 namespace DevelopmentWPF
 {
@@ -27,7 +28,7 @@ namespace DevelopmentWPF
                 MainWindow ms = new MainWindow();
                 ContainerStore.Singleton.windows.register<CoreVM, MainWindow>();
                 ContainerStore.Singleton.windows.register<CoreVM, MainWindow>(use_vm_as_key:false);
-                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02,is_singleton:false);
+                ContainerStore.Singleton.controls.register<VMSubMain, ctrl02>(TestApp.control02,mode:RegisterMode.Transient);
                 ContainerStore.Singleton.controls.register<VMMain, ctrl01>(TestApp.control01);
                 ContainerStore.Singleton.controls.register<VMSubMain, ctrl03>();
                 ContainerStore.Singleton.windows.show<CoreVM>();
