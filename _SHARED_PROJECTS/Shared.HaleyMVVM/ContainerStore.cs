@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.MVVM.Containers;
-using Haley.IOC;
+using Haley.Containers;
 
 namespace Haley.MVVM
 {
     public sealed class ContainerStore
     {
         public IHaleyDIContainer DI { get; set; }
-        public IHaleyControlContainer<IHaleyControlVM,IHaleyControl> controls { get; set; }
-        public IHaleyWindowContainer<IHaleyWindowVM,IHaleyWindow> windows { get; set; }
+        public IHaleyControlContainer<IHaleyControlVM,IHaleyControl> controls { get;  }
+        public IHaleyWindowContainer<IHaleyWindowVM,IHaleyWindow> windows { get;  }
 
         public ContainerStore() 
         {

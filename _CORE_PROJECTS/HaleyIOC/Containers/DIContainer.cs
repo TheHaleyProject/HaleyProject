@@ -9,7 +9,7 @@ using Haley.Models;
 using Haley.Abstractions;
 
 
-namespace Haley.IOC
+namespace Haley.Containers
 {
     public sealed class DIContainer : IHaleyDIContainer
     {
@@ -87,16 +87,16 @@ namespace Haley.IOC
             //Validate if the concrete type can be registered
             _validateConcreteType(concrete_type);
 
-            //Generate instance only if the provided value is null and also singleton is not required. (else, we can save only the type).
-            if (concrete_instance == null && !is_singleton)
+            //Generate instance only if the provided value is null and also singleton. Only if it is singleton, we create an instance and store. Else we store only the concrete type and save instance as null.
+            if (concrete_instance == null && is_singleton)
             {
-                concrete_instance = _createInstance(concrete_type, dependencyProvider, mapping_level, TransientCreationLevel.Current,ResolveMode.Transient); //Create instance resolving all dependencies
+                concrete_instance = _createInstance(concrete_type, dependencyProvider, mapping_level, TransientCreationLevel.None,ResolveMode.Default); //Create instance resolving all dependencies
             }
 
             //Process the registry key
             if (string.IsNullOrEmpty(override_key) || string.IsNullOrWhiteSpace(override_key))
             {
-                override_key = contract_type.ToString();
+                override_key = contract_type?.ToString();
             }
 
             //Generate new tuple
@@ -115,6 +115,24 @@ namespace Haley.IOC
                 _mappings.TryAdd(override_key, _new_tuple);
             }
             return true;
+        }
+
+        private TransientCreationLevel _convertToTransientLevel(MappingLevel mapping_level)
+        {
+            TransientCreationLevel _transient_level = TransientCreationLevel.None;
+            switch (mapping_level)
+            {
+                case MappingLevel.Current:
+                    _transient_level = TransientCreationLevel.Current;
+                    break;
+                case MappingLevel.CurrentWithProperties:
+                    _transient_level = TransientCreationLevel.CurrentWithProperties;
+                    break;
+                case MappingLevel.CascadeAll:
+                    _transient_level = TransientCreationLevel.CascadeAll;
+                    break;
+            }
+            return _transient_level;
         }
 
         #region Creation Methods
@@ -167,6 +185,7 @@ namespace Haley.IOC
         {
             //If creation is current with properties, then constructor and props should generate new instance. Rest should be resolved.
             if (transient_level == TransientCreationLevel.CurrentWithProperties) transient_level = TransientCreationLevel.Current;
+            if (mapping_level == MappingLevel.CurrentWithProperties) mapping_level = MappingLevel.Current;
 
             //Resolve the param arugments for the constructor.
             ParameterInfo[] constructor_params = constructor.GetParameters();
@@ -193,6 +212,7 @@ namespace Haley.IOC
         {
             //If creation is current with properties, then constructor and props should generate new instance. Rest should be resolved.
             if (transient_level == TransientCreationLevel.CurrentWithProperties) transient_level = TransientCreationLevel.Current;
+            if (mapping_level == MappingLevel.CurrentWithProperties) mapping_level = MappingLevel.Current;
 
             //Resolve only properties that are of type Haley inject and also ignore if it has haleyignore
             var _props = concrete_type.GetProperties().Where(
@@ -219,20 +239,36 @@ namespace Haley.IOC
         #endregion
 
         #region Resolution Methods
+        private object _Mappingresolve(string override_key, string contract_name, Type contract_type, Type contract_parent, IMappingProvider mapping_provider, MappingLevel mapping_level, TransientCreationLevel transient_level, ResolveMode resolve_mode, InjectionTarget injection = InjectionTarget.All)
+        {
+            //For Initial contract_type make a create instance. This will ensure that the initial contract_type's params and props gets values from mapping provider (using _resolve).
+            var _mapping_values = _getMapping(override_key, contract_type);
+            if (_mapping_values.exists)
+            {
+                return _createInstance(_mapping_values.concrete_type??contract_type, mapping_provider, mapping_level, transient_level, resolve_mode);
+            }
+            else
+            {
+                return _createInstance(contract_type, mapping_provider, mapping_level, transient_level, resolve_mode);
+            }
+        }
+
+
         private object _resolve(string override_key, string contract_name, Type contract_type, Type contract_parent, IMappingProvider mapping_provider, MappingLevel mapping_level, TransientCreationLevel transient_level, ResolveMode resolve_mode, InjectionTarget injection = InjectionTarget.All)
         {
             object concrete_instance = null;
 
-            //If request is for creation of a transient object, then do not try to resolve using internal methods. Just try fetch the concrete type and create instance.
-            _transientResolve(override_key, contract_type, mapping_provider, mapping_level, resolve_mode, transient_level, out concrete_instance);
-
-            if (concrete_instance != null) return concrete_instance;
-
             //If dependency provider is not null, then try to resolve using external mapping.
-            _externalMappingResolve(mapping_provider, mapping_level, contract_name, contract_type, contract_parent, injection, out concrete_instance);
+            _mappingProviderResolve(mapping_provider, mapping_level, contract_name, contract_type, contract_parent, injection, out concrete_instance);
 
-            //Mapping is only used inside the external mapping resolution. If mapping is only for current level, then do not proceed further.
+            //Reset Mapping Level.
             if (mapping_level == MappingLevel.Current) mapping_level = MappingLevel.None;
+
+            if (concrete_instance == null)
+            {
+                //If request is for creation of a transient object, then do not try to resolve using internal methods. Just try fetch the concrete type and create instance.
+                _transientResolve(override_key, contract_type, mapping_provider, mapping_level, resolve_mode, transient_level, out concrete_instance);
+            }
 
             //If still object is null, try resolving using internal mapping.
             if (concrete_instance == null)
@@ -246,17 +282,15 @@ namespace Haley.IOC
 
             return concrete_instance;
         }
-        private void _externalMappingResolve(IMappingProvider mapping_provider, MappingLevel mapping_level, string contract_name, Type contract_type, Type contract_parent, InjectionTarget injection, out object concrete_instance)
+        private void _mappingProviderResolve(IMappingProvider mapping_provider, MappingLevel mapping_level, string contract_name, Type contract_type, Type contract_parent, InjectionTarget injection, out object concrete_instance)
         {
             //Begin with null output.
             concrete_instance = null;
 
-            if (mapping_level == MappingLevel.None) return;
+            //Mapping level defines until which stage or level , the mapping should be applied. If mapping provider is null or mapping level is none, don't proceed. 
+            if (mapping_provider == null || mapping_level == MappingLevel.None) return;
 
             if (contract_type == null) { throw new ArgumentNullException(nameof(contract_type)); }
-
-            //if external mapping is null, no point in proceeding.
-            if (mapping_provider == null) return;
 
             var _dip_values = mapping_provider.Resolve(contract_type, contract_name, contract_parent);
 
@@ -290,6 +324,7 @@ namespace Haley.IOC
         private void _transientResolve(string override_key, Type contract_type, IMappingProvider mapping_provider, MappingLevel mapping_level,ResolveMode resolve_mode, TransientCreationLevel transient_level, out object concrete_instance)
         {
             concrete_instance = null;
+            //If resolve mode is default, it could be transient or singleton. So, in the case of default, proceed until internal mapping resolve and then validate.
             if (resolve_mode == ResolveMode.Transient && transient_level != TransientCreationLevel.None)
             {
                 var _mapping_value = _getMapping(override_key, contract_type);
@@ -346,7 +381,6 @@ namespace Haley.IOC
         {
             RegisterWithKey<TContract, TConcrete>(null, instance, mode);
         }
-        
         public void Register<TContract, TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
             RegisterWithKey<TContract, TConcrete>(null, dependencyProvider, mapping_level, mode);
@@ -359,7 +393,7 @@ namespace Haley.IOC
         {
             try
             {
-                return _register(null, typeof(TConcrete), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
+                return RegisterWithKey<TConcrete>(null, mode);
             }
             catch (Exception)
             {
@@ -370,55 +404,51 @@ namespace Haley.IOC
         {
             try
             {
-                return _register(null, typeof(TConcrete), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
+                return RegisterWithKey(null, instance, mode);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
         public bool TryRegister<TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
         {
             try
             {
-                return _register(null, typeof(TConcrete), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
+                return RegisterWithKey<TConcrete>(null, dependencyProvider, mapping_level, mode);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
         public bool TryRegister<TContract, TConcrete>(TConcrete instance, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
             try
             {
-                return _register(null, typeof(TContract), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
+                return RegisterWithKey<TContract, TConcrete>(null, instance, mode);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
         public bool TryRegister<TContract, TConcrete>(RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
             try
             {
-                return _register(null, typeof(TContract), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
+                return RegisterWithKey<TContract, TConcrete>(null, mode);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
         public bool TryRegister<TContract, TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
             try
             {
-                return _register(null, typeof(TContract), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
+                return RegisterWithKey<TContract, TConcrete>(null, dependencyProvider, mapping_level, mode);
             }
             catch (Exception)
             {
@@ -429,35 +459,32 @@ namespace Haley.IOC
         #endregion
 
         #region RegisterWithKey Methods
-        public void RegisterWithKey<TConcrete>(string override_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
+        public bool RegisterWithKey<TConcrete>(string override_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
         {
             //For this method, both contract and concrete type are same.
-            _register(override_key, typeof(TConcrete), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TConcrete), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
         }
-
-        public void RegisterWithKey<TConcrete>(string override_key, TConcrete instance, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
+        public bool RegisterWithKey<TConcrete>(string override_key, TConcrete instance, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
         {
             //For this method, both contract and concrete type are same.
-            _register(override_key, typeof(TConcrete), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TConcrete), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
         }
-
-        public void RegisterWithKey<TConcrete>(string override_key, IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
+        public bool RegisterWithKey<TConcrete>(string override_key, IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class
         {
             //For this method, both contract and concrete type are same.
-            _register(override_key, typeof(TConcrete), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TConcrete), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
         }
-        public void RegisterWithKey<TContract, TConcrete>(string override_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
+        public bool RegisterWithKey<TContract, TConcrete>(string override_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
-            _register(override_key, typeof(TContract), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TContract), typeof(TConcrete), null, null, MappingLevel.None, mode == RegisterMode.Singleton);
         }
-        public void RegisterWithKey<TContract, TConcrete>(string override_key, TConcrete instance, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
+        public bool RegisterWithKey<TContract, TConcrete>(string override_key, TConcrete instance, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
-           _register(override_key, typeof(TContract), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TContract), typeof(TConcrete), instance, null, MappingLevel.None, mode == RegisterMode.Singleton);
         }
-
-        public void RegisterWithKey<TContract, TConcrete>(string override_key, IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
+        public bool RegisterWithKey<TContract, TConcrete>(string override_key, IMappingProvider dependencyProvider, MappingLevel mapping_level, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract
         {
-            _register(override_key, typeof(TContract), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
+            return _register(override_key, typeof(TContract), typeof(TConcrete), null, dependencyProvider, mapping_level, mode == RegisterMode.Singleton);
         }
         #endregion
 
@@ -467,48 +494,18 @@ namespace Haley.IOC
             var _obj = Resolve(typeof(T),mode);
             return (T)_obj;
         }
-
         public object Resolve(Type contract_type, ResolveMode mode = ResolveMode.Default)
         {
-            TransientCreationLevel _transient_level = TransientCreationLevel.None;
-            if (mode == ResolveMode.Transient) _transient_level = TransientCreationLevel.Current;
-
-            return _resolve(null,null,contract_type,null,null,MappingLevel.Current, _transient_level, mode);
+            return _resolve(null,null,contract_type,null,null,MappingLevel.None, TransientCreationLevel.Current, mode);
         }
-
         public object Resolve(string override_key, ResolveMode mode = ResolveMode.Default)
         {
-            TransientCreationLevel _transient_level = TransientCreationLevel.None;
-            if (mode == ResolveMode.Transient) _transient_level = TransientCreationLevel.Current;
-
-            return _resolve(override_key, null, null, null, null, MappingLevel.Current, _transient_level,mode);
+            return _resolve(override_key, null, null, null, null, MappingLevel.None, TransientCreationLevel.Current, mode);
         }
 
-        public T Resolve<T>(IMappingProvider mapping_provider, MappingLevel mapping_level, ResolveMode mode = ResolveMode.Default)
-        {
-            var _obj = Resolve(typeof(T), mapping_provider, mapping_level);
-            return (T)_obj;
-        }
-
-        public object Resolve(Type contract_type, IMappingProvider mapping_provider, MappingLevel mapping_level, ResolveMode mode = ResolveMode.Default)
-        {
-            TransientCreationLevel _transient_level = TransientCreationLevel.None;
-            if (mode == ResolveMode.Transient) _transient_level = TransientCreationLevel.Current;
-
-            return _resolve(null, null, contract_type, null, mapping_provider, mapping_level, _transient_level,mode);
-        }
-
-        public object Resolve(string override_key, IMappingProvider mapping_provider, MappingLevel mapping_level, ResolveMode mode = ResolveMode.Default)
-        {
-            TransientCreationLevel _transient_level = TransientCreationLevel.None;
-            if (mode == ResolveMode.Transient) _transient_level = TransientCreationLevel.Current;
-
-            return _resolve(override_key, null, null, null, mapping_provider, mapping_level, _transient_level,mode);
-        }
         #endregion
 
         #region TryResolve Methods
-
         public bool TryResolve(Type contract_type, out object concrete_instance, ResolveMode mode = ResolveMode.Default)
         {
             try
@@ -522,7 +519,6 @@ namespace Haley.IOC
                 return false;
             }
         }
-
         public bool TryResolve(string override_key, out object concrete_instance, ResolveMode mode = ResolveMode.Default)
         {
             try
@@ -536,35 +532,6 @@ namespace Haley.IOC
                 return false;
             }
         }
-
-        public bool TryResolve(Type contract_type, IMappingProvider mapping_provider, MappingLevel mapping_level, out object concrete_instance, ResolveMode mode = ResolveMode.Default)
-        {
-            try
-            {
-                concrete_instance = Resolve(contract_type,mapping_provider,mapping_level, mode);
-                return true;
-            }
-            catch (Exception)
-            {
-                concrete_instance = null;
-                return false;
-            }
-        }
-
-        public bool TryResolve(string override_key, IMappingProvider mapping_provider, MappingLevel mapping_level, out object concrete_instance, ResolveMode mode = ResolveMode.Default)
-        {
-            try
-            {
-                concrete_instance = Resolve(override_key, mapping_provider, mapping_level, mode);
-                return true;
-            }
-            catch (Exception)
-            {
-                concrete_instance = null;
-                return false;
-            }
-        }
-
         #endregion
 
         #region ResolveTransient Methods
@@ -574,33 +541,28 @@ namespace Haley.IOC
             var _obj = ResolveTransient(typeof(T),transient_level);
             return (T)_obj;
         }
-
         public object ResolveTransient(Type contract_type, TransientCreationLevel transient_level)
         {
             return _resolve(null, null, contract_type, null, null, MappingLevel.Current, transient_level,ResolveMode.Transient);
         }
-
         public object ResolveTransient(string override_key, TransientCreationLevel transient_level)
         {
             return _resolve(override_key, null, null, null, null, MappingLevel.Current, transient_level, ResolveMode.Transient);
         }
 
-        public T ResolveTransient<T>(TransientCreationLevel transient_level, IMappingProvider mapping_provider, MappingLevel mapping_level)
+        public T ResolveTransient<T>(IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithProperties)
         {
-            var _obj = ResolveTransient(typeof(T), transient_level, mapping_provider, mapping_level);
+            var _obj = ResolveTransient(typeof(T), mapping_provider, mapping_level);
             return (T)_obj;
         }
-
-        public object ResolveTransient(Type contract_type, TransientCreationLevel transient_level, IMappingProvider mapping_provider, MappingLevel mapping_level)
+        public object ResolveTransient(Type contract_type, IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithProperties)
         {
-            return _resolve(null, null, contract_type, null, mapping_provider, mapping_level, transient_level, ResolveMode.Transient);
+            return _Mappingresolve(null, null, contract_type, null, mapping_provider, mapping_level, _convertToTransientLevel(mapping_level), ResolveMode.Transient);
         }
-
-        public object ResolveTransient(string override_key, TransientCreationLevel transient_level, IMappingProvider mapping_provider, MappingLevel mapping_level)
+        public object ResolveTransient(string override_key, IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithProperties)
         {
-            return _resolve(override_key, null, null, null, mapping_provider, mapping_level, transient_level, ResolveMode.Transient);
+            return _Mappingresolve(override_key, null, null, null, mapping_provider, mapping_level, _convertToTransientLevel(mapping_level), ResolveMode.Transient);
         }
-
         #endregion
 
         public DIContainer() 

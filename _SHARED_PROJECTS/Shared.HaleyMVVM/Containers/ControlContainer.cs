@@ -7,20 +7,19 @@ using Haley.Abstractions;
 using Haley.Utils;
 using System.Collections.Concurrent;
 using Haley.Enums;
-using Haley.IOC;
 
-namespace Haley.MVVM.Containers
+namespace Haley.Containers
 {
     public sealed class ControlContainer : UIContainerBase<IHaleyControlVM,IHaleyControl>, IHaleyControlContainer<IHaleyControlVM, IHaleyControl>
     {
         public ControlContainer(IHaleyDIContainer _injection_container):base(_injection_container) { }
 
-        public override IHaleyControl generateView(string key, object InputViewModel = null, TransientAffectMode transient_mode = TransientAffectMode.None)
+        public override IHaleyControl generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default)
         {
             try
             {
                 //If you receive a input viewmodel, obviously, then it is not a singleton approach. You take this inputviewmodel and assign it. so by default, the generate vm instance will not be taken into account.
-                var _kvp = _generateValuePair(key, transient_mode);
+                var _kvp = _generateValuePair(key, mode);
                 if (InputViewModel != null)
                 {
                     _kvp.view.DataContext = InputViewModel; //Assinging actual viewmodel

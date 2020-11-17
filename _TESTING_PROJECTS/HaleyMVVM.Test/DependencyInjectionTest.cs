@@ -8,7 +8,7 @@ using Xunit;
 using Xunit.Sdk;
 using HaleyMVVM.Test.Interfaces;
 using Microsoft.Xaml.Behaviors.Media;
-using Haley.MVVM.Containers;
+using Haley.Containers;
 
 namespace HaleyMVVM.Test
 {
@@ -39,7 +39,7 @@ namespace HaleyMVVM.Test
             _di.Register<Person>(p_expected);
 
             //Act
-            var p_actual = _di.Resolve<Person>(InstanceGeneration.TargetObjectOnly); //Since generating new instance, this should not be equal
+            var p_actual = _di.Resolve<Person>(ResolveMode.Transient); //Since generating new instance, this should not be equal
 
             //Assert
             Assert.NotEqual(p_expected, p_actual);
@@ -57,10 +57,10 @@ namespace HaleyMVVM.Test
             //Act
             MappingProviderBase _mappingProvider = new MappingProviderBase();
             _mappingProvider.Add<Person>(null,new Person() { name = expected });
-            var actual = _di.Resolve<Person>(_mappingProvider).name;
+            var actual = _di.ResolveTransient<Person>(_mappingProvider,MappingLevel.Current).name;
 
             //Assert
-            Assert.Equal(expected, actual);
+            Assert.NotEqual(expected, actual);
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace HaleyMVVM.Test
             _mpb.Add<string>(nameof(SuperHero.power), power, typeof(SuperHero), InjectionTarget.Property);
             //Act
             _di.Register<IPerson, SuperHero>();
-            var _shero = (SuperHero)_di.Resolve<IPerson>(_mpb);
+            var _shero = (SuperHero)_di.ResolveTransient<IPerson>(_mpb,MappingLevel.CurrentWithProperties);
             
             //Assert
             Assert.Equal(power, _shero.power);
@@ -131,7 +131,7 @@ namespace HaleyMVVM.Test
             MappingProviderBase _mpb = new MappingProviderBase();
             _mpb.Add<string>(nameof(SuperHero.power), power, typeof(SuperHero), InjectionTarget.Property);
             //Act
-            _di.Register<IPerson, SuperHero>(_mpb);
+            _di.Register<IPerson, SuperHero>(_mpb,MappingLevel.Current);
             var _shero = (SuperHero)_di.Resolve<IPerson>();
 
 

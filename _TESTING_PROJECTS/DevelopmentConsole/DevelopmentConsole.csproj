@@ -98,6 +98,10 @@
       <Project>{6524cee1-4782-4361-8711-9444baf8bffb}</Project>
       <Name>HaleyEvents</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj">
+      <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
+      <Name>HaleyIOC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyLog\HaleyLog.csproj">
       <Project>{ab40d102-03d6-453e-bfef-2dec9de47559}</Project>
       <Name>HaleyLog</Name>

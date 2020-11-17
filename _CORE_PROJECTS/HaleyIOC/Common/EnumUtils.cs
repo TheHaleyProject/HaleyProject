@@ -33,6 +33,7 @@ namespace Haley.Enums
     {
         None,
         Current,
+        CurrentWithProperties,
         CascadeAll
     }
 }

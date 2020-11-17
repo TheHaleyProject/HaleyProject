@@ -11,29 +11,30 @@ namespace Haley.Abstractions
     public interface IHaleyUIContainer<BaseVMType,BaseViewType> 
     {
         #region registration methods
-        string register<VMType, ViewType>(VMType InputViewModel=null, bool use_vm_as_key = true, bool is_singleton = true)
+        string register<VMType, ViewType>(VMType InputViewModel=null, bool use_vm_as_key = true, RegisterMode mode = RegisterMode.Singleton)
             where VMType : class, BaseVMType
             where ViewType : BaseViewType;
-        string register<VMType, ViewType>(string key, VMType InputViewModel=null, bool is_singleton = true)
+        string register<VMType, ViewType>(string key, VMType InputViewModel=null, RegisterMode mode = RegisterMode.Singleton)
             where VMType : class, BaseVMType
             where ViewType : BaseViewType;
-        string register<VMType, ViewType>(Enum key, VMType InputViewModel=null, bool is_singleton = true)
+        string register<VMType, ViewType>(Enum key, VMType InputViewModel=null, RegisterMode mode = RegisterMode.Singleton)
             where VMType : class, BaseVMType
             where ViewType : BaseViewType;
 
         #endregion
 
         #region View Generation Methods
-        BaseViewType generateView<VMType>(VMType InputViewModel=null, InstanceGeneration instance_level = InstanceGeneration.None) where VMType : class, BaseVMType;
-        BaseViewType generateView(string key, object InputViewModel = null, InstanceGeneration instance_level = InstanceGeneration.None);
-        BaseViewType generateView(Enum key, object InputViewModel = null,InstanceGeneration instance_level = InstanceGeneration.None);
+        BaseViewType generateView<VMType>(VMType InputViewModel=null, ResolveMode mode = ResolveMode.Default) where VMType : class, BaseVMType;
+        BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default);
+        BaseViewType generateView(Enum key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default);
         #endregion
 
         #region ViewModel Generation methods
-        BaseVMType generateViewModel(Enum @enum, InstanceGeneration instance_level = InstanceGeneration.None);
-        BaseVMType generateViewModel(string key, InstanceGeneration instance_level = InstanceGeneration.None);
-        (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum);
-        (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(string key);
+        BaseVMType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.Default);
+        BaseVMType generateViewModel(string key, ResolveMode mode = ResolveMode.Default);
+        BaseVMType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.Default);
+        (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(Enum @enum);
+        (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(string key);
         #endregion
     }
 }
