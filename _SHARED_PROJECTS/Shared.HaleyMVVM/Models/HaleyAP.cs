@@ -10,6 +10,7 @@ using Haley.Abstractions;
 using System.Windows;
 using System.Windows.Controls;
 using Haley.MVVM;
+using Haley.Enums;
 
 namespace Haley.Models
 {
@@ -33,20 +34,20 @@ namespace Haley.Models
 
         #endregion
 
-        #region CreateNewInstance
-        public static bool GetCreateNewInstance(DependencyObject obj)
+        #region ResolveMode
+        public static ResolveMode GetResolveMode(DependencyObject obj)
         {
-            return (bool)obj.GetValue(CreateNewInstanceProperty);
+            return (ResolveMode)obj.GetValue(ResolveModeProperty);
         }
 
-        public static void SetCreateNewInstance(DependencyObject obj, bool value)
+        public static void SetResolveMode(DependencyObject obj, ResolveMode value)
         {
-            obj.SetValue(CreateNewInstanceProperty, value);
+            obj.SetValue(ResolveModeProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for CreateNewInstance.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CreateNewInstanceProperty =
-            DependencyProperty.RegisterAttached("CreateNewInstance", typeof(bool), typeof(HaleyAP), new PropertyMetadata(false));
+        // Using a DependencyProperty as the backing store for ResolveMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ResolveModeProperty =
+            DependencyProperty.RegisterAttached("ResolveMode", typeof(ResolveMode), typeof(HaleyAP), new PropertyMetadata(ResolveMode.Default));
         #endregion
 
         public static bool GetInjectVM(DependencyObject obj)
@@ -72,10 +73,10 @@ namespace Haley.Models
                 {
                     //If d is usercontrol and also implements ihaleycontrol, then resolve the viewmodel
                     string _key = GetContainerKey(d);
-                    if (_key == null) _key = d.GetType().FullName;
+                    if (_key == null) _key = d.GetType().ToString();
                     if (d is IHaleyControl)
                     {
-                        var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetCreateNewInstance(d));
+                        var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetResolveMode(d));
                         if (_vm != null) //Only if not null, assign it.
                         {
                             ((IHaleyControl)d).DataContext = _vm;
@@ -83,7 +84,7 @@ namespace Haley.Models
                     }
                     else if (d is IHaleyWindow)
                     {
-                        var _vm = ContainerStore.Singleton.windows.generateViewModel(_key, GetCreateNewInstance(d));
+                        var _vm = ContainerStore.Singleton.windows.generateViewModel(_key, GetResolveMode(d));
                         if (_vm != null) //Only if not null, assign it.
                         {
                             ((IHaleyWindow)d).DataContext = _vm;

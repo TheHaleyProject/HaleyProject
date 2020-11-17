@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Haley.IOC</AssemblyName>
+    <RootNamespace>Haley.IOC</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Lingam</Authors>
+    <Company>TheHaleyProject</Company>
+    <Description>Simple IOC Container which implements Dependency Injection</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <PackageIcon>Haley.png</PackageIcon>
+	  <PackageReleaseNotes>Pilot Release</PackageReleaseNotes>
+	  <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
+	  <RepositoryType>GIT</RepositoryType>
+  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\..\Haley.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+</Project>

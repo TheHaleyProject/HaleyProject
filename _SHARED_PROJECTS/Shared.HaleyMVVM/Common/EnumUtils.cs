@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Haley.Enums
 {
-    public enum resize_affect_mode
+    public enum ResizeAffectMode
     {
         pixelSize,
         pixelSize_dpi,

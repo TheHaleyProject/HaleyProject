@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>Haley.MVVM</id>
-    <version>$version$</version>
+    <version>$version$-alpha</version>
     <title>$title$</title>
     <authors>Lingam</authors>
     <owners>Haley Project</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A light weight MVVM implementation with Event store, IOC store, DI</description>
+    <description>A light weight MVVM implementation with IOC Containes, Delegate Commands, NotifyPropertyChanged Base Model.</description>
     <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
     <releaseNotes>Added HaleyInject to properties</releaseNotes>
     <copyright>Copyright 2020</copyright>

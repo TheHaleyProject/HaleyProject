@@ -18,6 +18,7 @@ using Haley.Enums;
 using Haley.Utils;
 using System.CodeDom;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace DevelopmentConsole
 {
@@ -605,85 +606,51 @@ namespace DevelopmentConsole
     #region MVVM
     public class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            try
-            {
-                ContainerStore.Singleton.DI.Register<IPrintService, PrintService>();
-                var value = ContainerStore.Singleton.DI.Resolve<TestService>();
-                value.PrintSer.print("Im  senguttuvan");
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            
-        }
-
-        private static void handleMethod(string _message)
-        {
-
+            var _di = ContainerStore.Singleton.DI;
+            NormalPower _np = new NormalPower() { name = "Silvester Stallone" };
+            _di.Register<IPower, NormalPower>(_np);
+            var _person1 = _di.Resolve<Person>(); //Should return SS
+            Console.WriteLine(_person1._power.name);
+            var _person2 = _di.ResolveTransient<Person>(TransientCreationLevel.Current); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
+            Console.WriteLine(_person2._power.name);
+            var _person3 = _di.ResolveTransient<Person>(TransientCreationLevel.CascadeAll); //Should return batman
+            Console.WriteLine(_person3._power.name);
+            MappingProviderBase _mpb = new MappingProviderBase();
+            _mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
+            var _person4 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
+            Console.WriteLine(_person4._power.name);
+            var _person5 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
+            Console.WriteLine(_person5._power.name);
         }
     }
-    public class pmodel : Ihello
+
+    public class Person
     {
+        public int count { get; set; }
         public string name { get; set; }
-        public pmodel() { }
-        }
-    public abstract class modelabstract : Ihello
-    {
-        public virtual string name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public modelabstract() { }
-    }
-    public class something : modelabstract
-    {
-        public pmodel pmodel { get; set; }
-        public something(int k) { pmodel = new pmodel() { }; }
         [HaleyInject]
-        public something() { }
-        public something( string _hello) { pmodel = new pmodel() { name = _hello }; }
-
+        public IPower _power { get; set; }
+        public Person(IPower newpower) { _power = newpower; }
     }
-    public interface Ihello
+
+    public interface IPower
     {
         string name { get; set; }
     }
-    public class TestService
-    {
-        [HaleyInject]
-        public string _world { get; set; }
-        [HaleyInject]
-        public IPrintService PrintSer { get; set; }
-        public TestService() { }
-    }
-    public interface IPrintService
-    {
-        void print(string message);
-    }
-    public class PrintService : IPrintService
-    {
-        public void print(string message)
-        {
-            Console.WriteLine(message);
-        }
-        public PrintService() { }
-    }
-    public class Helloworld
-{
-        public something _somethig { get; set; }
-        public LoggerBase loggerBase { get; set; }
 
-    public void write(string _text)
+    public class NormalPower : IPower
     {
-        loggerBase.log(_text);
+        public string name { get; set; }
+        public NormalPower() { name = "Batman"; }
     }
 
-    public Helloworld() { }
-        [HaleyInject]
-        public Helloworld(LoggerBase _log) { loggerBase = _log; }
-       
-        public Helloworld(something _some) { }
+    public class SuperPower : IPower
+    {
+        public int life_count { get; set; }
+        public string name { get; set; }
+        public SuperPower() { life_count = 5; name = "Superman"; }
     }
     #endregion
 

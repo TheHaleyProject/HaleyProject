@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Reflection;
 using System.ComponentModel;
+using Haley.Enums;
+
 
 namespace Haley.MVVM.Converters
 {
@@ -16,10 +18,21 @@ namespace Haley.MVVM.Converters
             try
             {
                 if (!(value.GetType() == typeof(string))) return null;
-                int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
+                int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 0 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                bool flag = (param != 0); //If param is not zero, then true
-                return ContainerStore.Singleton.controls.generateView((string)value, generate_vm_instance: flag);
+                ResolveMode _resolve_mode = ResolveMode.Default;
+                switch (param)
+                {
+                    //None
+                    case 0:
+                        _resolve_mode = ResolveMode.Default;
+                        break;
+                    //TargetOnly
+                    default:
+                        _resolve_mode = ResolveMode.Transient;
+                        break;
+                }
+                return ContainerStore.Singleton.controls.generateView((string)value, mode: _resolve_mode);
             }
             catch (Exception)
             {

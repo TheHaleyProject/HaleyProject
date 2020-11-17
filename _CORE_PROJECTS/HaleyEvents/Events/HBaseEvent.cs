@@ -16,22 +16,21 @@ namespace Haley.Events
         //private ConcurrentBag<ISubscriber> _subscribers = new ConcurrentBag<ISubscriber>();
         private ConcurrentDictionary<string, ISubscriber> _subscribers = new ConcurrentDictionary<string, ISubscriber>();
 
+        #region PROTECTED METHODS
         protected virtual void basePublish(params object[] arguments)
         {
-                // Using params keyword, because we can have zero or more parameters
-                //This should invoke all the delegates
-                foreach (var _subscriber in _subscribers)
-                {
-                    _subscriber.Value.sendMessage(arguments);
-                }
+            // Using params keyword, because we can have zero or more parameters
+            //This should invoke all the delegates
+            foreach (var _subscriber in _subscribers)
+            {
+                _subscriber.Value.sendMessage(arguments);
+            }
         }
-
         protected virtual void baseSubscribe(ISubscriber subscriber)
         {
-                if (_subscribers.ContainsKey(subscriber.id)) return;
-                _subscribers.TryAdd(subscriber.id, subscriber);
+            if (_subscribers.ContainsKey(subscriber.id)) return;
+            _subscribers.TryAdd(subscriber.id, subscriber);
         }
-
         protected virtual bool baseUnSubscribe(string subscriber_id)
         {
             ISubscriber _removed_value;
@@ -42,6 +41,14 @@ namespace Haley.Events
         {
             _subscribers = new ConcurrentDictionary<string, ISubscriber>();
         }
+        #endregion
 
+        #region VIRTUAL METHODS
+        public virtual bool unSubscribe(string subscription_key)
+        {
+            return baseUnSubscribe(subscription_key);
+        }
+        
+        #endregion
     }
 }

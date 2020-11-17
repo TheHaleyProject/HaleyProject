@@ -9,12 +9,11 @@
     <Import_RootNamespace>Shared.HaleyMVVM</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Attributes\HaleyInjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Containers\UIContainerBases.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Containers\DIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyToControlConverter.cs" />
@@ -27,27 +26,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\MultiValueBinderConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ReducerConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VerificationConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\EventInvokedArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EventStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\HBaseEvent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\HEvent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\SubscriberBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICheckedItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyUIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlVM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyDIContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISubscriber.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\HInvokeCommandAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
   </ItemGroup>

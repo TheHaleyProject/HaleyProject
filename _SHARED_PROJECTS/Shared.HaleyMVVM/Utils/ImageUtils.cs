@@ -19,7 +19,7 @@ namespace Haley.Utils
     #region Public Methods
 
     #region RESIZE
-        public static ImageSource resizeImage(string path, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
+        public static ImageSource resizeImage(string path, int pixel_height, int pixel_width, ResizeAffectMode resize_mode = ResizeAffectMode.pixelSize, double dpi = 0)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Haley.Utils
             }
         }
 
-        public static ImageSource resizeImage(Uri path_URI, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
+        public static ImageSource resizeImage(Uri path_URI, int pixel_height, int pixel_width, ResizeAffectMode resize_mode = ResizeAffectMode.pixelSize, double dpi = 0)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Haley.Utils
             }
         }
 
-        public static ImageSource resizeImage(Image image, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
+        public static ImageSource resizeImage(Image image, int pixel_height, int pixel_width, ResizeAffectMode resize_mode = ResizeAffectMode.pixelSize, double dpi = 0)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Haley.Utils
             }
         }
 
-        public static ImageSource resizeImage(byte[] image_byte_array, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
+        public static ImageSource resizeImage(byte[] image_byte_array, int pixel_height, int pixel_width, ResizeAffectMode resize_mode = ResizeAffectMode.pixelSize, double dpi = 0)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Haley.Utils
             }
         }
 
-        public static ImageSource resizeImage(ImageSource input_image, int pixel_height, int pixel_width, resize_affect_mode resize_mode = resize_affect_mode.pixelSize, double dpi = 0)
+        public static ImageSource resizeImage(ImageSource input_image, int pixel_height, int pixel_width, ResizeAffectMode resize_mode = ResizeAffectMode.pixelSize, double dpi = 0)
         {
             try
             {
@@ -88,11 +88,11 @@ namespace Haley.Utils
 
                 switch (resize_mode)
                 {
-                    case resize_affect_mode.pixelSize:
+                    case ResizeAffectMode.pixelSize:
                         return _resizeImage_pixelOnly(base_source, pixel_height, pixel_width, fit_width);
-                    case resize_affect_mode.pixelSize_imageSize:
+                    case ResizeAffectMode.pixelSize_imageSize:
                         return _resizeImage_pixelImage(base_source, pixel_height, pixel_width, fit_width, dpi);
-                    case resize_affect_mode.pixelSize_dpi:
+                    case ResizeAffectMode.pixelSize_dpi:
                         return _resizeImage_pixelDpi(base_source, pixel_height, pixel_width, fit_width, dpi);
                 }
                 return null;

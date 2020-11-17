@@ -5,70 +5,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Haley.Abstractions;
-using Haley.Events;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Windows.Threading;
 using Haley.Models;
 using Haley.Utils;
+using Haley.Enums;
 
-namespace Haley.MVVM.Containers
+namespace Haley.Containers
 {
-    public sealed class WindowContainer : UIContainerBases<IHaleyWindowVM,IHaleyWindow>, IHaleyWindowContainer<IHaleyWindowVM, IHaleyWindow>  //Implementation of the DialogService Interface.
+    public sealed class WindowContainer : UIContainerBase<IHaleyWindowVM,IHaleyWindow>, IHaleyWindowContainer<IHaleyWindowVM, IHaleyWindow>  //Implementation of the DialogService Interface.
     {
-        public WindowContainer(IHaleyDIContainer _injection_container = null) : base(_injection_container) { }
+        public WindowContainer(IHaleyDIContainer _injection_container) : base(_injection_container) { }
 
         #region ShowDialog Methods
-        public bool? showDialog(Enum key, object InputViewModel = null, bool generate_vm_instance = false)
+        public bool? showDialog(Enum key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default)
         {
             string _key = StringHelpers.getEnumAsKey(key);
-            return showDialog(_key, InputViewModel, generate_vm_instance);
+            return showDialog(_key, InputViewModel, resolve_mode);
         }
-        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false) where ViewModelType : class, IHaleyWindowVM
+        public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default) where ViewModelType : class, IHaleyWindowVM
         {
-            string _key = typeof(ViewModelType).FullName;
-            return showDialog(_key, InputViewModel, generate_vm_instance);
+            string _key = typeof(ViewModelType).ToString();
+            return showDialog(_key, InputViewModel, resolve_mode);
         }
-        public bool? showDialog<ViewType>(bool generate_vm_instance = false) where ViewType : IHaleyWindow
+        public bool? showDialog<ViewType>(ResolveMode resolve_mode = ResolveMode.Default) where ViewType : IHaleyWindow
         {
-            string _key = typeof(ViewType).FullName;
-            return showDialog(_key, null, generate_vm_instance);
+            string _key = typeof(ViewType).ToString();
+            return showDialog(_key, null, resolve_mode);
         }
-        public bool? showDialog(string key, object InputViewModel = null, bool generate_vm_instance = false)
+        public bool? showDialog(string key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default)
         {
-            return _invokeDisplay(key, InputViewModel,generate_vm_instance, is_modeless: false); //This is modal
+            return _invokeDisplay(key, InputViewModel, resolve_mode, is_modeless: false); //This is modal
         }
         #endregion
 
         #region Show Methods
-        public void show<ViewModelType>(ViewModelType InputViewModel = null, bool generate_vm_instance = false) where ViewModelType : class, IHaleyWindowVM
+        public void show<ViewModelType>(ViewModelType InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default) where ViewModelType : class, IHaleyWindowVM
         {
-            string _key = typeof(ViewModelType).FullName;
-            show(_key, InputViewModel, generate_vm_instance);
+            string _key = typeof(ViewModelType).ToString();
+            show(_key, InputViewModel, resolve_mode);
         }
-        public void show<ViewType>(bool generate_vm_instance = false) where ViewType : IHaleyWindow
+        public void show<ViewType>(ResolveMode resolve_mode = ResolveMode.Default) where ViewType : IHaleyWindow
         {
-            string _key = typeof(ViewType).FullName;
-            show(_key, null, generate_vm_instance);
+            string _key = typeof(ViewType).ToString();
+            show(_key, null, resolve_mode);
         }
-        public void show(Enum key, object InputViewModel = null, bool generate_vm_instance = false)
+        public void show(Enum key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default)
         {
             string _key = StringHelpers.getEnumAsKey(key);
-            show(_key, InputViewModel, generate_vm_instance);
+            show(_key, InputViewModel, resolve_mode);
         }
-        public void show(string key, object InputViewModel = null, bool generate_vm_instance = false)
+        public void show(string key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.Default)
         {
-            _invokeDisplay(key, InputViewModel, generate_vm_instance,is_modeless: true); //This is modeless
+            _invokeDisplay(key, InputViewModel, resolve_mode, is_modeless: true); //This is modeless
         }
 
         #endregion
 
         #region Overridden Methods
-        public override IHaleyWindow generateView(string key, object InputViewModel = null, bool generate_vm_instance = false)
+        public override IHaleyWindow generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default)
         {
             try
             {
-                var _kvp = _generateValuePair(key, generate_vm_instance);
+                var _kvp = _generateValuePair(key, mode);
                 if (InputViewModel != null)
                 {
                     _kvp.view.DataContext = InputViewModel; //Assinging actual viewmodel from user which becomes instance.
@@ -92,7 +92,7 @@ namespace Haley.MVVM.Containers
         #endregion
 
         #region Private Methods
-        private bool? _invokeDisplay(string key, object InputViewModel, bool generate_vm_instance, bool is_modeless)
+        private bool? _invokeDisplay(string key, object InputViewModel, ResolveMode resolve_mode , bool is_modeless)
         {
             bool? _result = null;
 
@@ -101,7 +101,7 @@ namespace Haley.MVVM.Containers
             {
                 Thread new_ui_thread = new Thread(() =>
                 {
-                    IHaleyWindow _hwindow = generateView(key, InputViewModel, generate_vm_instance);
+                    IHaleyWindow _hwindow = generateView(key, InputViewModel, resolve_mode);
                     _result = _displayWindow(_hwindow, is_modeless);
                 });
                 new_ui_thread.SetApartmentState(ApartmentState.STA);
@@ -110,7 +110,7 @@ namespace Haley.MVVM.Containers
             }
             else
             {
-                IHaleyWindow _hwindow = generateView(key, InputViewModel);
+                IHaleyWindow _hwindow = generateView(key, InputViewModel, resolve_mode);
                 _result = _displayWindow(_hwindow, is_modeless);
             }
 

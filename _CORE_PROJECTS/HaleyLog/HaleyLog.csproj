@@ -17,6 +17,8 @@
 	<PackageReleaseNotes>Updated namespaces</PackageReleaseNotes>
 	<FileVersion>1.0.0.4</FileVersion>
 	<PackageIcon>Haley.png</PackageIcon>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
