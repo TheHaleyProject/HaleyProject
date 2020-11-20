@@ -11,7 +11,7 @@ namespace Haley.Enums
 
     public enum ResolveMode
     {
-        Default,
+        AsRegistered,
         Transient
     }
     public enum TransientCreationLevel

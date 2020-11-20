@@ -47,7 +47,7 @@ namespace Haley.Models
 
         // Using a DependencyProperty as the backing store for ResolveMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ResolveModeProperty =
-            DependencyProperty.RegisterAttached("ResolveMode", typeof(ResolveMode), typeof(HaleyAP), new PropertyMetadata(ResolveMode.Default));
+            DependencyProperty.RegisterAttached("ResolveMode", typeof(ResolveMode), typeof(HaleyAP), new PropertyMetadata(ResolveMode.AsRegistered));
         #endregion
 
         public static bool GetInjectVM(DependencyObject obj)
