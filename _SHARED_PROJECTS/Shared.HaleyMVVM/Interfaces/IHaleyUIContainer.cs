@@ -24,15 +24,15 @@ namespace Haley.Abstractions
         #endregion
 
         #region View Generation Methods
-        BaseViewType generateView<VMType>(VMType InputViewModel=null, ResolveMode mode = ResolveMode.Default) where VMType : class, BaseVMType;
-        BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default);
-        BaseViewType generateView(Enum key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default);
+        BaseViewType generateView<VMType>(VMType InputViewModel=null, ResolveMode mode = ResolveMode.AsRegistered) where VMType : class, BaseVMType;
+        BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered);
+        BaseViewType generateView(Enum key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered);
         #endregion
 
         #region ViewModel Generation methods
-        BaseVMType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.Default);
-        BaseVMType generateViewModel(string key, ResolveMode mode = ResolveMode.Default);
-        BaseVMType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.Default);
+        BaseVMType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.AsRegistered);
+        BaseVMType generateViewModel(string key, ResolveMode mode = ResolveMode.AsRegistered);
+        BaseVMType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.AsRegistered);
         (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(Enum @enum);
         (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(string key);
         #endregion

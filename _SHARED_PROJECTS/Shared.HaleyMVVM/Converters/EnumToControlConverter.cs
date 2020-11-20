@@ -19,12 +19,12 @@ namespace Haley.MVVM.Converters
             {
                 int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 0 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                ResolveMode _resolve_mode = ResolveMode.Default;
+                ResolveMode _resolve_mode = ResolveMode.AsRegistered;
                 switch(param)
                 {
                     //None
                     case 0:
-                        _resolve_mode = ResolveMode.Default;
+                        _resolve_mode = ResolveMode.AsRegistered;
                         break;
                     //TargetOnly
                     default:

@@ -14,7 +14,7 @@ namespace Haley.Containers
     {
         public ControlContainer(IHaleyDIContainer _injection_container):base(_injection_container) { }
 
-        public override IHaleyControl generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default)
+        public override IHaleyControl generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered)
         {
             try
             {

@@ -70,10 +70,10 @@ namespace Haley.Abstractions
                 main_mapping.TryAdd(key, _tuple);
 
                 //Register this in the DI
-                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType));
+                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType),null);
                     if (!_status.status)
                     {
-                        _di_instance.Register<viewmodelType>(InputViewModel, mode);
+                        _di_instance.Register<viewmodelType>(InputViewModel);
                     }
                 return key;
             }
@@ -100,18 +100,18 @@ namespace Haley.Abstractions
 
         #region View Retrieval Methods
         //Return a generic type which implements BaseViewType 
-        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, ResolveMode mode = ResolveMode.Default) where viewmodelType : class, BaseViewModelType
+        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered) where viewmodelType : class, BaseViewModelType
         {
             string _key = typeof(viewmodelType).ToString();
             return generateView(_key, InputViewModel, mode);
         }
-        public BaseViewType generateView(Enum @enum, object InputViewModel = null, ResolveMode mode = ResolveMode.Default)
+        public BaseViewType generateView(Enum @enum, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             return generateView(_key, InputViewModel, mode);
         }
-        public abstract BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.Default);
+        public abstract BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered);
         
         #endregion
 
@@ -143,18 +143,18 @@ namespace Haley.Abstractions
 
             return _registered_tuple;
         }
-        public BaseViewModelType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.Default)
+        public BaseViewModelType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             BaseViewModelType _result = generateViewModel(_key, mode);
             return _result;
         }
-        public BaseViewModelType generateViewModel(string key, ResolveMode mode = ResolveMode.Default) //If required we can even return the actural viewmodel concrete type as well.
+        public BaseViewModelType generateViewModel(string key, ResolveMode mode = ResolveMode.AsRegistered) //If required we can even return the actural viewmodel concrete type as well.
         {
             return generateViewModel(key, null, mode);
         }
-        public BaseViewModelType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.Default)
+        public BaseViewModelType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.AsRegistered)
         {
             try
             {
