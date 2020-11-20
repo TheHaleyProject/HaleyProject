@@ -18,7 +18,7 @@ namespace Haley.Enums
     {
         None,
         Current,
-        CurrentWithProperties,
+        CurrentWithDependencies,
         CascadeAll
     }
 
@@ -33,7 +33,7 @@ namespace Haley.Enums
     {
         None,
         Current,
-        CurrentWithProperties,
+        CurrentWithDependencies,
         CascadeAll
     }
 }

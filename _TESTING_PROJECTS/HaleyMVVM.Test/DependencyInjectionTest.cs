@@ -116,7 +116,7 @@ namespace HaleyMVVM.Test
             _mpb.Add<string>(nameof(SuperHero.power), power, typeof(SuperHero), InjectionTarget.Property);
             //Act
             _di.Register<IPerson, SuperHero>();
-            var _shero = (SuperHero)_di.ResolveTransient<IPerson>(_mpb,MappingLevel.CurrentWithProperties);
+            var _shero = (SuperHero)_di.ResolveTransient<IPerson>(_mpb,MappingLevel.CurrentWithDependencies);
             
             //Assert
             Assert.Equal(power, _shero.power);
