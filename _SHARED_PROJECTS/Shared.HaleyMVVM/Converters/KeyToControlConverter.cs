@@ -8,6 +8,7 @@ using System.Reflection;
 using System.ComponentModel;
 using Haley.Enums;
 
+
 namespace Haley.MVVM.Converters
 {
     public class KeyToControlConverter : IValueConverter
@@ -17,25 +18,21 @@ namespace Haley.MVVM.Converters
             try
             {
                 if (!(value.GetType() == typeof(string))) return null;
-                int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 1 as default.
+                int param = 0; //Sometimes users can choose not to enter parameter value, in such cases, we make 0 as default.
                 if (parameter != null) int.TryParse((string)parameter, out param);
-                GenerateNewInstance _newinstance = GenerateNewInstance.None;
+                ResolveMode _resolve_mode = ResolveMode.AsRegistered;
                 switch (param)
                 {
                     //None
                     case 0:
-                        _newinstance = GenerateNewInstance.None;
+                        _resolve_mode = ResolveMode.AsRegistered;
                         break;
                     //TargetOnly
-                    case 1:
-                        _newinstance = GenerateNewInstance.TargetOnly;
-                        break;
-                    //All level
-                    case 2:
-                        _newinstance = GenerateNewInstance.AllDependencies;
+                    default:
+                        _resolve_mode = ResolveMode.Transient;
                         break;
                 }
-                return ContainerStore.Singleton.controls.generateView((string)value, instance_level: _newinstance);
+                return ContainerStore.Singleton.controls.generateView((string)value, mode: _resolve_mode);
             }
             catch (Exception)
             {

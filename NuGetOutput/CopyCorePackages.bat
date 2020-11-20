@@ -20,6 +20,17 @@ xcopy ..\_CORE_PROJECTS\HaleyEvents\bin\Release\*.snupkg .\ /i /y
 del /f ..\_CORE_PROJECTS\HaleyEvents\bin\Release\*.snupkg 
 )
 
+if exist ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.nupkg (
+xcopy ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.nupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.nupkg 
+)
+
+if exist ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.snupkg (
+xcopy ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.snupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyIOC\bin\Release\*.snupkg 
+)
+
+
 if exist ..\_CORE_PROJECTS\HaleyHelpers\bin\Release\*.nupkg (
 xcopy ..\_CORE_PROJECTS\HaleyHelpers\bin\Release\*.nupkg .\ /i /y
 del /f ..\_CORE_PROJECTS\HaleyHelpers\bin\Release\*.nupkg 

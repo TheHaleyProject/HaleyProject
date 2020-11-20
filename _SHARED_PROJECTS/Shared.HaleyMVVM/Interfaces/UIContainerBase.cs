@@ -14,11 +14,11 @@ namespace Haley.Abstractions
     {
         #region Initation
         protected IHaleyDIContainer _di_instance;
-        protected ConcurrentDictionary<string,(Type VMtype, Type ViewType,bool is_singleton)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
+        protected ConcurrentDictionary<string,(Type VMtype, Type ViewType,RegisterMode mode)> main_mapping { get; set; } //Dictionary to store enumvalue and viewmodel type as key and usercontrol as value
 
         public UIContainerBase(IHaleyDIContainer _injection_container)
         {
-            main_mapping = new ConcurrentDictionary<string, (Type VMtype, Type ViewType, bool is_singleton)>();
+            main_mapping = new ConcurrentDictionary<string, (Type VMtype, Type ViewType, RegisterMode mode)>();
             if (_injection_container != null)
             {
                 _di_instance= _injection_container;
@@ -28,7 +28,7 @@ namespace Haley.Abstractions
         #endregion
 
         #region Register Methods
-        public virtual string register<viewmodelType, viewType>(viewmodelType InputViewModel = null, bool use_vm_as_key = true, bool is_singleton = true)
+        public virtual string register<viewmodelType, viewType>(viewmodelType InputViewModel = null, bool use_vm_as_key = true, RegisterMode mode = RegisterMode.Singleton)
             where viewmodelType : class, BaseViewModelType
             where viewType : BaseViewType
         {
@@ -42,19 +42,19 @@ namespace Haley.Abstractions
                 _key = typeof(viewType).ToString();
             }
 
-           return register<viewmodelType, viewType>(_key, InputViewModel, is_singleton);
+           return register<viewmodelType, viewType>(_key, InputViewModel, mode);
         }
 
-        public virtual string register<viewmodelType, viewType>(Enum @enum, viewmodelType InputViewModel = null, bool is_singleton = true)
+        public virtual string register<viewmodelType, viewType>(Enum @enum, viewmodelType InputViewModel = null, RegisterMode mode = RegisterMode.Singleton)
            where viewmodelType : class, BaseViewModelType
            where viewType : BaseViewType
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
-           return register<viewmodelType, viewType>(_key, InputViewModel, is_singleton);
+           return register<viewmodelType, viewType>(_key, InputViewModel, mode);
         }
 
-        public virtual string register<viewmodelType, viewType>(string key, viewmodelType InputViewModel = null, bool is_singleton = true)
+        public virtual string register<viewmodelType, viewType>(string key, viewmodelType InputViewModel = null, RegisterMode mode = RegisterMode.Singleton)
             where viewmodelType : class, BaseViewModelType
             where viewType : BaseViewType
         {
@@ -66,17 +66,15 @@ namespace Haley.Abstractions
                     throw new ArgumentException($@"Key : {key} is already registered to - VM : {main_mapping[key].VMtype.GetType()} and View : {main_mapping[key].ViewType.GetType()}");
                 }
 
-                var _tuple = (typeof(viewmodelType), typeof(viewType), is_singleton);
+                var _tuple = (typeof(viewmodelType), typeof(viewType), mode);
                 main_mapping.TryAdd(key, _tuple);
 
-                if (is_singleton) //Only if singleton proceed further and register in the DI.
-                {
-                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType));
+                //Register this in the DI
+                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType),null);
                     if (!_status.status)
                     {
                         _di_instance.Register<viewmodelType>(InputViewModel);
                     }
-                }
                 return key;
             }
             catch (Exception ex)
@@ -88,68 +86,50 @@ namespace Haley.Abstractions
         #endregion
 
         #region Private Methods
-        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, ResolveMode mode)
         {
             var _mapping_value = getMappingValue(key);
 
             //Generate a View
             BaseViewType resultcontrol = (BaseViewType)Activator.CreateInstance(_mapping_value.view_type); //Create the control.
-
-            //Generate a ViewModel. First validate, how it is registered.
-            //If this is false, then always generate instance
-            if (!_mapping_value.is_singleton)
-            {
-                //If user asks for None, then assign current level
-                if (instance_level == GenerateNewInstance.None)
-                {
-                    instance_level = GenerateNewInstance.TargetOnly;
-                }
-            }
-            BaseViewModelType resultViewModel = _generateViewModel(key, _mapping_value.viewmodel_type, instance_level);
-
+            BaseViewModelType resultViewModel = generateViewModel(key, _mapping_value.viewmodel_type, mode);
             return (resultViewModel, resultcontrol);
         }
-        protected BaseViewModelType _generateViewModel(string key, Type viewmodelType, GenerateNewInstance instance_level = GenerateNewInstance.None)
-        {
-            //At present, if viewmodel instnce has to be created, return instance creation level as current
-            BaseViewModelType _result;
-            _result = (BaseViewModelType)_di_instance.Resolve(input_type:viewmodelType,instance_level:instance_level);
-            return _result;
-        }
+       
         #endregion
 
         #region View Retrieval Methods
         //Return a generic type which implements BaseViewType 
-        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None) where viewmodelType : class, BaseViewModelType
+        public BaseViewType generateView<viewmodelType>(viewmodelType InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered) where viewmodelType : class, BaseViewModelType
         {
             string _key = typeof(viewmodelType).ToString();
-            return generateView(_key, InputViewModel, instance_level);
+            return generateView(_key, InputViewModel, mode);
         }
-        public BaseViewType generateView(Enum @enum, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public BaseViewType generateView(Enum @enum, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
-            return generateView(_key, InputViewModel,instance_level);
+            return generateView(_key, InputViewModel, mode);
         }
-        public abstract BaseViewType generateView(string key, object InputViewModel = null, GenerateNewInstance instance_level = GenerateNewInstance.None);
+        public abstract BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered);
         
         #endregion
 
         #region VM Retrieval Methods
-        public (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(Enum @enum)
+        public (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(Enum @enum)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
             return getMappingValue(_key);
         }
-        public (Type viewmodel_type, Type view_type, bool is_singleton) getMappingValue(string key)
+        public (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(string key)
         {
             if (main_mapping.Count == 0 || !main_mapping.ContainsKey(key))
             {
                 throw new ArgumentException($"Key {key} is not registered to any controls. Please check.");
             }
 
-            (Type _viewmodel_type, Type _view_type, bool _is_singleton) _registered_tuple = (null, null, true);
+            (Type _viewmodel_type, Type _view_type, RegisterMode _mode) _registered_tuple = (null, null, RegisterMode.Singleton);
             main_mapping.TryGetValue(key, out _registered_tuple);
 
             if (_registered_tuple._viewmodel_type == null || _registered_tuple._view_type == null)
@@ -163,20 +143,30 @@ namespace Haley.Abstractions
 
             return _registered_tuple;
         }
-        public BaseViewModelType generateViewModel(Enum @enum, GenerateNewInstance instance_level = GenerateNewInstance.None)
+        public BaseViewModelType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
             string _key = StringHelpers.getEnumAsKey(@enum);
-            BaseViewModelType _result = generateViewModel(_key, instance_level);
+            BaseViewModelType _result = generateViewModel(_key, mode);
             return _result;
         }
-        public BaseViewModelType generateViewModel(string key, GenerateNewInstance instance_level = GenerateNewInstance.None) //If required we can even return the actural viewmodel concrete type as well.
+        public BaseViewModelType generateViewModel(string key, ResolveMode mode = ResolveMode.AsRegistered) //If required we can even return the actural viewmodel concrete type as well.
+        {
+            return generateViewModel(key, null, mode);
+        }
+        public BaseViewModelType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.AsRegistered)
         {
             try
             {
                 BaseViewModelType _result;
-                var _mappingValue = getMappingValue(key);
-                _result = (BaseViewModelType)_di_instance.Resolve(_mappingValue.viewmodel_type, instance_level);
+                Type VmType = viewmodelType;
+                if (!string.IsNullOrEmpty(key) || !string.IsNullOrWhiteSpace(key))
+                {
+                    var _mappingValue = getMappingValue(key);
+                    if (_mappingValue.viewmodel_type != null) VmType = _mappingValue.viewmodel_type;
+                }
+                
+                _result = (BaseViewModelType)_di_instance.Resolve(VmType, mode);
                 return _result;
             }
             catch (Exception ex)

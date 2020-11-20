@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace Haley.Utils
 {
-        public static class Extensions
+  public static class Extensions
         {
             public static bool isList(this object obj)
             {
@@ -36,4 +36,4 @@ namespace Haley.Utils
                 }
             }
         }
-    }
+}

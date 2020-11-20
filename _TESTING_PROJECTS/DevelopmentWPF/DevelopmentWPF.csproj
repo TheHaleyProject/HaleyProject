@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DevelopmentWPF</RootNamespace>
     <AssemblyName>DevelopmentWPF</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -124,9 +124,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj">
+      <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
+      <Name>HaleyIOC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
       <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
-      <Name>FlipperMVVM</Name>
+      <Name>HaleyMVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
