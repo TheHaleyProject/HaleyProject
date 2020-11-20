@@ -27,7 +27,7 @@ namespace HaleyMVVM.Test
             var p_actual = _di.Resolve<Person>();
 
             //Assert
-                Assert.Equal(p_expected, p_actual); //If not registered, this should be equal to what we send.
+            Assert.Equal(p_expected, p_actual); //If not registered, this should be equal to what we send.
         }
 
         [Fact]
@@ -57,10 +57,13 @@ namespace HaleyMVVM.Test
             //Act
             MappingProviderBase _mappingProvider = new MappingProviderBase();
             _mappingProvider.Add<Person>(null,new Person() { name = expected });
-            var actual = _di.ResolveTransient<Person>(_mappingProvider,MappingLevel.Current).name;
-
+            var transient_actual = _di.ResolveTransient<Person>(_mappingProvider,MappingLevel.Current).name;
+            var asregistered_actual = _di.Resolve<Person>(_mappingProvider).name;
+            var asregistered_forced = _di.Resolve<Person>(_mappingProvider,currentOnlyAsTransient:true).name;
             //Assert
-            Assert.NotEqual(expected, actual);
+            Assert.Equal(expected, transient_actual);
+            Assert.Equal(expected, asregistered_actual);
+            Assert.Null(asregistered_forced); //Because, we force creation, so name will be null
         }
 
         [Fact]
@@ -116,7 +119,7 @@ namespace HaleyMVVM.Test
             _mpb.Add<string>(nameof(SuperHero.power), power, typeof(SuperHero), InjectionTarget.Property);
             //Act
             _di.Register<IPerson, SuperHero>();
-            var _shero = (SuperHero)_di.ResolveTransient<IPerson>(_mpb,MappingLevel.CurrentWithProperties);
+            var _shero = (SuperHero)_di.ResolveTransient<IPerson>(_mpb,MappingLevel.CurrentWithDependencies);
             
             //Assert
             Assert.Equal(power, _shero.power);
