@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Haley.MVVM</id>
-    <version>$version$-alpha</version>
+    <version>$version$</version>
     <title>$title$</title>
     <authors>Lingam</authors>
     <owners>Haley Project</owners>

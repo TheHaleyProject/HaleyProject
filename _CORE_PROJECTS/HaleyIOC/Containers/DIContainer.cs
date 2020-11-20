@@ -216,9 +216,12 @@ namespace Haley.Containers
                 List<object> parameters = new List<object>(constructor_params.Length);
                 foreach (ParameterInfo pinfo in constructor_params)
                 {
-                    Type _paramtype = pinfo.ParameterType;
+                    //New resolve and mapping load.
+                    ResolveLoad _new_res_load = new ResolveLoad(resolve_load.mode, resolve_load.priority_key, pinfo.Name, pinfo.ParameterType, resolve_load.concrete_type, null, resolve_load.transient_level);
 
-                    parameters.Add(_mainResolve(resolve_load, mapping_load));
+                    MappingLoad _new_map_load = new MappingLoad(mapping_load.provider, mapping_load.level, InjectionTarget.Constructor);
+
+                    parameters.Add(_mainResolve(_new_res_load,_new_map_load));
                 }
                 concrete_instance = constructor.Invoke(parameters.ToArray());
             }
@@ -240,9 +243,12 @@ namespace Haley.Containers
                 {
                     try
                     {
-                        Type _prop_type = pinfo.PropertyType;
+                        //New resolve and mapping load.
+                        ResolveLoad _new_res_load = new ResolveLoad(resolve_load.mode, resolve_load.priority_key, pinfo.Name, pinfo.PropertyType, resolve_load.concrete_type, null, resolve_load.transient_level);
 
-                        var resolved_value = _mainResolve(resolve_load, mapping_load);
+                        MappingLoad _new_map_load = new MappingLoad(mapping_load.provider, mapping_load.level, InjectionTarget.Property);
+
+                        var resolved_value = _mainResolve(_new_res_load, _new_map_load);
                         if (resolved_value != null) pinfo.SetValue(concrete_instance, resolved_value);
                     }
                     catch (Exception)
@@ -269,17 +275,18 @@ namespace Haley.Containers
                     break;
             }
 
-            //Reset Mapping Level.
-            if (mapping_load.level == MappingLevel.Current) mapping_load.level = MappingLevel.None;
             return concrete_instance;
         }
-        private void _resolveWithMappingProvider(ResolveLoad resolve_load,MappingLoad mapping_load, out object concrete_instance)
+        private void _resolveWithMappingProvider(ResolveLoad resolve_load,ref MappingLoad mapping_load, out object concrete_instance)
         {
             //Begin with null output.
             concrete_instance = null;
 
             //Mapping level defines until which stage or level , the mapping should be applied. If mapping provider is null or mapping level is none, don't proceed. 
             if (mapping_load.provider == null || mapping_load.level == MappingLevel.None) return;
+
+            if (mapping_load.level == MappingLevel.Current)
+            { mapping_load.level = MappingLevel.None; }
 
             if (resolve_load.contract_type == null) { throw new ArgumentNullException(nameof(resolve_load.contract_type)); }
 
@@ -299,11 +306,8 @@ namespace Haley.Containers
 
             var _registered = _getMapping(resolve_load.priority_key, resolve_load.contract_type);
 
-            //Resolve using mapping load it is not empty.
-           if(mapping_load.provider != null)
-            {
-                _resolveWithMappingProvider(resolve_load, mapping_load, out concrete_instance);
-            }
+            //Try to resolve with mapping provider before anything.
+            _resolveWithMappingProvider(resolve_load,ref mapping_load, out concrete_instance);
 
             if (concrete_instance != null) return;
 
@@ -311,7 +315,7 @@ namespace Haley.Containers
             if (_registered.exists)
             {
                 //If already exists, then fetch the concrete type. Also, if a concrete type is registered, we can be confident that it has already passed the concrete type validation.
-                resolve_load.concrete_type = _registered.load.concrete_type ?? resolve_load.contract_type;
+                resolve_load.concrete_type = _registered.load.concrete_type ?? resolve_load.concrete_type ?? resolve_load.contract_type;
 
                 switch (_registered.load.mode)
                 {
@@ -319,7 +323,6 @@ namespace Haley.Containers
                         concrete_instance = _registered.load.concrete_instance;
                         break;
                     case RegisterMode.Transient:
-                       
                         concrete_instance = _createInstance(resolve_load, mapping_load);
                         break;
                 }
@@ -345,11 +348,8 @@ namespace Haley.Containers
             if (_registered.exists)
             { resolve_load.concrete_type = _registered.load.concrete_type; }
 
-            if (mapping_load.provider != null)
-            {
-                //No need to use the concrete type here, because, mapping provider will resolve its own key.
-                _resolveWithMappingProvider(resolve_load, mapping_load, out concrete_instance);
-            }
+            //Try to resolve with mapping provider before anything.
+            _resolveWithMappingProvider(resolve_load, ref mapping_load, out concrete_instance);
 
             if (concrete_instance != null) return;
 
@@ -565,25 +565,34 @@ namespace Haley.Containers
             ResolveLoad _request = new ResolveLoad(mode, priority_key, null, contract_type, null, null, _transient_level: _tlevel);
             return _mainResolve(_request, new MappingLoad());
         }
-        public T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered)
+        public T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered,bool currentOnlyAsTransient = false)
         {
-            var _obj = Resolve(typeof(T),mapping_provider, mode);
+            var _obj = Resolve(typeof(T),mapping_provider, mode, currentOnlyAsTransient);
             return (T)_obj;
         }
 
-        public object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered)
+        public object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
         {
             TransientCreationLevel _tlevel = TransientCreationLevel.Current;
             ResolveLoad _request = new ResolveLoad(mode, null, null, contract_type, null, null, _transient_level: _tlevel);
             MappingLoad _map_load = new MappingLoad(mapping_provider, MappingLevel.CurrentWithDependencies);
+            if (mode == ResolveMode.AsRegistered && currentOnlyAsTransient)
+            {
+                return _createInstance(_request, _map_load); //This ensures that the first level is created as transient, irrespective of the resolve mode.
+            }
             return _mainResolve(_request, _map_load);
         }
 
-        public object Resolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered)
+        public object Resolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
         {
             TransientCreationLevel _tlevel = TransientCreationLevel.Current;
             ResolveLoad _request = new ResolveLoad(mode, priority_key, null, contract_type, null, null, _transient_level: _tlevel);
             MappingLoad _map_load = new MappingLoad(mapping_provider, MappingLevel.CurrentWithDependencies);
+
+            if (mode == ResolveMode.AsRegistered && currentOnlyAsTransient)
+            {
+                return _createInstance(_request, _map_load); //This ensures that the first level is created as transient, irrespective of the resolve mode.
+            }
             return _mainResolve(_request, _map_load);
         }
         #endregion
@@ -616,13 +625,11 @@ namespace Haley.Containers
             }
         }
 
-      
-
-        public bool TryResolve(Type contract_type, IMappingProvider mapping_provider, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered)
+        public bool TryResolve(Type contract_type, IMappingProvider mapping_provider, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
         {
             try
             {
-                concrete_instance = Resolve(contract_type,mapping_provider, mode);
+                concrete_instance = Resolve(contract_type,mapping_provider, mode, currentOnlyAsTransient);
                 return true;
             }
             catch (Exception)
@@ -632,11 +639,11 @@ namespace Haley.Containers
             }
         }
 
-        public bool TryResolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered)
+        public bool TryResolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
         {
             try
             {
-                concrete_instance = Resolve(priority_key, contract_type,mapping_provider, mode);
+                concrete_instance = Resolve(priority_key, contract_type,mapping_provider, mode,currentOnlyAsTransient);
                 return true;
             }
             catch (Exception)

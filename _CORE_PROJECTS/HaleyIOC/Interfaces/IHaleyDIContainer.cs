@@ -48,16 +48,16 @@ namespace Haley.Abstractions
         T Resolve<T>(ResolveMode mode = ResolveMode.AsRegistered);
         object Resolve(Type contract_type, ResolveMode mode = ResolveMode.AsRegistered);
         object Resolve(string priority_key, Type contract_type, ResolveMode mode = ResolveMode.AsRegistered);
-        T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered);
-        object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered);
-        object Resolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered);
+        T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
+        object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
+        object Resolve(string priority_key, Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
         #endregion
 
         #region TryResolve Methods
         bool TryResolve(Type contract_type, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered);
         bool TryResolve(string priority_key, Type contract_type, out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered);
-        bool TryResolve(Type contract_type, IMappingProvider mapping_provider,out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered);
-        bool TryResolve(string priority_key, Type contract_type, IMappingProvider mapping_provider,out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered);
+        bool TryResolve(Type contract_type, IMappingProvider mapping_provider,out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
+        bool TryResolve(string priority_key, Type contract_type, IMappingProvider mapping_provider,out object concrete_instance, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
         #endregion
 
         #region ResolveTransient Methods

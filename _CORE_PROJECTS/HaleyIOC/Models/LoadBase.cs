@@ -18,7 +18,7 @@ namespace Haley.Models
         {
             priority_key = _priority_key;
             contract_type = _contract_type;
-            concrete_type = _concrete_type;
+            concrete_type = _concrete_type ?? _contract_type;
             transient_level = _transient_level;
         }
     }
