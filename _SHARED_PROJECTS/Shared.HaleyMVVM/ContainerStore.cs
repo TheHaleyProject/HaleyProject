@@ -1,6 +1,10 @@
 ﻿using System;
 using Haley.Abstractions;
 using Haley.Containers;
+using Haley.WPF.ViewModels;
+using Haley.WPF.Views;
+using Haley.MVVM.Services;
+using Haley.Enums;
 
 namespace Haley.MVVM
 {
@@ -15,6 +19,20 @@ namespace Haley.MVVM
             DI = new DIContainer() {};
             controls = new ControlContainer(DI); 
             windows = new WindowContainer(DI);
+            _registerDialogs();
+            _registerServices();
+        }
+
+        private void _registerDialogs()
+        {
+            windows.register<NotificationVM, NotificationWindow>(mode:RegisterMode.Transient);
+            windows.register<ConfirmationVM, NotificationWindow>(mode: RegisterMode.Transient);
+            windows.register<GetInputVM, NotificationWindow>(mode: RegisterMode.Transient);
+        }
+
+        private void _registerServices()
+        {
+            DI.Register<IDialogService, DialogService>(RegisterMode.Transient);
         }
         public static ContainerStore Singleton = new ContainerStore();
     }

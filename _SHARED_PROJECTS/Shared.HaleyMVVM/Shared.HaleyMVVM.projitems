@@ -6,12 +6,13 @@
     <SharedGUID>8c8b69c6-d351-4d8d-8f16-f9ed4085aca4</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Shared.HaleyMVVM</Import_RootNamespace>
+    <Import_RootNamespace>Haley.MVVM</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\WindowContainer.cs" />
@@ -40,6 +41,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DialogVMBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfirmationVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\GetInputVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

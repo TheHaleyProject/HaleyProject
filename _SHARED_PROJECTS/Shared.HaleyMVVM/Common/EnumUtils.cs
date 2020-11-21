@@ -9,4 +9,11 @@ namespace Haley.Enums
         pixelSize_dpi,
         pixelSize_imageSize,
     }
+
+    public enum DialogMode
+    {
+        Notification,
+        Confirmation,
+        GetInput
+    }
 }

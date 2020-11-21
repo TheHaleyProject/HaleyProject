@@ -69,12 +69,15 @@ namespace Haley.Abstractions
                 var _tuple = (typeof(viewmodelType), typeof(viewType), mode);
                 main_mapping.TryAdd(key, _tuple);
 
-                //Register this in the DI
-                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType),null);
+                //Register this in the DI only if it is singleton
+                if (mode == RegisterMode.Singleton)
+                {
+                    var _status = _di_instance.checkIfRegistered(typeof(viewmodelType), null);
                     if (!_status.status)
                     {
                         _di_instance.Register<viewmodelType>(InputViewModel);
                     }
+                }
                 return key;
             }
             catch (Exception ex)
@@ -86,16 +89,39 @@ namespace Haley.Abstractions
         #endregion
 
         #region Private Methods
+
         protected (BaseViewModelType view_model, BaseViewType view) _generateValuePair(string key, ResolveMode mode)
         {
             var _mapping_value = getMappingValue(key);
 
             //Generate a View
-            BaseViewType resultcontrol = (BaseViewType)Activator.CreateInstance(_mapping_value.view_type); //Create the control.
-            BaseViewModelType resultViewModel = generateViewModel(key, _mapping_value.viewmodel_type, mode);
+            BaseViewType resultcontrol = _generateView(_mapping_value.view_type);
+            BaseViewModelType resultViewModel = _generateViewModel(_mapping_value.viewmodel_type, mode);
             return (resultViewModel, resultcontrol);
         }
-       
+
+        protected BaseViewType _generateView(Type viewType)
+        {
+            BaseViewType resultcontrol = (BaseViewType)Activator.CreateInstance(viewType);
+            return resultcontrol;
+        }
+
+        protected BaseViewModelType _generateViewModel(Type viewModelType, ResolveMode mode = ResolveMode.AsRegistered) //If required we can even return the actural viewmodel concrete type as well.
+        {
+            try
+            {
+                BaseViewModelType _result;
+                if (viewModelType == null) return default(BaseViewModelType);
+                //If the viewmodel is registered in DI as a singleton, then it willbe returned, else, DI will resolve it as a transient and will return the result.
+                _result = (BaseViewModelType)_di_instance.Resolve(viewModelType, mode);
+                return _result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
 
         #region View Retrieval Methods
@@ -132,14 +158,14 @@ namespace Haley.Abstractions
             (Type _viewmodel_type, Type _view_type, RegisterMode _mode) _registered_tuple = (null, null, RegisterMode.Singleton);
             main_mapping.TryGetValue(key, out _registered_tuple);
 
-            if (_registered_tuple._viewmodel_type == null || _registered_tuple._view_type == null)
-            {
-                StringBuilder sbuilder = new StringBuilder();
-                sbuilder.AppendLine($@"The key {key} has null values associated with it.");
-                sbuilder.AppendLine($@"ViewModel Type : {_registered_tuple._viewmodel_type}");
-                sbuilder.AppendLine($@"View Type : {_registered_tuple._view_type}");
-                throw new ArgumentException(sbuilder.ToString());
-            }
+            //if (_registered_tuple._viewmodel_type == null || _registered_tuple._view_type == null)
+            //{
+            //    StringBuilder sbuilder = new StringBuilder();
+            //    sbuilder.AppendLine($@"The key {key} has null values associated with it.");
+            //    sbuilder.AppendLine($@"ViewModel Type : {_registered_tuple._viewmodel_type}");
+            //    sbuilder.AppendLine($@"View Type : {_registered_tuple._view_type}");
+            //    throw new ArgumentException(sbuilder.ToString());
+            //}
 
             return _registered_tuple;
         }
@@ -152,28 +178,11 @@ namespace Haley.Abstractions
         }
         public BaseViewModelType generateViewModel(string key, ResolveMode mode = ResolveMode.AsRegistered) //If required we can even return the actural viewmodel concrete type as well.
         {
-            return generateViewModel(key, null, mode);
+            var _mapping_value = getMappingValue(key);
+            return _generateViewModel(_mapping_value.viewmodel_type, mode);
         }
-        public BaseViewModelType generateViewModel(string key, Type viewmodelType, ResolveMode mode = ResolveMode.AsRegistered)
-        {
-            try
-            {
-                BaseViewModelType _result;
-                Type VmType = viewmodelType;
-                if (!string.IsNullOrEmpty(key) || !string.IsNullOrWhiteSpace(key))
-                {
-                    var _mappingValue = getMappingValue(key);
-                    if (_mappingValue.viewmodel_type != null) VmType = _mappingValue.viewmodel_type;
-                }
-                
-                _result = (BaseViewModelType)_di_instance.Resolve(VmType, mode);
-                return _result;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+
+        
         #endregion
     }
 }
