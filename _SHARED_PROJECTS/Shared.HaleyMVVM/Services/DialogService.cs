@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Haley.Abstractions;
 using Haley.Enums;
-using Haley.MVVM;
 using Haley.WPF.ViewModels;
 
 namespace Haley.MVVM.Services

@@ -88,7 +88,7 @@
       <Name>HaleyIOC</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems" Label="Shared" />
   <Import Project="..\..\_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
-  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
