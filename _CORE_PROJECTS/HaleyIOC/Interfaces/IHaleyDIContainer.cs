@@ -19,7 +19,6 @@ namespace Haley.Abstractions
         void Register<TConcrete>(RegisterMode mode = RegisterMode.Singleton) where TConcrete : class;
         void Register<TConcrete>(TConcrete instance) where TConcrete : class;
         void Register<TConcrete>(IMappingProvider dependencyProvider,MappingLevel mapping_level ) where TConcrete : class;
-
         void Register<TContract, TConcrete>(RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         void Register<TContract, TConcrete>(TConcrete instance) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         void Register<TContract, TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
@@ -29,7 +28,6 @@ namespace Haley.Abstractions
         bool TryRegister<TConcrete>(RegisterMode mode = RegisterMode.Singleton) where TConcrete : class;
         bool TryRegister<TConcrete>(TConcrete instance) where TConcrete : class;
         bool TryRegister<TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level) where TConcrete : class;
-
         bool TryRegister<TContract, TConcrete>(RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         bool TryRegister<TContract, TConcrete>(TConcrete instance) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         bool TryRegister<TContract, TConcrete>(IMappingProvider dependencyProvider, MappingLevel mapping_level) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
@@ -39,7 +37,6 @@ namespace Haley.Abstractions
         bool RegisterWithKey<TConcrete>(string priority_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class;
         bool RegisterWithKey<TConcrete>(string priority_key, TConcrete instance) where TConcrete : class;
         bool RegisterWithKey<TConcrete>(string priority_key, IMappingProvider dependencyProvider, MappingLevel mapping_level) where TConcrete : class;
-    
         bool RegisterWithKey<TContract, TConcrete>(string priority_key, RegisterMode mode = RegisterMode.Singleton) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         bool RegisterWithKey<TContract, TConcrete>(string priority_key, TConcrete instance) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
         bool RegisterWithKey<TContract, TConcrete>(string priority_key, IMappingProvider dependencyProvider, MappingLevel mapping_level) where TConcrete : class, TContract;  //TImplementation should either implement or inherit from TContract
@@ -47,6 +44,7 @@ namespace Haley.Abstractions
 
         #region Resolve Methods
         T Resolve<T>(ResolveMode mode = ResolveMode.AsRegistered);
+        T Resolve<T>(string priority_key, ResolveMode mode = ResolveMode.AsRegistered);
         object Resolve(Type contract_type, ResolveMode mode = ResolveMode.AsRegistered);
         object Resolve(string priority_key, Type contract_type, ResolveMode mode = ResolveMode.AsRegistered);
         T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false);
@@ -63,6 +61,7 @@ namespace Haley.Abstractions
 
         #region ResolveTransient Methods
         T ResolveTransient<T>(TransientCreationLevel transient_level);
+        T ResolveTransient<T>(string priority_key, TransientCreationLevel transient_level);
         object ResolveTransient(Type contract_type, TransientCreationLevel transient_level);
         object ResolveTransient(string priority_key, Type contract_type,TransientCreationLevel transient_level);
         T ResolveTransient<T>(IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithDependencies);

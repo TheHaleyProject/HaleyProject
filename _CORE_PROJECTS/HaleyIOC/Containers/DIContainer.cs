@@ -70,7 +70,7 @@ namespace Haley.Containers
         {
             //For the given type, get all the mappings.
             var _keys = _mappings.Keys.Where(_key => _key.contract_type == contract_type);
-            if (_keys.Count() < 2) return null;
+            if (_keys.Count() == 0) return null;
 
             List<RegisterLoad> _result = new List<RegisterLoad>();
 
@@ -304,29 +304,10 @@ namespace Haley.Containers
             Type current_contract_type = resolve_load.contract_type;
             if (current_contract_type == null) throw new ArgumentNullException(nameof(current_contract_type));
 
+            //Try to resolve multiple params if needed.
+            _resolveArrayTypes(resolve_load,mapping_load, out concrete_instance);
 
-            //List<RegisterLoad> _multiple_registrations = new List<RegisterLoad>();
-            ////If contracttype is of list or enumerable or array or collection, then return all the registered values for the generictypedefinition
-            //if (current_contract_type.IsList() || current_contract_type.IsCollection() || current_contract_type.IsEnumerable())
-            //{
-            //    //We need to check the generic type.
-            //    current_contract_type = current_contract_type.GetGenericArguments()[0];
-            //}
-            //else if (current_contract_type.IsArray)
-            //{
-            //    current_contract_type = current_contract_type.GetElementType();
-            //}
-
-            //_multiple_registrations = _getAllMappings(current_contract_type) ?? new List<RegisterLoad>();
-
-            //if (_multiple_registrations.Count > 0)
-            //{
-            //    foreach (var _reg_load in _multiple_registrations)
-            //    {
-            //        ResolveLoad _new_res_load = _reg_load.convert(resolve_load.contract_name, resolve_load.contract_parent, ResolveMode.AsRegistered);
-            //    }
-            //}
-
+            if (concrete_instance != null) return;
             var _registered = _getMapping(resolve_load.priority_key, current_contract_type);
 
             //Try to resolve with mapping provider before anything.
@@ -362,6 +343,9 @@ namespace Haley.Containers
         private void _resolveAsTransient(ResolveLoad resolve_load, MappingLoad mapping_load, out object concrete_instance)
         {
             concrete_instance = null;
+            //Try to resolve multiple params if needed.
+            _resolveArrayTypes(resolve_load, mapping_load, out concrete_instance);
+            if (concrete_instance != null) return;
 
             var _registered = _getMapping(resolve_load.priority_key, resolve_load.contract_type);
             //By default, create instance for the contract type.
@@ -391,6 +375,46 @@ namespace Haley.Containers
             {
                 resolve_load.mode = ResolveMode.AsRegistered;
                 concrete_instance = _mainResolve(resolve_load,mapping_load);
+            }
+        }
+        private void _resolveArrayTypes(ResolveLoad resolve_load,MappingLoad mapping_load, out object concrete_instance)
+        {
+            concrete_instance = null;
+            Type array_contract_type = null;
+            //If contracttype is of list or enumerable or array or collection, then return all the registered values for the generictypedefinition
+            if (resolve_load.contract_type.IsList() || resolve_load.contract_type.IsCollection() || resolve_load.contract_type.IsEnumerable())
+            {
+                //We need to check the generic type.
+                array_contract_type = resolve_load.contract_type.GetGenericArguments()[0];
+            }
+            else if (resolve_load.contract_type.IsArray)
+            {
+                array_contract_type = resolve_load.contract_type.GetElementType();
+            }
+
+            if (array_contract_type == null) return;
+
+            List<RegisterLoad> _registrations = new List<RegisterLoad>();
+            _registrations = _getAllMappings(array_contract_type) ?? new List<RegisterLoad>();
+            List<object> _instances_list = new List<object>();
+
+            if (_registrations.Count > 0)
+            {
+                foreach (var _registration in _registrations)
+                {
+                    try
+                    {
+                        ResolveLoad _new_resolve_load = _registration.convert(resolve_load.contract_name, resolve_load.contract_parent, resolve_load.mode);
+                        var _current_instance = _mainResolve(_new_resolve_load, mapping_load);
+                        _instances_list.Add(_current_instance);
+                    }
+                    catch (Exception)
+                    {
+                        // Don't throw, continue
+                        continue; //Implement a logger to capture the details and return back to the user.
+                    }
+                }
+                concrete_instance = _instances_list;
             }
         }
         #endregion
@@ -572,8 +596,16 @@ namespace Haley.Containers
         public T Resolve<T>(ResolveMode mode = ResolveMode.AsRegistered)
         {
             var _obj = Resolve(typeof(T), mode);
-            return (T)_obj;
+
+            return (T)_obj.changeType<T>();
         }
+
+        public T Resolve<T>(string priority_key, ResolveMode mode = ResolveMode.AsRegistered)
+        {
+            var _obj = Resolve(priority_key, typeof(T), mode);
+            return (T)_obj.changeType<T>();
+        }
+
         public object Resolve(Type contract_type, ResolveMode mode = ResolveMode.AsRegistered)
         {
             TransientCreationLevel _tlevel = TransientCreationLevel.None;
@@ -591,7 +623,7 @@ namespace Haley.Containers
         public T Resolve<T>(IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered,bool currentOnlyAsTransient = false)
         {
             var _obj = Resolve(typeof(T),mapping_provider, mode, currentOnlyAsTransient);
-            return (T)_obj;
+            return (T)_obj.changeType<T>();
         }
 
         public object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
@@ -682,7 +714,12 @@ namespace Haley.Containers
         public T ResolveTransient<T>(TransientCreationLevel transient_level)
         {
             var _obj = ResolveTransient(typeof(T), transient_level);
-            return (T)_obj;
+            return (T)_obj.changeType<T>();
+        }
+        public T ResolveTransient<T>(string priority_key,TransientCreationLevel transient_level)
+        {
+            var _obj = ResolveTransient(priority_key, typeof(T), transient_level);
+            return (T)_obj.changeType<T>();
         }
         public object ResolveTransient(Type contract_type, TransientCreationLevel transient_level)
         {
@@ -698,7 +735,7 @@ namespace Haley.Containers
         public T ResolveTransient<T>(IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithDependencies)
         {
             var _obj = ResolveTransient(typeof(T), mapping_provider, mapping_level);
-            return (T)_obj;
+            return (T)_obj.changeType<T>();
         }
         public object ResolveTransient(Type contract_type, IMappingProvider mapping_provider, MappingLevel mapping_level = MappingLevel.CurrentWithDependencies)
         {
@@ -714,7 +751,6 @@ namespace Haley.Containers
             //Change below method.
             return _mainResolve(_res_load,_map_load);
         }
-
        
         #endregion
         #endregion
