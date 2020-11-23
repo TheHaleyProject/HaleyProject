@@ -18,18 +18,24 @@ namespace Haley.Containers
         {
             try
             {
-                //If you receive a input viewmodel, obviously, then it is not a singleton approach. You take this inputviewmodel and assign it. so by default, the generate vm instance will not be taken into account.
-                var _kvp = _generateValuePair(key, mode);
+                //If input view model is not null, then don't try to generate viewmodel.
+                IHaleyControl _view = null;
+                IHaleyControlVM _vm = null;
                 if (InputViewModel != null)
                 {
-                    _kvp.view.DataContext = InputViewModel; //Assinging actual viewmodel
+                    var _mapping_value = getMappingValue(key);
+                    _view = _generateView(_mapping_value.view_type);
+                    _vm = (IHaleyControlVM)InputViewModel;
                 }
                 else
                 {
-                    _kvp.view.DataContext = _kvp.view_model; //Assinging generated viewmodel
+                    var _kvp = _generateValuePair(key, mode);
+                    _view = _kvp.view;
+                    _vm = _kvp.view_model;
                 }
+                _view.DataContext = _vm;
 
-                return _kvp.view;
+                return _view;
             }
             catch (Exception ex)
             {

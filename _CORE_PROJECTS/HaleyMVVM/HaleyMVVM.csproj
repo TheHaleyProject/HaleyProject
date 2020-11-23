@@ -64,6 +64,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -87,7 +88,7 @@
       <Name>HaleyIOC</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems" Label="Shared" />
   <Import Project="..\..\_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
-  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVMCore", "_CORE_PROJ
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.WPFTest", "_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.shproj", "{BAB354C2-2354-49E2-916E-E04C7FF6C55D}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.Utils", "_SHARED_PROJECTS\Haley.Shared.Enums\Shared.Haley.Utils.shproj", "{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.Utils", "_SHARED_PROJECTS\Shared.Haley.Utils\Shared.Haley.Utils.shproj", "{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFTest.Core", "_TESTING_PROJECTS\WPFTest.Core\WPFTest.Core.csproj", "{981D9C5B-2A08-4A62-9F14-5E7F01549B0F}"
 EndProject
@@ -63,15 +63,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{375b8734-c155-44eb-9d66-09b3c6d20e11}*SharedItemsImports = 5
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{41bf72e9-0eac-4689-b605-fd3a569fc013}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{375b8734-c155-44eb-9d66-09b3c6d20e11}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.Haley.Utils.projitems*{41bf72e9-0eac-4689-b605-fd3a569fc013}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{99f9ac58-39f1-44b2-bac0-3e7aaac68ce5}*SharedItemsImports = 13
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{99f9ac58-39f1-44b2-bac0-3e7aaac68ce5}*SharedItemsImports = 13
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
-		_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems*{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

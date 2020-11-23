@@ -6,7 +6,7 @@
              xmlns:haley="clr-namespace:Haley.Models;assembly=Haley.MVVM"
              xmlns:local="clr-namespace:DevelopmentWPF.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" haley:HaleyAP.ResolveMode="Default" haley:HaleyAP.InjectVM="False">
+             d:DesignHeight="450" d:DesignWidth="800" haley:HaleyAP.ResolveMode="AsRegistered" haley:HaleyAP.InjectVM="False">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
         <CheckBox Content="{Binding content}"  IsChecked="{Binding ischecked}"/>
     </Grid>

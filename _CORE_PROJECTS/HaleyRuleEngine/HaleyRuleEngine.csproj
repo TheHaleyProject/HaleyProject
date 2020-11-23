@@ -5,7 +5,7 @@
     <AssemblyName>Haley.RuleEngine</AssemblyName>
     <RootNamespace>Haley.RuleEngine</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.5</Version>
     <Authors>Lingam</Authors>
     <Company>TheHaleyProject</Company>
     <Product>Haley Rule Engine</Product>
@@ -18,8 +18,8 @@
     <PackageTags>RuleEngine, ExpressionEngine, Haley,</PackageTags>
     <PackageReleaseNotes>Signed</PackageReleaseNotes>
     <PackageIcon>Haley.png</PackageIcon>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <SignAssembly>true</SignAssembly>
@@ -33,6 +33,11 @@
     </None>
   </ItemGroup>
 
-  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems" Label="Shared" />
 
 </Project>

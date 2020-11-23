@@ -23,7 +23,7 @@ namespace Haley.Models
     public class HCommand<T> : ICommand
     {
         Action<T> _action_method;
-        Func<object, bool> _validation_function;
+        Func<T, bool> _validation_function;
 
         public event EventHandler CanExecuteChanged
         {
@@ -34,7 +34,8 @@ namespace Haley.Models
         public virtual bool CanExecute(object parameter)
         {
             if (_validation_function == null) return true;
-            return _validation_function.Invoke(parameter);
+            T _param = (parameter != null) ? (T)parameter : default(T);
+            return _validation_function.Invoke(_param);
         }
 
         public virtual void Execute(object parameter)
@@ -42,7 +43,7 @@ namespace Haley.Models
             _action_method?.Invoke((T)parameter);
         }
 
-        public HCommand(Action<T> ActionMethod, Func<object, bool> ValidationFunction)
+        public HCommand(Action<T> ActionMethod, Func<T, bool> ValidationFunction)
         {
             _action_method = ActionMethod;
             _validation_function = ValidationFunction;

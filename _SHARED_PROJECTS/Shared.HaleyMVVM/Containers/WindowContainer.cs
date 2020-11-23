@@ -68,21 +68,28 @@ namespace Haley.Containers
         {
             try
             {
-                var _kvp = _generateValuePair(key, mode);
+                //If input view model is not null, then don't try to generate viewmodel.
+                IHaleyWindow _view = null;
+                IHaleyWindowVM _vm = null;
                 if (InputViewModel != null)
                 {
-                    _kvp.view.DataContext = InputViewModel; //Assinging actual viewmodel from user which becomes instance.
+                    var _mapping_value = getMappingValue(key);
+                    _view = _generateView(_mapping_value.view_type);
+                    _vm =  (IHaleyWindowVM) InputViewModel;
                 }
                 else
                 {
-                    _kvp.view.DataContext = _kvp.view_model; //Assinging generated viewmodel (also satisfying generate vm instance)
+                    var _kvp = _generateValuePair(key, mode);
+                    _view = _kvp.view;
+                    _vm = _kvp.view_model;
                 }
+                _view.DataContext = _vm;
 
                 //Enable Haleyobserver so that when view closes, viewmodel event is triggered.
-                HaleyObserver CustomOP = new HaleyObserver(_kvp.view, _kvp.view_model);
+                HaleyObserver CustomOP = new HaleyObserver(_view, _vm);
                 CustomOP.subscribe();
 
-                return _kvp.view;
+                return _view;
             }
             catch (Exception ex)
             {
@@ -135,9 +142,6 @@ namespace Haley.Containers
         }
 
         #endregion
-
       
     }
-
-
 }
