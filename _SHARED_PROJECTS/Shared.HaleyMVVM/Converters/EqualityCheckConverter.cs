@@ -15,15 +15,15 @@ namespace Haley.MVVM.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (parameter == null || value == null) return false;
-            string inputparameter = StringHelpers.getString(parameter); // Parameter is always going to be string.
-            return StringHelpers.getString(value) == inputparameter;
+            string inputparameter = parameter.asString(); // Parameter is always going to be string.
+            return value.asString() == inputparameter;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool ActualResult = (bool)value; //If actual result is true, then return the parameter, else, return null.
 
-            if (ActualResult == true) return StringHelpers.getObject(parameter, targetType); //Idea that the bounded source value is checked against the parameter. We try to send the parameter back as integer.
+            if (ActualResult == true) return parameter.changeType(targetType); //Idea that the bounded source value is checked against the parameter. We try to send the parameter back as integer.
             if (targetType.IsValueType) return Activator.CreateInstance(targetType); //Which means that the target type is a nonnullable one (it has a default value)
             if (targetType == typeof(string)) return "Error";
             return null;

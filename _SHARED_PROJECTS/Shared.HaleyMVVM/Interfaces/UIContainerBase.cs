@@ -50,7 +50,7 @@ namespace Haley.Abstractions
            where viewType : BaseViewType
         {
             //Get the enum value and its type name to prepare a string
-            string _key = StringHelpers.getEnumAsKey(@enum);
+            string _key = @enum.getKey();
            return register<viewmodelType, viewType>(_key, InputViewModel, mode);
         }
 
@@ -134,7 +134,7 @@ namespace Haley.Abstractions
         public BaseViewType generateView(Enum @enum, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = StringHelpers.getEnumAsKey(@enum);
+            string _key = @enum.getKey();
             return generateView(_key, InputViewModel, mode);
         }
         public abstract BaseViewType generateView(string key, object InputViewModel = null, ResolveMode mode = ResolveMode.AsRegistered);
@@ -145,7 +145,7 @@ namespace Haley.Abstractions
         public (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(Enum @enum)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = StringHelpers.getEnumAsKey(@enum);
+            string _key = @enum.getKey();
             return getMappingValue(_key);
         }
         public (Type viewmodel_type, Type view_type, RegisterMode registered_mode) getMappingValue(string key)
@@ -172,7 +172,7 @@ namespace Haley.Abstractions
         public BaseViewModelType generateViewModel(Enum @enum, ResolveMode mode = ResolveMode.AsRegistered)
         {
             //Get the enum value and its type name to prepare a string
-            string _key = StringHelpers.getEnumAsKey(@enum);
+            string _key = @enum.getKey();
             BaseViewModelType _result = generateViewModel(_key, mode);
             return _result;
         }

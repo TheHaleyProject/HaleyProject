@@ -18,10 +18,10 @@
 	  <RepositoryType>GIT</RepositoryType>
 	  <SignAssembly>true</SignAssembly>
 	  <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
-	  <AssemblyVersion>1.0.3.0</AssemblyVersion>
-	  <FileVersion>1.0.3.0</FileVersion>
+	  <AssemblyVersion>1.0.4.0</AssemblyVersion>
+	  <FileVersion>1.0.4.0</FileVersion>
 	  <PackageTags>IOC, DependencyInjection, DI</PackageTags>
-	  <Version>1.0.3</Version>
+	  <Version>1.0.4</Version>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DebugType>portable</DebugType>
@@ -32,5 +32,8 @@
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\HaleyExtensions\HaleyExtensions.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using Haley.Enums;
+using Haley.Models;
 
 namespace Haley.Abstractions
 {
@@ -11,7 +12,7 @@ namespace Haley.Abstractions
         #region Validation Methods
         (bool status, Type registered_type, string message,RegisterMode mode) checkIfRegistered(Type contract_type,string priority_key);
         (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered<TContract>(string priority_key);
-        (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered(string key);
+        (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered(KeyBase key);
         #endregion
 
         #region Register Methods

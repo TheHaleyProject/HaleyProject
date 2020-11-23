@@ -93,6 +93,11 @@
     <ProjectReference Include="..\..\FLIPPER__\FlipperHelpers\HaleyHelpers.csproj">
       <Project>{a5ced5b4-0da6-42ce-953f-988bb94f14b2}</Project>
       <Name>HaleyHelpers</Name>
+      <Aliases>global</Aliases>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyExtensions\HaleyExtensions.csproj">
+      <Project>{ceeb0ddb-9c9c-44b9-8d62-72e36d646d89}</Project>
+      <Name>HaleyExtensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj">
       <Project>{6524cee1-4782-4361-8711-9444baf8bffb}</Project>
@@ -115,6 +120,5 @@
       <Name>HaleyRuleEngine</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\_SHARED_PROJECTS\Haley.Shared.Enums\Haley.Shared.Enums.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

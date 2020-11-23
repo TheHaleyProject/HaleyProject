@@ -21,7 +21,7 @@ namespace Haley.Containers
         #region ShowDialog Methods
         public bool? showDialog(Enum key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.AsRegistered)
         {
-            string _key = StringHelpers.getEnumAsKey(key);
+            string _key = key.getKey();
             return showDialog(_key, InputViewModel, resolve_mode);
         }
         public bool? showDialog<ViewModelType>(ViewModelType InputViewModel = null, ResolveMode resolve_mode = ResolveMode.AsRegistered) where ViewModelType : class, IHaleyWindowVM
@@ -53,7 +53,7 @@ namespace Haley.Containers
         }
         public void show(Enum key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.AsRegistered)
         {
-            string _key = StringHelpers.getEnumAsKey(key);
+            string _key = key.getKey();
             show(_key, InputViewModel, resolve_mode);
         }
         public void show(string key, object InputViewModel = null, ResolveMode resolve_mode = ResolveMode.AsRegistered)

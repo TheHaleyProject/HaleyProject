@@ -15,7 +15,7 @@ namespace Haley.Models
         {
             StringBuilder strbldr = new StringBuilder();
             strbldr.Append($@"The value of the property ""{primary_property}""");
-            strbldr.Append($@" {StringHelpers.getEnumDesctiption(@operator)} )");
+            strbldr.Append($@" {@operator.getDescription()} )");
             strbldr.Append($@"the value of the property ""{secondary_property}"".");
             return strbldr.ToString();
         }

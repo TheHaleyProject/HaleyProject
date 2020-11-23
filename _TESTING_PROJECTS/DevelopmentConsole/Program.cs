@@ -608,23 +608,49 @@ namespace DevelopmentConsole
     {
         static void Main(string[] args)
         {
-            var _di = ContainerStore.Singleton.DI;
-            NormalPower _np = new NormalPower() { name = "Silvester Stallone" };
-            _di.Register<IPower, NormalPower>(_np);
-            var _person1 = _di.Resolve<Person>(); //Should return SS
-            Console.WriteLine(_person1._power.name);
-            var _person2 = _di.ResolveTransient<Person>(TransientCreationLevel.Current); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
-            Console.WriteLine(_person2._power.name);
-            var _person3 = _di.ResolveTransient<Person>(TransientCreationLevel.CascadeAll); //Should return batman
-            Console.WriteLine(_person3._power.name);
-            MappingProviderBase _mpb = new MappingProviderBase();
-            _mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
-            var _person4 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
-            Console.WriteLine(_person4._power.name);
-            var _person5 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
-            Console.WriteLine(_person5._power.name);
+            canregister<List<string>>();
+            canregister<IEnumerable<bool>>();
+            canregister<Person[]>();
+            canregister<string[]>();
+            canregister<ICollection<int>>();
+            //var _di = ContainerStore.Singleton.DI;
+            //NormalPower _np = new NormalPower() { name = "Silvester Stallone" };
+            //_di.Register<IPower, NormalPower>(_np);
+            //_di.Register<List<IPower>>();
+            //var _person1 = _di.Resolve<Person>(); //Should return SS
+            //Console.WriteLine(_person1._power.name);
+            //var _person2 = _di.ResolveTransient<Person>(TransientCreationLevel.Current); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
+            //Console.WriteLine(_person2._power.name);
+            //var _person3 = _di.ResolveTransient<Person>(TransientCreationLevel.CascadeAll); //Should return batman
+            //Console.WriteLine(_person3._power.name);
+            //MappingProviderBase _mpb = new MappingProviderBase();
+            //_mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
+            //var _person4 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
+            //Console.WriteLine(_person4._power.name);
+            //var _person5 = _di.ResolveTransient<Person>(_mpb,MappingLevel.CascadeAll); //Should return batman
+            //Console.WriteLine(_person5._power.name);
+        }
+
+
+        private static bool canregister<T>()
+        {
+            Type _type = typeof(T);
+            bool flag = false;
+            if (_type.IsList() || _type.IsCollection() || _type.IsEnumerable())
+            {
+                var _def2 = _type.GetGenericArguments()[0];
+            }
+            else if (_type.IsArray)
+            {
+                var _def3 = _type.GetElementType();
+            }
+
+           
+            return true;
         }
     }
+
+
 
     public class Person
     {

@@ -7,6 +7,8 @@ using System.Windows.Data;
 using System.Reflection;
 using System.ComponentModel;
 using Haley.Utils;
+using System.Collections;
+
 
 namespace Haley.MVVM.Converters
 {
@@ -14,7 +16,8 @@ namespace Haley.MVVM.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return StringHelpers.getEnumDesctiption((Enum)value);
+            if (value.GetType().BaseType != typeof(Enum)) return null;
+            return ((Enum)value).getDescription();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

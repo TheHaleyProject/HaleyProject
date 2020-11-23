@@ -7,13 +7,14 @@ using Haley.Enums;
 using System.Runtime.InteropServices;
 using Haley.Models;
 using Haley.Abstractions;
+using Haley.Utils;
 
 namespace Haley.Containers
 {
     public sealed class DIContainer : IHaleyDIContainer
     {
         #region ATTRIBUTES
-        private readonly ConcurrentDictionary<string, RegisterLoad> _mappings = new ConcurrentDictionary<string,RegisterLoad>();
+        private readonly ConcurrentDictionary<KeyBase, RegisterLoad> _mappings = new ConcurrentDictionary<KeyBase, RegisterLoad>();
         #endregion
 
         #region Properties
@@ -24,23 +25,6 @@ namespace Haley.Containers
         #region PRIVATE METHODS
 
         #region Helpers
-        private string _getKey(Type contract_type, string priority_key)
-        {
-            //Key = $contractType##$priority_key
-            string _key = "";
-
-            if (contract_type != null)
-            {
-                _key = $@"{contract_type.ToString()}";
-            }
-
-            if (!string.IsNullOrEmpty(priority_key) || !string.IsNullOrWhiteSpace(priority_key))
-            {
-                if (!string.IsNullOrEmpty(_key)) _key += "##";
-                _key += priority_key.ToLower();
-            }
-            return _key;
-        }
         private TransientCreationLevel _convertToTransientLevel(MappingLevel mapping_level)
         {
             TransientCreationLevel _transient_level = TransientCreationLevel.None;
@@ -77,10 +61,26 @@ namespace Haley.Containers
         }
         private void _validateConcreteType(Type concrete_type)
         {
-            if (concrete_type.IsAbstract || concrete_type.IsEnum || concrete_type.IsInterface)
+            if (concrete_type == null || concrete_type.IsAbstract || concrete_type.IsEnum || concrete_type.IsInterface || concrete_type.IsArray || concrete_type.IsList() || concrete_type.IsEnumerable() || concrete_type.IsDictionary() || concrete_type.IsCollection() )
             {
-                throw new ArgumentException($@"Concrete type cannot be an abstract class or enum or interface. Unable to register {concrete_type}");
+                throw new ArgumentException($@"Concrete type cannot be null, abstract, enum, interface, array, list, enumerable, dictionary, or collection. {concrete_type} is not a valid concrete type.");
             }
+        }
+        private List<RegisterLoad> _getAllMappings(Type contract_type)
+        {
+            //For the given type, get all the mappings.
+            var _keys = _mappings.Keys.Where(_key => _key.contract_type == contract_type);
+            if (_keys.Count() < 2) return null;
+
+            List<RegisterLoad> _result = new List<RegisterLoad>();
+
+            foreach (var _key in _keys)
+            {
+                RegisterLoad _load;
+                _mappings.TryGetValue(_key, out _load);
+                _result.Add (_load);
+            }
+            return _result;
         }
         private (bool exists, RegisterLoad load) _getMapping(string priority_key, Type contract_type)
         {
@@ -89,7 +89,7 @@ namespace Haley.Containers
             bool _exists = false;
 
             RegisterLoad _existing = new RegisterLoad();
-            string _key = _getKey(contract_type, priority_key);
+            var _key = new KeyBase(contract_type, priority_key);
 
             //Preference to prioritykey/contract_type combination.
             if (_mappings.ContainsKey(_key))
@@ -100,7 +100,7 @@ namespace Haley.Containers
             if (!_exists)
             {
                 //Reassigning the key with contract type name.
-                _key = contract_type?.ToString();
+                _key = new KeyBase(contract_type,null);
                 if (_mappings.ContainsKey(_key))
                 {
                     _exists = true;
@@ -165,7 +165,7 @@ namespace Haley.Containers
             }
 
             //Get the key to register.
-            string _key = _getKey(register_load.contract_type, register_load.priority_key);
+            var _key = new KeyBase(register_load.contract_type, register_load.priority_key);
 
             //We have already validate if overwrite is required or not. If we reach this point, then overwrite is required.
             if (_exists)
@@ -298,13 +298,36 @@ namespace Haley.Containers
                 concrete_instance = _dip_values.concrete_instance;
             }
         }
-        private void _resolveAsRegistered(ResolveLoad resolve_load, MappingLoad mapping_load,out object concrete_instance)
+        private void _resolveAsRegistered(ResolveLoad resolve_load, MappingLoad mapping_load, out object concrete_instance)
         {
             concrete_instance = null;
+            Type current_contract_type = resolve_load.contract_type;
+            if (current_contract_type == null) throw new ArgumentNullException(nameof(current_contract_type));
 
-            if (resolve_load.contract_type == null) throw new ArgumentNullException(nameof(resolve_load.contract_type));
 
-            var _registered = _getMapping(resolve_load.priority_key, resolve_load.contract_type);
+            //List<RegisterLoad> _multiple_registrations = new List<RegisterLoad>();
+            ////If contracttype is of list or enumerable or array or collection, then return all the registered values for the generictypedefinition
+            //if (current_contract_type.IsList() || current_contract_type.IsCollection() || current_contract_type.IsEnumerable())
+            //{
+            //    //We need to check the generic type.
+            //    current_contract_type = current_contract_type.GetGenericArguments()[0];
+            //}
+            //else if (current_contract_type.IsArray)
+            //{
+            //    current_contract_type = current_contract_type.GetElementType();
+            //}
+
+            //_multiple_registrations = _getAllMappings(current_contract_type) ?? new List<RegisterLoad>();
+
+            //if (_multiple_registrations.Count > 0)
+            //{
+            //    foreach (var _reg_load in _multiple_registrations)
+            //    {
+            //        ResolveLoad _new_res_load = _reg_load.convert(resolve_load.contract_name, resolve_load.contract_parent, ResolveMode.AsRegistered);
+            //    }
+            //}
+
+            var _registered = _getMapping(resolve_load.priority_key, current_contract_type);
 
             //Try to resolve with mapping provider before anything.
             _resolveWithMappingProvider(resolve_load,ref mapping_load, out concrete_instance);
@@ -315,7 +338,7 @@ namespace Haley.Containers
             if (_registered.exists)
             {
                 //If already exists, then fetch the concrete type. Also, if a concrete type is registered, we can be confident that it has already passed the concrete type validation.
-                resolve_load.concrete_type = _registered.load.concrete_type ?? resolve_load.concrete_type ?? resolve_load.contract_type;
+                resolve_load.concrete_type = _registered.load.concrete_type ?? resolve_load.concrete_type ?? current_contract_type;
 
                 switch (_registered.load.mode)
                 {
@@ -377,7 +400,7 @@ namespace Haley.Containers
         #region PUBLIC METHODS
 
         #region Validations
-        public (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered(string key)
+        public (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered(KeyBase key)
         {
             RegisterLoad _current_load = new RegisterLoad();
 
@@ -395,7 +418,7 @@ namespace Haley.Containers
         }
         public (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered(Type contract_type, string priority_key)
         {
-            return checkIfRegistered(_getKey(contract_type, priority_key));
+            return checkIfRegistered(new KeyBase(contract_type, priority_key));
         }
         public (bool status, Type registered_type, string message, RegisterMode mode) checkIfRegistered<Tcontract>(string priority_key)
         {
@@ -574,7 +597,7 @@ namespace Haley.Containers
         public object Resolve(Type contract_type, IMappingProvider mapping_provider, ResolveMode mode = ResolveMode.AsRegistered, bool currentOnlyAsTransient = false)
         {
             TransientCreationLevel _tlevel = TransientCreationLevel.Current;
-            ResolveLoad _request = new ResolveLoad(mode, null, null, contract_type, null, null, _transient_level: _tlevel);
+            ResolveLoad _request = new ResolveLoad(mode, null, null, contract_type, null, contract_type, _transient_level: _tlevel);
             MappingLoad _map_load = new MappingLoad(mapping_provider, MappingLevel.CurrentWithDependencies);
             if (mode == ResolveMode.AsRegistered && currentOnlyAsTransient)
             {
