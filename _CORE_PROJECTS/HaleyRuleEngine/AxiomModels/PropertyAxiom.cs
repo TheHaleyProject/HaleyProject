@@ -15,7 +15,7 @@ namespace Haley.Models
         {
             StringBuilder strbldr = new StringBuilder();
             strbldr.Append($@"The value of the property ""{primary_property}"" ");
-            strbldr.Append($@"{ StringHelpers.getEnumDesctiption(@operator)} {value}.)");
+            strbldr.Append($@"{ @operator.getDescription()} {value}.)");
             return strbldr.ToString();
         }
         public PropertyAxiom(AxiomOperator _operator,string _property_name,  object _value, string _description = null) : base(_operator, _value, _description)

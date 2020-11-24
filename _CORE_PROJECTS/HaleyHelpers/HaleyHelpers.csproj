@@ -5,17 +5,17 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Haley.Helpers</RootNamespace>
-    <Description>Modified all namespaces</Description>
+    <Description>Changed Extensions.</Description>
     <Company>TheHaleyProject</Company>
     <Authors>Lingam</Authors>
     <Copyright>Haley 2020</Copyright>
     <PackageIcon>Haley.png</PackageIcon>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>Haley Helpers</Product>
     <PackageId>Haley.Helpers</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <AssemblyName>Haley.Helpers.Standard</AssemblyName>
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
@@ -48,6 +48,8 @@
     <PackageReference Include="System.Management" Version="5.0.0" />
   </ItemGroup>
 
-  <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\HaleyExtensions\HaleyExtensions.csproj" />
+  </ItemGroup>
 
 </Project>

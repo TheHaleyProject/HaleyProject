@@ -250,7 +250,7 @@ namespace Haley.Utils
             }
 
             //If it is not a serialize content, then we proceed further
-            if (content.isDictionary())
+            if (content.IsDictionary())
             {
                 Dictionary<string, string> content_array = content as Dictionary<string, string>;
                 foreach (var item in content_array)

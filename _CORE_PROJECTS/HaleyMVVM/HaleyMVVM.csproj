@@ -83,12 +83,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HaleyExtensions\HaleyExtensions.csproj">
+      <Project>{ceeb0ddb-9c9c-44b9-8d62-72e36d646d89}</Project>
+      <Name>HaleyExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HaleyIOC\HaleyIOC.csproj">
       <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
       <Name>HaleyIOC</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems" Label="Shared" />
   <Import Project="..\..\_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

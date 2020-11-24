@@ -14,7 +14,7 @@ namespace Haley.Models
         {
             StringBuilder strbldr = new StringBuilder();
             strbldr.Append("The input ");
-            strbldr.Append($@"{ StringHelpers.getEnumDesctiption(@operator)} {value}.)");
+            strbldr.Append($@"{ @operator.getDescription()} {value}.)");
             return strbldr.ToString();
         }
 

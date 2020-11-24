@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVMCore", "_CORE_PROJ
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.WPFTest", "_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.shproj", "{BAB354C2-2354-49E2-916E-E04C7FF6C55D}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.Utils", "_SHARED_PROJECTS\Shared.Haley.Utils\Shared.Haley.Utils.shproj", "{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFTest.Core", "_TESTING_PROJECTS\WPFTest.Core\WPFTest.Core.csproj", "{981D9C5B-2A08-4A62-9F14-5E7F01549B0F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyRuleEngine", "_CORE_PROJECTS\HaleyRuleEngine\HaleyRuleEngine.csproj", "{375B8734-C155-44EB-9D66-09B3C6D20E11}"
@@ -61,17 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyIOC", "_CORE_PROJECTS\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B7E8F3C2-CFE1-475A-90B3-B43698282015}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyExtensions", "_CORE_PROJECTS\HaleyExtensions\HaleyExtensions.csproj", "{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{375b8734-c155-44eb-9d66-09b3c6d20e11}*SharedItemsImports = 5
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.Haley.Utils.projitems*{41bf72e9-0eac-4689-b605-fd3a569fc013}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{99f9ac58-39f1-44b2-bac0-3e7aaac68ce5}*SharedItemsImports = 13
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
-		_SHARED_PROJECTS\Shared.Haley.Utils\Shared.HaleyMVVM.projitems*{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -189,6 +183,14 @@ Global
 		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|x64.ActiveCfg = Release|Any CPU
 		{90C8AEEF-AC11-4CC8-BD22-036CE3B8A2C1}.Release|x64.Build.0 = Release|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Debug|x64.Build.0 = Debug|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Release|x64.ActiveCfg = Release|Any CPU
+		{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,7 +201,6 @@ Global
 		{517F747C-A2CE-4670-8BC3-E574617B64F0} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{8C8B69C6-D351-4D8D-8F16-F9ED4085ACA4} = {85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}
 		{BAB354C2-2354-49E2-916E-E04C7FF6C55D} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
-		{99F9AC58-39F1-44B2-BAC0-3E7AAAC68CE5} = {85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}
 		{981D9C5B-2A08-4A62-9F14-5E7F01549B0F} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{A04A754A-F561-43EB-98BC-25455CB7FC81} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}
 		{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Haley.Extensions</AssemblyName>
+    <RootNamespace>Haley.Utils</RootNamespace>
+    <Authors>Lingam</Authors>
+    <Company>TheHaleyProject</Company>
+		  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		  <Authors>Lingam</Authors>
+		  <Company>TheHaleyProject</Company>
+		  <Description>Lightweight library with common useful extensions.</Description>
+		  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+		  <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
+		  <IncludeSymbols>true</IncludeSymbols>
+		  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		  <PackageIcon>Haley.png</PackageIcon>
+		  <PackageReleaseNotes>Fixed conversion methods.</PackageReleaseNotes>
+		  <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
+		  <RepositoryType>GIT</RepositoryType>
+		  <SignAssembly>true</SignAssembly>
+		  <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
+		  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+		  <FileVersion>1.0.1.0</FileVersion>
+		  <PackageTags>IOC, DependencyInjection, DI</PackageTags>
+		  <Version>1.0.1</Version>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\Haley.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+</Project>
