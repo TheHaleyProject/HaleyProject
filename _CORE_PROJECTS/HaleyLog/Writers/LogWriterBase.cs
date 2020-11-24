@@ -20,8 +20,17 @@ namespace Haley.Log.Writers
         public string timeformat = "yyyy-MM-dd HH:mm:ss";
         public LogWriterBase(string _file_location, string _file_name, string _extension)
         {
-            file_location = _file_location;
-            file_name = Path.Combine(_file_location, _file_name+ "." + _extension);
+            if (_file_location == null || _file_name== null)
+            {
+                //this is an in memory log.
+                file_location = null;
+                file_name = null; 
+            }
+            else
+            {
+                file_location = _file_location;
+                file_name = Path.Combine(_file_location, _file_name + "." + _extension);
+            }
         }
 
         public abstract object convert(List<LogBase> memoryData, bool is_sub = false);

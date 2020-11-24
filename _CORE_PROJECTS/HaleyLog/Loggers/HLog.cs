@@ -10,6 +10,7 @@ using System.Security.AccessControl;
 using Haley.Abstractions;
 using Haley.Models;
 using System.ComponentModel;
+using System.Collections.Concurrent;
 using Haley.Enums;
 
 namespace Haley.Log
@@ -63,8 +64,8 @@ namespace Haley.Log
         #region Private Helper Methods
         private void _autoDump()
         {
-            if (!should_auto_dump) return; //No further validation required.
-            if (_memoryStoreCount(memoryStore) > auto_dump_count) dumpMemory();
+                if (!should_auto_dump) return; //No further validation required.
+                if (_memoryStoreCount(memoryStore.ToList()) > auto_dump_count) dumpMemory();
         }
 
         private int _memoryStoreCount(List<LogBase> source)
@@ -75,38 +76,48 @@ namespace Haley.Log
 
         private void _log (LogBase input, bool in_memory, bool is_sub=false)
         {
-            if (in_memory) //Only if we are adding items to memory, we shoudl care about autodumping
+            if (is_memory_log)
             {
-                _autoDump();
-                if(!is_sub)
+                //irrespective of what the user chooses, if it is a in-memory-log, then always store in memory.
+                in_memory = true;
+                should_auto_dump = false;
+            }
+
+            lock (memoryStore)
+            {
+                if (in_memory) //Only if we are adding items to memory, we should care about autodumping
                 {
-                    memoryStore.Add(input); //Storing to the memory
+                    _autoDump();
+                    if (!is_sub)
+                    {
+                        memoryStore.Add(input); //Storing to the memory
+                    }
+                    else
+                    {
+                        //Sub should always be added to last item in memory.
+                        LogBase last_node;
+                        if (memoryStore.Count > 0)
+                        {
+                            last_node = memoryStore.Last(); //Get last node
+                        }
+                        else
+                        {
+                            last_node = _buildInfo("", prop_name: SUBLOGKEY);
+                            //add the newly created node to the memory store
+                            memoryStore.Add(last_node);
+                        }
+                        last_node.Children.Add(input);
+                    }
                 }
                 else
                 {
-                    //Sub should always be added to last item in memory.
-                    LogBase last_node;
-                   if (memoryStore.Count > 0)
-                    {
-                        last_node = memoryStore.Last(); //Get last node
-                    }
-                   else
-                    {
-                        last_node = _buildInfo("", prop_name: SUBLOGKEY);
-                        //add the newly created node to the memory store
-                        memoryStore.Add(last_node);
-                    }
-                    last_node.Children.Add(input);
-                }
-            }
-            else
-            {
                 //If it is not in memory, then we should dump whatever in memory irrespective of the count.
                 if (memoryStore.Count > 0) dumpMemory();
-               
-                _writer.write(input,is_sub); //writing directly using the writer
+
+                _writer.write(input, is_sub); //writing directly using the writer
+                }
             }
-        }
+     }
 
         #endregion
 
@@ -146,7 +157,10 @@ namespace Haley.Log
 
         public List<ILog> getMemoryStore()
         {
-            return memoryStore.Cast<ILog>().ToList();
+            lock(memoryStore)
+            {
+                return memoryStore.Cast<ILog>().ToList();
+            }
         }
 
         /// <summary>
@@ -155,14 +169,20 @@ namespace Haley.Log
         /// <returns></returns>
         public object getConvertedMemoryStore()
         {
+            lock (memoryStore)
+            {
             //this should use the converter to convert it to respective object and return it accordingly
             //The consumer sould take the responsibility to cast it accordingly
-            return _writer.convert(memoryStore);
+            return _writer.convert(memoryStore.ToList());
+            }
         }
 
         public void clearMemoryStore()
         {
-            memoryStore.Clear();
+            lock(memoryStore)
+            {
+                memoryStore.Clear();
+            }
         }
 
         /// <summary>
@@ -170,8 +190,14 @@ namespace Haley.Log
         /// </summary>
         public override void dumpMemory() //Should dump into wherever file that we write
         {
-            _writer.write(memoryStore);
-            clearMemoryStore();
+            lock(memoryStore)
+            {
+                if (!is_memory_log) //Write only if it is not a memory log.
+                {
+                    _writer.write(memoryStore.ToList());
+                }
+                clearMemoryStore();
+            }
         }
         
         #endregion
@@ -192,30 +218,13 @@ namespace Haley.Log
             auto_dump_count = (max_memory_count > 100 && max_memory_count < 5000) ? max_memory_count : 500;
         }
 
-        #endregion
+        public HLog(OutputType _type) : base(_type)
+        {
+            memoryStore = new List<LogBase>();
+            should_auto_dump = false;
+            auto_dump_count = 0;
+        }
 
-        #region Static Implementations
-        private static HLog _singleton;
-        public static HLog Singleton { get { return _singleton; }}
-     
-        public static void CreateSingleton(HLog sourceLog)
-        {
-            _singleton = sourceLog;
-        }
-        private static Dictionary<LogType, HLog> _store;
-        public static HLog GetLog(LogType type)
-        {
-            if (_store == null) _store = new Dictionary<LogType, HLog>();
-            if (!_store.ContainsKey(type)) return null;
-            return _store[type];
-        }
-        public static bool AddLog(LogType type,HLog source)
-        {
-            if (_store == null) _store = new Dictionary<LogType, HLog>();
-            if (_store.ContainsKey(type)) throw new ArgumentException($@"{type.ToString()} is already registered. Please assign a new key");
-                _store.Add(type, source);
-                return true;
-        }
         #endregion
     }
 }

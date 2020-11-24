@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,10 +20,10 @@
 		  <RepositoryType>GIT</RepositoryType>
 		  <SignAssembly>true</SignAssembly>
 		  <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
-		  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+		  <AssemblyVersion>1.0.2.0</AssemblyVersion>
 		  <FileVersion>1.0.1.0</FileVersion>
 		  <PackageTags>IOC, DependencyInjection, DI</PackageTags>
-		  <Version>1.0.1</Version>
+		  <Version>1.0.2</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DebugType>portable</DebugType>

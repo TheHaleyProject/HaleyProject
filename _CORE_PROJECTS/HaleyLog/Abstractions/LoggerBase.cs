@@ -3,11 +3,14 @@ using Haley.Log.Writers;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using Haley.Utils;
 
 namespace Haley.Abstractions
 {
-    public abstract class LoggerBase
+    public abstract class LoggerBase : ILogger
     {
+        protected bool is_memory_log { get; }
         protected string output_path { get; set; }
         protected string output_file_name { get; set; }
         private OutputType output_type { get; set; }
@@ -37,27 +40,36 @@ namespace Haley.Abstractions
         #region DebugMethods
         public string debug(string message, string property_name = null, bool in_memory = false, bool is_sub = false)
         {
-#if DEBUG
-            return log(message, MessageType.debug, property_name, in_memory, is_sub);
-#else
-            return null;
-#endif
+            if (Assembly.GetEntryAssembly().IsDebugBuild())
+            {
+                return log(message, MessageType.debug, property_name, in_memory, is_sub);
+            }
+            else
+            {
+                return null;
+            }
         }
         public string debug(Exception exception, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false)
         {
-#if DEBUG
-            return log(exception, comments, property_name, in_memory, is_sub);
-#else
-            return null;
-#endif
+            if (Assembly.GetEntryAssembly().IsDebugBuild())
+            {
+                return log(exception, comments, property_name, in_memory, is_sub);
+            }
+            else
+            {
+                return null;
+            }
         }
         public string debug(string key, string value, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false)
         {
-#if DEBUG
-            return log(key, value, comments, property_name, in_memory, is_sub);
-#else
-            return null;
-#endif
+            if (Assembly.GetEntryAssembly().IsDebugBuild())
+            {
+                return log(key, value, comments, property_name, in_memory, is_sub);
+            }
+            else
+            {
+                return null;
+            }
         }
         #endregion
 
@@ -76,9 +88,21 @@ namespace Haley.Abstractions
             output_path = _output_path;
             output_file_name = _output_file_name;
             output_type = _output_type;
+            is_memory_log = false;
 
             //Check if the user has proper directory access or throw exception error.
             if (!checkDirectoryAccess()) throw new ArgumentException($@"HLog doesn't have sufficient access rights to the path {Path.GetDirectoryName(_output_path)}");
+
+            //Based on the output type, define the logwriter.
+            _defineLogWriter();
+        }
+
+        public LoggerBase(OutputType _output_type)
+        {
+            output_type = _output_type;
+            output_path = null;
+            output_file_name = null;
+            is_memory_log = true;
 
             //Based on the output type, define the logwriter.
             _defineLogWriter();

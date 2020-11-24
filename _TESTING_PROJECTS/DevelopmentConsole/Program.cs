@@ -354,50 +354,57 @@ namespace DevelopmentConsole
     #endregion
 
     #region Log Processing
-    //public class Program
-    //{
-    //    public static void Main(string[] args)
-    //    {
-    //        string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-    //        HLog.CreateInstance(new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.json, max_memory_count: 100));
+            //HLog _log = new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.txt_detailed, max_memory_count: 100);
 
-    //        HLog.ins.log("Software Initiated", property_name: "Main Module", in_memory: true);
-    //        HLog.ins.debug("What the hell");
-    //        for (int i = 1; i < 10; i++)
-    //        {
-    //            HLog.ins.log($@"Newlog entry {i}", in_memory: true);
-    //        }
+            HLog _log = new HLog(OutputType.txt_detailed);
 
-    //        for (int i = 1; i < 5; i++)
-    //        {
-    //            HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-    //        }
-    //        HLog.ins.dumpMemory();
-    //        HLog.ins.log($@"Beginning of new data");
+            LogStore.CreateSingleton(_log);
 
-    //        for (int i = 0; i < 5; i++)
-    //        {
-    //            HLog.ins.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-    //        }
+            var _baselog = LogStore.Singleton.BaseLog;
 
-    //        HLog.ins.log("New entry to check if memory is dumped");
-    //        HLog.ins.log("", property_name: "user Details");
-    //        HLog.ins.log("UserName", "rmsmech@gmail.com", is_sub: true);
-    //        HLog.ins.log("Pass", "hello@123", is_sub: true);
+            _baselog.log("Software Initiated", property_name: "Main Module", in_memory: true);
+            _baselog.debug("What the hell");
+            for (int i = 1; i < 10; i++)
+            {
+                _baselog.log($@"Newlog entry {i}", in_memory: true);
+            }
 
-    //        //Exception
-    //        try
-    //        {
-    //            int i = 5;
-    //            int y = i / (i - i);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            HLog.ins.log(ex, "some differernt exception at start");
-    //        }
-    //    }
-    //}
+            for (int i = 1; i < 5; i++)
+            {
+                _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+            }
+            _baselog.dumpMemory();
+            _baselog.log($@"Beginning of new data");
+
+            for (int i = 0; i < 5; i++)
+            {
+                _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+            }
+
+            _baselog.log("New entry to check if memory is dumped");
+            _baselog.log("", property_name: "user Details");
+            _baselog.log("UserName", "rmsmech@gmail.com", is_sub: true);
+            _baselog.log("Pass", "hello@123", is_sub: true);
+
+            //Exception
+            try
+            {
+                int i = 5;
+                int y = i / (i - i);
+            }
+            catch (Exception ex)
+            {
+                _baselog.log(ex, "some differernt exception at start");
+                int i = 5 + 5;
+            }
+        }
+    }
 
     #endregion
 
@@ -604,79 +611,74 @@ namespace DevelopmentConsole
     #endregion
 
     #region MVVM
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            var _di = ContainerStore.Singleton.DI;
-            NormalPower _np = new NormalPower() { name = "Silvester Stallone" };
-            NormalPower _np2 = new NormalPower() { name = "James Bond" };
-            NormalPower _np3 = new NormalPower() { name = "Rajinikanth" };
-            NormalPower _np4 = new NormalPower() { name = "Rock" };
-            NormalPower _np1 = new NormalPower() { name = "Vijayakanth" };
-            SuperPower _sp5 = new SuperPower() { name = "John cena" };
-            _di.Register<IPower, NormalPower>(_np);
-            _di.RegisterWithKey<IPower, NormalPower>("James", _np2);
-            _di.RegisterWithKey<IPower, NormalPower>("Rajini", _np3);
-            _di.RegisterWithKey<IPower, NormalPower>("Rock", _np4);
-            _di.RegisterWithKey<IPower, SuperPower>("Helloworld", _sp5);
-            _di.Register<IPower, NormalPower>(_np1);
-            var _person1 = _di.Resolve<Person>(); //Should return SS
-            var _person2 = _di.Resolve<Person>("Rajini"); //Should return SS
-            var _person3 = _di.Resolve<Person>("Rock"); //Should return SS
-            var _allset = _di.Resolve<List<IPower>>(ResolveMode.Transient);
-            var _allset2 = _di.Resolve<IPower[]>();
-            var allPersons = _di.Resolve(typeof(List<IPower>));
-            var newpersons = _di.Resolve<Newperson>();
+    //public class Program
+    //{
+    //    static void Main(string[] args)
+    //    {
+    //        var _di = ContainerStore.Singleton.DI;
+    //        NormalPower _np = new NormalPower() { name = "Silvester Stallone" };
+    //        NormalPower _np2 = new NormalPower() { name = "James Bond" };
+    //        NormalPower _np3 = new NormalPower() { name = "Rajinikanth" };
+    //        NormalPower _np4 = new NormalPower() { name = "Rock" };
+    //        NormalPower _np1 = new NormalPower() { name = "Vijayakanth" };
+    //        SuperPower _sp5 = new SuperPower() { name = "John cena" };
+    //        _di.Register<IPower, NormalPower>(_np);
+    //        _di.RegisterWithKey<IPower, NormalPower>("James", _np2);
+    //        _di.RegisterWithKey<IPower, NormalPower>("Rajini", _np3);
+    //        _di.RegisterWithKey<IPower, NormalPower>("Rock", _np4);
+    //        _di.RegisterWithKey<IPower, SuperPower>("Helloworld", _sp5);
+    //        _di.Register<IPower, NormalPower>(_np1);
+    //        var _person1 = _di.Resolve<Person>(); //Should return SS
+    //        var _person2 = _di.Resolve<Person>("Rajini"); //Should return SS
+    //        var _person3 = _di.Resolve<Person>("Rock"); //Should return SS
+    //        var _allset = _di.Resolve<List<IPower>>(ResolveMode.Transient);
+    //        var _allset2 = _di.Resolve<IPower[]>();
+    //        var allPersons = _di.Resolve(typeof(List<IPower>));
+    //        var newpersons = _di.Resolve<Newperson>();
 
-            //Should return SS
-            //Console.WriteLine(_person1._power.name);
-            //var _person2 = _di.ResolveTransient<Person>(TransientCreationLevel.Current); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
-            //Console.WriteLine(_person2._power.name);
-            //var _person3 = _di.ResolveTransient<Person>(TransientCreationLevel.CascadeAll); //Should return batman
-            //Console.WriteLine(_person3._power.name);
-            //MappingProviderBase _mpb = new MappingProviderBase();
-            //_mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
-            //var _person4 = _di.ResolveTransient<Person>(_mpb, MappingLevel.CascadeAll); //Should return batman
-            //Console.WriteLine(_person4._power.name);
-            //var _person5 = _di.ResolveTransient<Person>(_mpb, MappingLevel.CascadeAll); //Should return batman
-            //Console.WriteLine(_person5._power.name);
-        }
-    }
-
-    public class Person
-    {
-        public int count { get; set; }
-        public string name { get; set; }
-        [HaleyInject]
-        public IPower _power { get; set; }
-        public Person(IPower newpower) { _power = newpower; }
-    }
-
-    public class Newperson
-    {
-        public IPower[] _powers { get; set; }
-        public List<IPower> _powers2 { get; set; }
-        public Newperson(IPower[] powers, List<IPower> powers2) { _powers = powers;_powers2 = powers2; }
-    }
-
-    public interface IPower
-    {
-        string name { get; set; }
-    }
-
-    public class NormalPower : IPower
-    {
-        public string name { get; set; }
-        public NormalPower() { name = "Batman"; }
-    }
-
-    public class SuperPower : IPower
-    {
-        public int life_count { get; set; }
-        public string name { get; set; }
-        public SuperPower() { life_count = 5; name = "Superman"; }
-    }
+    //        //Should return SS
+    //        //Console.WriteLine(_person1._power.name);
+    //        //var _person2 = _di.ResolveTransient<Person>(TransientCreationLevel.Current); //Should return SS. Since, targetonly ensures that the target "Person" is created as instance where as it's dependencies are not.
+    //        //Console.WriteLine(_person2._power.name);
+    //        //var _person3 = _di.ResolveTransient<Person>(TransientCreationLevel.CascadeAll); //Should return batman
+    //        //Console.WriteLine(_person3._power.name);
+    //        //MappingProviderBase _mpb = new MappingProviderBase();
+    //        //_mpb.Add<IPower, SuperPower>(new SuperPower(), target: InjectionTarget.All);
+    //        //var _person4 = _di.ResolveTransient<Person>(_mpb, MappingLevel.CascadeAll); //Should return batman
+    //        //Console.WriteLine(_person4._power.name);
+    //        //var _person5 = _di.ResolveTransient<Person>(_mpb, MappingLevel.CascadeAll); //Should return batman
+    //        //Console.WriteLine(_person5._power.name);
+    //    }
+    //}
+    //public class Person
+    //{
+    //    public int count { get; set; }
+    //    public string name { get; set; }
+    //    [HaleyInject]
+    //    public IPower _power { get; set; }
+    //    public Person(IPower newpower) { _power = newpower; }
+    //}
+    //public class Newperson
+    //{
+    //    public IPower[] _powers { get; set; }
+    //    public List<IPower> _powers2 { get; set; }
+    //    public Newperson(IPower[] powers, List<IPower> powers2) { _powers = powers;_powers2 = powers2; }
+    //}
+    //public interface IPower
+    //{
+    //    string name { get; set; }
+    //}
+    //public class NormalPower : IPower
+    //{
+    //    public string name { get; set; }
+    //    public NormalPower() { name = "Batman"; }
+    //}
+    //public class SuperPower : IPower
+    //{
+    //    public int life_count { get; set; }
+    //    public string name { get; set; }
+    //    public SuperPower() { life_count = 5; name = "Superman"; }
+    //}
     #endregion
 
 }

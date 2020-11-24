@@ -4,11 +4,18 @@ using System.Collections;
 using System.Reflection;
 using System.Linq;
 using System.ComponentModel;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Diagnostics;
+using System.Text;
+using System.IO;
 
 namespace Haley.Utils
 {
     public static class ObjectConversion
     {
+        #region Conversions
         public static string asString(this object value)
         {
             if (value == null) return null;
@@ -25,8 +32,36 @@ namespace Haley.Utils
             if (targetType.IsList() || targetType.IsArray) return _changeType(value, targetType);
             return value;
         }
+        public static T changeType<T>(this object value)
+        {
+            return (T)_changeType(value, typeof(T));
+        }
+        public static XElement ToXml(this object source)
+        {
+            Type _type = source.GetType();
 
-        private static object _changeType(object value,Type contract_collections_type)
+            #region Abandoned - To Consider interfaces
+            ////If the source has any Interface properties, we just get them as extratypes.
+            //Type[] extraTypes = _type.GetProperties()
+            //    .Where(p => p.PropertyType.IsInterface)
+            //    .Select(p => p.GetValue(source, null).GetType())
+            //    .ToArray();
+
+            //DataContractSerializer serializer = new DataContractSerializer(_type, extraTypes);
+            //serializer.WriteObject(xw, source);
+            #endregion
+            XmlSerializer serializer = new XmlSerializer(_type);
+            //TO IGNORE UNWANTED NAMESPACES
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            StringWriter sw = new StringWriter();
+            XmlTextWriter xw = new XmlTextWriter(sw);
+            serializer.Serialize(xw, source, ns);
+            return XElement.Parse(sw.ToString());
+        }
+        #endregion
+
+        #region Helpers
+        private static object _changeType(object value, Type contract_collections_type)
         {
             if (!value.IsList()) return value; //It is expected that the incoming object should be of List<object>
 
@@ -55,12 +90,7 @@ namespace Haley.Utils
                 return ConvertList(concrete_instances, contract_type, true);
             }
         }
-        public static T changeType<T>(this object value)
-        {
-            return (T)_changeType(value, typeof(T));
-        }
-
-        public static object ConvertList(List<object> instances, Type contract_type, bool is_array = false)
+        private static object ConvertList(List<object> instances, Type contract_type, bool is_array = false)
         {
             if (contract_type == null) throw new ArgumentException("Contract type cannot be empty. Unable to convert to list.");
             var enumerable_type = typeof(Enumerable);
@@ -74,7 +104,7 @@ namespace Haley.Utils
             {
                 conversion_method = enumerable_type.GetMethod(nameof(Enumerable.ToList)).MakeGenericMethod(contract_type);
             }
-            
+
             IEnumerable<object> items_to_cast;
             List<object> converted_input = new List<object>();
 
@@ -89,5 +119,6 @@ namespace Haley.Utils
             var _result = conversion_method.Invoke(null, new[] { casted_objects });
             return _result;
         }
+        #endregion
     }
 }
