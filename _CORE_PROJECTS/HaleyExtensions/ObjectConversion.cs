@@ -22,63 +22,72 @@ namespace Haley.Utils
             if (targetType == typeof(double)) return double.Parse((string)value);
             if (targetType == typeof(bool)) return bool.Parse((string)value);
             if (targetType.BaseType == typeof(Enum)) return value;
+            if (targetType.IsList() || targetType.IsArray) return _changeType(value, targetType);
             return value;
         }
-        public static object changeType<T>(this object value, ta)
+
+        private static object _changeType(object value,Type contract_collections_type)
         {
-            if (!value.IsList()) return (T)value;
-            List<object> _value_list = value as List<object>;
-            Type _valuetype = _value_list.First().GetType();
-            Type targetType = typeof(T);
-            List<object> _result_list = new List<object>();
+            if (!value.IsList()) return value; //It is expected that the incoming object should be of List<object>
 
-            foreach (var item in _value_list)
-            {
-                var _actual_type = Convert.ChangeType(item, item.GetType());
-                _result_list.Add(item);
-            }
-            if (targetType.IsList())
-            {
-                return _result_list;
-            }
-            else if (targetType.IsCollection())
-            {
-                ICollection<object> _result_collection = _result_list;
-                return Convert.ChangeType(_result_collection, targetType);
-            }
-            else if (targetType.IsEnumerable())
-            {
-                IEnumerable<object> _result_collection = _result_list;
-                return Convert.ChangeType(_result_collection, targetType);
-            }
-            else if (targetType.IsArray)
-            {
-                return Convert.ChangeType(_result_list.ToArray(), targetType);
-            }
-            return null;
-        }
+            //Convert object to List of object
+            List<object> concrete_instances = value as List<object>;
+            if (concrete_instances == null) return value;
 
-        public static object ConvertList(List<object> items, Type type, bool performConversion = false)
-        {
-            var containedType = type.GenericTypeArguments.First();
-            var enumerableType = typeof(System.Linq.Enumerable);
-            var castMethod = enumerableType.GetMethod(nameof(System.Linq.Enumerable.Cast)).MakeGenericMethod(containedType);
-            var toListMethod = enumerableType.GetMethod(nameof(System.Linq.Enumerable.ToList)).MakeGenericMethod(containedType);
-
-            IEnumerable<object> itemsToCast;
-
-            if (performConversion)
+            Type contract_type = null;
+            if (contract_collections_type.IsList())
             {
-                itemsToCast = items.Select(item => Convert.ChangeType(item, containedType));
+                contract_type = contract_collections_type.GenericTypeArguments.First();
             }
             else
             {
-                itemsToCast = items;
+                contract_type = contract_collections_type.GetElementType();
             }
 
-            var castedItems = castMethod.Invoke(null, new[] { itemsToCast });
+            if (contract_type == null) throw new ArgumentException($@"The generic arugment for the {contract_collections_type} is null");
 
-            return toListMethod.Invoke(null, new[] { castedItems });
+            if (contract_collections_type.IsList())
+            {
+                return ConvertList(concrete_instances, contract_type);
+            }
+            else //Then it should be an array
+            {
+                return ConvertList(concrete_instances, contract_type, true);
+            }
+        }
+        public static T changeType<T>(this object value)
+        {
+            return (T)_changeType(value, typeof(T));
+        }
+
+        public static object ConvertList(List<object> instances, Type contract_type, bool is_array = false)
+        {
+            if (contract_type == null) throw new ArgumentException("Contract type cannot be empty. Unable to convert to list.");
+            var enumerable_type = typeof(Enumerable);
+            var cast_method = enumerable_type.GetMethod(nameof(Enumerable.Cast)).MakeGenericMethod(contract_type);
+            MethodInfo conversion_method = null;
+            if (is_array)
+            {
+                conversion_method = enumerable_type.GetMethod(nameof(Enumerable.ToArray)).MakeGenericMethod(contract_type);
+            }
+            else
+            {
+                conversion_method = enumerable_type.GetMethod(nameof(Enumerable.ToList)).MakeGenericMethod(contract_type);
+            }
+            
+            IEnumerable<object> items_to_cast;
+            List<object> converted_input = new List<object>();
+
+            foreach (var item in instances)
+            {
+                var _item = Convert.ChangeType(item, item.GetType()); //Concrete conversion used here.
+                converted_input.Add(_item);
+            }
+            items_to_cast = converted_input;
+
+            var casted_objects = cast_method.Invoke(null, new[] { items_to_cast });
+            var _result = conversion_method.Invoke(null, new[] { casted_objects });
+            return _result;
         }
     }
 }

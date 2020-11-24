@@ -382,7 +382,7 @@ namespace Haley.Containers
             concrete_instance = null;
             Type array_contract_type = null;
             //If contracttype is of list or enumerable or array or collection, then return all the registered values for the generictypedefinition
-            if (resolve_load.contract_type.IsList() || resolve_load.contract_type.IsCollection() || resolve_load.contract_type.IsEnumerable())
+            if (resolve_load.contract_type.IsList())
             {
                 //We need to check the generic type.
                 array_contract_type = resolve_load.contract_type.GetGenericArguments()[0];
@@ -392,7 +392,7 @@ namespace Haley.Containers
                 array_contract_type = resolve_load.contract_type.GetElementType();
             }
 
-            if (array_contract_type == null) return;
+            if (array_contract_type == null) return; //Then this value is null and unable to resolve.
 
             List<RegisterLoad> _registrations = new List<RegisterLoad>();
             _registrations = _getAllMappings(array_contract_type) ?? new List<RegisterLoad>();
@@ -405,6 +405,7 @@ namespace Haley.Containers
                     try
                     {
                         ResolveLoad _new_resolve_load = _registration.convert(resolve_load.contract_name, resolve_load.contract_parent, resolve_load.mode);
+                        _new_resolve_load.transient_level = resolve_load.transient_level;
                         var _current_instance = _mainResolve(_new_resolve_load, mapping_load);
                         _instances_list.Add(_current_instance);
                     }
@@ -414,7 +415,7 @@ namespace Haley.Containers
                         continue; //Implement a logger to capture the details and return back to the user.
                     }
                 }
-                concrete_instance = _instances_list;
+                concrete_instance =  _instances_list.changeType(resolve_load.contract_type); //Convert to the contract type.
             }
         }
         #endregion
@@ -596,7 +597,6 @@ namespace Haley.Containers
         public T Resolve<T>(ResolveMode mode = ResolveMode.AsRegistered)
         {
             var _obj = Resolve(typeof(T), mode);
-
             return (T)_obj.changeType<T>();
         }
 

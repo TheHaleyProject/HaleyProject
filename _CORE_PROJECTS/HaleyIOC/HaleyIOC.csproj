@@ -13,15 +13,15 @@
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <PackageIcon>Haley.png</PackageIcon>
-	  <PackageReleaseNotes>Fixes to the mapping provider resolution methods.</PackageReleaseNotes>
+	  <PackageReleaseNotes>Modified storing mechanism. Added methods to resolve List&lt;&gt; and arrays .</PackageReleaseNotes>
 	  <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
 	  <RepositoryType>GIT</RepositoryType>
 	  <SignAssembly>true</SignAssembly>
 	  <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
-	  <AssemblyVersion>1.0.4.0</AssemblyVersion>
-	  <FileVersion>1.0.4.0</FileVersion>
+	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0.0</FileVersion>
 	  <PackageTags>IOC, DependencyInjection, DI</PackageTags>
-	  <Version>1.0.4</Version>
+	  <Version>2.0.0</Version>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DebugType>portable</DebugType>

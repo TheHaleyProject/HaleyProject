@@ -613,17 +613,20 @@ namespace DevelopmentConsole
             NormalPower _np2 = new NormalPower() { name = "James Bond" };
             NormalPower _np3 = new NormalPower() { name = "Rajinikanth" };
             NormalPower _np4 = new NormalPower() { name = "Rock" };
-            NormalPower _np5 = new NormalPower() { name = "John cena" };
+            NormalPower _np1 = new NormalPower() { name = "Vijayakanth" };
+            SuperPower _sp5 = new SuperPower() { name = "John cena" };
             _di.Register<IPower, NormalPower>(_np);
             _di.RegisterWithKey<IPower, NormalPower>("James", _np2);
             _di.RegisterWithKey<IPower, NormalPower>("Rajini", _np3);
             _di.RegisterWithKey<IPower, NormalPower>("Rock", _np4);
-            _di.Register<IPower, NormalPower>(_np5);
-            //_di.Register<List<IPower>>(); //Works fine.
+            _di.RegisterWithKey<IPower, SuperPower>("Helloworld", _sp5);
+            _di.Register<IPower, NormalPower>(_np1);
             var _person1 = _di.Resolve<Person>(); //Should return SS
             var _person2 = _di.Resolve<Person>("Rajini"); //Should return SS
             var _person3 = _di.Resolve<Person>("Rock"); //Should return SS
-            var allPersons =  _di.Resolve(typeof(List<IPower>));
+            var _allset = _di.Resolve<List<IPower>>(ResolveMode.Transient);
+            var _allset2 = _di.Resolve<IPower[]>();
+            var allPersons = _di.Resolve(typeof(List<IPower>));
             var newpersons = _di.Resolve<Newperson>();
 
             //Should return SS
@@ -653,7 +656,8 @@ namespace DevelopmentConsole
     public class Newperson
     {
         public IPower[] _powers { get; set; }
-        public Newperson(IPower[] powers) { _powers = powers; }
+        public List<IPower> _powers2 { get; set; }
+        public Newperson(IPower[] powers, List<IPower> powers2) { _powers = powers;_powers2 = powers2; }
     }
 
     public interface IPower
