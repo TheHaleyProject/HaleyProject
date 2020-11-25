@@ -12,10 +12,10 @@
 	<Company>Haley Project</Company>
 	<Product>Logger</Product>
 	<Description>A simple logger based on .Net Standard to integrate in C# projects. Helps to export the log to different formats including txt, json, xml</Description>
-	<Version>1.0.2</Version>
-	<AssemblyVersion>1.0.2.0</AssemblyVersion>
-	<PackageReleaseNotes>Separated Logger Store and added In_memory_log</PackageReleaseNotes>
-	<FileVersion>1.0.2.0</FileVersion>
+	<Version>1.0.3</Version>
+	<AssemblyVersion>1.0.3.0</AssemblyVersion>
+	<PackageReleaseNotes>Changed Haley Logo</PackageReleaseNotes>
+	<FileVersion>1.0.3.0</FileVersion>
 	<PackageIcon>Haley.png</PackageIcon>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
