@@ -2,16 +2,16 @@
 <package >
   <metadata>
     <id>Haley.MVVM</id>
-    <version>$version$</version>
     <title>$title$</title>
     <authors>Lingam</authors>
     <owners>Haley Project</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light weight MVVM implementation with IOC Containes, Delegate Commands, NotifyPropertyChanged Base Model.</description>
-    <iconUrl>https://github.com/rmsmech/Common/raw/master/Haley.png</iconUrl>
-    <releaseNotes>Added HaleyInject to properties</releaseNotes>
+    <iconUrl>https://raw.githubusercontent.com/rmsmech/Common/master/Haley.png</iconUrl>
+    <releaseNotes>Changed Haley Logo</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>WPF MVVM MVVM IOC DI Haley</tags>
+    <version>2.0.5.3</version>
 	<projectUrl>https://github.com/rmsmech/HaleyProject</projectUrl>
 	<license type="expression">MIT</license>
 	<repository type="git" url="https://github.com/rmsmech/HaleyProject" />

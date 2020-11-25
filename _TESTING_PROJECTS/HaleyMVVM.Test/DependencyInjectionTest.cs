@@ -78,7 +78,7 @@ namespace HaleyMVVM.Test
 
             //Assert
             ArgumentException exception = Assert.Throws<ArgumentException>(act);
-            Assert.StartsWith("Concrete type cannot be an abstract", exception.Message.Substring(0,35));
+            Assert.StartsWith("Concrete type cannot be null, abstr", exception.Message.Substring(0,35));
         }
 
         [Fact]
