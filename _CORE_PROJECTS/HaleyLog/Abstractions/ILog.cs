@@ -14,12 +14,4 @@ namespace Haley.Abstractions
         string Id { get; set; }
         MessageType MessageType { get; set; }
     }
-
-    public interface ILogWriter
-    {
-        object convert(List<LogBase> memoryData, bool is_sub = false); //To Convert to relevant format
-        object convert(LogBase data, bool is_sub = false); //To Convert to relevant format
-        void write(LogBase data,bool is_sub=false);
-        void write(List<LogBase> memoryData, bool is_sub = false);
-    }
 }
