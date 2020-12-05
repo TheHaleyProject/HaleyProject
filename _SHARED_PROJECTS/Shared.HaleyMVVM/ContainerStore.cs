@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using Haley.Abstractions;
 using Haley.Containers;
 using Haley.WPF.ViewModels;

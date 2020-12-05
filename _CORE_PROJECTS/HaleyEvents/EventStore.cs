@@ -20,6 +20,11 @@ namespace Haley.Events
             return result;
         }
 
+        public void clearAll ()
+        {
+            _event_collection = new ConcurrentDictionary<Type, HBaseEvent>(); //Clear all previously subscribed events.
+        }
+
         public static EventStore Singleton = new EventStore();
         public EventStore() { }
     }
