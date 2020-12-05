@@ -354,127 +354,140 @@ namespace DevelopmentConsole
     #endregion
 
     #region Log Processing
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            //string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    //public class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
+    //        //string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            //HLog _log = new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.txt_detailed, max_memory_count: 100);
+    //        //HLog _log = new HLog(Path.Combine(_path, "Hello"), "globalLog", OutputType.txt_detailed, max_memory_count: 100);
 
-            HLog _log = new HLog(OutputType.txt_detailed);
+    //        HLog _log = new HLog(OutputType.txt_detailed);
 
-            LogStore.CreateSingleton(_log);
+    //        LogStore.CreateSingleton(_log);
 
-            var _baselog = LogStore.Singleton.BaseLog;
+    //        var _baselog = LogStore.Singleton.BaseLog;
 
-            _baselog.log("Software Initiated", property_name: "Main Module", in_memory: true);
-            _baselog.debug("What the hell");
-            for (int i = 1; i < 10; i++)
-            {
-                _baselog.log($@"Newlog entry {i}", in_memory: true);
-            }
+    //        _baselog.log("Software Initiated", property_name: "Main Module", in_memory: true);
+    //        _baselog.debug("What the hell");
+    //        for (int i = 1; i < 10; i++)
+    //        {
+    //            _baselog.log($@"Newlog entry {i}", in_memory: true);
+    //        }
 
-            for (int i = 1; i < 5; i++)
-            {
-                _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-            }
-            _baselog.dumpMemory();
-            _baselog.log($@"Beginning of new data");
+    //        for (int i = 1; i < 5; i++)
+    //        {
+    //            _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+    //        }
+    //        _baselog.dumpMemory();
+    //        _baselog.log($@"Beginning of new data");
 
-            for (int i = 0; i < 5; i++)
-            {
-                _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
-            }
+    //        for (int i = 0; i < 5; i++)
+    //        {
+    //            _baselog.log($@"This is a sub items for testing {i}", in_memory: true, is_sub: true);
+    //        }
 
-            _baselog.log("New entry to check if memory is dumped");
-            _baselog.log("", property_name: "user Details");
-            _baselog.log("UserName", "rmsmech@gmail.com", is_sub: true);
-            _baselog.log("Pass", "hello@123", is_sub: true);
+    //        _baselog.log("New entry to check if memory is dumped");
+    //        _baselog.log("", property_name: "user Details");
+    //        _baselog.log("UserName", "rmsmech@gmail.com", is_sub: true);
+    //        _baselog.log("Pass", "hello@123", is_sub: true);
 
-            //Exception
-            try
-            {
-                int i = 5;
-                int y = i / (i - i);
-            }
-            catch (Exception ex)
-            {
-                _baselog.log(ex, "some differernt exception at start");
-                int i = 5 + 5;
-            }
-        }
-    }
+    //        //Exception
+    //        try
+    //        {
+    //            int i = 5;
+    //            int y = i / (i - i);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            _baselog.log(ex, "some differernt exception at start");
+    //            int i = 5 + 5;
+    //        }
+    //    }
+    //}
 
     #endregion
 
     #region Events Processing
-    //public class Program
-    //{
-    //    static void customtest02(itemstosend obj)
-    //    {
-    //        // what
-    //    }
-    //    static void customtest0waht()
-    //    {
-    //        // what
-    //    }
-    //    static void customtest03(somethintosend obj)
-    //    {
-    //       //Who hoooo
-    //    }
+    public class Program
+    {
+        static void customtest02(itemstosend obj)
+        {
+            // what
+        }
+        static void customtest0waht()
+        {
+            // what
+        }
+        static void customtest03(somethintosend obj)
+        {
+            //Who hoooo
+        }
 
-    //    public static void Main(string[] args)
-    //    {
-    //        Thread tc1 = new Thread(() =>
-    //        {
-    //            EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customeventtest);
-    //        });
+        public static void Main(string[] args)
+        {
+            var newss = new newSubscibe();
 
-    //        Thread tc2 = new Thread(() =>
-    //        {
-    //            EventStore.Singleton.GetEvent<CustomEvent02>().subscribe(customtest02);
-    //            EventStore.Singleton.GetEvent<CustomEvent01>().publish();
-    //        });
-    //        Thread tc3 = new Thread(() =>
-    //        {
-    //            EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(customtest03);
-    //            EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customtest0waht);
-    //            EventStore.Singleton.GetEvent<CustomEvent02>().publish(new itemstosend() { value = "This is a test" });
-    //        });
+            Thread tc1 = new Thread(() =>
+            {
+                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customeventtest);
+            });
 
-    //        tc1.Start();
-    //        tc2.Start();
-    //        tc3.Start();
+            Thread tc2 = new Thread(() =>
+            {
+                EventStore.Singleton.GetEvent<CustomEvent02>().subscribe(customtest02);
+                EventStore.Singleton.GetEvent<CustomEvent01>().publish();
+            });
+            Thread tc3 = new Thread(() =>
+            {
+                EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(customtest03);
+                EventStore.Singleton.GetEvent<CustomEvent01>().subscribe(customtest0waht);
+                EventStore.Singleton.GetEvent<CustomEvent02>().publish(new itemstosend() { value = "This is a test" });
+                EventStore.Singleton.clearAll(typeof(Program));
+            });
 
-    //    }
-    //    private static void customeventtest()
-    //    {
-    //        //this is for testing.
-    //    }
-    //}
+            tc1.Start();
+            tc2.Start();
+            tc3.Start();
 
-    //public class CustomEvent01 : HEvent
-    //{
+        }
+        private static void customeventtest()
+        {
+            //this is for testing.
+        }
+    }
 
-    //}
-    //public class CustomEvent02 : HEvent<itemstosend>
-    //{
+    public class CustomEvent01 : HEvent
+    {
 
-    //}
-    //public class CustomEvent03 : HEvent<somethintosend>
-    //{
+    }
+    public class CustomEvent02 : HEvent<itemstosend>
+    {
 
-    //}
-    //public class itemstosend
-    //{
-    //    public string value { get; set; }
-    //    public itemstosend() { }
-    //}
-    //public class somethintosend :EventArgs
-    //{
-    //    public somethintosend() { }
-    //}
+    }
+    public class CustomEvent03 : HEvent<somethintosend>
+    {
+
+    }
+    public class itemstosend
+    {
+        public string value { get; set; }
+        public itemstosend() { }
+    }
+    public class somethintosend : EventArgs
+    {
+        public somethintosend() { }
+    }
+
+    public class newSubscibe
+    {
+        public newSubscibe() { EventStore.Singleton.GetEvent<CustomEvent03>().subscribe(helloworld); }
+
+        private void helloworld(somethintosend obj)
+        {
+            //Do nothing.
+        }
+    }
     #endregion
 
     #region RuleEngine Processing

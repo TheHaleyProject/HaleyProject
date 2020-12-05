@@ -15,7 +15,6 @@ namespace Haley.Events
     {
         //private ConcurrentBag<ISubscriber> _subscribers = new ConcurrentBag<ISubscriber>();
         private ConcurrentDictionary<string, ISubscriber> _subscribers = new ConcurrentDictionary<string, ISubscriber>();
-
         #region PROTECTED METHODS
         protected virtual void basePublish(params object[] arguments)
         {
@@ -26,11 +25,12 @@ namespace Haley.Events
                 _subscriber.Value.sendMessage(arguments);
             }
         }
-        protected virtual void baseSubscribe(ISubscriber subscriber)
+        protected virtual bool baseSubscribe(ISubscriber subscriber)
         {
-            if (_subscribers.ContainsKey(subscriber.id)) return;
-            _subscribers.TryAdd(subscriber.id, subscriber);
+            if (_subscribers.ContainsKey(subscriber.id)) return false;
+            return _subscribers.TryAdd(subscriber.id, subscriber);
         }
+
         protected virtual bool baseUnSubscribe(string subscriber_id)
         {
             ISubscriber _removed_value;
@@ -44,11 +44,51 @@ namespace Haley.Events
         #endregion
 
         #region VIRTUAL METHODS
-        public virtual bool unSubscribe(string subscription_key)
+        /// <summary>
+        /// Subscribers with the input key will be unsubscribed.
+        /// </summary>
+        /// <param name="subscription_key"></param>
+        /// <returns></returns>
+        public virtual bool unSubscribe(string subscription_key) //Only one item will be unsubscribed.
         {
             return baseUnSubscribe(subscription_key);
         }
-        
+
+        /// <summary>
+        /// All subscribers(delegates) with the declaring parent type will be unsubscribed.
+        /// </summary>
+        /// <param name="subscription_key"></param>
+        /// <returns></returns>
+        public virtual bool unSubscribe(Type declaring_parent) //Only one item will be unsubscribed.
+        {
+            if (declaring_parent == null) return false;
+            try
+            {
+                var _toremove = _subscribers.Where(_kvp => _kvp.Value.declaring_type == declaring_parent)?.Select(p => p.Key)?.ToList();
+                if (_toremove == null || _toremove.Count == 0) return false;
+
+                foreach (var item in _toremove)
+                {
+                    baseUnSubscribe(item);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// All subscribers(delegates) with the declaring parent type will be unsubscribed.
+        /// </summary>
+        /// <typeparam name="TParent">Declaring Type to be removed.</typeparam>
+        /// <returns></returns>
+        public virtual bool unSubscribe<TParent>()
+        {
+            return unSubscribe(typeof(TParent));
+        }
+
         #endregion
     }
 }
