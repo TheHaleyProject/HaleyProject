@@ -26,6 +26,18 @@ namespace Haley.Events
             _event_collection = new ConcurrentDictionary<Type, HBaseEvent>(); //Clear all previously subscribed events.
         }
 
+        /// <summary>
+        /// Clear all the events with the declaring parent matching the arguments.
+        /// </summary>
+        /// <typeparam name="TParent"></typeparam>
+        public void clearAll<TParent>()
+        {
+            foreach (var _event in _event_collection.Values)
+            {
+                _event.unSubscribe<TParent>(); //This will try and remove the parents if already registered.
+            }
+        }
+
         public void clearAll(Type parent)
         {
             foreach (var _event in _event_collection.Values)
