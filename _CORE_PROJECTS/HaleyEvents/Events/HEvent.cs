@@ -18,7 +18,8 @@ namespace Haley.Events
         public string subscribe(Action listener)
         {
             SubscriberBase _newinfo = new SubscriberBase(listener);
-            baseSubscribe(_newinfo);
+            var added = baseSubscribe(_newinfo);
+            if (added) baseRegisterDeclaringType(listener.Method.DeclaringType, _newinfo.id);
             return _newinfo.id; //Returning the subscription id
         }
     }
@@ -32,7 +33,8 @@ namespace Haley.Events
         public string subscribe(Action<T> listener)
         {
             SubscriberBase<T> _newinfo = new SubscriberBase<T>(listener);
-            base.baseSubscribe(_newinfo);
+            var added = base.baseSubscribe(_newinfo);
+            if (added) baseRegisterDeclaringType(listener.Method.DeclaringType, _newinfo.id);
             return _newinfo.id; //Returning the subscription id
         }
     }

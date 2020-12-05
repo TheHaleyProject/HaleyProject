@@ -90,11 +90,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FLIPPER__\FlipperHelpers\HaleyHelpers.csproj">
-      <Project>{a5ced5b4-0da6-42ce-953f-988bb94f14b2}</Project>
-      <Name>HaleyHelpers</Name>
-      <Aliases>global</Aliases>
-    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyExtensions\HaleyExtensions.csproj">
       <Project>{ceeb0ddb-9c9c-44b9-8d62-72e36d646d89}</Project>
       <Name>HaleyExtensions</Name>
@@ -102,6 +97,10 @@
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj">
       <Project>{6524cee1-4782-4361-8711-9444baf8bffb}</Project>
       <Name>HaleyEvents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyHelpers\HaleyHelpers.csproj">
+      <Project>{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}</Project>
+      <Name>HaleyHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj">
       <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>

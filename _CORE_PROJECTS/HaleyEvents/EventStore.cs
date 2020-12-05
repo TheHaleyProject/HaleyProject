@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Haley.Events
 {
@@ -23,6 +24,14 @@ namespace Haley.Events
         public void clearAll ()
         {
             _event_collection = new ConcurrentDictionary<Type, HBaseEvent>(); //Clear all previously subscribed events.
+        }
+
+        public void clearAll(Type parent)
+        {
+            foreach (var _event in _event_collection.Values)
+            {
+                _event.unSubscribe(parent); //This will try and remove the parents if already registered.
+            }
         }
 
         public static EventStore Singleton = new EventStore();
