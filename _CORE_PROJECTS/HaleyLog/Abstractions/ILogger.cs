@@ -19,5 +19,6 @@ namespace Haley.Abstractions
             string log(Exception exception, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false);
             string log(string key, string value, string comments = null, string property_name = null, bool in_memory = false, bool is_sub = false);
             void dumpMemory();
+            string getDirectory();
     }
 }
