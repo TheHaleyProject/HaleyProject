@@ -16,7 +16,7 @@ using Haley.Enums;
 
 namespace Haley.Utils
 {
-    public static class RestUtils
+    public static class RestStore
     {
         public static string jwt { get; set; } //Users responsibility to set this value.
         public static string token_prefix { get; set; }
