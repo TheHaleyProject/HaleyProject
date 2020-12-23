@@ -14,9 +14,15 @@ namespace Haley.Utils
 {
     public static class HashUtils
     {
+
+        public static string getRandomString(int number_of_bits =1024)
+        {
+            return Convert.ToBase64String(getRandomBytes(number_of_bits).bytes);
+        }
+
         public static (int length, byte[] bytes) getRandomBytes(int number_of_bits)
         {
-            var length = getBytes(number_of_bits);
+            var length = calculateBytes(number_of_bits);
             var _byte = new byte[length];
             using (var rng = new RNGCryptoServiceProvider()) { rng.GetNonZeroBytes(_byte); } // Generating random bytes of the provided length values.
             return (length, _byte);
@@ -27,7 +33,7 @@ namespace Haley.Utils
             }
         public static (string salt, string value) getHashWithSalt(string to_hash, int salt_bits = 1024, int value_bits = 1024)
             {
-            var value_length  = getBytes(value_bits);
+            var value_length  = calculateBytes(value_bits);
             byte[] _salt = getRandomBytes(salt_bits).bytes;//Getting random bytes of specified length to use as a key.
                 byte[] _value = null;
                 using (var _rfcProcessor = new Rfc2898DeriveBytes(to_hash, _salt)) // Hashing the provided string, with the random generated or user provided bytes.
@@ -53,7 +59,7 @@ namespace Haley.Utils
                 byte[] _salt = Convert.FromBase64String(salt);
                 byte[] _value = null;
 
-            var value_length = getBytes(value_bits);
+            var value_length = calculateBytes(value_bits);
 
             using (var _rfcProcessor = new Rfc2898DeriveBytes(to_hash, _salt)) // Hashing the provided string, with the random generated or user provided bytes.
                 {
@@ -153,10 +159,10 @@ namespace Haley.Utils
                 Marshal.ZeroFreeGlobalAllocUnicode(_pointer);
             }
         }
-        public static int getBytes(int number_of_bits)
+        public static int calculateBytes(int number_of_bits)
         {
             var length = (int)Math.Round(number_of_bits / 8.0, MidpointRounding.AwayFromZero);
-            if (length < 32) length = 32;
+            if (length < 8) length = 8;
             return length;
         }
     }
