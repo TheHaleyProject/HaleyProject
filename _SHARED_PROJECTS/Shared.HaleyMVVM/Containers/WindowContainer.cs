@@ -12,7 +12,7 @@ using Haley.Models;
 using Haley.Utils;
 using Haley.Enums;
 
-namespace Haley.Containers
+namespace Haley.IOC
 {
     public sealed class WindowContainer : UIContainerBase<IHaleyWindowVM,IHaleyWindow>, IHaleyWindowContainer<IHaleyWindowVM, IHaleyWindow>  //Implementation of the DialogService Interface.
     {

@@ -50,6 +50,24 @@ namespace Haley.Models
             DependencyProperty.RegisterAttached("ResolveMode", typeof(ResolveMode), typeof(HaleyAP), new PropertyMetadata(ResolveMode.AsRegistered));
         #endregion
 
+        #region FindKey
+
+        public static bool GetFindKey(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(FindKeyProperty);
+        }
+
+        public static void SetFindKey(DependencyObject obj, bool value)
+        {
+            obj.SetValue(FindKeyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for FindKey.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FindKeyProperty =
+            DependencyProperty.RegisterAttached("FindKey", typeof(bool), typeof(HaleyAP), new PropertyMetadata(false));
+        #endregion
+
+        #region InjectVM
         public static bool GetInjectVM(DependencyObject obj)
         {
             return (bool)obj.GetValue(InjectVMProperty);
@@ -62,18 +80,17 @@ namespace Haley.Models
 
         // Using a DependencyProperty as the backing store for InjectVM.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty InjectVMProperty =
-            DependencyProperty.RegisterAttached("InjectVM", typeof(bool), typeof(HaleyAP), new PropertyMetadata(false,InjectVMPropertyChanged));
+            DependencyProperty.RegisterAttached("InjectVM", typeof(bool), typeof(HaleyAP), new PropertyMetadata(false, InjectVMPropertyChanged));
 
         private static void InjectVMPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //For controls
-           if (d is IHaleyControl|| d is IHaleyWindow)
+            //Applicable only to HaleyControls and Windows.
+            if (d is IHaleyControl || d is IHaleyWindow)
             {
                 try
                 {
                     //If d is usercontrol and also implements ihaleycontrol, then resolve the viewmodel
-                    string _key = GetContainerKey(d);
-                    if (_key == null) _key = d.GetType().ToString();
+                    string _key = _getKey(d);
                     if (d is IHaleyControl)
                     {
                         var _vm = ContainerStore.Singleton.controls.generateViewModel(_key, GetResolveMode(d));
@@ -97,5 +114,27 @@ namespace Haley.Models
                 }
             }
         }
+
+        private static string _getKey(DependencyObject d)
+        {
+            string _key = GetContainerKey(d);
+            if (_key == null) //If container key is absent, then give preference to finding the key.
+            {
+                if (GetFindKey(d))
+                {
+                    if (d is IHaleyControl)
+                    {
+                        _key = ContainerStore.Singleton.controls.findKey(d.GetType());
+                    }
+                    else
+                    {
+                        _key = ContainerStore.Singleton.windows.findKey(d.GetType());
+                    }
+                }
+                if (_key == null) _key = d.GetType().ToString();
+            }
+            return _key;
+        }
+        #endregion
     }
 }

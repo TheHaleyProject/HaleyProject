@@ -8,7 +8,7 @@ using Haley.Utils;
 using System.Collections.Concurrent;
 using Haley.Enums;
 
-namespace Haley.Containers
+namespace Haley.IOC
 {
     public sealed class ControlContainer : UIContainerBase<IHaleyControlVM,IHaleyControl>, IHaleyControlContainer<IHaleyControlVM, IHaleyControl>
     {

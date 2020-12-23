@@ -80,6 +80,12 @@ namespace Haley.Abstractions
 
         public abstract void dumpMemory();
 
+        public string getDirectory()
+        {
+            if (is_memory_log) return null;
+            return output_path;
+        }
+
         #endregion
 
         #region Initiations

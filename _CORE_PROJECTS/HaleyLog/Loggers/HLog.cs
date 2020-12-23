@@ -199,7 +199,8 @@ namespace Haley.Log
                 clearMemoryStore();
             }
         }
-        
+
+       
         #endregion
 
         #region Initiations

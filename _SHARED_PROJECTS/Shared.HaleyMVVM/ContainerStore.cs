@@ -1,10 +1,10 @@
 ﻿ using System;
 using Haley.Abstractions;
-using Haley.Containers;
 using Haley.WPF.ViewModels;
 using Haley.WPF.Views;
 using Haley.MVVM.Services;
 using Haley.Enums;
+using Haley.IOC;
 
 namespace Haley.MVVM
 {
