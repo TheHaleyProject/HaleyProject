@@ -9,7 +9,7 @@ using Haley.Models;
 using Haley.Abstractions;
 using Haley.Utils;
 
-namespace Haley.Containers
+namespace Haley.IOC
 {
     public sealed class DIContainer : IHaleyDIContainer
     {

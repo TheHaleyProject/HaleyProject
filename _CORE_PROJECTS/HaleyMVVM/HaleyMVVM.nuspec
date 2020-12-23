@@ -8,10 +8,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light weight MVVM implementation with IOC Containes, Delegate Commands, NotifyPropertyChanged Base Model.</description>
     <iconUrl>https://raw.githubusercontent.com/rmsmech/Common/master/Haley.png</iconUrl>
-    <releaseNotes>Changed Haley Logo</releaseNotes>
+    <releaseNotes>Added FindKey method to HaleyAttachedProperty</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>WPF MVVM MVVM IOC DI Haley</tags>
-    <version>2.0.5.3</version>
+    <version>$version$</version>
 	<projectUrl>https://github.com/rmsmech/HaleyProject</projectUrl>
 	<license type="expression">MIT</license>
 	<repository type="git" url="https://github.com/rmsmech/HaleyProject" />

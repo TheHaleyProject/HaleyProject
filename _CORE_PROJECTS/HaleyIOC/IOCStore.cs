@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Haley.Containers;
 using Haley.Abstractions;
 
 namespace Haley.IOC

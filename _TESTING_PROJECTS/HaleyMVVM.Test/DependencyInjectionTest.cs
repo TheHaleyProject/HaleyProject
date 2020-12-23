@@ -8,7 +8,7 @@ using Xunit;
 using Xunit.Sdk;
 using HaleyMVVM.Test.Interfaces;
 using Microsoft.Xaml.Behaviors.Media;
-using Haley.Containers;
+using Haley.IOC;
 
 namespace HaleyMVVM.Test
 {

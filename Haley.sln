@@ -61,12 +61,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyExtensions", "_CORE_PROJECTS\HaleyExtensions\HaleyExtensions.csproj", "{CEEB0DDB-9C9C-44B9-8D62-72E36D646D89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyRest", "_CORE_PROJECTS\HaleyRest\HaleyRest.csproj", "{B299CD52-E5F3-4393-BF5B-9BB687187F39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyRest", "_CORE_PROJECTS\HaleyRest\HaleyRest.csproj", "{B299CD52-E5F3-4393-BF5B-9BB687187F39}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.projitems*{517f747c-a2ce-4670-8bc3-e574617b64f0}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
+		_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.projitems*{bab354c2-2354-49e2-916e-e04c7ff6c55d}*SharedItemsImports = 13
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

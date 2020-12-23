@@ -182,7 +182,15 @@ namespace Haley.Abstractions
             return _generateViewModel(_mapping_value.viewmodel_type, mode);
         }
 
-        
+        public string findKey(Type target_type)
+        {
+            //For the given target type, find if it is present in the mapping values. if found, return the first key.
+            var _kvp = main_mapping.FirstOrDefault(kvp => kvp.Value.VMtype == target_type || kvp.Value.ViewType == target_type);
+            if (_kvp.Value.VMtype == null && _kvp.Value.ViewType == null) return null;
+            return _kvp.Key;
+        }
+
+
         #endregion
     }
 }
