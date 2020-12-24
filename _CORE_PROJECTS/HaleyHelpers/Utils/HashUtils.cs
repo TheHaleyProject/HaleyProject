@@ -88,10 +88,6 @@ namespace Haley.Utils
         public static string computeHash(byte[] stream_array, HashMethod method = HashMethod.MD5)
         {
             byte[] computed_hash = null;
-            using (var cryptoProvider = new SHA512CryptoServiceProvider())
-            {
-                computed_hash = cryptoProvider.ComputeHash(stream_array);
-            }
             switch (method)
             {
                 case HashMethod.MD5:
@@ -122,6 +118,13 @@ namespace Haley.Utils
             }
             return BitConverter.ToString(computed_hash);
         }
+
+        public static string computeHash(string to_hash, HashMethod method = HashMethod.MD5)
+        {
+           var _to_hash_bytes = Encoding.ASCII.GetBytes(to_hash);
+            return computeHash(_to_hash_bytes, method);
+        }
+
         public static string computeHash(FileInfo file_info, HashMethod method = HashMethod.MD5)
         {
             try
