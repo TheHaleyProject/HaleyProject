@@ -18,5 +18,9 @@ namespace Haley.Utils
                 return false;
             }
         }
+        public static int getRandomZeroOne()
+        {
+            return rand.Next(0, 2);
+        }
     }
 }

@@ -10,12 +10,12 @@
     <Authors>Lingam</Authors>
     <Copyright>Haley 2020</Copyright>
     <PackageIcon>Haley.png</PackageIcon>
-    <AssemblyVersion>1.0.11.0</AssemblyVersion>
-    <FileVersion>1.0.11.0</FileVersion>
+    <AssemblyVersion>1.0.12.0</AssemblyVersion>
+    <FileVersion>1.0.12.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>Haley.Helpers</Product>
     <PackageId>Haley.Helpers</PackageId>
-    <Version>1.0.11</Version>
+    <Version>1.0.12</Version>
     <AssemblyName>Haley.Helpers</AssemblyName>
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
