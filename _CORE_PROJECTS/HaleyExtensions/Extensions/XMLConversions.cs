@@ -9,7 +9,7 @@ namespace Haley.Utils
 {
     public static class XMLConversions
     {
-        public static XmlDocument toXML(this XDocument doc)
+        public static XmlDocument toXMLDocument(this XDocument doc)
         {
             var xmlDocument = new XmlDocument();
             using (var xmlReader = doc.CreateReader())
