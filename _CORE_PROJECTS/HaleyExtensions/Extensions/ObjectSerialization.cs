@@ -12,6 +12,8 @@ using System.Text;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using ProtoBuf.Serializers;
+using ProtoBuf;
 
 namespace Haley.Utils
 {
@@ -57,7 +59,6 @@ namespace Haley.Utils
             {
                 throw ex;
             }
-
         }
         public static object binaryDeserialize(this string input)
         {
@@ -80,5 +81,36 @@ namespace Haley.Utils
         {
             return  (T)input.binaryDeserialize();
         }
+        public static string protoSerialize(this object input)
+        {
+            string result = null;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    Serializer.Serialize(ms, input);
+                    result = Convert.ToBase64String(ms.ToArray());
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static T protoDeserialize<T>(this string input)
+        {
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(input)))
+                {
+                   return Serializer.Deserialize<T>(ms);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
-}
+ }

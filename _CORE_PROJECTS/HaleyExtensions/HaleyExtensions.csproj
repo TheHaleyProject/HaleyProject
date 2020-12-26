@@ -14,15 +14,15 @@
 		  <IncludeSymbols>true</IncludeSymbols>
 		  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		  <PackageIcon>Haley.png</PackageIcon>
-		  <PackageReleaseNotes>Added serializations helpers.</PackageReleaseNotes>
+		  <PackageReleaseNotes>Added protobuf serialization</PackageReleaseNotes>
 		  <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
 		  <RepositoryType>GIT</RepositoryType>
 		  <SignAssembly>true</SignAssembly>
 		  <AssemblyOriginatorKeyFile>HaleyProject.snk</AssemblyOriginatorKeyFile>
-		  <AssemblyVersion>1.0.6.0</AssemblyVersion>
-		  <FileVersion>1.0.6.0</FileVersion>
+		  <AssemblyVersion>1.0.7.0</AssemblyVersion>
+		  <FileVersion>1.0.7.0</FileVersion>
 		  <PackageTags>IOC, DependencyInjection, DI</PackageTags>
-		  <Version>1.0.6</Version>
+		  <Version>1.0.7</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<DebugType>portable</DebugType>
@@ -33,5 +33,8 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="protobuf-net" Version="3.0.73" />
 	</ItemGroup>
 </Project>
