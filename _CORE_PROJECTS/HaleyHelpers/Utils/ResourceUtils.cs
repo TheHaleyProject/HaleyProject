@@ -28,16 +28,8 @@ namespace Haley.Utils
         {
             try
             {
-                var _stream = assembly_name.GetManifestResourceStream(resource_name); //Get the resource from the assembly
-                byte[] _stream_byte = new byte[_stream.Length]; //initiate a byte array
-
-                using (var memstream = new MemoryStream())
-                {
-                    _stream.CopyTo(memstream);
-                    _stream_byte = memstream.ToArray();
-                }
-
-                File.WriteAllBytes(save_file_path, _stream_byte);
+                var _streambyte = getEmbeddedResource(resource_name, assembly_name);
+                File.WriteAllBytes(save_file_path, _streambyte);
                 return true;
             }
             catch (Exception)
@@ -46,23 +38,25 @@ namespace Haley.Utils
                 throw;
             }
         }
-        public static string getEmbeddedResource(string full_resource_name, Assembly assembly_name)
+        public static byte[] getEmbeddedResource(string full_resource_name, Assembly assembly_name)
         {
             try
             {
-                string _result = string.Empty;
                 var _stream = assembly_name.GetManifestResourceStream(full_resource_name); //Get the resource from the assembly
                 if (_stream == null) return null;
-                using (StreamReader sreader = new StreamReader(_stream))
+
+                byte[] _stream_byte = new byte[_stream.Length]; //initiate a byte array
+                using (var memstream = new MemoryStream())
                 {
-                    _result = sreader.ReadToEnd();
+                    _stream.CopyTo(memstream);
+                    _stream_byte = memstream.ToArray();
                 }
 
-                return _result;
+                return _stream_byte;
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
     }
