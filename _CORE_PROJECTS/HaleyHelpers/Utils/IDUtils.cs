@@ -15,26 +15,19 @@ namespace Haley.Utils
         {
             try
             {
-                var mng_obj_searcher = new ManagementObjectSearcher("Select * From Win32_BaseBoard");
+                var mng_obj_searcher = new ManagementObjectSearcher("Select SerialNumber From Win32_BaseBoard");
                 var collection = mng_obj_searcher.Get();
                 string id = null;
-                try
-                {
                     foreach (ManagementObject mgt_obj in collection)
                     {
-                        id = (string)mgt_obj["SerialNumber"];
+                        id = mgt_obj["SerialNumber"].ToString();
+                        break;
                     }
-                }
-                catch (Exception)
-                {
-                    return id;
-                }
                 return id;
             }
             catch (Exception)
             {
-
-                throw;
+                return string.Empty;
             }
         }
         public static string getProcessorID()
@@ -44,23 +37,16 @@ namespace Haley.Utils
                 var mng_obj_searcher = new ManagementObjectSearcher("Select * From Win32_processor");
                 var collection = mng_obj_searcher.Get();
                 string id = null;
-                try
-                {
                     foreach (ManagementObject mgt_obj in collection)
                     {
-                        id = (string)mgt_obj["ProcessorId"];
+                        id = mgt_obj["ProcessorId"].ToString();
+                        break;
                     }
-                }
-                catch (Exception)
-                {
-                    return id;
-                }
                 return id;
             }
             catch (Exception)
             {
-
-                throw;
+                return string.Empty;
             }
         }
 
