@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:cnv="clr-namespace:Haley.MVVM.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <cnv:BoolToVisibilityConverter x:Key="BooltoVisibiliy"/>
+    <cnv:EnumDescriptionConverter x:Key="EnumtoDescription"/>
+    <cnv:EnumToControlConverter x:Key="EnumToControl"/>
+    <cnv:EnumToStringListConverter x:Key="EnumtoStringList"/>
+    <cnv:EqualityCheckConverter x:Key="EqualityCheck"/>
+    <cnv:EqualityCheckToVisibilityConverter x:Key="EqualityToVisibility"/>
+    <cnv:InverseBooleanConverter x:Key="InverseBoolean"/>
+    <cnv:KeyToControlConverter x:Key="KeytoControl"/>
+    <cnv:MultiValueBinderConverter x:Key="MultiBinder"/>
+    <cnv:ReducerConverter x:Key="LengthReducer"/>
+    <cnv:VerificationConverter x:Key="Verification"/>
+</ResourceDictionary>
