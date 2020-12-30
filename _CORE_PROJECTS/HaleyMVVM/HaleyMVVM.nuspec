@@ -22,4 +22,7 @@
 			  <dependency id="System.Drawing.Common" version="5.0.0" exclude="Build,Analyzers" />
 	  </dependencies>
   </metadata>
+	<files>
+		<file src="$OutDir$Notes.txt" target="content\help" />
+	</files>
 </package>
