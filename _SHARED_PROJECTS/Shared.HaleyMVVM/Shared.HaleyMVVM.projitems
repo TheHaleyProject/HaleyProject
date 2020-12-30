@@ -62,7 +62,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Scripts\Notes.txt">
+    <Content Include="$(MSBuildThisFileDirectory)Notes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
