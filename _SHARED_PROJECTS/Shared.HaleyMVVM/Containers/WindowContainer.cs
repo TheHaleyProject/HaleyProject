@@ -87,8 +87,6 @@ namespace Haley.IOC
 
                 //Enable Haleyobserver so that when view closes, viewmodel event is triggered.
                 HaleyObserver CustomOP = new HaleyObserver(_view, _vm);
-                CustomOP.subscribe();
-
                 return _view;
             }
             catch (Exception ex)

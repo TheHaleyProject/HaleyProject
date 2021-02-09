@@ -8,19 +8,19 @@ using System.Windows;
 
 namespace Haley.Models
 {
-   public class HCommand : HCommand<object>
+   public class DelCommand : DelCommand<object>
     {
-        public HCommand(Action<object> ActionMethod, Func<object, bool> ValidationFunction) :base(ActionMethod, ValidationFunction)
+        public DelCommand(Action<object> ActionMethod, Func<object, bool> ValidationFunction) :base(ActionMethod, ValidationFunction)
         {
         }
 
-        public HCommand(Action<object> ActionMethod) : base(ActionMethod)
+        public DelCommand(Action<object> ActionMethod) : base(ActionMethod)
         {
         }
     }
 
     
-    public class HCommand<T> : ICommand
+    public class DelCommand<T> : ICommand
     {
         Action<T> _action_method;
         Func<T, bool> _validation_function;
@@ -43,13 +43,13 @@ namespace Haley.Models
             _action_method?.Invoke((T)parameter);
         }
 
-        public HCommand(Action<T> ActionMethod, Func<T, bool> ValidationFunction)
+        public DelCommand(Action<T> ActionMethod, Func<T, bool> ValidationFunction)
         {
             _action_method = ActionMethod;
             _validation_function = ValidationFunction;
         }
 
-        public HCommand(Action<T> ActionMethod)
+        public DelCommand(Action<T> ActionMethod)
         {
             _action_method = ActionMethod;
             _validation_function = null;

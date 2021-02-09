@@ -12,7 +12,7 @@
 
 2. EventToCommand - For attaching commands to events in XAML (using interaction).
 
-3. HObservableCollection - For Using an observable collection to notify changes inside the properties of the elements.
+3. NotifiableCollection - For Using an observable collection to notify changes inside the properties of the elements.
 
 4. HaleyAP - For Haley Attached properties (to be used in conjunction with HaleyContainers). To use in xaml.
 
