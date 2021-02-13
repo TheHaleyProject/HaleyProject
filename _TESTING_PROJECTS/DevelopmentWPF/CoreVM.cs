@@ -9,6 +9,10 @@ using Haley.Abstractions;
 using DevelopmentWPF.ViewModels;
 using System.ComponentModel;
 using Haley.Events;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
+using DevelopmentWPF.Model;
+using Haley.Utils;
 
 namespace DevelopmentWPF
 {
@@ -28,6 +32,35 @@ namespace DevelopmentWPF
             set { _current_viewModel = value; onPropertyChanged(); }
         }
 
+        private ObservableCollection<Person> _personCollection;
+        public ObservableCollection<Person> personCollection
+        {
+            get { return _personCollection; }
+            set { SetProp(ref _personCollection, value); }
+        }
+
+        public ICommand EmptyCommand => new DelegateCommand(_emptyCommand, canemptycommand);
+        public ICommand NewCommand => new DelegateCommand<string>(_newcommand, cannewcommand);
+
+        private void _newcommand(string obj)
+        {
+            //Test me
+            personCollection.Add(new Person("Pranav" , HashUtils.getRandomString(256)));
+        }
+        bool cannewcommand(string arg)
+        {
+            return true;
+        }
+
+        private void _emptyCommand()
+        {
+            //This is empty.
+            personCollection.FirstOrDefault().key = HashUtils.getRandomString(256);
+        }
+        bool canemptycommand()
+        {
+            return true;
+        }
 
         private bool _ischecked;
         public bool ischecked
@@ -52,6 +85,10 @@ namespace DevelopmentWPF
             content = $@"this is from {nameof(CoreVM)}";
             current_viewModel = null;
             //this.PropertyChanged += CoreVM_PropertyChanged;
+            personCollection = new ObservableCollection<Person>();
+            personCollection.Add(new Person("Senguttuvan", HashUtils.getRandomString(256)));
+            personCollection.Add(new Person("Bhadri", HashUtils.getRandomString(256)));
+            personCollection.Add(new Person("Latha", HashUtils.getRandomString(256)));
         }
 
         private void CoreVM_PropertyChanged(object sender, PropertyChangedEventArgs e)

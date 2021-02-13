@@ -36,12 +36,12 @@ namespace DevelopmentWPF
                 _ctrl.register<VMMain, ctrl01>(TestApp.control01);
                 _ctrl.register<VMSubMain, ctrl03>();
 
-                var dservice = _di.Resolve<IDialogService>();
-                bool flag = dservice.send("Test", "Hello");
-                flag = dservice.send("Test", "Hello",DialogMode.Confirmation);
-                flag = dservice.send("Test", "Hello", DialogMode.GetInput);
-                string user_message;
-                flag = dservice.receive("Test", "Hello",out user_message);
+                //var dservice = _di.Resolve<IDialogService>();
+                //bool flag = dservice.send("Test", "Hello");
+                //flag = dservice.send("Test", "Hello",DialogMode.Confirmation);
+                //flag = dservice.send("Test", "Hello", DialogMode.GetInput);
+                //string user_message;
+                //flag = dservice.receive("Test", "Hello",out user_message);
 
                 
                 MainWindow _newwindow = new MainWindow();

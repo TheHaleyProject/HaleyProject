@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CoreVM.cs" />
+    <Compile Include="Model\Person.cs" />
     <Compile Include="ViewModels\VMMain.cs" />
     <Compile Include="ViewModels\VMSubMain.cs" />
     <Page Include="Controls\ctrl01.xaml">
@@ -124,6 +125,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyHelpers\HaleyHelpers.csproj">
+      <Project>{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}</Project>
+      <Name>HaleyHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj">
       <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
       <Name>HaleyIOC</Name>
@@ -132,6 +137,9 @@
       <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
       <Name>HaleyMVVM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

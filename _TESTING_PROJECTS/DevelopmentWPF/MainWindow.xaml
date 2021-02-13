@@ -29,7 +29,33 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumTestApp}}" SelectedItem="{Binding controlEnum}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ComboBox Height="30" Width="150" ItemsSource="{Binding Source={StaticResource enumTestApp}}" SelectedItem="{Binding controlEnum}"/>
+                <Button Content="ADD NEW PERSON" Margin="0,10" Height="30" CommandParameter="Why not" Command="{Binding NewCommand}"/>
+                <Button Content="CHANGE NAME" Margin="0,10" Height="30" CommandParameter="Hello World" Command="{Binding EmptyCommand}"/>
+            </StackPanel>
+            <ListView Grid.Column="1" ItemsSource="{Binding personCollection, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding name,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding key,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+       
+        
         <uc:ctrl03 Grid.Row="2"/>
         <ContentControl Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding controlEnum, Converter={StaticResource cnv_enumto_control}}"/>
     </Grid>
