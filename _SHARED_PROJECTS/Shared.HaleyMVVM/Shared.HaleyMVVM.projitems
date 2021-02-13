@@ -36,7 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DelCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />

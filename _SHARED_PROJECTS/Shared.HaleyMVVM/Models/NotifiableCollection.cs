@@ -39,7 +39,7 @@ namespace Haley.Models
             //if (Items.Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ForEach(p => p.PropertyChanged += _propertyChanged);
         }
@@ -50,25 +50,25 @@ namespace Haley.Models
             //if (Items.ToList().Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ToList().ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public void addRange(List<T> Items) //This is add range, which will add the items to the existing values.
+        public void AddRange(List<T> Items) //This is add range, which will add the items to the existing values.
         {
             if (Items == null) return;
             //if (Items.Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public void addNew(T Item)
+        public new void Add(T Item)
         {
-            this.Add(Item);
+            base.Add(Item); //Add to the base observable collection
             Item.PropertyChanged += _propertyChanged;
         }
 
@@ -109,8 +109,6 @@ namespace Haley.Models
                 OnCollectionChanged(TempArgs); //Invoking the collection changed event (of the base class), which in turn will be handled by the R_CollectionChanged
             }
         }
-
         #endregion
-
     }
 }
