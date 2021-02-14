@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Haley.Events
 {
 
-    public class HEvent : HBaseEvent  
+    public class HEvent : HBaseEvent
     {
         public void publish()
         {
