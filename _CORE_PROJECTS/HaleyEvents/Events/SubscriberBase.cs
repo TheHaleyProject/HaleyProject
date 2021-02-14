@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Haley.Events.Utils;
 
 namespace Haley.Events
 {
@@ -16,8 +17,11 @@ namespace Haley.Events
 
         public SubscriberBase(Action _listener) 
         { 
-            id = Guid.NewGuid().ToString(); listener = _listener;
+            listener = _listener;
             declaring_type = listener.Method.DeclaringType;
+            //If a GUID is directly used, it could result in duplicated entries.
+            byte[] determinisitc_byte = HashHelper.computeHash(declaring_type.FullName + "###" + listener.Method.Name);
+            id = new Guid(determinisitc_byte).ToString();
         }
 
         public void sendMessage(params object[] args)
@@ -32,10 +36,12 @@ namespace Haley.Events
         public Action<T> listener { get; set; }
         public Type declaring_type { get; }
         public SubscriberBase(Action<T> _listener) 
-        { 
-            id = Guid.NewGuid().ToString(); 
+        {
             listener = _listener;
             declaring_type = listener.Method.DeclaringType;
+            //If a GUID is directly used, it could result in duplicated entries.
+            byte[] determinisitc_byte = HashHelper.computeHash(declaring_type.FullName + "###" + listener.Method.Name);
+            id = new Guid(determinisitc_byte).ToString();
         }
 
         public void sendMessage(params object[] args)
@@ -48,4 +54,6 @@ namespace Haley.Events
             }
         }
     }
+
+
 }
