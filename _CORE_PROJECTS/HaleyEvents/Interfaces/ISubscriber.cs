@@ -10,6 +10,7 @@ namespace Haley.Abstractions
     {
         string id { get; set; }
         Type declaring_type { get;}
+        string listener_method { get; set; }
         void sendMessage(params object[] args);
     }
 }

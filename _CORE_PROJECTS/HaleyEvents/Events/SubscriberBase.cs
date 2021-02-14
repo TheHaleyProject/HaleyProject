@@ -12,16 +12,16 @@ namespace Haley.Events
     public class SubscriberBase : ISubscriber
     {
         public string id { get; set; }
+        public Type declaring_type { get; }
+        public string listener_method { get; set; }
         public Action listener { get; set; }
-        public Type declaring_type { get;}
 
         public SubscriberBase(Action _listener) 
         { 
             listener = _listener;
             declaring_type = listener.Method.DeclaringType;
-            //If a GUID is directly used, it could result in duplicated entries.
-            byte[] determinisitc_byte = HashHelper.computeHash(declaring_type.FullName + "###" + listener.Method.Name);
-            id = new Guid(determinisitc_byte).ToString();
+            listener_method = listener.Method.Name;
+            id = Guid.NewGuid().ToString();
         }
 
         public void sendMessage(params object[] args)
@@ -33,15 +33,15 @@ namespace Haley.Events
     public class SubscriberBase<T> : ISubscriber
     {
         public string id { get; set; }
-        public Action<T> listener { get; set; }
         public Type declaring_type { get; }
+        public string listener_method { get; set; }
+        public Action<T> listener { get; set; }
         public SubscriberBase(Action<T> _listener) 
         {
             listener = _listener;
             declaring_type = listener.Method.DeclaringType;
-            //If a GUID is directly used, it could result in duplicated entries.
-            byte[] determinisitc_byte = HashHelper.computeHash(declaring_type.FullName + "###" + listener.Method.Name);
-            id = new Guid(determinisitc_byte).ToString();
+            listener_method = listener.Method.Name;
+            id = Guid.NewGuid().ToString();
         }
 
         public void sendMessage(params object[] args)
