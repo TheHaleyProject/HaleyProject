@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumTypeToDescriptionListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
@@ -19,8 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyToControlConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToControlConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToStringListConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToDescriptionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumListToDescriptionListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />

@@ -10,15 +10,19 @@ using Haley.Utils;
 
 namespace Haley.MVVM.Converters
 {
-    public class EnumToStringListConverter : IValueConverter
+    public class EnumTypeToDescriptionListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            List<Enum> input = (List<Enum>)value;
+            var _type = (Type)value;
+            var _basetype = _type.BaseType;
+            //Input value is expected to be type of enum.
+            if (_basetype != typeof(Enum)) return null;
             List<string> result = new List<string>();
-            foreach (Enum e in input)
+
+            foreach (Enum @enum in Enum.GetValues(_type))
             {
-                result.Add(e.getDescription());
+                result.Add(@enum.getDescription());
             }
             return result;
         }
