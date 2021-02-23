@@ -50,6 +50,7 @@ namespace Haley.Models
         {
             subscriber = subscriberView;
             publisher = publisherViewModel;
+            subscribe();
         }
     }
 }

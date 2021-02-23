@@ -47,8 +47,8 @@ namespace Haley.WPF.ViewModels
             return (!string.IsNullOrEmpty(input));
         }
 
-        public ICommand cmd_send_input => new HCommand<bool>(_sendInput, canSendInput);
-        public ICommand cmd_close_window => new HCommand<bool>(_closeWindow, null);
+        public ICommand cmd_send_input => new DelegateCommand<bool>(_sendInput, canSendInput);
+        public ICommand cmd_close_window => new DelegateCommand<bool>(_closeWindow, null);
 
 
         private void _sendInput(bool obj)

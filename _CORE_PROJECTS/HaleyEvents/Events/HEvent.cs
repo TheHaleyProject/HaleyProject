@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Haley.Events
 {
 
-    public class HEvent : HBaseEvent  
+    public class HEvent : HBaseEvent
     {
         public void publish()
         {
@@ -18,8 +18,7 @@ namespace Haley.Events
         public string subscribe(Action listener)
         {
             SubscriberBase _newinfo = new SubscriberBase(listener);
-            baseSubscribe(_newinfo);
-            return _newinfo.id; //Returning the subscription id
+            return baseSubscribe(_newinfo); //Returning the subscription id
         }
     }
 
@@ -32,8 +31,7 @@ namespace Haley.Events
         public string subscribe(Action<T> listener)
         {
             SubscriberBase<T> _newinfo = new SubscriberBase<T>(listener);
-            base.baseSubscribe(_newinfo);
-            return _newinfo.id; //Returning the subscription id
+            return baseSubscribe(_newinfo); //Returning the subscription id
         }
     }
 }

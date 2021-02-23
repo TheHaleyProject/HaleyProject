@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.Specialized;
-using System.Runtime.InteropServices;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Haley.Models
 {
@@ -15,10 +11,10 @@ namespace Haley.Models
     //Base idea is that we register a handler for the propertychanged events of the objects. Whenever this property changes, we trigger the collectionchanged event.
     //We can also setup some delegate methods to perform boolean operations to validate whether to trigger the collectionchanged event or not.
 
-    public sealed class HObservableCollection<T>  : ObservableCollection<T>
-        where T: INotifyPropertyChanged //HObservableCollection will accept only items that has INotifyPropertyChanged implemented.
-      //We are inheriting ObservableCollection Class.
-      //We are adorning with a sealed modifier so that it will not be inherited by some other class.
+    public sealed class NotifiableCollection<T> : ObservableCollection<T>
+        where T : INotifyPropertyChanged //NotifiableCollection will accept only items that has INotifyPropertyChanged implemented.
+                                         //We are inheriting ObservableCollection Class.
+                                         //We are adorning with a sealed modifier so that it will not be inherited by some other class.
     {
         private void _registerCollection()
         {
@@ -29,59 +25,59 @@ namespace Haley.Models
         /// <summary>
         /// Set a delegate method which takes an object argument and returns a bool. Do remember to set your parameters as well. By default,the parameters are null.
         /// </summary>
-        public TriggerDelegate trigger { get; set; }
-        public delegate bool TriggerDelegate(params object[] args);
+        public Trigger trigger { get; set; }
+        public delegate bool Trigger(params object[] args);
         #region Collection Adding Methods
 
         /// <summary>
         /// Can add 
         /// </summary>
         /// <param name="Items"></param>
-        public HObservableCollection(List<T> Items) : this() //You can also use Base(Items) in case you need to make use of the methods present inside the abstract classes. For new initialization
+        public NotifiableCollection(List<T> Items) : this() //You can also use Base(Items) in case you need to make use of the methods present inside the abstract classes. For new initialization
         {
             if (Items == null) return;
             //if (Items.Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public HObservableCollection(IEnumerable<T> Items) : this() //For new initialization
+        public NotifiableCollection(IEnumerable<T> Items) : this() //For new initialization
         {
             if (Items == null) return;
             //if (Items.ToList().Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ToList().ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public void addRange(List<T> Items) //This is add range, which will add the items to the existing values.
+        public void AddRange(List<T> Items) //This is add range, which will add the items to the existing values.
         {
             if (Items == null) return;
             //if (Items.Count == 0 || Items == null) return;
             foreach (var item in Items)
             {
-                this.Add(item);
+                base.Add(item);
             }
             Items.ForEach(p => p.PropertyChanged += _propertyChanged);
         }
 
-        public void addNew(T Item)
+        public new void Add(T Item)
         {
-            this.Add(Item);
+            base.Add(Item); //Add to the base observable collection
             Item.PropertyChanged += _propertyChanged;
         }
 
         #endregion
 
-        public HObservableCollection() : base()
+        public NotifiableCollection() : base()
         { _registerCollection(); }
 
-        public HObservableCollection(Func<object, bool> _trigger) : base()
+        public NotifiableCollection(Func<object, bool> _trigger) : base()
         { _registerCollection(); trigger = trigger; }
 
         #region Event Handlers
@@ -91,14 +87,14 @@ namespace Haley.Models
             //By default when a collection changes, the notifypropertychanged will be invoked. So that whichever class implements it will be able to notify. However, earlier we are also registering all the properties of the objects inside the collection to invoke the trigger. We need to turn that off now. Else, even if the items are removed from the collection, we will still get the notifications
             if (e.NewItems != null)
             {
-                foreach(var item in e.NewItems)
+                foreach (var item in e.NewItems)
                 {
                     ((INotifyPropertyChanged)item).PropertyChanged += _propertyChanged;
                 }
             }
             if (e.OldItems != null) //Meaning that items have been removed. We need to remove the hanlder for their property changed events.
             {
-                foreach(var item in e.OldItems)
+                foreach (var item in e.OldItems)
                 {
                     ((INotifyPropertyChanged)item).PropertyChanged -= _propertyChanged;
                 }
@@ -113,8 +109,6 @@ namespace Haley.Models
                 OnCollectionChanged(TempArgs); //Invoking the collection changed event (of the base class), which in turn will be handled by the R_CollectionChanged
             }
         }
-
         #endregion
-
     }
 }

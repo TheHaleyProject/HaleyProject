@@ -10,19 +10,19 @@
     <Authors>Lingam</Authors>
     <Copyright>Haley 2020</Copyright>
     <PackageIcon>Haley.png</PackageIcon>
-    <AssemblyVersion>1.0.13.0</AssemblyVersion>
-    <FileVersion>1.0.13.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>Haley.Helpers</Product>
     <PackageId>Haley.Helpers</PackageId>
-    <Version>1.0.13</Version>
+    <Version>2.0.0</Version>
     <AssemblyName>Haley.Helpers</AssemblyName>
     <PackageProjectUrl>https://github.com/rmsmech/HaleyProject</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rmsmech/HaleyProject</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  <PackageReleaseNotes>Added RandomBool generator to generalutils.</PackageReleaseNotes>
+	  <PackageReleaseNotes>Added encryption utils</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +46,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="5.0.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 

@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumTypeToDescriptionListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
@@ -19,8 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\KeyToControlConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToControlConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToStringListConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumToDescriptionConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumListToDescriptionListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EqualityCheckToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
@@ -36,11 +37,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifierModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\HCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\HObservableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NotifiableCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationVM.cs" />
@@ -60,5 +61,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Notes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

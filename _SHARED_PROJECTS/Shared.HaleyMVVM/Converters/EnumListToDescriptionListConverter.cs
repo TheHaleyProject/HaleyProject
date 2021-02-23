@@ -7,17 +7,20 @@ using System.Windows.Data;
 using System.Reflection;
 using System.ComponentModel;
 using Haley.Utils;
-using System.Collections;
-
 
 namespace Haley.MVVM.Converters
 {
-    public class EnumDescriptionConverter : IValueConverter
+    public class EnumListToDescriptionListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.GetType().BaseType != typeof(Enum)) return null;
-            return ((Enum)value).getDescription();
+            List<Enum> input = (List<Enum>)value;
+            List<string> result = new List<string>();
+            foreach (Enum e in input)
+            {
+                result.Add(e.getDescription());
+            }
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
