@@ -25,14 +25,18 @@ namespace Haley.Events
                 _subscriber.Value.sendMessage(arguments);
             }
         }
-        protected virtual string baseSubscribe(ISubscriber subscriber)
+        protected virtual string baseSubscribe(ISubscriber subscriber, bool allow_duplicates=false)
         {
-            var _kvp = _subscribers.FirstOrDefault(sub =>
+            if (!allow_duplicates)
+            {
+                var _kvp = _subscribers.FirstOrDefault(sub =>
             sub.Value.listener_method == subscriber.listener_method && sub.Value.declaring_type == subscriber.declaring_type);
-            if (_kvp.Value != null)
-            { 
-                return _kvp.Value.id; 
+                if (_kvp.Value != null)
+                {
+                    return _kvp.Value.id;
+                }
             }
+            
             _subscribers.TryAdd(subscriber.id, subscriber);
             return subscriber.id;
         }

@@ -15,10 +15,10 @@ namespace Haley.Events
             //Publish without passing arguments
             basePublish();
         }
-        public string subscribe(Action listener)
+        public string subscribe(Action listener, bool allow_duplicate = false)
         {
             SubscriberBase _newinfo = new SubscriberBase(listener);
-            return baseSubscribe(_newinfo); //Returning the subscription id
+            return baseSubscribe(_newinfo, allow_duplicate); //Returning the subscription id
         }
     }
 
@@ -28,10 +28,10 @@ namespace Haley.Events
         {
             base.basePublish(eventArguments);
         }
-        public string subscribe(Action<T> listener)
+        public string subscribe(Action<T> listener, bool allow_duplicate = false)
         {
             SubscriberBase<T> _newinfo = new SubscriberBase<T>(listener);
-            return baseSubscribe(_newinfo); //Returning the subscription id
+            return baseSubscribe(_newinfo, allow_duplicate); //Returning the subscription id
         }
     }
 }
