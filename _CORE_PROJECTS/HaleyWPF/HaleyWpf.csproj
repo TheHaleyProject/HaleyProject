@@ -69,28 +69,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppResources\Converters\Converter.cs" />
-    <Compile Include="BaseControls\hBtnWImage.xaml.cs">
-      <DependentUpon>hBtnWImage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hBtnWImageText.xaml.cs">
-      <DependentUpon>hBtnWImageText.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hExpander.xaml.cs">
-      <DependentUpon>hExpander.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hLoadingCircle.xaml.cs">
-      <DependentUpon>hLoadingCircle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hLoadingHorizontal.xaml.cs">
-      <DependentUpon>hLoadingHorizontal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hPasswordBox.xaml.cs">
-      <DependentUpon>hPasswordBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseControls\hTextbox.xaml.cs">
-      <DependentUpon>hTextbox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,55 +86,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="FlipperUI.nuspec" />
     <None Include="HaleyProject.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="SpecificControls\" />
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="AppResources\Dictionaries\FlipperSD.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AppResources\Dictionaries\RD.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BaseControls\hBtnWImage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="BaseControls\hBtnWImageText.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="BaseControls\hExpander.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="BaseControls\hLoadingCircle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BaseControls\hLoadingHorizontal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BaseControls\hPasswordBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="BaseControls\hTextbox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HaleyMVVM\HaleyMVVM.csproj">

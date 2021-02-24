@@ -6,8 +6,71 @@
     <SharedGUID>f3608747-c484-4f40-9388-2c227f9cb979</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Shared.Haley.WPF</Import_RootNamespace>
+    <Import_RootNamespace>Haley.WPF</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\FlipperSD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\RD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImageText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hExpander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingCircle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingHorizontal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hPasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hTextbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AppResources\Converters\Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImage.xaml.cs">
+      <DependentUpon>hBtnWImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImageText.xaml.cs">
+      <DependentUpon>hBtnWImageText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hExpander.xaml.cs">
+      <DependentUpon>hExpander.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingCircle.xaml.cs">
+      <DependentUpon>hLoadingCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingHorizontal.xaml.cs">
+      <DependentUpon>hLoadingHorizontal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hPasswordBox.xaml.cs">
+      <DependentUpon>hPasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hTextbox.xaml.cs">
+      <DependentUpon>hTextbox.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)ImageButton\" />
   </ItemGroup>
 </Project>
