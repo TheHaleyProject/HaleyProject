@@ -8,11 +8,11 @@ using System;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Haley MVVM")]
+[assembly: AssemblyTitle("Haley MVVM Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Haley Project")]
-[assembly: AssemblyProduct("Haley MVVM")]
+[assembly: AssemblyProduct("Haley MVVM Core")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,8 +22,6 @@ using System;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("148e0a6a-d4b3-4526-a152-cce7f280db35")]
 
 // Version information for an assembly consists of the following four values:
 //
