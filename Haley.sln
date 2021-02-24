@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Script.txt = Script.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyWpf", "_CORE_PROJECTS\HaleyWPF\HaleyWpf.csproj", "{D1C340F8-0DA5-4121-B39C-25A8D7E8D79F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyWPF", "_CORE_PROJECTS\HaleyWPF\HaleyWPF.csproj", "{D1C340F8-0DA5-4121-B39C-25A8D7E8D79F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentWPF", "_TESTING_PROJECTS\DevelopmentWPF\DevelopmentWPF.csproj", "{F21E9AC8-6B35-43AC-BAE9-81A73E12587A}"
 EndProject
@@ -63,13 +63,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyExtensions", "_CORE_PR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyRest", "_CORE_PROJECTS\HaleyRest\HaleyRest.csproj", "{B299CD52-E5F3-4393-BF5B-9BB687187F39}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Haley.WPF", "_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.shproj", "{F3608747-C484-4F40-9388-2C227F9CB979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaleyWPFCore", "_CORE_PROJECTS\Haley.WPF.Core\HaleyWPFCore.csproj", "{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{28d1d0c8-2f7c-4f8c-b8f3-4324f35364e9}*SharedItemsImports = 5
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.projitems*{517f747c-a2ce-4670-8bc3-e574617b64f0}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
 		_SHARED_PROJECTS\Shared.WPFTest\Shared.WPFTest.projitems*{bab354c2-2354-49e2-916e-e04c7ff6c55d}*SharedItemsImports = 13
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
+		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{d1c340f8-0da5-4121-b39c-25a8d7e8d79f}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{f3608747-c484-4f40-9388-2c227f9cb979}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -203,6 +210,14 @@ Global
 		{B299CD52-E5F3-4393-BF5B-9BB687187F39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B299CD52-E5F3-4393-BF5B-9BB687187F39}.Release|x64.ActiveCfg = Release|Any CPU
 		{B299CD52-E5F3-4393-BF5B-9BB687187F39}.Release|x64.Build.0 = Release|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{28D1D0C8-2F7C-4F8C-B8F3-4324F35364E9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -218,6 +233,7 @@ Global
 		{68CA4F47-21DF-4A34-A6B8-0E5193B94D2A} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}
 		{284CD7AE-8A92-4070-8E06-3D225169D906} = {B7E8F3C2-CFE1-475A-90B3-B43698282015}
 		{B7E8F3C2-CFE1-475A-90B3-B43698282015} = {1D27767B-10F2-42DC-BD84-3D4EEDBF842D}
+		{F3608747-C484-4F40-9388-2C227F9CB979} = {85EA5B52-61E1-4611-8AE0-DC52E39E9EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
