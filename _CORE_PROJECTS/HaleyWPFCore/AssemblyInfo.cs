@@ -13,6 +13,7 @@ using System.Windows.Markup;
 [assembly: XmlnsPrefix("http://schemas.hpod9.com/haley/wpf", "hlyWPF")]
 
 //FOR XAML NAMESPACES - WPF
-[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.ViewModels")]
-[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.Views")]
+//[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.ViewModels")]
+//[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.Views")]
 [assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.BaseControls")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF")]
