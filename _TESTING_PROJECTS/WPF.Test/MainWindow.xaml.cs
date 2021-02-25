@@ -24,5 +24,10 @@ namespace WPF.Test
         {
             InitializeComponent();
         }
+
+        private void ToggleButton_OnClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

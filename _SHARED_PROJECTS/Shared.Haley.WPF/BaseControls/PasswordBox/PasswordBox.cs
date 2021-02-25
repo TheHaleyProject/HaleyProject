@@ -19,18 +19,18 @@ namespace Haley.WPF.BaseControls
     /// <summary>
     /// Sealed class that cannot be inherited.
     /// </summary>
-    public sealed class PlainPasswordBox : PlainTextBox
+    public sealed class PasswordBox : PlainTextBox
     {
         //Passwordbox wll take the style template of the plaintext box.
 
-        public PlainPasswordBox() 
+        public PasswordBox() 
         {
-            base.TextChanged += PlainPasswordBox_TextChanged;
+            base.TextChanged += PasswordBox_TextChanged;
         }
 
         public SecureString SecurePassword { get; private set; }
 
-        private void PlainPasswordBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void PasswordBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
             //TO DO . Based on the text change, get each character that is typed and change append it with a secure password.

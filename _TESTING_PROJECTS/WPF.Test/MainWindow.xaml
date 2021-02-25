@@ -13,8 +13,12 @@
         <Button Height="40" Width="120" HorizontalAlignment="Center"  Content="What" />
         <hly:ImageComboButton Width="90" Height="30" Text="Hello" DefaultImage="Images/refresh.png" ImageLocation="Left" Background="#FFC799D2" BorderBrush="#FFA7A7A7" BorderThickness="1" CornerRadius="4" HoverBorderBrush="#FF35C91D" ShowShadow="True" ShadowColor="Blue" ShadowOnlyOnMouseOver="False"/>
         <hly:PlainTextBox x:Name="pbox" Height="50" Width="120" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" ShadowColor="blue" ShowShadow="True" ShadowOnlyOnMouseOver="False" WaterMark="Enter user name"/>
-        <hly:PlainPasswordBox Height="50" Width="120" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" ShadowColor="blue" ShowShadow="True" ShadowOnlyOnMouseOver="False" WaterMark="Enter password"/>
         <TextBox Text="{Binding ElementName=pbox,Path=Text}" Height="50" Width="120" />
+
+        <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="True"/>
+        <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="True" ShowText="False"/>
+        <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="False" OnText="Yes" OffText="No"/>
+        <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="False" OnText="True" OffText="False"/>
 
     </StackPanel>
 </Window>

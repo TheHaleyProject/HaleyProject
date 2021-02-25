@@ -17,6 +17,8 @@ namespace Haley.WPF
 {
     internal static class GlobalProps
     {
+        public static SolidColorBrush default_oncolor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF75B075");
+        public static SolidColorBrush default_offcolor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFB07575");
         public static SolidColorBrush hoverBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#7ea0d6"); //Blue
         public static CornerRadius cornerRadius = new CornerRadius(0.0);
         public static Color shadowColor = Colors.Gray;
