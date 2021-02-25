@@ -4,10 +4,20 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <RootNamespace>Haley.WPF</RootNamespace>
+    <AssemblyName>Haley.WPF</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AppResources\Images\empty_image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HaleyMVVMCore\HaleyMVVMCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="AppResources\Images\empty_image.png" />
   </ItemGroup>
 
   <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems" Label="Shared" />

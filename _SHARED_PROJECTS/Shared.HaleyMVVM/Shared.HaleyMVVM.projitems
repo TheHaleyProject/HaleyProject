@@ -9,6 +9,7 @@
     <Import_RootNamespace>Haley.MVVM</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\InputAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumTypeToDescriptionListConverter.cs" />
@@ -36,7 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyControlVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IHaleyWindowVM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyAP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\IocAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeNotifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\HaleyObserver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DelegateCommand.cs" />

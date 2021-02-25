@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>Haley.MVVM.Core</AssemblyName>
-    <RootNamespace>Haley.MVVM.Core</RootNamespace>
+    <RootNamespace>Haley.MVVM</RootNamespace>
     <Version>3.0.2</Version>
     <Authors>Lingam</Authors>
     <Product>Haley MVVM Core</Product>

@@ -9,68 +9,38 @@
     <Import_RootNamespace>Haley.WPF</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\FlipperSD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\InternalRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\RD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImageText.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hExpander.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingCircle.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextbox\PlainTextBoxRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingHorizontal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hPasswordBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\hTextbox.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AppResources\Converters\Converter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImage.xaml.cs">
-      <DependentUpon>hBtnWImage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hBtnWImageText.xaml.cs">
-      <DependentUpon>hBtnWImageText.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hExpander.xaml.cs">
-      <DependentUpon>hExpander.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingCircle.xaml.cs">
-      <DependentUpon>hLoadingCircle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hLoadingHorizontal.xaml.cs">
-      <DependentUpon>hLoadingHorizontal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hPasswordBox.xaml.cs">
-      <DependentUpon>hPasswordBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\hTextbox.xaml.cs">
-      <DependentUpon>hTextbox.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)ImageButton\" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainPasswordBox\PlainPasswordBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextbox\PlainTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GlobalProps.cs" />
   </ItemGroup>
 </Project>
