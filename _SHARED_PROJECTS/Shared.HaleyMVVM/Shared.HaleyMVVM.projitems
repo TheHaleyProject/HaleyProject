@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\InputAP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\ThemeAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumTypeToDescriptionListConverter.cs" />
@@ -44,8 +45,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NotifiableCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RDTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Theme.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ThemeLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DialogVMBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfirmationVM.cs" />

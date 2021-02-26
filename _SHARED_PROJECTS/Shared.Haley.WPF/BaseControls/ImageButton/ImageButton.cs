@@ -45,7 +45,7 @@ namespace Haley.WPF.BaseControls
             //TODO : REMEMBER TO IMPLEMENT A CACHE DICTIONARY TO ENSURE THAT THE IMAGES ARE NOT REPEATEDLY PROCESSED AND CREATED.
             //Process Image Colors
             if (DefaultImageColor != null)
-            { DefaultImage = changeColor(DefaultImage, DefaultImageColor); }
+            { DefaultImage = changeColor(DefaultImage,DefaultImageColor);}
 
             if (HoverImageColor != null)
             { HoverImage = changeColor(HoverImage, HoverImageColor); }
@@ -55,10 +55,12 @@ namespace Haley.WPF.BaseControls
         }
 
         #region Helpers
-        private ImageSource changeColor(ImageSource source,Color newcolor)
+        private static ImageSource changeColor(ImageSource source,SolidColorBrush brush)
         {
             try
             {
+                //IMPLEMENT A CACHE TO STORE ALREADY CHANGED IMAGES.
+                var newcolor = brush.Color;
                 var imageinfo = ImageUtils.getImageInfo(source);
                 var res = ImageUtils.changeImageColor(imageinfo, int.Parse(newcolor.R.ToString()), int.Parse(newcolor.G.ToString()), int.Parse(newcolor.B.ToString()));
                 return res;
@@ -67,6 +69,41 @@ namespace Haley.WPF.BaseControls
             {
                 return source; //In case of error, just reuse the source image itself.
             }
+        }
+
+        private static void changeColor(string propname, DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue == null) return;
+            var _newcolor = e.NewValue as SolidColorBrush;
+            ImageButton btn = d as ImageButton;
+            if (_newcolor == null || btn == null) return;
+
+            ImageSource _newsource = null;
+            switch (propname)
+            {
+                case nameof(DefaultImage):
+                    if (btn.DefaultImage != null)
+                    {
+                        _newsource=changeColor(btn.DefaultImage, _newcolor);
+                        if (_newsource != null) btn.DefaultImage = _newsource;
+                    }
+                    break;
+                case nameof(HoverImage):
+                    if (btn.HoverImage != null)
+                    {
+                        _newsource = changeColor(btn.HoverImage, _newcolor);
+                        if (_newsource != null) btn.HoverImage = _newsource;
+                    }
+                    break;
+                case nameof(PressedImage):
+                    if (btn.PressedImage != null)
+                    {
+                        _newsource = changeColor(btn.PressedImage, _newcolor);
+                        if (_newsource != null) btn.PressedImage = _newsource;
+                    }
+                    break;
+            }
+          
         }
         #endregion
 
@@ -104,35 +141,50 @@ namespace Haley.WPF.BaseControls
         #endregion
 
         #region ImageColors
-        public Color DefaultImageColor
+        public SolidColorBrush DefaultImageColor
         {
-            get { return (Color)GetValue(DefaultImageColorProperty); }
+            get { return (SolidColorBrush)GetValue(DefaultImageColorProperty); }
             set { SetValue(DefaultImageColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for DefaultImageColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DefaultImageColorProperty =
-            DependencyProperty.Register(nameof(DefaultImageColor), typeof(Color), typeof(ImageButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DefaultImageColor), typeof(SolidColorBrush), typeof(ImageButton), new FrameworkPropertyMetadata(_defaultColorChanged));
 
-        public Color HoverImageColor
+        private static void _defaultColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (Color)GetValue(HoverImageColorProperty); }
+            changeColor(nameof(DefaultImage), d, e);
+        }
+
+        public SolidColorBrush HoverImageColor
+        {
+            get { return (SolidColorBrush)GetValue(HoverImageColorProperty); }
             set { SetValue(HoverImageColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for HoverImageColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HoverImageColorProperty =
-            DependencyProperty.Register(nameof(HoverImageColor), typeof(Color), typeof(ImageButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HoverImageColor), typeof(SolidColorBrush), typeof(ImageButton), new FrameworkPropertyMetadata(_hoverColorChanged));
 
-        public Color PressedImageColor
+        private static void _hoverColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (Color)GetValue(PressedImageColorProperty); }
+            changeColor(nameof(HoverImageColor), d, e);
+        }
+
+        public SolidColorBrush PressedImageColor
+        {
+            get { return (SolidColorBrush)GetValue(PressedImageColorProperty); }
             set { SetValue(PressedImageColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for PressedImageColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PressedImageColorProperty =
-            DependencyProperty.Register(nameof(PressedImageColor), typeof(Color), typeof(ImageButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PressedImageColor), typeof(SolidColorBrush), typeof(ImageButton), new FrameworkPropertyMetadata(_pressedColorChanged));
+
+        private static void _pressedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            changeColor(nameof(PressedImageColor), d, e);
+        }
         #endregion
     }
 }

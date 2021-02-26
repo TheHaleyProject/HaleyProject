@@ -75,6 +75,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{28d1d0c8-2f7c-4f8c-b8f3-4324f35364e9}*SharedItemsImports = 5
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{2b30f59f-50af-40d7-a0d5-9c8c12733a62}*SharedItemsImports = 4
+		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{8c8b69c6-d351-4d8d-8f16-f9ed4085aca4}*SharedItemsImports = 13
 		_SHARED_PROJECTS\Shared.HaleyMVVM\Shared.HaleyMVVM.projitems*{bf38b439-322c-47c3-be24-22c6880ff797}*SharedItemsImports = 5
 		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{d1c340f8-0da5-4121-b39c-25a8d7e8d79f}*SharedItemsImports = 4
 		_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems*{f3608747-c484-4f40-9388-2c227f9cb979}*SharedItemsImports = 13

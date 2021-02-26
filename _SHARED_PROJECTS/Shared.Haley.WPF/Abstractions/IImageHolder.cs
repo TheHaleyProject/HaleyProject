@@ -8,8 +8,8 @@ namespace Haley.WPF.Abstractions
         ImageSource DefaultImage { get; set; }
         ImageSource HoverImage { get; set; }
         ImageSource PressedImage { get; set; }
-        Color DefaultImageColor { get; set; }
-        Color HoverImageColor { get; set; }
-        Color PressedImageColor { get; set; }
+        SolidColorBrush DefaultImageColor { get; set; }
+        SolidColorBrush HoverImageColor { get; set; }
+        SolidColorBrush PressedImageColor { get; set; }
     }
 }
