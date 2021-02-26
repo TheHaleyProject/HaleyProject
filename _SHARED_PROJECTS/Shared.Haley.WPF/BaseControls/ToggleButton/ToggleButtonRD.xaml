@@ -4,7 +4,7 @@
     xmlns:local="clr-namespace:Haley.WPF.BaseControls">
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/AppResources/Dictionaries/InternalRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyRD.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="mainBorderStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderWithShadow}">

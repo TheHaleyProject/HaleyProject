@@ -38,7 +38,7 @@ namespace Haley.WPF.BaseControls
             base.OnApplyTemplate();
 
             //Process Images
-            if (DefaultImage == null) DefaultImage = new BitmapImage(new Uri("pack://application:,,,/Haley.WPF;component/AppResources/Images/empty_image.png"));
+            if (DefaultImage == null) DefaultImage = new BitmapImage(new Uri("pack://application:,,,/Haley.WPF;component/Images/empty_image.png"));
             if (HoverImage == null) HoverImage = DefaultImage;
             if (PressedImage == null) PressedImage = HoverImage;
 

@@ -104,24 +104,5 @@
       <Name>HaleyWPF</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\collapse.png" />
-    <Resource Include="Images\collapse_hover.png" />
-    <Resource Include="Images\copy.png" />
-    <Resource Include="Images\copy_hover.png" />
-    <Resource Include="Images\expand.png" />
-    <Resource Include="Images\expand_hover.png" />
-    <Resource Include="Images\print.png" />
-    <Resource Include="Images\print_hover.png" />
-    <Resource Include="Images\refresh.png" />
-    <Resource Include="Images\refresh_hover.png" />
-    <Resource Include="Images\search.png" />
-    <Resource Include="Images\search_hover.png" />
-    <Resource Include="Images\settings.png" />
-    <Resource Include="Images\settings_hover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\nounprint.svg" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

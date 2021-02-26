@@ -9,7 +9,11 @@
     <Import_RootNamespace>Haley.WPF</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)AppResources\Dictionaries\InternalRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -42,7 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AppResources\Converters\Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButton.cs" />
