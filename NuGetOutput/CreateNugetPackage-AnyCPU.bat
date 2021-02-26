@@ -8,6 +8,8 @@ EXIT)
 Echo Processing NugetPackage
 
 if exist ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj nuget pack ../_CORE_PROJECTS/HaleyMVVM/HaleyMVVM.csproj -Prop Configuration=Release -IncludeReferencedProjects  -Symbols -SymbolPackageFormat snupkg
+if exist ../_CORE_PROJECTS/HaleyWPF/HaleyWPF.csproj nuget pack ../_CORE_PROJECTS/HaleyWPF/HaleyWPF.csproj -Prop Configuration=Release -IncludeReferencedProjects  -Symbols -SymbolPackageFormat snupkg
+
 
 Echo Process completed successfully. 
 PAUSE

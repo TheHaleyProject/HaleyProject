@@ -5,9 +5,9 @@ namespace Haley.Enums
 {
     public enum ResizeAffectMode
     {
-        pixelSize,
-        pixelSize_dpi,
-        pixelSize_imageSize,
+        PixelOnly,
+        PixelAndDPI,
+        PixelAndImage,
     }
 
     public enum DialogMode
@@ -16,4 +16,12 @@ namespace Haley.Enums
         Confirmation,
         GetInput
     }
+
+    public enum RGB
+    {
+        Blue,
+        Green,
+        Red
+    }
+
 }

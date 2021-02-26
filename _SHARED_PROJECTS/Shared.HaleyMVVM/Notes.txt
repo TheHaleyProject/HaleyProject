@@ -14,7 +14,7 @@
 
 3. NotifiableCollection - For Using an observable collection to notify changes inside the properties of the elements.
 
-4. HaleyAP - For Haley Attached properties (to be used in conjunction with HaleyContainers). To use in xaml.
+4. IocAP - For Haley Attached properties (to be used in conjunction with HaleyContainers). To use in xaml.
 
 #### 3 ---- CONTAINERS:
 

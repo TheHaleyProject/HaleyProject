@@ -10,6 +10,16 @@ xcopy ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.snupkg .\ /i /y
 del /f ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.snupkg 
 )
 
+if exist ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.nupkg (
+xcopy ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.nupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.nupkg 
+)
+
+if exist ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.snupkg (
+xcopy ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.snupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.snupkg 
+)
+
 if exist ..\_CORE_PROJECTS\HaleyExtensions\bin\Release\*.nupkg (
 xcopy ..\_CORE_PROJECTS\HaleyExtensions\bin\Release\*.nupkg .\ /i /y
 del /f ..\_CORE_PROJECTS\HaleyExtensions\bin\Release\*.nupkg 

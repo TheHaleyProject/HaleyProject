@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Markup;
+using System;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -32,5 +35,17 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.1.0")]
-[assembly: AssemblyFileVersion("3.0.1.0")]
+[assembly: AssemblyVersion("3.0.3.0")]
+[assembly: AssemblyFileVersion("3.0.3.0")]
+
+[assembly: XmlnsPrefix("http://schemas.hpod9.com/haley/mvvm", "hly")]
+//FOR XAML NAMESPACES - MVVM
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/mvvm", "Haley.Enums")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/mvvm", "Haley.MVVM.Converters")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/mvvm", "Haley.Abstractions")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/mvvm", "Haley.Models")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/mvvm", "Haley.MVVM")]
+
+//FOR XAML NAMESPACES - WPF
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.ViewModels")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.Views")]

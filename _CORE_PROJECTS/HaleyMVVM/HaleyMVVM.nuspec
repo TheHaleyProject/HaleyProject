@@ -8,7 +8,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A light weight MVVM implementation with IOC Containes, Delegate Commands, NotifyPropertyChanged Base Model.</description>
     <iconUrl>https://raw.githubusercontent.com/rmsmech/Common/master/Haley.png</iconUrl>
-    <releaseNotes>Added Converters Resoure Dictionaries</releaseNotes>
+    <releaseNotes>Implemented Color Changer in Image Utils</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>WPF MVVM MVVM IOC DI Haley</tags>
     <version>$version$</version>
@@ -22,7 +22,7 @@
 			  <dependency id="System.Drawing.Common" version="5.0.0" exclude="Build,Analyzers" />
 	  </dependencies>
   </metadata>
-	<files>
+	<!--<files>
 		<file src="$OutDir$Notes.txt" target="content\help" />
-	</files>
+	</files>-->
 </package>
