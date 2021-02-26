@@ -12,11 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.WPF.Events;
+using Haley.Events;
+using Haley.WPF.Abstractions;
 
 namespace Haley.WPF.BaseControls
 {
-    public class ToggleButton : Control
+    public class ToggleButton : Control, IShadow, ICornerRadius
     {
         #region Click Event
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ToggleButton));

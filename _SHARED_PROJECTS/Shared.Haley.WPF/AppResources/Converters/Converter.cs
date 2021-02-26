@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace Haley.Wpf.AppResources.Converters
+namespace Haley.WPF.AppResources.Converters
 {
     #region Methods
     internal static class ConverterFunctions

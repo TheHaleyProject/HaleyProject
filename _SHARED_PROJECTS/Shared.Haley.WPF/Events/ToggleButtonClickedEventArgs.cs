@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 
-namespace Haley.WPF.Events
+namespace Haley.Events
 {
     public class ToggleButtonClickedEventArgs : RoutedEventArgs
     {

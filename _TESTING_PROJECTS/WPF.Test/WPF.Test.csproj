@@ -95,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
+      <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
+      <Name>HaleyMVVM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyWPF\HaleyWPF.csproj">
       <Project>{d1c340f8-0da5-4121-b39c-25a8d7e8d79f}</Project>
       <Name>HaleyWPF</Name>
@@ -115,6 +119,9 @@
     <Resource Include="Images\search_hover.png" />
     <Resource Include="Images\settings.png" />
     <Resource Include="Images\settings_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\nounprint.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

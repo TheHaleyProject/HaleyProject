@@ -16,25 +16,16 @@ using Haley.WPF.Abstractions;
 
 namespace Haley.WPF.BaseControls
 {
-    public class PlainTextBox : TextBox, IShadow, ICornerRadius
+    public class PlainExpander : Expander , IShadow, ICornerRadius
     {
-        static PlainTextBox()
+        static PlainExpander()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(PlainTextBox), new FrameworkPropertyMetadata(typeof(PlainTextBox)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(PlainExpander), new FrameworkPropertyMetadata(typeof(PlainExpander)));
         }
 
-        public PlainTextBox() {  }
 
-        public string WaterMark
-        {
-            get { return (string)GetValue(WaterMarkProperty); }
-            set { SetValue(WaterMarkProperty, value); }
-        }
 
-        // Using a DependencyProperty as the backing store for WaterMark.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WaterMarkProperty =
-            DependencyProperty.Register(nameof(WaterMark), typeof(string), typeof(PlainTextBox), new PropertyMetadata("Enter Value"));
-
+        #region Shadow
         public bool ShadowOnlyOnMouseOver
         {
             get { return (bool)GetValue(ShadowOnlyOnMouseOverProperty); }
@@ -43,7 +34,7 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for ShadowOnlyOnMouseOver.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowOnlyOnMouseOverProperty =
-            DependencyProperty.Register(nameof(ShadowOnlyOnMouseOver), typeof(bool), typeof(PlainTextBox), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(ShadowOnlyOnMouseOver), typeof(bool), typeof(PlainExpander), new PropertyMetadata(true));
 
         public bool ShowShadow
         {
@@ -53,7 +44,7 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for ShowShadow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowShadowProperty =
-            DependencyProperty.Register(nameof(ShowShadow), typeof(bool), typeof(PlainTextBox), new FrameworkPropertyMetadata(false));
+            DependencyProperty.Register(nameof(ShowShadow), typeof(bool), typeof(PlainExpander), new FrameworkPropertyMetadata(false));
 
         public Color ShadowColor
         {
@@ -63,7 +54,8 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for ShadowColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowColorProperty =
-            DependencyProperty.Register(nameof(ShadowColor), typeof(Color), typeof(PlainTextBox), new FrameworkPropertyMetadata(GlobalProps.shadowColor));
+            DependencyProperty.Register(nameof(ShadowColor), typeof(Color), typeof(PlainExpander), new FrameworkPropertyMetadata(GlobalProps.shadowColor));
+        #endregion
 
         public CornerRadius CornerRadius
         {
@@ -73,6 +65,6 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(PlainTextBox), new FrameworkPropertyMetadata(GlobalProps.cornerRadius));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(PlainExpander), new FrameworkPropertyMetadata(GlobalProps.cornerRadius));
     }
 }

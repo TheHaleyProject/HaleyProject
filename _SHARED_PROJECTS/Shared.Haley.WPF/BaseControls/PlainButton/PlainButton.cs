@@ -12,10 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Haley.WPF.Abstractions;
 
 namespace Haley.WPF.BaseControls
 {
-    public class PlainButton : Button
+    public class PlainButton : Button, IShadow, ICornerRadius
     {
         static PlainButton()
         {
@@ -54,6 +55,7 @@ namespace Haley.WPF.BaseControls
         public static readonly DependencyProperty HoverBorderBrushProperty =
             DependencyProperty.Register("HoverBorderBrush", typeof(Brush), typeof(PlainButton), new FrameworkPropertyMetadata(GlobalProps.hoverBackground));
 
+        #region SHADOW
         public bool ShowShadow
         {
             get { return (bool)GetValue(ShowShadowProperty); }
@@ -83,5 +85,6 @@ namespace Haley.WPF.BaseControls
         // Using a DependencyProperty as the backing store for ShadowOnlyOnMouseOver.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowOnlyOnMouseOverProperty =
             DependencyProperty.Register(nameof(ShadowOnlyOnMouseOver), typeof(bool), typeof(PlainButton), new PropertyMetadata(true));
+        #endregion
     }
 }

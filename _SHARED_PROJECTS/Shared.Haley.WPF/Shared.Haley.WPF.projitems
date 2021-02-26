@@ -39,6 +39,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AppResources\Converters\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButton.cs" />
