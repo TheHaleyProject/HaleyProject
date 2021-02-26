@@ -41,7 +41,7 @@ namespace Haley.WPF.BaseControls
 
                 //In this case, Textbox holder should be the first child
                 _dock.Children.Clear();
-                _txtbx.SetValue(DockPanel.DockProperty, ImageLocation);
+                _txtbx.SetValue(DockPanel.DockProperty, ImageLocation == Dock.Top? Dock.Bottom : Dock.Top); //Since we are using ImageLocation to specify Text location, we need to invert it.
                 _dock.Children.Add(_txtbx);
                 _dock.Children.Add(_imagebox);
             }

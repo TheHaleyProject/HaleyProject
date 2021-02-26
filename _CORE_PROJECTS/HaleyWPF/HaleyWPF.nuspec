@@ -8,7 +8,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A Simple WPF UI Library with some useful controls.</description>
     <iconUrl>https://raw.githubusercontent.com/rmsmech/Common/master/Haley.png</iconUrl>
-    <releaseNotes>Pilot</releaseNotes>
+    <releaseNotes>Controls updated</releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>WPF CustomControls Haley</tags>
     <version>$version$</version>
