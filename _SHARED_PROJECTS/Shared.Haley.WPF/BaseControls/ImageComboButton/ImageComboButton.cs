@@ -31,6 +31,20 @@ namespace Haley.WPF.BaseControls
 
         public override void OnApplyTemplate()
         {
+            //Only in case of top or bottom, re arrange the dock children
+            if (ImageLocation == Dock.Top || ImageLocation == Dock.Bottom)
+            {
+                //Try to get the template.
+                var _dock = GetTemplateChild("PART_maindock") as DockPanel;
+                var _imagebox = GetTemplateChild("PART_ImageViewBox") as Viewbox;
+                var _txtbx = GetTemplateChild("PART_TextHolder") as TextBlock;
+
+                //In this case, Textbox holder should be the first child
+                _dock.Children.Clear();
+                _txtbx.SetValue(DockPanel.DockProperty, ImageLocation);
+                _dock.Children.Add(_txtbx);
+                _dock.Children.Add(_imagebox);
+            }
             base.OnApplyTemplate();
         }
 
@@ -53,5 +67,15 @@ namespace Haley.WPF.BaseControls
         // Using a DependencyProperty as the backing store for ImageLocation.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageLocationProperty =
             DependencyProperty.Register(nameof(ImageLocation), typeof(Dock), typeof(ImageComboButton), new FrameworkPropertyMetadata(Dock.Top));
+
+        public TextAlignment TextAlignment
+        {
+            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
+            set { SetValue(TextAlignmentProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TextAlignment.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextAlignmentProperty =
+            DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(ImageComboButton), new PropertyMetadata(TextAlignment.Center));
     }
 }

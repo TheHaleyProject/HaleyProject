@@ -8,16 +8,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ImageButton}">
-                        <Image x:Name="ImageHolder" Source="{TemplateBinding DefaultImage}" Stretch="UniformToFill" StretchDirection="Both"/>
+                        <Image x:Name="PART_ImageHolder" Source="{TemplateBinding DefaultImage}" Stretch="UniformToFill" StretchDirection="Both"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.5"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ImageHolder" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter TargetName="PART_ImageHolder" Property="Source" Value="{Binding Path=HoverImage, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ImageHolder" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter TargetName="PART_ImageHolder" Property="Source" Value="{Binding Path=PressedImage, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

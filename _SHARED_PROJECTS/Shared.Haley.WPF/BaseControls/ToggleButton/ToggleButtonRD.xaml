@@ -62,7 +62,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ToggleButton}">
                     <!--Base border which lays at the bottom and covers whole length and will be filled with the color representing the status-->
-                    <Border x:Name="BorderMain"
+                    <Border x:Name="PART_BorderMain"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" 
                                 CornerRadius="{TemplateBinding CornerRadius}" Style="{StaticResource mainBorderStyle}">
