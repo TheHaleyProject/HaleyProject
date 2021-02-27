@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Haley.WPF.Abstractions
+namespace Haley.Abstractions
 {
     public interface IImageHolder
     {

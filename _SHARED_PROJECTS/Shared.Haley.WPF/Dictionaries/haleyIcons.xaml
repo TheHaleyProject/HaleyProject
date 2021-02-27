@@ -199,4 +199,18 @@
     <ImageSource x:Key="wrong">pack://application:,,,/Haley.WPF;component/Images/wrong.png</ImageSource>
     <ImageSource x:Key="wrong_large">pack://application:,,,/Haley.WPF;component/Images/wrong_large.png</ImageSource>
 
+    <ImageSource x:Key="arrow_down_circle">pack://application:,,,/Haley.WPF;component/Images/arrow_down_circle.png</ImageSource>
+    <ImageSource x:Key="arrow_down_circle_large">pack://application:,,,/Haley.WPF;component/Images/arrow_down_circle_large.png</ImageSource>
+    <ImageSource x:Key="arrow_down_circle_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_down_circle_medium.png</ImageSource>
+    <ImageSource x:Key="arrow_down_rounded">pack://application:,,,/Haley.WPF;component/Images/arrow_down_rounded.png</ImageSource>
+    <ImageSource x:Key="arrow_down_rounded_large">pack://application:,,,/Haley.WPF;component/Images/arrow_down_rounded_large.png</ImageSource>
+    <ImageSource x:Key="arrow_down_rounded_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_down_rounded_medium.png</ImageSource>
+    <ImageSource x:Key="arrow_down_sharp">pack://application:,,,/Haley.WPF;component/Images/arrow_down_sharp.png</ImageSource>
+    <ImageSource x:Key="arrow_down_sharp_large">pack://application:,,,/Haley.WPF;component/Images/arrow_down_sharp_large.png</ImageSource>
+    <ImageSource x:Key="arrow_down_sharp_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_down_sharp_medium.png</ImageSource>
+    <ImageSource x:Key="arrow_down_square">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square.png</ImageSource>
+    <ImageSource x:Key="arrow_down_square_large">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square_large.png</ImageSource>
+    <ImageSource x:Key="arrow_down_square_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square_medium.png</ImageSource>
+
+
 </ResourceDictionary>

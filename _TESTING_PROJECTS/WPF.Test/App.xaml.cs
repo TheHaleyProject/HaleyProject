@@ -13,5 +13,14 @@ namespace WPF.Test
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //MainWindow _wndwo = new MainWindow();
+            //_wndwo.ShowDialog();
+
+            MainWindow2 _wndw2 = new MainWindow2();
+            _wndw2.ShowDialog();
+
+        }
     }
 }

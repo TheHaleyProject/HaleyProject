@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace Haley.WPF.Abstractions
+namespace Haley.Abstractions
 {
     public interface IShadow
     {

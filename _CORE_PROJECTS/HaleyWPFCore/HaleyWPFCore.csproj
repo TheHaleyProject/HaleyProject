@@ -5,7 +5,7 @@
 		<UseWPF>true</UseWPF>
 		<AssemblyName>Haley.WPF.Core</AssemblyName>
 		<RootNamespace>Haley.WPF</RootNamespace>
-		<Version>1.0.8</Version>
+		<Version>1.0.9</Version>
 		<Authors>Lingam</Authors>
 		<Product>Haley WPF Core</Product>
 		<Company>TheHaleyProject</Company>
@@ -17,8 +17,8 @@
 		<Copyright>Haley @ 2020</Copyright>
 		<PackageReleaseNotes>Implemented Theme Loader</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<AssemblyVersion>1.0.8</AssemblyVersion>
-		<FileVersion>1.0.8</FileVersion>
+		<AssemblyVersion>1.0.9</AssemblyVersion>
+		<FileVersion>1.0.9</FileVersion>
 		<PackageIcon>Haley.png</PackageIcon>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -37,6 +37,18 @@
 	
   <ItemGroup>
     <None Remove="Images\arrow.png" />
+    <None Remove="Images\arrow_down_circle.png" />
+    <None Remove="Images\arrow_down_circle_large.png" />
+    <None Remove="Images\arrow_down_circle_medium.png" />
+    <None Remove="Images\arrow_down_rounded.png" />
+    <None Remove="Images\arrow_down_rounded_large.png" />
+    <None Remove="Images\arrow_down_rounded_medium.png" />
+    <None Remove="Images\arrow_down_sharp.png" />
+    <None Remove="Images\arrow_down_sharp_large.png" />
+    <None Remove="Images\arrow_down_sharp_medium.png" />
+    <None Remove="Images\arrow_down_square.png" />
+    <None Remove="Images\arrow_down_square_large.png" />
+    <None Remove="Images\arrow_down_square_medium.png" />
     <None Remove="Images\arrow_large.png" />
     <None Remove="Images\arrow_medium.png" />
     <None Remove="Images\camera.png" />
@@ -249,6 +261,18 @@
 
   <ItemGroup>
     <Resource Include="Images\arrow.png" />
+    <Resource Include="Images\arrow_down_circle.png" />
+    <Resource Include="Images\arrow_down_circle_large.png" />
+    <Resource Include="Images\arrow_down_circle_medium.png" />
+    <Resource Include="Images\arrow_down_rounded.png" />
+    <Resource Include="Images\arrow_down_rounded_large.png" />
+    <Resource Include="Images\arrow_down_rounded_medium.png" />
+    <Resource Include="Images\arrow_down_sharp.png" />
+    <Resource Include="Images\arrow_down_sharp_large.png" />
+    <Resource Include="Images\arrow_down_sharp_medium.png" />
+    <Resource Include="Images\arrow_down_square.png" />
+    <Resource Include="Images\arrow_down_square_large.png" />
+    <Resource Include="Images\arrow_down_square_medium.png" />
     <Resource Include="Images\arrow_large.png" />
     <Resource Include="Images\arrow_medium.png" />
     <Resource Include="Images\camera.png" />

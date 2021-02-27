@@ -448,11 +448,26 @@ namespace Haley.Utils
             }
         }
 
+        public static ImageSource changeImageColor(ImageSource source, SolidColorBrush brush)
+        {
+            try
+            {
+                var newcolor = brush.Color;
+                var imageinfo = getImageInfo(source);
+                var res = changeImageColor(imageinfo, int.Parse(newcolor.R.ToString()), int.Parse(newcolor.G.ToString()), int.Parse(newcolor.B.ToString()));
+                return res;
+            }
+            catch (Exception)
+            {
+                return source; //In case of error, just reuse the source image itself.
+            }
+        }
         private static void resetColorLimits(ref int actual)
         {
             if (actual > 255) actual = 255;
             if (actual < 0) actual = 0;
         }
+
         #endregion
 
 

@@ -4,16 +4,20 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeNormal.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyIcons.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <sys:Boolean x:Key="True">True</sys:Boolean>
     <sys:Boolean x:Key="False">False</sys:Boolean>
-    
-    <SolidColorBrush x:Key="defaultBackground" Color="#FFE0E0E0"/>
-    <SolidColorBrush x:Key="defaultBorderbrush" Color="#FF393939"/>
 
-    <Style x:Key="BorderWithShadow" TargetType="{x:Type Border}">
+    <Style x:Key="BorderWithoutShadow" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{Binding Background,RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="BorderBrush" Value="{Binding BorderBrush,RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="BorderThickness" Value="{Binding BorderThickness,RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="CornerRadius" Value="{Binding Path=CornerRadius,RelativeSource={RelativeSource TemplatedParent}}"/>
+    </Style>
+    <Style x:Key="BorderWithShadow" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderWithoutShadow}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=ShadowOnlyOnMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="false">
                 <Setter Property="Effect">

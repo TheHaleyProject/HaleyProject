@@ -6,9 +6,13 @@
     <SharedGUID>f3608747-c484-4f40-9388-2c227f9cb979</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Haley.WPF</Import_RootNamespace>
+    <Import_RootNamespace>Haley</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander\PlainExpanderRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyIcons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -37,6 +41,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeNormal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -46,17 +54,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander\PlainExpander.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PasswordBox\PasswordBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextbox\PlainTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ToggleButton\ToggleButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\ColorEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\IconEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ToggleButtonClickedEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GlobalProps.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
+    <Compile Include="$(MSBuildThisFileDirectory)InternalHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
   </ItemGroup>
 </Project>

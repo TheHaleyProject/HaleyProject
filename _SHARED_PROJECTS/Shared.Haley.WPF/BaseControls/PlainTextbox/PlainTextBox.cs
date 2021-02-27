@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.WPF.Abstractions;
+using Haley.Abstractions;
+using Haley.Utils;
 
 namespace Haley.WPF.BaseControls
 {
@@ -63,7 +64,7 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for ShadowColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowColorProperty =
-            DependencyProperty.Register(nameof(ShadowColor), typeof(Brush), typeof(PlainTextBox), new FrameworkPropertyMetadata(GlobalProps.shadowColor));
+            DependencyProperty.Register(nameof(ShadowColor), typeof(Brush), typeof(PlainTextBox), new FrameworkPropertyMetadata(ResourceStore.getBrush(ColorEnums.defShadow.ToString())));
 
         public CornerRadius CornerRadius
         {
@@ -73,6 +74,6 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(PlainTextBox), new FrameworkPropertyMetadata(GlobalProps.cornerRadius));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(PlainTextBox), new FrameworkPropertyMetadata(ResourceStore.cornerRadius));
     }
 }

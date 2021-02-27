@@ -42,7 +42,7 @@
                 <hly:PlainTextBox x:Name="greenValue" Width="50" Margin="4" WaterMark="GREEN"/>
                 <hly:PlainTextBox x:Name="blueValue" Width="50" Margin="4" WaterMark="BLUE"/>
             </StackPanel>
-            <hly:ImageButton x:Name="imgeChanger" Height="40" Width="40" Margin="20" DefaultImage="{StaticResource heart_shiny}" DefaultImageColor="{DynamicResource button_hover}"/>
+            <hly:ImageButton x:Name="imgeChanger" Height="40" Width="40" Margin="10" DefaultImage="{StaticResource heart_plain}" DefaultImageColor="{DynamicResource button_hover}" HoverImageColor="Yellow"/>
             <local:ToTestControl/>
         </StackPanel>
     </Grid>

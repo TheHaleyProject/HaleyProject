@@ -6,7 +6,7 @@
     <SharedGUID>8c8b69c6-d351-4d8d-8f16-f9ed4085aca4</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Haley.MVVM</Import_RootNamespace>
+    <Import_RootNamespace>Haley</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\InputAP.cs" />

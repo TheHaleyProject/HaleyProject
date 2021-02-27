@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/ImageComboButton/ImageComboButtonRD.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/PlainTextBox/PlainTextBoxRD.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/ToggleButton/ToggleButtonRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/PlainExpander/PlainExpanderRD.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

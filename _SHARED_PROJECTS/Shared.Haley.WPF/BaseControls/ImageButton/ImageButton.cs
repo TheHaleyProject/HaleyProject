@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Haley.WPF.Abstractions;
+using Haley.Abstractions;
 using Haley.Utils;
 using Haley.Models;
 using Haley.Enums;
@@ -38,74 +38,21 @@ namespace Haley.WPF.BaseControls
             base.OnApplyTemplate();
 
             //Process Images
-            if (DefaultImage == null) DefaultImage = new BitmapImage(new Uri("pack://application:,,,/Haley.WPF;component/Images/empty_image.png"));
+            if (DefaultImage == null)
+            { DefaultImage = ResourceStore.getIcon(IconEnums.empty_image.ToString()); }
             if (HoverImage == null) HoverImage = DefaultImage;
             if (PressedImage == null) PressedImage = HoverImage;
-
-            //TODO : REMEMBER TO IMPLEMENT A CACHE DICTIONARY TO ENSURE THAT THE IMAGES ARE NOT REPEATEDLY PROCESSED AND CREATED.
+            
             //Process Image Colors
             if (DefaultImageColor != null)
-            { DefaultImage = changeColor(DefaultImage,DefaultImageColor);}
+            { DefaultImage = InternalHelper.changeColor(DefaultImage, DefaultImageColor); }
 
             if (HoverImageColor != null)
-            { HoverImage = changeColor(HoverImage, HoverImageColor); }
+            { HoverImage = InternalHelper.changeColor(HoverImage, HoverImageColor); }
 
-            if(PressedImageColor != null)
-            { PressedImage = changeColor(PressedImage, PressedImageColor); }
+            if (PressedImageColor != null)
+            { PressedImage = InternalHelper.changeColor(PressedImage, PressedImageColor); }
         }
-
-        #region Helpers
-        private static ImageSource changeColor(ImageSource source,SolidColorBrush brush)
-        {
-            try
-            {
-                //IMPLEMENT A CACHE TO STORE ALREADY CHANGED IMAGES.
-                var newcolor = brush.Color;
-                var imageinfo = ImageUtils.getImageInfo(source);
-                var res = ImageUtils.changeImageColor(imageinfo, int.Parse(newcolor.R.ToString()), int.Parse(newcolor.G.ToString()), int.Parse(newcolor.B.ToString()));
-                return res;
-            }
-            catch (Exception ex)
-            {
-                return source; //In case of error, just reuse the source image itself.
-            }
-        }
-
-        private static void changeColor(string propname, DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue == null) return;
-            var _newcolor = e.NewValue as SolidColorBrush;
-            ImageButton btn = d as ImageButton;
-            if (_newcolor == null || btn == null) return;
-
-            ImageSource _newsource = null;
-            switch (propname)
-            {
-                case nameof(DefaultImage):
-                    if (btn.DefaultImage != null)
-                    {
-                        _newsource=changeColor(btn.DefaultImage, _newcolor);
-                        if (_newsource != null) btn.DefaultImage = _newsource;
-                    }
-                    break;
-                case nameof(HoverImage):
-                    if (btn.HoverImage != null)
-                    {
-                        _newsource = changeColor(btn.HoverImage, _newcolor);
-                        if (_newsource != null) btn.HoverImage = _newsource;
-                    }
-                    break;
-                case nameof(PressedImage):
-                    if (btn.PressedImage != null)
-                    {
-                        _newsource = changeColor(btn.PressedImage, _newcolor);
-                        if (_newsource != null) btn.PressedImage = _newsource;
-                    }
-                    break;
-            }
-          
-        }
-        #endregion
 
         #region Images
         public ImageSource DefaultImage
@@ -153,7 +100,7 @@ namespace Haley.WPF.BaseControls
 
         private static void _defaultColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            changeColor(nameof(DefaultImage), d, e);
+            InternalHelper.changeColor(nameof(DefaultImage), d, e);
         }
 
         public SolidColorBrush HoverImageColor
@@ -168,7 +115,7 @@ namespace Haley.WPF.BaseControls
 
         private static void _hoverColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            changeColor(nameof(HoverImageColor), d, e);
+            InternalHelper.changeColor(nameof(HoverImageColor), d, e);
         }
 
         public SolidColorBrush PressedImageColor
@@ -183,7 +130,7 @@ namespace Haley.WPF.BaseControls
 
         private static void _pressedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            changeColor(nameof(PressedImageColor), d, e);
+            InternalHelper.changeColor(nameof(PressedImageColor), d, e);
         }
         #endregion
     }
