@@ -53,6 +53,7 @@ namespace WPF.Test
         {
             /*_changeTheme();*/ //DIRECTLY CHANGE.
             GlobalData.Singleton.current_theme = _getTheme();
+        //Old theme will be set by themeloader.
         }
 
         private Theme _getTheme()
@@ -65,27 +66,27 @@ namespace WPF.Test
                 case true:
                     is_dark_theme = false;
                     activeTheme.base_dictionary_name = "DicRD";
-                    activeTheme.old_theme_name = "ThemeDark";
-                    activeTheme.new_theme_PackURI = $@"pack://application:,,,/WPF.Test;component/Resources/ThemeLight.xaml";
+                    activeTheme.theme_to_replace = "ThemeDark";
+                    activeTheme.theme_PackURI = $@"pack://application:,,,/WPF.Test;component/Resources/ThemeLight.xaml";
                     break;
                 case false:
                     is_dark_theme = true;
                     activeTheme.base_dictionary_name = "DicRD";
-                    activeTheme.old_theme_name = "ThemeLight";
-                    activeTheme.new_theme_PackURI = $@"pack://application:,,,/WPF.Test;component/Resources/ThemeDark.xaml";
+                    activeTheme.theme_to_replace = "ThemeLight";
+                    activeTheme.theme_PackURI = $@"pack://application:,,,/WPF.Test;component/Resources/ThemeDark.xaml";
                     break;
             }
             return activeTheme;
             //this.Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(()=>
             //{
-            //    ThemeLoader.changeTheme(this, activeTheme.new_theme_PackURI, activeTheme.old_theme_name, activeTheme.base_dictionary_name);
+            //    ThemeLoader.changeTheme(this, activeTheme.theme_PackURI, activeTheme.theme_to_replace, activeTheme.base_dictionary_name);
             //}));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var theme = _getTheme();
-            ThemeLoader.changeTheme(this, theme.new_theme_PackURI, theme.old_theme_name, theme.base_dictionary_name);
+            ThemeLoader.changeTheme(this, theme.theme_PackURI, theme.theme_to_replace, theme.base_dictionary_name);
         }
     }
 }

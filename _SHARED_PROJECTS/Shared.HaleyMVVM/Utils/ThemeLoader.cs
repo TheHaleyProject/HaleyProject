@@ -13,7 +13,7 @@ namespace Haley.Utils
     {
         public static void changeTheme(DependencyObject sender, Theme newtheme)
         {
-            changeTheme(sender, newtheme.new_theme_PackURI, newtheme.old_theme_name, newtheme.base_dictionary_name);
+            changeTheme(sender, newtheme.theme_PackURI, newtheme.theme_to_replace, newtheme.base_dictionary_name);
         }
 
         /// <summary>
@@ -21,18 +21,18 @@ namespace Haley.Utils
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="new_themeURI">The New URI for the theme.</param>
-        /// <param name="old_theme_name">The Name of Old theme which needs to be replaced</param>
+        /// <param name="theme_to_replace">The Name of Old theme which needs to be replaced</param>
         /// <param name="base_dictionary_name">The parent dictinary which contains the Theme</param>
         public static void changeTheme(
             DependencyObject sender,
             string new_themeURI,
-            string old_theme_name,
+            string theme_to_replace,
             string base_dictionary_name = null)
         {
             try
             {
                 //if old and new theme are same, don't do anything.
-                if(new_themeURI.EndsWith(old_theme_name + ".xaml"))
+                if(new_themeURI.EndsWith(theme_to_replace + ".xaml"))
                     return;
 
                 ResourceDictionary resource = null;
@@ -54,7 +54,11 @@ namespace Haley.Utils
 
                 var base_dictionary = getBaseDictionary(resource, base_dictionary_name);
 
-                //Base dictionary cannot be null. Because if an application is using it then it means that it has some dictionary
+                //Base dictionary cannot be null. Because if an application is using it then it means that it has some dictionary. Try application resources
+                if (base_dictionary == null)
+                {
+                    base_dictionary = getBaseDictionary(Application.Current.Resources, base_dictionary_name);
+                }
                 //TODO: Do we need to create new dictionary? or try to get the application resources? to change the theme?
                 //At present, if the base is not present, stop processing.
                 if(base_dictionary == null)
@@ -63,7 +67,7 @@ namespace Haley.Utils
                 }
                 ;
 
-                _changeTheme(resource, base_dictionary, new_themeURI, old_theme_name);
+                _changeTheme(resource, base_dictionary, new_themeURI, theme_to_replace);
             } catch(Exception)
             {
                 throw;
@@ -85,7 +89,7 @@ namespace Haley.Utils
             {
                 //Base dictionary processing
                 base_dic = Resource.MergedDictionaries
-                    .Where(p => p.Source.OriginalString.EndsWith("/"+base_dictionary_name + ".xaml"))?.FirstOrDefault();
+                    ?.Where(p => p.Source.OriginalString.EndsWith("/"+base_dictionary_name + ".xaml"))?.FirstOrDefault();
             }
 
             return base_dic;
@@ -96,13 +100,17 @@ namespace Haley.Utils
             ResourceDictionary Resources,
             ResourceDictionary base_dictionary,
             string new_theme_URI,
-            string old_theme_name)
+            string theme_to_replace)
         {
             //Loop through all the dictionaries of the resources to find out if it has the particular theme
-            var tracker = _getOldTheme(base_dictionary, old_theme_name);
+            var tracker = _getOldTheme(base_dictionary, theme_to_replace);
+
+
             if(tracker == null)
             {
-                throw new ArgumentException($@"Unable to find the old theme {old_theme_name} for replacement");
+                //Should we throw error if we are unable to find old theme????
+                //throw new ArgumentException($@"Unable to find the old theme {theme_to_replace} for replacement");
+                return;
             }
 
             _replaceTheme(ref tracker, new_theme_URI);
@@ -113,12 +121,12 @@ namespace Haley.Utils
             
         }
 
-        private static RDTracker _getOldTheme(ResourceDictionary Resource, string old_theme_name)
+        private static RDTracker _getOldTheme(ResourceDictionary Resource, string theme_to_replace)
         {
             RDTracker tracker = null;
             ResourceDictionary res = null;
 
-            res = Resource.MergedDictionaries?.Where(p => p.Source.OriginalString.EndsWith("/"+old_theme_name + ".xaml"))?.FirstOrDefault(
+            res = Resource.MergedDictionaries?.Where(p => p.Source.OriginalString.EndsWith("/"+theme_to_replace + ".xaml"))?.FirstOrDefault(
                 );
 
             if(res != null)
@@ -130,7 +138,7 @@ namespace Haley.Utils
             //Else, loop through all the merged dictionaries and try to find the child.
             foreach(var rd in Resource.MergedDictionaries)
             {
-                var _childtracker = _getOldTheme(rd, old_theme_name);
+                var _childtracker = _getOldTheme(rd, theme_to_replace);
                 if(_childtracker != null)
                 {
                     //got the first found dictionary.

@@ -7,15 +7,8 @@
         xmlns:hlyMVVM="http://schemas.hpod9.com/haley/mvvm"
         xmlns:local="clr-namespace:WPF.Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="800" hlyMVVM:ThemeAP.OldTheme="{Binding Path=old_theme, Source={x:Static local:GlobalData.Singleton},NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"
         hlyMVVM:ThemeAP.ActiveTheme="{Binding Path=current_theme, Source={x:Static local:GlobalData.Singleton},NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPF.Test;component/Resources/DicRD.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Grid Background="{DynamicResource scb_background1}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
