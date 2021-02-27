@@ -12,11 +12,10 @@ using System.Windows.Controls;
 using Haley.MVVM;
 using Haley.Enums;
 using Haley.Utils;
-using Haley.Models;
 
 namespace Haley.Models
 {
-    public class ThemeAP : DependencyObject
+    public static class ThemeAP
     {
         public static Theme GetActiveTheme(DependencyObject obj)
         {
@@ -38,7 +37,7 @@ namespace Haley.Models
             Theme active = e.NewValue as Theme;
             if (active == null || active.new_theme_PackURI == null || active.old_theme_name == null || active.base_dictionary_name == null) return;
 
-            ThemeLoader.changeTheme(d,active.new_theme_PackURI,active.old_theme_name,active.base_dictionary_name);
+            ThemeLoader.changeTheme(d,active);
         }
     }
 }

@@ -134,15 +134,15 @@ namespace Haley.WPF.BaseControls
         public static readonly DependencyProperty ShowShadowProperty =
             DependencyProperty.Register(nameof(ShowShadow), typeof(bool), typeof(ToggleButton), new FrameworkPropertyMetadata(false));
 
-        public Color ShadowColor
+        public Brush ShadowColor
         {
-            get { return (Color)GetValue(ShadowColorProperty); }
+            get { return (Brush)GetValue(ShadowColorProperty); }
             set { SetValue(ShadowColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ShadowColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowColorProperty =
-            DependencyProperty.Register(nameof(ShadowColor), typeof(Color), typeof(ToggleButton), new FrameworkPropertyMetadata(GlobalProps.shadowColor));
+            DependencyProperty.Register(nameof(ShadowColor), typeof(Brush), typeof(ToggleButton), new FrameworkPropertyMetadata(GlobalProps.shadowColor));
 
         public bool ShadowOnlyOnMouseOver
         {

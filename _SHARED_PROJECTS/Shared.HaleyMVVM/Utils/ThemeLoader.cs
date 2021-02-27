@@ -11,6 +11,11 @@ namespace Haley.Utils
 {
     public static class ThemeLoader
     {
+        public static void changeTheme(DependencyObject sender, Theme newtheme)
+        {
+            changeTheme(sender, newtheme.new_theme_PackURI, newtheme.old_theme_name, newtheme.base_dictionary_name);
+        }
+
         /// <summary>
         ///
         /// </summary>

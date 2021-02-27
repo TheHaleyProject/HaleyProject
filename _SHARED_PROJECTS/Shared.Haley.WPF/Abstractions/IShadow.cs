@@ -6,6 +6,6 @@ namespace Haley.WPF.Abstractions
     {
         bool ShadowOnlyOnMouseOver { get; set; }
         bool ShowShadow { get; set; }
-        Color ShadowColor { get; set; }
+        Brush ShadowColor { get; set; }
     }
 }

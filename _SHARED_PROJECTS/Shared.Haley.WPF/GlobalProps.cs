@@ -21,6 +21,6 @@ namespace Haley.WPF
         public static SolidColorBrush default_offcolor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFB07575");
         public static SolidColorBrush hoverBackground = (SolidColorBrush)new BrushConverter().ConvertFrom("#7ea0d6"); //Blue
         public static CornerRadius cornerRadius = new CornerRadius(0.0);
-        public static Color shadowColor = Colors.Gray;
+        public static SolidColorBrush shadowColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#575552"); //Gray
     }
 }
