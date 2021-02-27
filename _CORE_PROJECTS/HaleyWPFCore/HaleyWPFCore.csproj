@@ -5,7 +5,7 @@
 		<UseWPF>true</UseWPF>
 		<AssemblyName>Haley.WPF.Core</AssemblyName>
 		<RootNamespace>Haley.WPF</RootNamespace>
-		<Version>1.0.7</Version>
+		<Version>1.0.8</Version>
 		<Authors>Lingam</Authors>
 		<Product>Haley WPF Core</Product>
 		<Company>TheHaleyProject</Company>
@@ -17,8 +17,8 @@
 		<Copyright>Haley @ 2020</Copyright>
 		<PackageReleaseNotes>Implemented Theme Loader</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<AssemblyVersion>1.0.7</AssemblyVersion>
-		<FileVersion>1.0.7</FileVersion>
+		<AssemblyVersion>1.0.8</AssemblyVersion>
+		<FileVersion>1.0.8</FileVersion>
 		<PackageIcon>Haley.png</PackageIcon>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>

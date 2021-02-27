@@ -18,7 +18,7 @@
             <DataTrigger Binding="{Binding Path=ShadowOnlyOnMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="false">
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect Color="{Binding Path=ShadowColor,RelativeSource={RelativeSource TemplatedParent}}" BlurRadius="8" ShadowDepth="0">
+                        <DropShadowEffect Color="{Binding Path=ShadowColor.Color,RelativeSource={RelativeSource TemplatedParent}}" BlurRadius="8" ShadowDepth="0">
                         </DropShadowEffect>
                     </Setter.Value>
                 </Setter>
@@ -31,7 +31,7 @@
                 <MultiDataTrigger.Setters>
                     <Setter Property="Effect">
                         <Setter.Value>
-                            <DropShadowEffect Color="{Binding Path=ShadowColor,RelativeSource={RelativeSource TemplatedParent}}" BlurRadius="8" ShadowDepth="0">
+                            <DropShadowEffect Color="{Binding Path=ShadowColor.Color,RelativeSource={RelativeSource TemplatedParent}}" BlurRadius="8" ShadowDepth="0">
                             </DropShadowEffect>
                         </Setter.Value>
                     </Setter>
