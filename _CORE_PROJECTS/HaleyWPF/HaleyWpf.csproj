@@ -100,7 +100,20 @@
       <Name>HaleyMVVM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\arrow_down_circle.png" />
+    <Resource Include="Images\arrow_down_circle_large.png" />
+    <Resource Include="Images\arrow_down_circle_medium.png" />
+    <Resource Include="Images\arrow_down_rounded.png" />
+    <Resource Include="Images\arrow_down_rounded_large.png" />
+    <Resource Include="Images\arrow_down_rounded_medium.png" />
+    <Resource Include="Images\arrow_down_sharp.png" />
+    <Resource Include="Images\arrow_down_sharp_large.png" />
+    <Resource Include="Images\arrow_down_sharp_medium.png" />
+    <Resource Include="Images\arrow_down_square.png" />
+    <Resource Include="Images\arrow_down_square_large.png" />
+    <Resource Include="Images\arrow_down_square_medium.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\arrow.png" />
     <Resource Include="Images\arrow_large.png" />

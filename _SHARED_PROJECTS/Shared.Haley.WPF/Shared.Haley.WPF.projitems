@@ -41,6 +41,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Styles\BorderStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeNormal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -66,5 +70,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\ToggleButtonClickedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InternalHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionSelector\" />
+    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionEditor\" />
+    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\PlainComboBox\" />
+    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\Pagination\" />
+    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\PropertyGrid\" />
+    <Folder Include="$(MSBuildThisFileDirectory)GroupControls\Docker\" />
+    <Folder Include="$(MSBuildThisFileDirectory)GroupControls\RibbonManager\" />
   </ItemGroup>
 </Project>

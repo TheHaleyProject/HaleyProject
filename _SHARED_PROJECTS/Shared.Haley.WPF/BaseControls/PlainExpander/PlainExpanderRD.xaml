@@ -94,30 +94,40 @@
     </Style>
 
     <ControlTemplate x:Key="PlainExpanderCommmonTemplate" TargetType="local:PlainExpander">
-        <!--Main Border has a background which covers both content and header. It is the parent container-->
+        <!--MAIN BORDER : has a background which covers both content and header. It is the parent container-->
         <Border x:Name="PART_borderMain" Style="{StaticResource BorderWithoutShadow}" Background="{TemplateBinding ContentBackground}">
             
-            <!--ItemsControl is to hold the header and content. It changes its style based on expand direction. Accordingly the itemspanel will have either two rows or two columns-->
+            <!--ITEMS HOLDER: is to hold the header and content. It changes its style based on expand direction. Accordingly the itemspanel will have either two rows or two columns-->
             <ItemsControl x:Name="PART_ItemsHolder" Margin="-1" Style="{StaticResource itemsControlStyle}">
 
-                <!--First item : Header. This changes its position on the Itemscontrol based on the expand direction-->
+                <!--HEADER BORDER : Header. This changes its position on the Itemscontrol based on the expand direction-->
                     <Border x:Name="PART_borderheader"  Style="{StaticResource BorderWithShadow}">
-                    <!-- Toggle button changes its width or height to match min width or min height as per the expand direction-->
+                    <!-- TOGGLE BUTTON: changes its width or height to match min width or min height as per the expand direction-->
                     <ToggleButton x:Name="PART_toggleMain"  Focusable="False" Foreground="{TemplateBinding Foreground}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource cleanToggleStyle}">
-                        <!--The content of the header changes its transform based on the expand direction.-->
-                        <Grid Style="{StaticResource expanderGridStyle}">
+                        <!--TOGGLE BUTTON CONTENT: The content of the header changes its transform based on the expand direction.-->
+                        <Grid Style="{StaticResource expanderGridStyle}" Margin="5,0,0,0" x:Name="grdHeaderHolder">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="35"/>
+                                    <ColumnDefinition Width="{Binding ElementName=grdHeaderHolder,Path=ActualHeight}"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="10,0"/>
-                            <Viewbox x:Name="PART_IconHolder" Margin="4" Grid.Column="1">
+                            <!--HEADER ICON-->
+                            <Viewbox x:Name="PART_IconHolder" Margin="4" >
                                 <local:ImageButton x:Name="PART_Icon"  IsHitTestVisible="False" DefaultImage="{TemplateBinding Icon}" DefaultImageColor="{TemplateBinding IconDefColor}"/>
+                            </Viewbox>
+                            
+                            <!--HEADER TEXT-->
+                                <ContentPresenter ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.Column="1" Margin="5,0,0,0"/>
+                            
+                            <!--HEADER ARROW-->
+                            <Viewbox x:Name="PART_ArrowHolder" Margin="4" Grid.Column="2">
+                                <local:ImageButton x:Name="PART_Arrow"  IsHitTestVisible="False" DefaultImage="{TemplateBinding Arrow}" DefaultImageColor="{TemplateBinding ArrowDefColor}"/>
                             </Viewbox>
                             </Grid>
                         </ToggleButton>
                     </Border>
-                <!--Most important part which holds the content. This changes its position on the Itemscontrol based on the expand direction-->
+                
+                <!--ACTUAL CONTENT: Most important part which holds the content. This changes its position on the Itemscontrol based on the expand direction-->
                     <ContentPresenter Name="PART_contentHolder" Visibility="Collapsed"/>
                 </ItemsControl>
         </Border>
@@ -127,7 +137,7 @@
             </Trigger>
             <Trigger Property="IsExpanded" Value="true">
                 <Setter Property="Visibility" TargetName="PART_contentHolder" Value="Visible" />
-                <Setter Property="LayoutTransform" TargetName="PART_Icon">
+                <Setter Property="LayoutTransform" TargetName="PART_Arrow">
                     <Setter.Value>
                         <TransformGroup>
                             <RotateTransform Angle="180"/>
@@ -135,11 +145,14 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
+            <Trigger Property="ShowIcon" Value="false">
+                <Setter Property="Visibility" TargetName="PART_IconHolder" Value="Collapsed"/>
+            </Trigger>
             <Trigger Property="ExpandDirection" Value="Left">
                 <Setter TargetName="PART_contentHolder" Property="Grid.Column" Value="0"/>
                 <Setter TargetName="PART_borderheader" Property="Grid.Column" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Width" Value="{Binding MinWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
-                <Setter Property="LayoutTransform" TargetName="PART_IconHolder">
+                <Setter Property="LayoutTransform" TargetName="PART_ArrowHolder">
                     <Setter.Value>
                         <TransformGroup>
                             <RotateTransform Angle="180"/>
@@ -159,7 +172,7 @@
                 <Setter TargetName="PART_contentHolder" Property="Grid.Row" Value="0"/>
                 <Setter TargetName="PART_borderheader" Property="Grid.Row" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Height" Value="{Binding MinHeight, RelativeSource={RelativeSource TemplatedParent}}"/>
-                <Setter Property="LayoutTransform" TargetName="PART_IconHolder">
+                <Setter Property="LayoutTransform" TargetName="PART_ArrowHolder">
                     <Setter.Value>
                         <TransformGroup>
                             <RotateTransform Angle="180"/>
