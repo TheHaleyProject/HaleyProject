@@ -15,11 +15,11 @@ namespace WPF.Test
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //MainWindow _wndwo = new MainWindow();
-            //_wndwo.ShowDialog();
+            MainWindow _wndwo = new MainWindow();
+            _wndwo.ShowDialog();
 
-            MainWindow2 _wndw2 = new MainWindow2();
-            _wndw2.ShowDialog();
+            //MainWindow2 _wndw2 = new MainWindow2();
+            //_wndw2.ShowDialog();
 
         }
     }

@@ -24,9 +24,9 @@
             <TextBox Text="{Binding ElementName=pbox,Path=Text}" Height="50" Width="120" />
 
             <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="True"/>
-            <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="True" ShowText="False"/>
-            <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="False" OnText="Yes" OffText="No"/>
-            <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="False" OnText="True" OffText="False"/>
+            <hly:ToggleButton Height="30" Width="70" SwitchWidth="30" ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="True" ShowText="False"  Style="{StaticResource CircularToggleButton}" EnlargeSwitchButton="True"/>
+            <hly:ToggleButton ShowShadow="True" ShadowColor="Blue" CornerRadius="8" Status="False" OnText="Yes" OffText="No" Margin="3"/>
+            <hly:ToggleButton  ShowShadow="True" ShadowColor="Blue" Status="False" OnText="True" OffText="False"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="20">
             <hly:ImageComboButton Height="70" Width="90" Text="Favourites" ImageLocation="Top" DefaultImageColor="{DynamicResource button_hover}" HoverImageColor="#FF9413C2" DefaultImage="{StaticResource heart_shiny}"/>

@@ -154,5 +154,18 @@ namespace Haley.WPF.BaseControls
         // Using a DependencyProperty as the backing store for ShadowOnlyOnMouseOver.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShadowOnlyOnMouseOverProperty =
             DependencyProperty.Register(nameof(ShadowOnlyOnMouseOver), typeof(bool), typeof(ToggleButton), new FrameworkPropertyMetadata(true));
+
+
+
+        public bool EnlargeSwitchButton
+        {
+            get { return (bool)GetValue(EnlargeSwitchButtonProperty); }
+            set { SetValue(EnlargeSwitchButtonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for EnlargeSwitchButton.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnlargeSwitchButtonProperty =
+            DependencyProperty.Register(nameof(EnlargeSwitchButton), typeof(bool), typeof(ToggleButton), new PropertyMetadata(false));
+
     }
 }

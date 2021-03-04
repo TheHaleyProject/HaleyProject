@@ -3,12 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     >
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/PlainButton/PlainButtonRD.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/ImageButton/ImageButtonRD.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/ImageComboButton/ImageComboButtonRD.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/PlainTextBox/PlainTextBoxRD.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/ToggleButton/ToggleButtonRD.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/BaseControls/PlainExpander/PlainExpanderRD.xaml"/>
+
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PlainTextBoxRD.xaml"/>
+        
+        <!--#region BUTTONS-->
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PlainButtonRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/ImageButtonRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/ImageComboButtonRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/ToggleButtonRD.xaml"/>
+        <!--#endregion-->
+       
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PlainExpanderRD.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

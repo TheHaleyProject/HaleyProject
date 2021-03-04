@@ -9,7 +9,31 @@
     <Import_RootNamespace>Haley</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander\PlainExpanderRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Common\ToggleButtonCommon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyWPFConverters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyDefaults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\haleyThemeExtra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeExtra\ToggleButtonSD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainExpanderRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -21,27 +45,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButtonRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\ImageButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButtonRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\ImageComboButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButtonRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextbox\PlainTextBoxRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainTextBoxRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)BaseControls\ToggleButton\ToggleButtonRD.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Base\BorderStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Styles\BorderStyles.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\ToggleButtonRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -58,13 +82,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander\PlainExpander.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Converter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton\ImageButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton\ImageComboButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton\PlainButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextbox\PlainTextBox.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ToggleButton\ToggleButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ToggleButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\HalfValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\ColorEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\IconEnums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\ToggleButtonClickedEventArgs.cs" />
@@ -72,10 +97,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionSelector\" />
     <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionEditor\" />
-    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\PlainComboBox\" />
-    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\Pagination\" />
     <Folder Include="$(MSBuildThisFileDirectory)BaseControls\PropertyGrid\" />
     <Folder Include="$(MSBuildThisFileDirectory)GroupControls\Docker\" />
     <Folder Include="$(MSBuildThisFileDirectory)GroupControls\RibbonManager\" />

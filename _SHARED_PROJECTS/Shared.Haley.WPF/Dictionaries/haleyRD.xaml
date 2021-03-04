@@ -3,13 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <!--Users will get both haley base styles and also theme extra (in case they need to change something)-->
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeNormal.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyIcons.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/Styles/BorderStyles.xaml"/>
+        <!--#region Base-->
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyBase.xaml"/>
+        <!--#endregion-->
+        
+        <!--#region Theme Extra (For use as static resource)-->
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/haleyThemeExtra.xaml"/>
+        <!--#endregion-->
+   
     </ResourceDictionary.MergedDictionaries>
-
-    <sys:Boolean x:Key="True">True</sys:Boolean>
-    <sys:Boolean x:Key="False">False</sys:Boolean>
-    
 </ResourceDictionary>
