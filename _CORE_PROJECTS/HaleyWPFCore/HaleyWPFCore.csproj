@@ -50,6 +50,9 @@
     <None Remove="Images\arrow_down_square_large.png" />
     <None Remove="Images\arrow_down_square_medium.png" />
     <None Remove="Images\arrow_large.png" />
+    <None Remove="Images\arrow_line.png" />
+    <None Remove="Images\arrow_line_large.png" />
+    <None Remove="Images\arrow_line_medium.png" />
     <None Remove="Images\arrow_medium.png" />
     <None Remove="Images\camera.png" />
     <None Remove="Images\camera_flat.png" />
@@ -274,6 +277,9 @@
     <Resource Include="Images\arrow_down_square_large.png" />
     <Resource Include="Images\arrow_down_square_medium.png" />
     <Resource Include="Images\arrow_large.png" />
+    <Resource Include="Images\arrow_line.png" />
+    <Resource Include="Images\arrow_line_large.png" />
+    <Resource Include="Images\arrow_line_medium.png" />
     <Resource Include="Images\arrow_medium.png" />
     <Resource Include="Images\camera.png" />
     <Resource Include="Images\camera_flat.png" />

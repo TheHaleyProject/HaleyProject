@@ -314,6 +314,11 @@
     <Resource Include="Images\wrong_large.png" />
     <Resource Include="Images\wrong_medium.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_line.png" />
+    <Resource Include="Images\arrow_line_large.png" />
+    <Resource Include="Images\arrow_line_medium.png" />
+  </ItemGroup>
   <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

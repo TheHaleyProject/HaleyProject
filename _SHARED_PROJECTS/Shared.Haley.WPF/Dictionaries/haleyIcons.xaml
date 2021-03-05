@@ -211,6 +211,9 @@
     <ImageSource x:Key="arrow_down_square">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square.png</ImageSource>
     <ImageSource x:Key="arrow_down_square_large">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square_large.png</ImageSource>
     <ImageSource x:Key="arrow_down_square_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_down_square_medium.png</ImageSource>
+    <ImageSource x:Key="arrow_line">pack://application:,,,/Haley.WPF;component/Images/arrow_line.png</ImageSource>
+    <ImageSource x:Key="arrow_line_large">pack://application:,,,/Haley.WPF;component/Images/arrow_line_large.png</ImageSource>
+    <ImageSource x:Key="arrow_line_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_line_medium.png</ImageSource>
 
 
 </ResourceDictionary>

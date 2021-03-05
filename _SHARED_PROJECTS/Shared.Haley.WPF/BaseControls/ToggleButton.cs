@@ -72,7 +72,7 @@ namespace Haley.WPF.BaseControls
             base.OnPreviewMouseDown(e);
             //And also change the bool Status here.
             Status = !Status;
-            RaiseEvent(new ToggleButtonClickedEventArgs(ClickEvent, this) { value = Status });
+            RaiseEvent(new UIRoutedEventArgs<bool>(ClickEvent, this) { value = Status });
         }
 
         public bool Status

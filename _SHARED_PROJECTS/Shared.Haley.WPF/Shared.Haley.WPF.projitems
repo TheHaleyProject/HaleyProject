@@ -33,6 +33,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\LinkedTextRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainExpanderRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -82,7 +86,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\LinkedText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\Pagination.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ImageComboButton.cs" />
@@ -90,9 +96,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\ToggleButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\HalfValueConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Enums\ColorEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Enums\IconEnums.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Events\ToggleButtonClickedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dictionaries\Enums\ColorEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dictionaries\Enums\IconEnums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\UIRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InternalHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
   </ItemGroup>

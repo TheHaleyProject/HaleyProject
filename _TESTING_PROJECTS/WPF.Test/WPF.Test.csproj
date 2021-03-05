@@ -62,6 +62,9 @@
     <Compile Include="ToTestControl.xaml.cs">
       <DependentUpon>ToTestControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WndwPagination.xaml.cs">
+      <DependentUpon>WndwPagination.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ToTestControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WndwPagination.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
