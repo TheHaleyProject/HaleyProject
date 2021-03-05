@@ -5,6 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PlainTextBoxRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/SeparatorRD.xaml"/>
         
         <!--#region BUTTONS-->
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/LinkedTextRD.xaml"/>

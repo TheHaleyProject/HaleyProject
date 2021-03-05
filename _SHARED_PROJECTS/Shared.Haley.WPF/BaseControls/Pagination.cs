@@ -25,7 +25,7 @@ namespace Haley.WPF.BaseControls
     [TemplatePart(Name = UIElementButtonMoreLeft, Type = typeof(PlainButton))]
     [TemplatePart(Name = UIElementButtonMoreRight, Type = typeof(PlainButton))]
     [TemplatePart(Name = UIElementButtonJump, Type = typeof(PlainButton))]
-    public class Pagination : Control
+    public class Pagination : Control, ICornerRadius
     {
         #region Attributes
         private const string UIElementButtonLeft = "PART_btn_left";
@@ -53,6 +53,15 @@ namespace Haley.WPF.BaseControls
         }
 
         public Pagination() {}
-         
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Pagination), new FrameworkPropertyMetadata(ResourceStore.cornerRadius));
     }
 }

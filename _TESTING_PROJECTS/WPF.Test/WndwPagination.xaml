@@ -7,74 +7,64 @@
          xmlns:hlyMVVM="http://schemas.hpod9.com/haley/mvvm"
         xmlns:local="clr-namespace:WPF.Test"
         mc:Ignorable="d"
-        Title="WndwPagination" Height="450" Width="420">
+        Title="WndwPagination" Height="450" Width="600">
     <Grid>
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Height="25" Margin="0,10">
-                <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
-                    <hly:ImageButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </hly:ImageButton.RenderTransform>
-                </hly:ImageButton>
-                <hly:PlainButton Width="50" CornerRadius="5" Content="1" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="5" BorderBrush="IndianRed"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="6" BorderBrush="CornflowerBlue" ShowShadow="True" ShadowColor="#FFA6F7A6"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="7" BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="50" CornerRadius="5" Content="125" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
-                <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
-                    <hly:ImageButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </hly:ImageButton.RenderTransform>
-                </hly:ImageButton>
-                <hly:PlainTextBox CornerRadius="3" WaterMark="Jump To" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Height="25"  Margin="0,10">
-                <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
-                    <hly:ImageButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </hly:ImageButton.RenderTransform>
-                </hly:ImageButton>
-                <hly:PlainButton Width="50" CornerRadius="5" Content="1" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="5" BorderBrush="IndianRed"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="6" BorderBrush="CornflowerBlue" ShowShadow="True" ShadowColor="#FFA6F7A6"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="7" BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
-                <hly:PlainButton Width="50" CornerRadius="5" Content="125" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
-                <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
-                    <hly:ImageButton.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </hly:ImageButton.RenderTransform>
-                </hly:ImageButton>
-                <hly:PlainTextBox CornerRadius="3" WaterMark="Jump To" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
-            </StackPanel>
 
-            <hly:LinkedText Text="Senguttuvan Mahalingam"/>
-            <hly:LinkedText Text="Senguttuvan Mahalingam" FontStyle="Oblique"/>
-            <hly:LinkedText Text="Senguttuvan Mahalingam" FontStyle="Italic" TurnOffTextDecorations="True" Foreground="#FF3A8100"/>
+            <Grid Height="25" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Items : " VerticalAlignment="Center"/>
+                    <hly:PlainTextBox CornerRadius="3" WaterMark="Count" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+                    <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
+                        <hly:ImageButton.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </hly:ImageButton.RenderTransform>
+                    </hly:ImageButton>
+                    <hly:PlainButton Width="50" CornerRadius="5" Content="1" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
+                    <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
+                    <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="5" BorderBrush="IndianRed"/>
+                    <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="6" BorderBrush="CornflowerBlue" ShowShadow="True" ShadowColor="#FFA6F7A6"/>
+                    <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="7" BorderBrush="CornflowerBlue"/>
+                    <hly:PlainButton Width="25" Margin="3,0" CornerRadius="3" Content="..." BorderBrush="CornflowerBlue"/>
+                    <hly:PlainButton Width="50" CornerRadius="5" Content="125" Margin="5,0" Background="IndianRed" Foreground="White" BorderThickness="0"/>
+                    <hly:ImageButton DefaultImage="{StaticResource arrow_down_rounded}" DefaultImageColor="CornflowerBlue" RenderTransformOrigin="0.5,0.5" Margin="5,0">
+                        <hly:ImageButton.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </hly:ImageButton.RenderTransform>
+                    </hly:ImageButton>
+                    <hly:PlainTextBox CornerRadius="3" WaterMark="Jump To" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
+                </StackPanel>
+            </Grid>
+
+
+            <Grid Height="25"  Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Items : " VerticalAlignment="Center"/>
+                    <hly:PlainTextBox CornerRadius="3" WaterMark="Count" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+                    <TextBlock Text="Page  " VerticalAlignment="Center"/>
+                    <hly:LinkedText Text="1" VerticalContentAlignment="Center" FontSize="14"/>
+                    <TextBlock Text="  of  " VerticalAlignment="Center"/>
+                    <hly:LinkedText Text="4" VerticalContentAlignment="Center" FontSize="14"/>
+                    <hly:PlainTextBox CornerRadius="3" WaterMark="Jump To" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue" Margin="10,0,5,0"/>
+                    <hly:Separator Size="1.5" Orientation="Vertical" Background="{StaticResource defContent}" Margin="5,0"/>
+                    <hly:LinkedText Text="Previous" VerticalContentAlignment="Center" Margin="10,0"/>
+                    <hly:LinkedText Text="Next" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
         
     </Grid>

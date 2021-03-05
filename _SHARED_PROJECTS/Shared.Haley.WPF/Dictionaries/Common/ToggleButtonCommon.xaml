@@ -10,7 +10,7 @@
 
  <!--#region COMMON ITEMS-->
     
-    <Style x:Key="tglebtnCommonBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderWithShadow}">
+    <Style x:Key="internal_tglebtn_CommonBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource BorderWithShadow}">
         <Style.Triggers>
             <!--When Value is true-->
             <DataTrigger Binding="{Binding Status, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
@@ -24,7 +24,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="txtblckStyle" TargetType="{x:Type TextBlock}">
+    <Style x:Key="internal_tglebtn_txtblckStyle" TargetType="{x:Type TextBlock}">
         <Style.Triggers>
             <!--When Value is true-->
             <DataTrigger Binding="{Binding ShowText, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
@@ -44,7 +44,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="switchButtonStyle" TargetType="{x:Type Border}">
+    <Style x:Key="internal_tglebtn_switchbtn" TargetType="{x:Type Border}">
         <Setter Property="Margin" Value="2"/>
         <Style.Triggers>
             <!--When Value is true-->
