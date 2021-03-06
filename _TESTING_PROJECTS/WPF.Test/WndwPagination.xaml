@@ -11,12 +11,12 @@
     <Grid>
         <StackPanel>
 
-            <hly:Pagination x:Name="pgMain" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="10" DirectButtonsCount="4" />
-            <hly:Pagination x:Name="pgSimple" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="10" Mode="Simple" />
+            <hly:Pagination x:Name="pgMain" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="30" DirectButtonsCount="4" />
+            <!--<hly:Pagination x:Name="pgSimple" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="10" Mode="Simple" />
             <WrapPanel HorizontalAlignment="Center">
                 <TextBlock Text="{Binding ElementName=pgMain,Path=CurrentPage}" FontSize="18" />
                 <TextBlock Text="{Binding ElementName=pgSimple,Path=CurrentPage}" FontSize="18" Margin="20,0"/>
-            </WrapPanel>
+            </WrapPanel>-->
            
         </StackPanel>
         

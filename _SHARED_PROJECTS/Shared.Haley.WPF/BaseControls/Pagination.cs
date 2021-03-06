@@ -372,6 +372,7 @@ namespace Haley.WPF.BaseControls
                 if ((_startCount == 0 || _startCount == 1) && TotalPages > 2)
                 {
                     _startCount = 2;
+                    if (CurrentPage == 1) _startCount = 1;
                 }
             }
 
@@ -383,12 +384,8 @@ namespace Haley.WPF.BaseControls
                 int newvalue = i;
 
                 //When we are extreme left
-                if (CurrentPage == 1)
-                {
-                    newvalue = i + 1;
-                    if (newvalue == TotalPages) break; //We should never add the last page as direct button because we already have a dedicated button for that purpose
-                }
-
+                if (CurrentPage == 1) newvalue = i + 1;
+                if (newvalue == TotalPages) break; //We should never add the last page as direct button because we already have a dedicated button for that purpose
                 _directPages.Add(newvalue);
             }
 
