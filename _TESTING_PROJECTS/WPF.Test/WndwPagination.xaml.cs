@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using Haley.Events;
+using System.Collections;
 
 namespace WPF.Test
 {
@@ -22,10 +25,19 @@ namespace WPF.Test
         public WndwPagination()
         {
             InitializeComponent();
+            this.DataContext = new MainVM();
         }
 
-        private void pgSimple_PageChanged(object sender, RoutedEventArgs e)
+        private void CollectionSelector_SelectionChanged_1(object sender, RoutedEventArgs e)
         {
+            UIRoutedEventArgs<IEnumerable> handler = (UIRoutedEventArgs<IEnumerable>)e;
+            var vm = this.DataContext as MainVM;
+            var persons = new ObservableCollection<Person>();
+            foreach (var item in handler.value)
+            {
+                persons.Add((Person)item);
+            }
+            vm.selecteditems = persons;
 
         }
     }

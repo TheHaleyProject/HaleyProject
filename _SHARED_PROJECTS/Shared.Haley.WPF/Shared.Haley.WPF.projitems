@@ -69,6 +69,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\CollectionSelectorRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainListViewRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\SeparatorRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +106,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IImageHolder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\CollectionSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\Separator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\LinkedText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainExpander.cs" />
@@ -115,7 +125,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\UIRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InternalHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\HaleyCommands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\AdditionalCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionEditor\" />
