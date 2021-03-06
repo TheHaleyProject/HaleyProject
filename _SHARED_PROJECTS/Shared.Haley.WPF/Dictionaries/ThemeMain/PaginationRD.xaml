@@ -57,7 +57,7 @@
         <Grid Height="{TemplateBinding Height}">
 
             <!--ITEMS COUNT PER PAGE-->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel x:Name="PART_Counter" Orientation="Horizontal">
                 <TextBlock Text="Items : " VerticalAlignment="Center"/>
                 <bc:PlainTextBox x:Name="counttbx" WaterMark="Count" Style="{StaticResource internal_paginationTextBlock}">
                     <bc:PlainTextBox.InputBindings>
@@ -126,13 +126,16 @@
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
+            <Trigger Property="HideCounter" Value="True">
+                <Setter TargetName="PART_Counter" Property="Visibility" Value="Collapsed"/>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="internal_pagination_simple" TargetType="{x:Type bc:Pagination}">
         <Grid Height="{TemplateBinding Height}">
             <!--ITEMS COUNT PER PAGE-->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel x:Name="PART_Counter" Orientation="Horizontal">
                 <TextBlock Text="Items : " VerticalAlignment="Center"/>
                 <bc:PlainTextBox x:Name="counttbx" WaterMark="Count" Style="{StaticResource internal_paginationTextBlock}">
                     <bc:PlainTextBox.InputBindings>
@@ -166,6 +169,14 @@
                 <bc:LinkedText Text="Next" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.NextPage}"/>
             </StackPanel>
         </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="HideCounter" Value="True">
+                <Setter TargetName="PART_Counter" Property="Visibility" Value="Collapsed"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
     
     <Style TargetType="{x:Type bc:Pagination}">

@@ -15,6 +15,9 @@ namespace WPF.Test
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            //MainWindow2 _wndw2sd = new MainWindow2();
+
+
             //MainWindow _wndwo = new MainWindow();
             //_wndwo.ShowDialog();
 

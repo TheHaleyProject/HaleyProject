@@ -23,5 +23,10 @@ namespace WPF.Test
         {
             InitializeComponent();
         }
+
+        private void pgSimple_PageChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

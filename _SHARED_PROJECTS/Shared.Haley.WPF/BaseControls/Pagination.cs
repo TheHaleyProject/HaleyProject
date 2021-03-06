@@ -45,12 +45,12 @@ namespace Haley.WPF.BaseControls
         #endregion
 
         #region Events
-        public static readonly RoutedEvent UpdatedEvent = EventManager.RegisterRoutedEvent(nameof(Updated), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(Pagination));
+        public static readonly RoutedEvent PageChangedEvent = EventManager.RegisterRoutedEvent(nameof(PageChanged), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(Pagination));
 
-        public event RoutedEventHandler Updated
+        public event RoutedEventHandler PageChanged
         {
-            add { AddHandler(UpdatedEvent, value); }
-            remove { RemoveHandler(UpdatedEvent, value); }
+            add { AddHandler(PageChangedEvent, value); }
+            remove { RemoveHandler(PageChangedEvent, value); }
         }
         #endregion
 
@@ -140,6 +140,16 @@ namespace Haley.WPF.BaseControls
         public static readonly DependencyProperty ItemsCountPerPageProperty =
             DependencyProperty.Register(nameof(ItemsCountPerPage), typeof(int), typeof(Pagination), new FrameworkPropertyMetadata(10,ItemsCountPerPagePropertyChanged));
 
+        public bool HideCounter
+        {
+            get { return (bool)GetValue(HideCounterProperty); }
+            set { SetValue(HideCounterProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HideCounter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HideCounterProperty =
+            DependencyProperty.Register(nameof(HideCounter), typeof(bool), typeof(Pagination), new PropertyMetadata(false));
+
         public int CurrentPage
         {
             get { return (int)GetValue(CurrentPageProperty); }
@@ -176,6 +186,8 @@ namespace Haley.WPF.BaseControls
             if (pg != null)
             {
                 pg._prepareDirectButtons();
+                //Then raise the event 
+                pg.RaiseEvent(new UIRoutedEventArgs<int>(PageChangedEvent, pg) { value = pg.CurrentPage });
             }
         }
         private static void ItemsCountTotalPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
