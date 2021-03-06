@@ -99,6 +99,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HaleyHelpers\HaleyHelpers.csproj">
+      <Project>{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}</Project>
+      <Name>HaleyHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HaleyMVVM\HaleyMVVM.csproj">
       <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
       <Name>HaleyMVVM</Name>
@@ -322,6 +326,11 @@
     <Resource Include="Images\arrow_line.png" />
     <Resource Include="Images\arrow_line_large.png" />
     <Resource Include="Images\arrow_line_medium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\eye.png" />
+    <Resource Include="Images\eye_large.png" />
+    <Resource Include="Images\eye_medium.png" />
   </ItemGroup>
   <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

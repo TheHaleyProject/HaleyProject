@@ -10,11 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Haley.WPF;
+using Haley.WPF.BaseControls;
 
 namespace WPF.Test
 {
     public class MainVM :ChangeNotifier
     {
+
+        void _login(PlainPasswordBox obj)
+        {
+            
+        }
+        public ICommand Cmd_Login => new DelegateCommand<PlainPasswordBox>(_login);
 
         private ObservableCollection<Person> _soemthing;
         public ObservableCollection<Person> something

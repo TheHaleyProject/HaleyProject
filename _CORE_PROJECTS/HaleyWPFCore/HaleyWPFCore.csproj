@@ -99,6 +99,9 @@
     <None Remove="Images\expand.png" />
     <None Remove="Images\expand_large.png" />
     <None Remove="Images\expand_medium.png" />
+    <None Remove="Images\eye.png" />
+    <None Remove="Images\eye_large.png" />
+    <None Remove="Images\eye_medium.png" />
     <None Remove="Images\favourite.png" />
     <None Remove="Images\favourite_large.png" />
     <None Remove="Images\favourite_medium.png" />
@@ -263,6 +266,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HaleyHelpers\HaleyHelpers.csproj" />
     <ProjectReference Include="..\HaleyMVVMCore\HaleyMVVMCore.csproj" />
   </ItemGroup>
 
@@ -330,6 +334,9 @@
     <Resource Include="Images\expand.png" />
     <Resource Include="Images\expand_large.png" />
     <Resource Include="Images\expand_medium.png" />
+    <Resource Include="Images\eye.png" />
+    <Resource Include="Images\eye_large.png" />
+    <Resource Include="Images\eye_medium.png" />
     <Resource Include="Images\favourite.png" />
     <Resource Include="Images\favourite_large.png" />
     <Resource Include="Images\favourite_medium.png" />

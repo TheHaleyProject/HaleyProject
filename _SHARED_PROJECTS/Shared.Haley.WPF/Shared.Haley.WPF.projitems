@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\PlainPasswordBoxRD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\ThemeMain\SeparatorRD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +111,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICornerRadius.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IShadow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\CollectionSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainPasswordBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\PlainListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\Separator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BaseControls\LinkedText.cs" />
@@ -128,7 +133,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\AdditionalCommands.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionEditor\" />
     <Folder Include="$(MSBuildThisFileDirectory)BaseControls\PropertyGrid\" />
     <Folder Include="$(MSBuildThisFileDirectory)GroupControls\Docker\" />
     <Folder Include="$(MSBuildThisFileDirectory)GroupControls\RibbonManager\" />

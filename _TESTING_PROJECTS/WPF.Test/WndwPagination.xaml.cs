@@ -40,5 +40,7 @@ namespace WPF.Test
             vm.selecteditems = persons;
 
         }
+
+      
     }
 }

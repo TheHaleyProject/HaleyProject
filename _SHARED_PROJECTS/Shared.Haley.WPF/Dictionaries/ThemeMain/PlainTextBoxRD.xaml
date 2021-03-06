@@ -11,12 +11,14 @@
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderBrush" Value="{StaticResource defBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type bc:PlainTextBox}">
                     <Border Style="{StaticResource BorderWithShadow}">
                         <Grid>
-                            <ScrollViewer  x:Name="PART_ContentHost" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                            <ScrollViewer  x:Name="PART_ContentHost" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" Padding="3" Margin="4,0"/>
                             <ContentControl x:Name="WaterMarkContent" Content="{TemplateBinding WaterMark}" Visibility="Collapsed" IsHitTestVisible="False" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                         <Border.Triggers>

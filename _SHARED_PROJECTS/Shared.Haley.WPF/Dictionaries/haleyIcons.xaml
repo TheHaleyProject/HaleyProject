@@ -214,6 +214,9 @@
     <ImageSource x:Key="arrow_line">pack://application:,,,/Haley.WPF;component/Images/arrow_line.png</ImageSource>
     <ImageSource x:Key="arrow_line_large">pack://application:,,,/Haley.WPF;component/Images/arrow_line_large.png</ImageSource>
     <ImageSource x:Key="arrow_line_medium">pack://application:,,,/Haley.WPF;component/Images/arrow_line_medium.png</ImageSource>
+    <ImageSource x:Key="eye">pack://application:,,,/Haley.WPF;component/Images/eye.png</ImageSource>
+    <ImageSource x:Key="eye_large">pack://application:,,,/Haley.WPF;component/Images/eye_large.png</ImageSource>
+    <ImageSource x:Key="eye_medium">pack://application:,,,/Haley.WPF;component/Images/eye_medium.png</ImageSource>
 
 
 </ResourceDictionary>
