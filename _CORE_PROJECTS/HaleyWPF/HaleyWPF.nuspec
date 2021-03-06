@@ -15,11 +15,9 @@
 	<projectUrl>https://github.com/rmsmech/HaleyProject</projectUrl>
 	<license type="expression">MIT</license>
 	<repository type="git" url="https://github.com/rmsmech/HaleyProject" />
-	  <!--<dependencies>
-			  <dependency id="Haley.Extensions" version="2.0.0" exclude="Build,Analyzers" />
-			  <dependency id="Haley.IOC" version="2.0.2" exclude="Build,Analyzers" />
-			  <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.19" exclude="Build,Analyzers" />
-			  <dependency id="System.Drawing.Common" version="5.0.0" exclude="Build,Analyzers" />
-	  </dependencies>-->
+	  <dependencies>
+		  <dependency id="Haley.Helpers" version="2.0.0" exclude="Build,Analyzers" />
+		  <dependency id="Microsoft.Xaml.Behaviors.Wpf" version="1.1.31" exclude="Build,Analyzers" />
+	  </dependencies>
   </metadata>
 </package>

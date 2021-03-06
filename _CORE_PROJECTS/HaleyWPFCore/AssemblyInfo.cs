@@ -22,8 +22,8 @@ using System.Windows.Markup;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("1.0.10.0")]
-[assembly: AssemblyFileVersion("1.0.10.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: Guid("FECEB4DE-F5CA-4CB0-A18A-C48FAF964F38")]
 [assembly: NeutralResourcesLanguage("en-GB")]
 
@@ -43,3 +43,5 @@ using System.Windows.Markup;
 //[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.Views")]
 [assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF.BaseControls")]
 [assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.WPF")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.Enums")]
+[assembly: XmlnsDefinition("http://schemas.hpod9.com/haley/wpf", "Haley.Events")]
