@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Haley.Events;
 using Haley.Abstractions;
 using Haley.Utils;
+using Haley.Enums;
 
 namespace Haley.WPF.BaseControls
 {

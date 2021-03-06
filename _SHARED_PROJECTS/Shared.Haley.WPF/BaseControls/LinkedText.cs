@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Abstractions;
 using Haley.Utils;
+using Haley.Enums;
 
 namespace Haley.WPF.BaseControls
 {
@@ -44,8 +45,7 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(LinkedText), new PropertyMetadata("Button"));
-
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(LinkedText), new FrameworkPropertyMetadata("Button"));
 
 
         public TextDecorationCollection TextDecorations

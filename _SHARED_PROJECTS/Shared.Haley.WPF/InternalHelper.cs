@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.Utils;
 using Haley.WPF.BaseControls;
+using Haley.Enums;
+
 
 namespace Haley.WPF
 {

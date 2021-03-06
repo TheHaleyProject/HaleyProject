@@ -9,6 +9,10 @@
     <Import_RootNamespace>Haley</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Base\ListViewStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Dictionaries\Common\ToggleButtonCommon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -111,6 +115,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\UIRoutedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InternalHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ResourceStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\HaleyCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)BaseControls\CollectionEditor\" />

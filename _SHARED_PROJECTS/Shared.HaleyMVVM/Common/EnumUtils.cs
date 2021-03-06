@@ -24,4 +24,12 @@ namespace Haley.Enums
         Red
     }
 
+    public enum InputConstraintType
+    {
+        All,
+        TextOnly,
+        Double,
+        Integer,
+    }
+
 }

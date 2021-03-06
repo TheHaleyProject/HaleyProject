@@ -49,22 +49,13 @@
             </Grid>
 
 
-            <Grid Height="25"  Margin="10">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Items : " VerticalAlignment="Center"/>
-                    <hly:PlainTextBox CornerRadius="3" WaterMark="Count" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
-                    <TextBlock Text="Page  " VerticalAlignment="Center"/>
-                    <hly:LinkedText Text="1" VerticalContentAlignment="Center" FontSize="14"/>
-                    <TextBlock Text="  of  " VerticalAlignment="Center"/>
-                    <hly:LinkedText Text="4" VerticalContentAlignment="Center" FontSize="14"/>
-                    <hly:PlainTextBox CornerRadius="3" WaterMark="Jump To" Width="60" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="CornflowerBlue" Margin="10,0,5,0"/>
-                    <hly:Separator Size="1.5" Orientation="Vertical" Background="{StaticResource defContent}" Margin="5,0"/>
-                    <hly:LinkedText Text="Previous" VerticalContentAlignment="Center" Margin="10,0"/>
-                    <hly:LinkedText Text="Next" VerticalContentAlignment="Center"/>
-                </StackPanel>
-            </Grid>
+            <hly:Pagination x:Name="pgMain" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="10" DirectButtonsCount="5"/>
+            <hly:Pagination x:Name="pgSimple" Margin="10" CornerRadius="3" ItemsCountTotal="120" ItemsCountPerPage="10" DirectButtonsCount="5" Mode="Simple"/>
+            <WrapPanel HorizontalAlignment="Center">
+                <TextBlock Text="{Binding ElementName=pgMain,Path=CurrentPage}" FontSize="18" />
+                <TextBlock Text="{Binding ElementName=pgSimple,Path=CurrentPage}" FontSize="18" Margin="20,0"/>
+            </WrapPanel>
+           
         </StackPanel>
         
     </Grid>

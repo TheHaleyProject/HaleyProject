@@ -15,6 +15,7 @@
      
         <!--#region Base Styles-->
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/Base/BorderStyles.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/Base/ListViewStyles.xaml"/>
         <!--#endregion-->
    
     </ResourceDictionary.MergedDictionaries>

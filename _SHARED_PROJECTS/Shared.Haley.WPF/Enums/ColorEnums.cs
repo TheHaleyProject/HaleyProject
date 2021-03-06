@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Haley.Utils
+namespace Haley.Enums
 {
     public enum ColorEnums
     {

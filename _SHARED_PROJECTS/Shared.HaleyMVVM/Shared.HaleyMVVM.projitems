@@ -13,10 +13,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)AttachedProperties\ThemeAP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\EnumUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContainerStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControlModels\PaginationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumTypeToDescriptionListConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EventArguments\FrameClosingEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ImageModels\ImageInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ImageModels\ImageInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\UIContainerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Containers\ControlContainer.cs" />
@@ -46,8 +45,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NotifiableCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControlModels\RDTracker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ControlModels\Theme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ControlModels\RDTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ControlModels\Theme.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ThemeLoader.cs" />

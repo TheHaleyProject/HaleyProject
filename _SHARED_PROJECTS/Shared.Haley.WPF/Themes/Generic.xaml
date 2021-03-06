@@ -16,6 +16,7 @@
         <!--#endregion-->
         
         <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PlainExpanderRD.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Haley.WPF;component/Dictionaries/ThemeMain/PaginationRD.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
