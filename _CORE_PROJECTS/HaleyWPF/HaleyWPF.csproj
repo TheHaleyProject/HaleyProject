@@ -268,7 +268,6 @@
   <ItemGroup>
     <ProjectReference Include="..\HaleyExtensions\HaleyExtensions.csproj" />
     <ProjectReference Include="..\HaleyHelpers\HaleyHelpers.csproj" />
-    <ProjectReference Include="..\HaleyMVVMCore\HaleyMVVM.csproj" />
     <ProjectReference Include="..\HaleyMVVM\HaleyMVVM.csproj" />
   </ItemGroup>
 
