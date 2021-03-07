@@ -95,6 +95,8 @@
     </Style>
 
     <ControlTemplate x:Key="internal_expander_Template" TargetType="bc:PlainExpander">
+        <!--OVERALL STACKPANEL TO ENSURE THAT EXPANDER PROPERLY CLOSES AND OPENS-->
+        <StackPanel x:Name="PART_stackoverall" >
         <!--MAIN BORDER : has a background which covers both content and header. It is the parent container-->
         <Border x:Name="PART_borderMain" Style="{StaticResource BorderWithoutShadow}" Background="{TemplateBinding ContentBackground}">
             
@@ -132,6 +134,7 @@
                     <ContentPresenter Name="PART_contentHolder" Visibility="Collapsed"/>
                 </ItemsControl>
         </Border>
+        </StackPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter TargetName="PART_borderheader" Property="Background" Value="{Binding HoverBackground, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -150,6 +153,7 @@
                 <Setter Property="Visibility" TargetName="PART_IconHolder" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="ExpandDirection" Value="Left">
+                <Setter TargetName="PART_stackoverall" Property="Orientation" Value="Horizontal"/>
                 <Setter TargetName="PART_contentHolder" Property="Grid.Column" Value="0"/>
                 <Setter TargetName="PART_borderheader" Property="Grid.Column" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Width" Value="{Binding MinWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -162,14 +166,17 @@
                 </Setter>
             </Trigger>
             <Trigger Property="ExpandDirection" Value="Right">
+                <Setter TargetName="PART_stackoverall" Property="Orientation" Value="Horizontal"/>
                 <Setter TargetName="PART_contentHolder" Property="Grid.Column" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Width" Value="{Binding MinWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
             </Trigger>
             <Trigger Property="ExpandDirection" Value="Down">
+                <Setter TargetName="PART_stackoverall" Property="Orientation" Value="Vertical"/>
                 <Setter TargetName="PART_contentHolder" Property="Grid.Row" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Height" Value="{Binding MinHeight, RelativeSource={RelativeSource TemplatedParent}}"/>
             </Trigger>
             <Trigger Property="ExpandDirection" Value="Up">
+                <Setter TargetName="PART_stackoverall" Property="Orientation" Value="Vertical"/>
                 <Setter TargetName="PART_contentHolder" Property="Grid.Row" Value="0"/>
                 <Setter TargetName="PART_borderheader" Property="Grid.Row" Value="1"/>
                 <Setter TargetName="PART_toggleMain" Property="Height" Value="{Binding MinHeight, RelativeSource={RelativeSource TemplatedParent}}"/>
