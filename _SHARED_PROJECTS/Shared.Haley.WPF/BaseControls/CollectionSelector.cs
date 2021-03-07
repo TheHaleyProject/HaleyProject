@@ -18,6 +18,7 @@ using Haley.Enums;
 using System.Collections;
 using System.ComponentModel;
 using Haley.Events;
+using System.Collections.ObjectModel;
 
 
 namespace Haley.WPF.BaseControls
@@ -26,11 +27,13 @@ namespace Haley.WPF.BaseControls
     [TemplatePart(Name = UIESelectionControl, Type = typeof(ListView))]
     public class CollectionSelector : ItemsControl,ICornerRadius
     {
+        #region Attributes
         private const string UIESourceControl = "PART_lstvew_source";
         private const string UIESelectionControl = "PART_lstvew_selection";
 
         private ListView _sourceControl;
         private ListView _selectionControl;
+        #endregion
 
         #region Events
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(Pagination));
@@ -55,6 +58,7 @@ namespace Haley.WPF.BaseControls
             CommandBindings.Add(new CommandBinding(AdditionalCommands.Highlight, Execute_Highlight));
         }
 
+        #region Methods
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -92,6 +96,7 @@ namespace Haley.WPF.BaseControls
                     oldvalues.Add(item);
                 }
             }
+
             SelectedItems = oldvalues;
             //Clear selection.
             _sourceControl.SelectedItems.Clear();
@@ -132,7 +137,6 @@ namespace Haley.WPF.BaseControls
             _selectionControl.SelectedItems.Clear();
             RaiseSelectionChanged();
         }
-
         void RaiseSelectionChanged()
         {
             RaiseEvent(new UIRoutedEventArgs<IEnumerable>(SelectionChangedEvent, this) { value = SelectedItems });
@@ -165,7 +169,21 @@ namespace Haley.WPF.BaseControls
                 _sourceControl.SelectedItems.Add(item);
             }
         }
+        static void SelectedItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CollectionSelector col_sel = d as CollectionSelector;
+            if (col_sel == null) return;
+            //Use this value, create a list and bind to the choosen items.
+            IList _choosenlist = new ObservableCollection<object>();
+            foreach (var item in col_sel.SelectedItems)
+            {
+                _choosenlist.Add(item);
+            }
+            col_sel.SetCurrentValue(ChoosenItemsProperty, _choosenlist);
+        }
+        #endregion
 
+        #region Properties
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -204,6 +222,18 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for SelectedItems.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemsProperty =
-            DependencyProperty.Register(nameof(SelectedItems), typeof(IEnumerable), typeof(CollectionSelector), new FrameworkPropertyMetadata(default(IEnumerable),FrameworkPropertyMetadataOptions.NotDataBindable));
+            DependencyProperty.Register(nameof(SelectedItems), typeof(IEnumerable), typeof(CollectionSelector), new FrameworkPropertyMetadata(default(IEnumerable), FrameworkPropertyMetadataOptions.NotDataBindable, SelectedItemsPropertyChanged));
+
+        public IList ChoosenItems
+        {
+            get { return (IList)GetValue(ChoosenItemsProperty); }
+            set { SetValue(ChoosenItemsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ChoosenItems.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChoosenItemsProperty =
+            DependencyProperty.Register(nameof(ChoosenItems), typeof(IList), typeof(CollectionSelector), new FrameworkPropertyMetadata(default(IList), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+        #endregion
+
     }
 }

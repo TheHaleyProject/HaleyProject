@@ -192,8 +192,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="MinHeight" Value="35" />
-        <Setter Property="MinWidth" Value="35" />
+        <!--Min Height / Min Width is used to define the height of the Expander header-->
+        <Setter Property="MinHeight" Value="{StaticResource defHeight}"/>
+        <Setter Property="MinWidth" Value="{StaticResource defHeight}"/>
         <Setter Property="Template" Value="{StaticResource internal_expander_Template}"/>
     </Style>
 </ResourceDictionary>

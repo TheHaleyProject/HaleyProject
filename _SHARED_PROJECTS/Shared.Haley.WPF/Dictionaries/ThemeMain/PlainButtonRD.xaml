@@ -11,7 +11,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{StaticResource defBackground}"/>
         <Setter Property="BorderBrush" Value="{StaticResource defBorderBrush}"/>
-        <Setter Property="Height" Value="25"/>
+        <Setter Property="Height" Value="{StaticResource defHeight}"/>
         <Setter Property="Content" Value="Button"/>
         <Setter Property="Template">
             <Setter.Value>

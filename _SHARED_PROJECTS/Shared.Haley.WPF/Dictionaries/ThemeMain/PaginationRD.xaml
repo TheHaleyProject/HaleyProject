@@ -12,6 +12,7 @@
     <Style x:Key="internal_paginationTextBlock" TargetType="{x:Type bc:PlainTextBox}">
         <Setter Property="CornerRadius" Value="{Binding Path=CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"/>
         <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="Auto"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="BorderBrush" Value="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -36,6 +37,7 @@
         <Setter Property="CornerRadius" Value="{Binding Path=CornerRadius, RelativeSource={RelativeSource AncestorType={x:Type bc:Pagination}}}"/>
         <Setter Property="BorderBrush" Value="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type bc:Pagination}}}"/>
         <Setter Property="Margin" Value="3,0"/>
+        <Setter Property="Height" Value="Auto"/>
         <Setter Property="Width" Value="{Binding Path=Height, RelativeSource={RelativeSource AncestorType={x:Type bc:Pagination}}}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -180,7 +182,7 @@
     </ControlTemplate>
     
     <Style TargetType="{x:Type bc:Pagination}">
-        <Setter Property="Height" Value="25"/>
+        <Setter Property="Height" Value="{StaticResource defHeight}"/>
         <Setter Property="Background" Value="CornflowerBlue"/>
         <Setter Property="PrimaryColor" Value="IndianRed"/>
         <Setter Property="Template" Value="{StaticResource internal_pagination_extended}"/>

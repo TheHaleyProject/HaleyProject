@@ -158,7 +158,7 @@ namespace Haley.WPF.BaseControls
 
         // Using a DependencyProperty as the backing store for CurrentPage.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentPageProperty =
-            DependencyProperty.Register(nameof(CurrentPage), typeof(int), typeof(Pagination), new FrameworkPropertyMetadata(1, CurrentPagePropertyChanged));
+            DependencyProperty.Register(nameof(CurrentPage), typeof(int), typeof(Pagination), new FrameworkPropertyMetadata(1,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CurrentPagePropertyChanged));
 
         public Brush PrimaryColor
         {
@@ -185,6 +185,8 @@ namespace Haley.WPF.BaseControls
             Pagination pg = d as Pagination;
             if (pg != null)
             {
+                //A simple check to ensure that the user doesn't set some random values or zero.
+                pg._validateCurrentPage();
                 pg._prepareDirectButtons();
                 //Then raise the event 
                 pg.RaiseEvent(new UIRoutedEventArgs<int>(PageChangedEvent, pg) { value = pg.CurrentPage });
@@ -202,13 +204,13 @@ namespace Haley.WPF.BaseControls
         {
             //Current page should always be greater than one.
             var newpage = CurrentPage - 1;
-            if (newpage > 0) CurrentPage = newpage;
+            if (newpage > 0) this.SetCurrentValue(CurrentPageProperty, newpage);
         }
         void ExecuteCommand_NextPage(object sender, ExecutedRoutedEventArgs e)
         {
             //Current page should always be lesser than the total pages.
             var newpage = CurrentPage + 1;
-            if (newpage < TotalPages + 1) CurrentPage = newpage;
+            if (newpage < TotalPages + 1) this.SetCurrentValue(CurrentPageProperty, newpage);
         }
         void ExecuteCommand_GoToPage(object sender, ExecutedRoutedEventArgs e)
         {
@@ -229,7 +231,7 @@ namespace Haley.WPF.BaseControls
 
             if (newindex > 0 && newindex < TotalPages + 1)
             {
-                CurrentPage = newindex;
+                this.SetCurrentValue(CurrentPageProperty, newindex);
                 //Then clear the textbox
                 _jumpBtn.Text = "";
             }
@@ -238,12 +240,12 @@ namespace Haley.WPF.BaseControls
         void ExecuteCommand_GotoFirstPage(object sender, ExecutedRoutedEventArgs e)
         {
             //Goto first page
-            CurrentPage = 1;
+            this.SetCurrentValue(CurrentPageProperty, 1);
         }
         void ExecuteCommand_GoToLastPage(object sender, ExecutedRoutedEventArgs e)
         {
             //Goto last page
-            CurrentPage = TotalPages;
+            this.SetCurrentValue(CurrentPageProperty, TotalPages);
         }
         void ExecuteCommand_ChangeCount(object sender, ExecutedRoutedEventArgs e)
         {
@@ -255,12 +257,21 @@ namespace Haley.WPF.BaseControls
 
             if (newindex > 0)
             {
-                ItemsCountPerPage = newindex;
+                this.SetCurrentValue(ItemsCountPerPageProperty, newindex);
             }
         }
         #endregion
 
         #region Helper Methods
+        void _validateCurrentPage()
+        {
+            //Current page should be above zero. 
+            //Current page should be below total pages.
+            if (CurrentPage < 1 || CurrentPage > TotalPages)
+            {
+                this.SetCurrentValue(CurrentPageProperty, 1);
+            }
+        }
         private void _registerCommands()
         {
             //Add command bindings for this pagination control
@@ -276,9 +287,14 @@ namespace Haley.WPF.BaseControls
             int remainder_items = 0;
             //Get the remainder after dividing
             Math.DivRem(ItemsCountTotal, ItemsCountPerPage, out remainder_items);
-            TotalPages = ItemsCountTotal / ItemsCountPerPage;
-            if (remainder_items != 0) TotalPages++; //Increment by 1. Because, whatever the remainder is can be accommdaed in a single page.
-            CurrentPage = 1; //When current page is set, direct buttons are prepared.
+            var _tot_pages = ItemsCountTotal / ItemsCountPerPage;
+            this.SetCurrentValue(TotalPagesProperty, _tot_pages);
+            if (remainder_items != 0)
+            {
+                this.SetCurrentValue(TotalPagesProperty, TotalPages + 1);
+             //Increment by 1. Because, whatever the remainder is can be accommdaed in a single page.
+            }
+            this.SetCurrentValue(CurrentPageProperty, 1); //When current page is set, direct buttons are prepared.
 
             _setMainPanelVisibility(); //check and set ui visibilities.
             _prepareDirectButtons();

@@ -21,8 +21,16 @@ namespace WPF.Test
 
         void _login(PlainPasswordBox obj)
         {
-            
+            currentpage = 0;
         }
+
+        private int _currentpage;
+        public int currentpage
+        {
+            get { return _currentpage; }
+            set { SetProp(ref _currentpage, value); }
+        }
+
         public ICommand Cmd_Login => new DelegateCommand<PlainPasswordBox>(_login);
 
         private ObservableCollection<Person> _soemthing;
@@ -32,12 +40,20 @@ namespace WPF.Test
             set { SetProp(ref _soemthing, value); }
         }
 
-        private ObservableCollection<Person> _selecteditems;
-        public ObservableCollection<Person> selecteditems
+        private ObservableCollection<object> _selecteditems;
+        public ObservableCollection<object> selecteditems
         {
             get { return _selecteditems; }
             set { SetProp(ref _selecteditems, value); }
         }
+
+        private ObservableCollection<Person> _choosentiems;
+        public ObservableCollection<Person> choosenitems
+        {
+            get { return _choosentiems; }
+            set { SetProp(ref _choosentiems, value); }
+        }
+
 
         public MainVM() 
         {
@@ -50,7 +66,8 @@ namespace WPF.Test
             hello.Add(new Person("Ramasamy", 32));
             hello.Add(new Person("Buna", 32));
             something = hello;
-            selecteditems = new ObservableCollection<Person>();
+            selecteditems = null;
+            choosenitems = new ObservableCollection<Person>();
         }
     }
 

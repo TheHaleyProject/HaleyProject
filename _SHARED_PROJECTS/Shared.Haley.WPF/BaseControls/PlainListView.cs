@@ -17,6 +17,7 @@ using Haley.Utils;
 using Haley.Enums;
 using System.Collections;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Haley.WPF.BaseControls
 {
@@ -34,6 +35,7 @@ namespace Haley.WPF.BaseControls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            //SetCurrentValue(ChoosenItemsProperty, new ObservableCollection<object>());
         }
 
         public CornerRadius CornerRadius
@@ -66,28 +68,30 @@ namespace Haley.WPF.BaseControls
         public static readonly DependencyProperty ItemHoverColorProperty =
             DependencyProperty.Register(nameof(ItemHoverColor), typeof(Brush), typeof(PlainListView), new PropertyMetadata(null));
 
-        //public IEnumerable ChoosenItems
-        //{
-        //    get { return (IEnumerable)GetValue(ChoosenItemsProperty); }
-        //    set { SetValue(ChoosenItemsProperty, value); }
-        //}
 
-        //// Using a DependencyProperty as the backing store for ChoosenItems.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty ChoosenItemsProperty =
-        //    DependencyProperty.Register(nameof(ChoosenItems), typeof(IEnumerable), typeof(PlainListView), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ChoosenItemsPropertyChanged));
 
-        //protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-        //{
-        //    base.OnSelectionChanged(e);
-        //    ChoosenItems = null;
-        //}
-        //static void ChoosenItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    var plsv = (PlainListView)d;
-        //    if (plsv == null) return;
-        //    if (plsv.ChoosenItems == plsv.SelectedItems) return;
+        public IList ChoosenItems
+        {
+            get { return (IList)GetValue(ChoosenItemsProperty); }
+            set { SetValue(ChoosenItemsProperty, value); }
+        }
 
-        //    plsv.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() => plsv.ChoosenItems = plsv.SelectedItems));
-        //}
+        // Using a DependencyProperty as the backing store for ChoosenItems.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChoosenItemsProperty =
+            DependencyProperty.Register(nameof(ChoosenItems), typeof(IList), typeof(PlainListView), new FrameworkPropertyMetadata(default(IList),FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
+
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            base.OnSelectionChanged(e);
+
+            IList choosen = new ObservableCollection<object>();
+            foreach (var item in this.SelectedItems)
+            {
+                choosen.Add(item);
+            }
+            this.SetCurrentValue(ChoosenItemsProperty, choosen);
+        }
     }
 }

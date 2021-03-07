@@ -5,5 +5,7 @@
 
     <sys:Boolean x:Key="True">True</sys:Boolean>
     <sys:Boolean x:Key="False">False</sys:Boolean>
+    <sys:Double x:Key="defHeight">25.0</sys:Double>
+    <sys:Double x:Key="defWidth">60.0</sys:Double>
     
 </ResourceDictionary>

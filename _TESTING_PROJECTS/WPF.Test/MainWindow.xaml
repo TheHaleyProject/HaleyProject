@@ -29,8 +29,8 @@
             <hly:ToggleButton  ShowShadow="True" ShadowColor="Blue" Status="False" OnText="True" OffText="False"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="20">
-            <hly:ImageComboButton Height="70" Width="90" Text="Favourites" ImageLocation="Top" DefaultImageColor="{DynamicResource button_hover}" HoverImageColor="#FF9413C2" DefaultImage="{StaticResource heart_shiny}"/>
-            <hly:ImageComboButton Height="70" Width="180" Text="Favourites" ImageLocation="Bottom" DefaultImageColor="{DynamicResource scb_content}"/>
+            <hly:ImageComboButton Height="70" Width="90" Text="Favourites" ImageLocation="Top" DefaultImageColor="{DynamicResource button_hover}" HoverImageColor="#FF9413C2" DefaultImage="{StaticResource heart_shiny}" HoverBackground="{x:Null}"/>
+            <hly:ImageComboButton Height="70" Width="180" Text="Favourites" ImageLocation="Bottom" DefaultImageColor="{DynamicResource scb_content}" HoverBackground="{x:Null}"/>
             <hly:ImageComboButton Height="30" Width="120" Text="Favourites" ImageLocation="Left" DefaultImage="{StaticResource music}" HoverImage="{StaticResource music_cd}" PressedImage="{StaticResource music_square}" TextAlignment="Left"/>
             <hly:ImageComboButton Height="30" Width="120" Text="Favourites" ImageLocation="Right" TextAlignment="Right"/>
         </StackPanel>
