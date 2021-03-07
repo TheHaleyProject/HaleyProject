@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <HaleyEvents>$(SolutionDir)..\HaleyEvents\HaleyEvents</HaleyEvents>
+    <HaleyExtensions>$(SolutionDir)..\HaleyExtensions\HaleyExtensions</HaleyExtensions>
+    <HaleyHelpers>$(SolutionDir)..\HaleyHelpers\HaleyHelpers</HaleyHelpers>  
+    <HaleyIOC>$(SolutionDir)..\HaleyIOC\HaleyIOC</HaleyIOC> 
+    <HaleyLog>$(SolutionDir)..\HaleyLog\HaleyLog</HaleyLog> 
+    <HaleyMVVM>$(SolutionDir)..\HaleyMVVM\HaleyMVVM</HaleyMVVM>
+    <HaleyRest>$(SolutionDir)..\HaleyRest\HaleyRest</HaleyRest>
+    <HaleyRuleEngine>$(SolutionDir)..\HaleyRuleEngine\HaleyRuleEngine</HaleyRuleEngine>
+    <HaleyWPF>$(SolutionDir)..\HaleyWPF\HaleyWPF</HaleyWPF>
+  </PropertyGroup>
+</Project>
