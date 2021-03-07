@@ -155,7 +155,7 @@
       <Name>HaleyMVVM</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyWPF\HaleyWPF.csproj">
-      <Project>{28d1d0c8-2f7c-4f8c-b8f3-4324f35364e9}</Project>
+      <Project>{23f686a5-6851-4685-be98-2732e626fe44}</Project>
       <Name>HaleyWPF</Name>
     </ProjectReference>
   </ItemGroup>
