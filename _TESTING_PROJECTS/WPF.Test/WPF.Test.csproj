@@ -135,11 +135,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
-      <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
+      <Project>{bf38b439-322c-47c3-be24-22c6880ff797}</Project>
       <Name>HaleyMVVM</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyWPF\HaleyWPF.csproj">
-      <Project>{d1c340f8-0da5-4121-b39c-25a8d7e8d79f}</Project>
+      <Project>{28d1d0c8-2f7c-4f8c-b8f3-4324f35364e9}</Project>
       <Name>HaleyWPF</Name>
     </ProjectReference>
   </ItemGroup>

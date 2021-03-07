@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj" />
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj" />
-    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVMCore\HaleyMVVMCore.csproj" />
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVMCore\HaleyMVVM.csproj" />
   </ItemGroup>
 
 </Project>
