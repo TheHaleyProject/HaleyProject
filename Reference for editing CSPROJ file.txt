@@ -1,0 +1,75 @@
+<Import Project="$(SolutionDir)ProjectReferences_$(SolutionName).txt" Condition="Exists('$(SolutionDir)ProjectReferences_$(SolutionName).txt')" />
+<Choose>
+    <When Condition="Exists($(HaleyExtensions))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyExtensions)\HaleyExtensions.csproj">
+          <Name>HaleyExtensions</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.Extensions" Version="2.0.1" />
+	 </ItemGroup>
+    </Otherwise>
+</Choose>  
+
+<Choose>
+    <When Condition="Exists($(HaleyHelpers))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyHelpers)\HaleyHelpers.csproj">
+          <Name>HaleyHelpers</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.Helpers" Version="2.0.0" />
+	 </ItemGroup>
+    </Otherwise>
+</Choose>  
+
+<Choose>
+    <When Condition="Exists($(HaleyMVVM))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyMVVM)\HaleyMVVM.csproj">
+          <Name>HaleyMVVM</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.MVVM" Version="4.0.1" />
+	 </ItemGroup>
+    </Otherwise>
+</Choose>  
+
+<Choose>
+    <When Condition="Exists($(HaleyWPF))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyWPF)\HaleyWPF.csproj">
+          <Name>HaleyWPF</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.WPF" Version="2.0.6" />
+   </ItemGroup>
+    </Otherwise>
+</Choose>  
+
+<Choose>
+    <When Condition="Exists($(HaleyEvents))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyEvents)\HaleyEvents.csproj">
+          <Name>HaleyEvents</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.Events" Version="2.0.0" />
+   </ItemGroup>
+    </Otherwise>
+</Choose>  
