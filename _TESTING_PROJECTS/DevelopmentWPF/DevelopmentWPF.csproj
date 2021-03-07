@@ -133,10 +133,6 @@
       <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
       <Name>HaleyIOC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
-      <Project>{2b30f59f-50af-40d7-a0d5-9c8c12733a62}</Project>
-      <Name>HaleyMVVM</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
