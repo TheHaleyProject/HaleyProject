@@ -43,6 +43,16 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="HoverBorderBrush" Value="{Binding Path=PrimaryColor, RelativeSource={RelativeSource AncestorType={x:Type bc:Pagination}}}"/>
             </Trigger>
+            <DataTrigger Value="true">
+                <DataTrigger.Binding>
+                    <MultiBinding>
+                        <Binding Path="CurrentPage" RelativeSource="{RelativeSource AncestorType={x:Type bc:Pagination}}"/>
+                        <Binding Path="Content" RelativeSource="{RelativeSource Self}"/>
+                    </MultiBinding>
+                </DataTrigger.Binding>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="{Binding Path=PrimaryColor, RelativeSource={RelativeSource AncestorType={x:Type bc:Pagination}}}"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 

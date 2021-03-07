@@ -4,6 +4,8 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Haley.MVVM;component/Dictionaries/haleyConverters.xaml"/>
+
         <!--Order: Theme, Defaults, Icons, Converters and then followed by base styles.-->
         
         <!--#region Primary-->

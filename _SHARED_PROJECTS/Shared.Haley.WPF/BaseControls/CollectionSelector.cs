@@ -224,6 +224,9 @@ namespace Haley.WPF.BaseControls
         public static readonly DependencyProperty SelectedItemsProperty =
             DependencyProperty.Register(nameof(SelectedItems), typeof(IEnumerable), typeof(CollectionSelector), new FrameworkPropertyMetadata(default(IEnumerable), FrameworkPropertyMetadataOptions.NotDataBindable, SelectedItemsPropertyChanged));
 
+        /// <summary>
+        /// Always bind observablecollection<Object>. Else it will return null.
+        /// </summary>
         public IList ChoosenItems
         {
             get { return (IList)GetValue(ChoosenItemsProperty); }

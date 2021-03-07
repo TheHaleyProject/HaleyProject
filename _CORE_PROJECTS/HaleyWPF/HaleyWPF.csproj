@@ -332,6 +332,12 @@
     <Resource Include="Images\eye_large.png" />
     <Resource Include="Images\eye_medium.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="internalDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="..\..\_SHARED_PROJECTS\Shared.Haley.WPF\Shared.Haley.WPF.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

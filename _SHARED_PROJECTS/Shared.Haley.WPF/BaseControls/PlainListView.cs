@@ -69,7 +69,9 @@ namespace Haley.WPF.BaseControls
             DependencyProperty.Register(nameof(ItemHoverColor), typeof(Brush), typeof(PlainListView), new PropertyMetadata(null));
 
 
-
+        /// <summary>
+        /// Always bind observablecollection<Object>. Else it will return null.
+        /// </summary>
         public IList ChoosenItems
         {
             get { return (IList)GetValue(ChoosenItemsProperty); }
@@ -79,8 +81,6 @@ namespace Haley.WPF.BaseControls
         // Using a DependencyProperty as the backing store for ChoosenItems.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ChoosenItemsProperty =
             DependencyProperty.Register(nameof(ChoosenItems), typeof(IList), typeof(PlainListView), new FrameworkPropertyMetadata(default(IList),FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
-
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
