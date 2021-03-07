@@ -17,7 +17,7 @@ namespace HaleyMVVM.Test
         public void InvokeandReceiveEvent(object new_message)
         {
             //Arrange
-            EventStore.Singleton.GetEvent<MessageEvent>().subscribe(_handleMessage);
+            EventStore.Singleton.GetEvent<MessageEvent>().subscribe(_handleMessage,true);
 
             //Act
             EventStore.Singleton.GetEvent<MessageEvent>().publish(new_message);

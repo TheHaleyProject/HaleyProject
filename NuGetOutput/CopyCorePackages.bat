@@ -1,13 +1,23 @@
 @echo off
 
-if exist ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.nupkg (
-xcopy ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.nupkg .\ /i /y
-del /f ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.nupkg 
+if exist ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.nupkg (
+xcopy ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.nupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.nupkg 
 )
 
-if exist ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.snupkg (
-xcopy ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.snupkg .\ /i /y
-del /f ..\_CORE_PROJECTS\HaleyMVVMCore\bin\Release\*.snupkg 
+if exist ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.snupkg (
+xcopy ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.snupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyMVVM\bin\Release\*.snupkg 
+)
+
+if exist ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.nupkg (
+xcopy ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.nupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.nupkg 
+)
+
+if exist ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.snupkg (
+xcopy ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.snupkg .\ /i /y
+del /f ..\_CORE_PROJECTS\HaleyWPF\bin\Release\*.snupkg 
 )
 
 if exist ..\_CORE_PROJECTS\HaleyWPFCore\bin\Release\*.nupkg (
