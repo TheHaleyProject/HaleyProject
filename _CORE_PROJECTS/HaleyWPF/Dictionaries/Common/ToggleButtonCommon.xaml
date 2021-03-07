@@ -13,12 +13,12 @@
         <Style.Triggers>
             <!--When Value is true-->
             <DataTrigger Binding="{Binding Status, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
-                <Setter Property="Background" Value="{Binding Path=ColorOFF, RelativeSource={RelativeSource TemplatedParent}}"/>
+                <Setter Property="Background" Value="{Binding Path=ColorON, RelativeSource={RelativeSource TemplatedParent}}"/>
             </DataTrigger>
 
             <!--When value is false-->
             <DataTrigger Binding="{Binding Status, RelativeSource={RelativeSource TemplatedParent}}" Value="{StaticResource False}">
-                <Setter Property="Background" Value="{Binding Path=ColorON, RelativeSource={RelativeSource TemplatedParent}}"/>
+                <Setter Property="Background" Value="{Binding Path=ColorOFF, RelativeSource={RelativeSource TemplatedParent}}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
