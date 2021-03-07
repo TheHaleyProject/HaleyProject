@@ -134,6 +134,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyEvents\HaleyEvents.csproj">
+      <Project>{6524cee1-4782-4361-8711-9444baf8bffb}</Project>
+      <Name>HaleyEvents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyExtensions\HaleyExtensions.csproj">
+      <Project>{ceeb0ddb-9c9c-44b9-8d62-72e36d646d89}</Project>
+      <Name>HaleyExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyHelpers\HaleyHelpers.csproj">
+      <Project>{d2ebcb6b-25ed-49a8-a243-f9f4376cf6a5}</Project>
+      <Name>HaleyHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyIOC\HaleyIOC.csproj">
+      <Project>{90c8aeef-ac11-4cc8-bd22-036ce3b8a2c1}</Project>
+      <Name>HaleyIOC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_CORE_PROJECTS\HaleyMVVM\HaleyMVVM.csproj">
       <Project>{bf38b439-322c-47c3-be24-22c6880ff797}</Project>
       <Name>HaleyMVVM</Name>

@@ -5,7 +5,7 @@
 		<UseWPF>true</UseWPF>
 		<AssemblyName>Haley.WPF</AssemblyName>
 		<RootNamespace>Haley.WPF</RootNamespace>
-		<Version>2.0.2</Version>
+		<Version>2.0.3</Version>
 		<Authors>Lingam</Authors>
 		<Product>Haley WPF Core</Product>
 		<Company>TheHaleyProject</Company>
@@ -17,8 +17,8 @@
 		<Copyright>Haley @ 2020</Copyright>
 		<PackageReleaseNotes>Added multiple controls</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<AssemblyVersion>2.0.2</AssemblyVersion>
-		<FileVersion>2.0.2</FileVersion>
+		<AssemblyVersion>2.0.3</AssemblyVersion>
+		<FileVersion>2.0.3</FileVersion>
 		<PackageIcon>Haley.png</PackageIcon>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -266,8 +266,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HaleyExtensions\HaleyExtensions.csproj" />
     <ProjectReference Include="..\HaleyHelpers\HaleyHelpers.csproj" />
     <ProjectReference Include="..\HaleyMVVMCore\HaleyMVVM.csproj" />
+    <ProjectReference Include="..\HaleyMVVM\HaleyMVVM.csproj" />
   </ItemGroup>
 
   <ItemGroup>

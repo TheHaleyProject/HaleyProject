@@ -160,11 +160,10 @@
             <StackPanel x:Name="PART_MainPanel" Orientation="Horizontal"  HorizontalAlignment="Right">
                 
                 <TextBlock Text="Page  " VerticalAlignment="Center"/>
-                <!--FIRST PAGE-->
-                <bc:LinkedText Text="1" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.FirstPage}"/>
+                <!--CURRENT PAGE-->
+                <TextBlock Text="{Binding CurrentPage, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{TemplateBinding PrimaryColor}" FontSize="14" VerticalAlignment="Center"/>
                 <TextBlock Text="  of  " VerticalAlignment="Center"/>
-                <!--LAST PAGE-->
-                <bc:LinkedText Text="{Binding Path=TotalPages, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.LastPage}"/>
+                <TextBlock Text="{Binding TotalPages, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{TemplateBinding PrimaryColor}" FontSize="14" VerticalAlignment="Center"/>
 
                 <!--JUMP TO SPECIFIC PAGE-->
                 <bc:PlainTextBox x:Name="PART_btn_jump" WaterMark="Go To" Style="{StaticResource internal_paginationTextBlock}" Margin="10,0">
@@ -179,6 +178,13 @@
                 <bc:LinkedText Text="Previous" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.PreviousPage}"/>
                 <!--NAVIGATE FORWARD-->
                 <bc:LinkedText Text="Next" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.NextPage}"/>
+
+                <bc:Separator Size="1.5" Orientation="Vertical" Background="{StaticResource defContent}" Margin="5,0"/>
+                <!--FIRST PAGE-->
+                <bc:LinkedText Text="First" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.FirstPage}" />
+                <!--LAST PAGE-->
+                <bc:LinkedText Text="Last" Style="{StaticResource internal_pagination_linkedtext}" Command="{x:Static NavigationCommands.LastPage}" />
+
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
