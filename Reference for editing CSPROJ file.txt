@@ -73,3 +73,18 @@
    </ItemGroup>
     </Otherwise>
 </Choose>  
+
+<Choose>
+    <When Condition="Exists($(HaleyIOC))">
+      <ItemGroup>
+        <ProjectReference Include="$(HaleyIOC)\HaleyIOC.csproj">
+          <Name>HaleyIOC</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+     <ItemGroup>
+       <PackageReference Include="Haley.IOC" Version="2.0.2" />
+   </ItemGroup>
+    </Otherwise>
+</Choose>  
