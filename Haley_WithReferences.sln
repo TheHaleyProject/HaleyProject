@@ -5,10 +5,10 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D27767B-10F2-42DC-BD84-3D4EEDBF842D}"
 	ProjectSection(SolutionItems) = preProject
-		..\HaleySolutionItems\NuGet Packaging\CopyCorePackages.bat = ..\HaleySolutionItems\NuGet Packaging\CopyCorePackages.bat
-		..\HaleySolutionItems\NuGet Packaging\CopyPackagesToLocalSource.bat = ..\HaleySolutionItems\NuGet Packaging\CopyPackagesToLocalSource.bat
+		NuGet Packaging\CopyCorePackages.bat = NuGet Packaging\CopyCorePackages.bat
+		NuGet Packaging\CopyPackagesToLocalSource.bat = NuGet Packaging\CopyPackagesToLocalSource.bat
 		Haley.png = Haley.png
-		..\HaleySolutionItems\NuGet Packaging\PublishPackage.bat = ..\HaleySolutionItems\NuGet Packaging\PublishPackage.bat
+		NuGet Packaging\PublishPackage.bat = NuGet Packaging\PublishPackage.bat
 		Script.txt = Script.txt
 	EndProjectSection
 EndProject
