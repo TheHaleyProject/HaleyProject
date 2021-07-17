@@ -25,6 +25,17 @@ xcopy ..\..\HaleyWPF\HaleyWPF\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyWPF\HaleyWPF\bin\Release\*.snupkg 
 )
 
+REM HALEY WPF FONTS
+ECHO PROCESSING HALEY WPF FONTS NUPKG
+if exist ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg (
+xcopy ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY WPF FONTS SNUPKG
+if exist ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg (
+xcopy ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg 
+)
 
 REM HALEY EXTENSIONS
 ECHO PROCESSING HALEY EXTENSIONS NUPKG
@@ -87,6 +98,18 @@ xcopy ..\..\HaleyLog\HaleyLog\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyLog\HaleyLog\bin\Release\*.snupkg 
 )
 
+REM HALEY REST
+ECHO PROCESSING HALEY REST NUPKG
+if exist ..\..\HaleyRest\HaleyRest\bin\Release\*.nupkg (
+xcopy ..\..\HaleyRest\HaleyRest\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyRest\HaleyRest\bin\Release\*.nupkg 
+)
+
+ECHO PROCESSING HALEY REST SNUPKG
+if exist ..\..\HaleyRest\HaleyRest\bin\Release\*.snupkg (
+xcopy ..\..\HaleyRest\HaleyRest\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyRest\HaleyRest\bin\Release\*.snupkg 
+)
 
 REM HALEY RULE ENGINE
 ECHO PROCESSING HALEY RULE ENGINE NUPKG
