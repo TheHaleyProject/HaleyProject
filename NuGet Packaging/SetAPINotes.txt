@@ -1,0 +1,3 @@
+Only on V3, Snupkg publishing is supported
+
+nuget SetApiKey <API KEY> -source https://api.nuget.org/v3/index.json
