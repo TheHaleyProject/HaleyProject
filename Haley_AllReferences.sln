@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Test", "..\HaleyWPF\_TE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyMVVM.Test", "..\HaleyMVVM\HaleyMVVM.Test\HaleyMVVM.Test.csproj", "{9D068F1A-7FFF-45BA-B518-119AC3CD9D32}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyRest", "..\HaleyRest\HaleyRest\HaleyRest.csproj", "{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{9D068F1A-7FFF-45BA-B518-119AC3CD9D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D068F1A-7FFF-45BA-B518-119AC3CD9D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D068F1A-7FFF-45BA-B518-119AC3CD9D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{406750DD-CD6C-4CB2-9419-BF4803661C9F} = {D385BF6B-6C79-4938-92F8-854F5434E228}
 		{00B06F81-F672-40CD-8149-CA14D721DD7C} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{9D068F1A-7FFF-45BA-B518-119AC3CD9D32} = {B7E8F3C2-CFE1-475A-90B3-B43698282015}
+		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE} = {9D38E662-5024-4448-813E-AAE561A3933E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
