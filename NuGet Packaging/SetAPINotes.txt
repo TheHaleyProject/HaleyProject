@@ -1,3 +1,5 @@
 Only on V3, Snupkg publishing is supported
+//If something doesn't work, then try to set the key for symbol packages as well.
 
 nuget SetApiKey <API KEY> -source https://api.nuget.org/v3/index.json
+nuget SetApiKey <API KEY> -source https://www.nuget.org/api/v2/symbolpackage
