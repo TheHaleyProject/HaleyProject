@@ -73,6 +73,18 @@ xcopy ..\..\HaleyIOC\HaleyIOC\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyIOC\HaleyIOC\bin\Release\*.snupkg 
 )
 
+REM HALEY ABSTRACTIONS
+ECHO PROCESSING HALEY ABSTRACTIONS NUPKG
+if exist ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.nupkg (
+xcopy ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY ABSTRACTIONS SNUPKG
+if exist ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.snupkg (
+xcopy ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyAbstractions\HaleyAbstractions\bin\Release\*.snupkg 
+)
+
 REM HALEY HELPERS
 ECHO PROCESSING HALEY HELPERS NUPKG
 if exist ..\..\HaleyHelpers\HaleyHelpers\bin\Release\*.nupkg (
