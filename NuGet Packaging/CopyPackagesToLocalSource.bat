@@ -1,6 +1,8 @@
 @echo off
 
-if exist D:\00-LocalPackages (if exist *.nupkg copy *.nupkg D:\00-LocalPackages /y)
-if exist D:\00-LocalPackages (if exist *.snupkg copy *.snupkg D:\00-LocalPackages /y)
+if exist C:\_LocalFeed (if exist *.nupkg copy *.nupkg C:\_LocalFeed /y)
+if exist C:\_LocalFeed (if exist *.snupkg copy *.snupkg C:\_LocalFeed /y)
+
+pause
 
 
