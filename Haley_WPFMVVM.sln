@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyAbstractions", "..\Hal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Test.External", "..\HaleyWPF\_TESTING\WPF.Test.External\WPF.Test.External.csproj", "{55CABF85-5B4B-42CF-B974-0F5501BB17AD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyIOC", "..\HaleyIOC\HaleyIOC\HaleyIOC.csproj", "{19E37D1E-5C55-4B89-B301-F0954F3DC241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

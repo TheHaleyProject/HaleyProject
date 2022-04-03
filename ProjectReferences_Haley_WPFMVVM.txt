@@ -3,5 +3,6 @@
     <HaleyAbstractions>$(SolutionDir)..\HaleyAbstractions\HaleyAbstractions</HaleyAbstractions>
     <HaleyMVVM>$(SolutionDir)..\HaleyMVVM\HaleyMVVM</HaleyMVVM>
     <HaleyWPF>$(SolutionDir)..\HaleyWPF\HaleyWPF</HaleyWPF>
+    <HaleyIOC>$(SolutionDir)..\HaleyIOC\HaleyIOC</HaleyIOC> 
   </PropertyGroup>
 </Project>
