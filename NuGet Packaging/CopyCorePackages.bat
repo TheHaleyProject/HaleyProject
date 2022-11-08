@@ -25,16 +25,16 @@ xcopy ..\..\HaleyWPF\HaleyWPF\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyWPF\HaleyWPF\bin\Release\*.snupkg 
 )
 
-REM HALEY WPF FONTS
-ECHO PROCESSING HALEY WPF FONTS NUPKG
-if exist ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg (
-xcopy ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg .\ /i /y
-del /f ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.nupkg 
+REM HALEY RESOURCES
+ECHO PROCESSING HALEY WPF RESOURCES
+if exist ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.nupkg (
+xcopy ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.nupkg 
 )
 ECHO PROCESSING HALEY WPF FONTS SNUPKG
-if exist ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg (
-xcopy ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg .\ /i /y
-del /f ..\..\HaleyWPFFonts\HaleyWPFFonts\bin\Release\*.snupkg 
+if exist ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.snupkg (
+xcopy ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyWPFResources\HaleyWPFResources\bin\Release\*.snupkg 
 )
 
 REM HALEY EXTENSIONS

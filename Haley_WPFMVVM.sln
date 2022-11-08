@@ -29,6 +29,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XamlShared", "..\HaleyXamlS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyWPFResources", "..\HaleyWPFResources\HaleyWPFResources\HaleyWPFResources.csproj", "{76318779-121E-4264-A5B5-ACB66F5B1629}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XamlUtilsShared", "..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.shproj", "{9677EDBD-EA53-47EF-B8CB-8546516624A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,13 +68,17 @@ Global
 		{00B06F81-F672-40CD-8149-CA14D721DD7C} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
 		{645462F3-ACB2-460B-A3B1-CFEA0FC93527} = {6E9B084D-FE1C-4D69-8D49-00FC167A23C0}
+		{9677EDBD-EA53-47EF-B8CB-8546516624A8} = {6E9B084D-FE1C-4D69-8D49-00FC167A23C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{0a6c45a4-0961-42b2-ac76-1555abf12f17}*SharedItemsImports = 5
 		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{406750dd-cd6c-4cb2-9419-bf4803661c9f}*SharedItemsImports = 5
 		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{645462f3-acb2-460b-a3b1-cfea0fc93527}*SharedItemsImports = 13
 		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{76318779-121e-4264-a5b5-acb66f5b1629}*SharedItemsImports = 5
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{76318779-121e-4264-a5b5-acb66f5b1629}*SharedItemsImports = 5
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{9677edbd-ea53-47ef-b8cb-8546516624a8}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
