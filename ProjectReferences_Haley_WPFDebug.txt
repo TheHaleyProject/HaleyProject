@@ -1,7 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <HaleyAbstractions>$(SolutionDir)..\HaleyAbstractions\HaleyAbstractions</HaleyAbstractions>
     <HaleyMVVM>$(SolutionDir)..\HaleyMVVM\HaleyMVVM</HaleyMVVM>
     <HaleyWPF>$(SolutionDir)..\HaleyWPF\HaleyWPF</HaleyWPF>
-    <HaleyWPFResources>$(SolutionDir)..\HaleyWPFResources\HaleyWPFResources</HaleyWPFResources>
+    <HaleyIOC>$(SolutionDir)..\HaleyIOC\HaleyIOC</HaleyIOC> 
   </PropertyGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D27767B-10F2-42DC-BD84-3D4EEDBF842D}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyWPF", "..\HaleyWPF\Hal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Test", "..\HaleyWPF\_TESTING\WPF.Test\WPF.Test.csproj", "{00B06F81-F672-40CD-8149-CA14D721DD7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyAbstractions", "..\HaleyAbstractions\HaleyAbstractions\HaleyAbstractions.csproj", "{4D2C0F46-5820-4BBD-B66B-C0655906CDE2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Test.External", "..\HaleyWPF\_TESTING\WPF.Test.External\WPF.Test.External.csproj", "{55CABF85-5B4B-42CF-B974-0F5501BB17AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyIOC", "..\HaleyIOC\HaleyIOC\HaleyIOC.csproj", "{19E37D1E-5C55-4B89-B301-F0954F3DC241}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6E9B084D-FE1C-4D69-8D49-00FC167A23C0}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XamlShared", "..\HaleyXamlShared\XamlShared\XamlShared.shproj", "{645462F3-ACB2-460B-A3B1-CFEA0FC93527}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyWPFResources", "..\HaleyWPFResources\HaleyWPFResources\HaleyWPFResources.csproj", "{76318779-121E-4264-A5B5-ACB66F5B1629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,18 +47,14 @@ Global
 		{00B06F81-F672-40CD-8149-CA14D721DD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00B06F81-F672-40CD-8149-CA14D721DD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00B06F81-F672-40CD-8149-CA14D721DD7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D2C0F46-5820-4BBD-B66B-C0655906CDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D2C0F46-5820-4BBD-B66B-C0655906CDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D2C0F46-5820-4BBD-B66B-C0655906CDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D2C0F46-5820-4BBD-B66B-C0655906CDE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19E37D1E-5C55-4B89-B301-F0954F3DC241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76318779-121E-4264-A5B5-ACB66F5B1629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76318779-121E-4264-A5B5-ACB66F5B1629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76318779-121E-4264-A5B5-ACB66F5B1629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76318779-121E-4264-A5B5-ACB66F5B1629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,10 +64,15 @@ Global
 		{0A6C45A4-0961-42B2-AC76-1555ABF12F17} = {D385BF6B-6C79-4938-92F8-854F5434E228}
 		{406750DD-CD6C-4CB2-9419-BF4803661C9F} = {D385BF6B-6C79-4938-92F8-854F5434E228}
 		{00B06F81-F672-40CD-8149-CA14D721DD7C} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
-		{4D2C0F46-5820-4BBD-B66B-C0655906CDE2} = {D385BF6B-6C79-4938-92F8-854F5434E228}
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
+		{645462F3-ACB2-460B-A3B1-CFEA0FC93527} = {6E9B084D-FE1C-4D69-8D49-00FC167A23C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{406750dd-cd6c-4cb2-9419-bf4803661c9f}*SharedItemsImports = 5
+		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{645462f3-acb2-460b-a3b1-cfea0fc93527}*SharedItemsImports = 13
+		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{76318779-121e-4264-a5b5-acb66f5b1629}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
