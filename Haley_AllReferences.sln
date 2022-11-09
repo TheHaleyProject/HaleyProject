@@ -51,13 +51,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyAbstractions", "..\Hal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Test.External", "..\HaleyWPF\_TESTING\WPF.Test.External\WPF.Test.External.csproj", "{55CABF85-5B4B-42CF-B974-0F5501BB17AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyWPFResources", "..\HaleyWPFResources\HaleyWPFResources\HaleyWPFResources.csproj", "{376B8688-1CEC-4965-9FA6-6D5E77D23FBC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7FF158DD-91F2-4281-A9BD-0CAC535506B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlHelper", "..\HaleyXamlShared\XamlHelper\XamlHelper.csproj", "{B1FDE8EB-4174-444F-93BE-FC704AC83A31}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XamlShared", "..\HaleyXamlShared\XamlShared\XamlShared.shproj", "{645462F3-ACB2-460B-A3B1-CFEA0FC93527}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XamlUtilsShared", "..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.shproj", "{9677EDBD-EA53-47EF-B8CB-8546516624A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaleyWPFIconsPack", "..\HaleyWPFIconsPack\HaleyWPFIconsPack\HaleyWPFIconsPack.csproj", "{C419B9DC-714C-442D-B0C2-179960252944}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,14 +121,10 @@ Global
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{376B8688-1CEC-4965-9FA6-6D5E77D23FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{376B8688-1CEC-4965-9FA6-6D5E77D23FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{376B8688-1CEC-4965-9FA6-6D5E77D23FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{376B8688-1CEC-4965-9FA6-6D5E77D23FBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1FDE8EB-4174-444F-93BE-FC704AC83A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1FDE8EB-4174-444F-93BE-FC704AC83A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1FDE8EB-4174-444F-93BE-FC704AC83A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1FDE8EB-4174-444F-93BE-FC704AC83A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C419B9DC-714C-442D-B0C2-179960252944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C419B9DC-714C-442D-B0C2-179960252944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C419B9DC-714C-442D-B0C2-179960252944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C419B9DC-714C-442D-B0C2-179960252944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,17 +146,18 @@ Global
 		{83C3A727-EAA8-4FAD-A03F-3E172C9E0BFE} = {9D38E662-5024-4448-813E-AAE561A3933E}
 		{83BADB4A-CC07-4A05-AF2A-AB9B9FF3317B} = {9D38E662-5024-4448-813E-AAE561A3933E}
 		{55CABF85-5B4B-42CF-B974-0F5501BB17AD} = {A04A754A-F561-43EB-98BC-25455CB7FC81}
-		{376B8688-1CEC-4965-9FA6-6D5E77D23FBC} = {D385BF6B-6C79-4938-92F8-854F5434E228}
-		{B1FDE8EB-4174-444F-93BE-FC704AC83A31} = {7FF158DD-91F2-4281-A9BD-0CAC535506B9}
 		{645462F3-ACB2-460B-A3B1-CFEA0FC93527} = {7FF158DD-91F2-4281-A9BD-0CAC535506B9}
+		{9677EDBD-EA53-47EF-B8CB-8546516624A8} = {7FF158DD-91F2-4281-A9BD-0CAC535506B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173568F4-5DBE-4B8D-BBC9-E5D3ED1D8100}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{0a6c45a4-0961-42b2-ac76-1555abf12f17}*SharedItemsImports = 5
-		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{376b8688-1cec-4965-9fa6-6d5e77d23fbc}*SharedItemsImports = 5
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{0a6c45a4-0961-42b2-ac76-1555abf12f17}*SharedItemsImports = 5
 		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{406750dd-cd6c-4cb2-9419-bf4803661c9f}*SharedItemsImports = 5
 		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{645462f3-acb2-460b-a3b1-cfea0fc93527}*SharedItemsImports = 13
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{9677edbd-ea53-47ef-b8cb-8546516624a8}*SharedItemsImports = 13
+		..\HaleyXamlShared\XamlShared\XamlShared.projitems*{c419b9dc-714c-442d-b0c2-179960252944}*SharedItemsImports = 5
+		..\HaleyXamlShared\XamlUtilsShared\XamlUtilsShared.projitems*{c419b9dc-714c-442d-b0c2-179960252944}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
