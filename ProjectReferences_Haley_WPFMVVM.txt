@@ -2,6 +2,6 @@
   <PropertyGroup>
     <HaleyMVVM>$(SolutionDir)..\HaleyMVVM\HaleyMVVM</HaleyMVVM>
     <HaleyWPF>$(SolutionDir)..\HaleyWPF\HaleyWPF</HaleyWPF>
-    <HaleyWPFResources>$(SolutionDir)..\HaleyWPFResources\HaleyWPFResources</HaleyWPFResources>
+    <HaleyWPFIconsPack>$(SolutionDir)..\HaleyWPFIconsPack\HaleyWPFIconsPack</HaleyWPFIconsPack>
   </PropertyGroup>
 </Project>
