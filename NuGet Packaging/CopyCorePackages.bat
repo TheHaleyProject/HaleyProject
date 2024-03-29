@@ -13,6 +13,30 @@ xcopy ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg 
 )
 
+REM HALEY DB
+ECHO PROCESSING HALEY DBNUPKG
+if exist ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.nupkg (
+xcopy ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY EXTENSIONS SNUPKG
+if exist ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg (
+xcopy ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg 
+)
+
+REM HALEY WEB
+ECHO PROCESSING HALEY DBNUPKG
+if exist ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.nupkg (
+xcopy ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY EXTENSIONS SNUPKG
+if exist ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.snupkg (
+xcopy ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.snupkg 
+)
+
 REM HALEY WPF
 ECHO PROCESSING HALEY WPF NUPKG
 if exist ..\..\HaleyWPF\HaleyWPF\bin\Release\*.nupkg (
