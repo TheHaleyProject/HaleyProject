@@ -8,6 +8,8 @@
     <HaleyLog>$(SolutionDir)..\HaleyLog\HaleyLog</HaleyLog> 
     <HaleyMVVM>$(SolutionDir)..\HaleyMVVM\HaleyMVVM</HaleyMVVM>
     <HaleyRest>$(SolutionDir)..\HaleyRest\HaleyRest</HaleyRest>
+    <HaleyHelpersDB>$(SolutionDir)..\HaleyHelpers.DB\HaleyHelpersDB</HaleyHelpersDB>
+    <HaleyHelpersWeb>$(SolutionDir)..\HaleyHelpers.Web\HaleyHelpersWeb</HaleyHelpersWeb> 
     <HaleyRuleEngine>$(SolutionDir)..\HaleyRuleEngine\HaleyRuleEngine</HaleyRuleEngine>
     <HaleyWPF>$(SolutionDir)..\HaleyWPF\HaleyWPF</HaleyWPF>
   </PropertyGroup>
