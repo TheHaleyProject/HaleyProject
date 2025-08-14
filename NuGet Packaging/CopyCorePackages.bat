@@ -25,6 +25,18 @@ xcopy ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg 
 )
 
+REM HALEY STORAGE
+ECHO PROCESSING HALEY StorageNUPKG
+if exist ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg (
+xcopy ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY EXTENSIONS SNUPKG
+if exist ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg (
+xcopy ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg 
+)
+
 REM HALEY WEB
 ECHO PROCESSING HALEY DBNUPKG
 if exist ..\..\HaleyHelpers.Web\HaleyHelpersWeb\bin\Release\*.nupkg (
