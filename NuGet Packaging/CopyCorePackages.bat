@@ -13,6 +13,31 @@ xcopy ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg 
 )
 
+REM HALEY WORKFLOW
+ECHO PROCESSING HALEY WORKFLOW
+if exist ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg (
+xcopy ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY WORKFLOW SNUPKG
+if exist ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg (
+xcopy ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg 
+)
+
+REM HALEY WORKFLOW API
+ECHO PROCESSING WORKFLOW API DBNUPKG
+if exist ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg (
+xcopy ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY WORKFLOW API SNUPKG
+if exist ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg (
+xcopy ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg 
+)
+
+
 REM HALEY DB
 ECHO PROCESSING HALEY DBNUPKG
 if exist ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.nupkg (
@@ -27,14 +52,14 @@ del /f ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.snupkg
 
 REM HALEY STORAGE
 ECHO PROCESSING HALEY StorageNUPKG
-if exist ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg (
-xcopy ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg .\ /i /y
-del /f ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.nupkg 
+if exist ..\..\HaleyStorage\HaleyStorage\bin\Release\*.nupkg (
+xcopy ..\..\HaleyStorage\HaleyStorage\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyStorage\HaleyStorage\bin\Release\*.nupkg 
 )
 ECHO PROCESSING HALEY EXTENSIONS SNUPKG
-if exist ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg (
-xcopy ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg .\ /i /y
-del /f ..\..\HaleyHelpers.Storage\HaleyHelpersStorage\bin\Release\*.snupkg 
+if exist ..\..\HaleyStorage\HaleyStorage\bin\Release\*.snupkg (
+xcopy ..\..\HaleyStorage\HaleyStorage\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyStorage\HaleyStorage\bin\Release\*.snupkg 
 )
 
 REM HALEY WEB
