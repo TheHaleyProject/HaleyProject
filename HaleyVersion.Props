@@ -1,18 +1,18 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <PropertyGroup>
-<HaleyAbstractionsVersion>1.2.26</HaleyAbstractionsVersion>
-<HaleyExtensionsVersion>2.3.26</HaleyExtensionsVersion>
+<HaleyAbstractionsVersion>1.2.28</HaleyAbstractionsVersion>
+<HaleyExtensionsVersion>2.3.28</HaleyExtensionsVersion>
 
-<HaleyEventsVersion>2.2.18</HaleyEventsVersion>
-<HaleyHelpersVersion>2.3.27</HaleyHelpersVersion>
-<HaleyHelpersDBVersion>0.0.46</HaleyHelpersDBVersion>
-<HaleyHelpersWebVersion>0.0.51</HaleyHelpersWebVersion>
+<HaleyEventsVersion>2.2.20</HaleyEventsVersion>
+<HaleyHelpersVersion>2.3.29</HaleyHelpersVersion>
+<HaleyHelpersDBVersion>0.0.48</HaleyHelpersDBVersion>
+<HaleyHelpersWebVersion>0.0.53</HaleyHelpersWebVersion>
 
-<HaleyStorageVersion>0.0.3</HaleyStorageVersion>
+<HaleyStorageVersion>0.0.4</HaleyStorageVersion>
 
-<HaleyRestVersion>3.0.4</HaleyRestVersion>
-<HaleyIOCVersion>3.0.23</HaleyIOCVersion>
-<HaleyLogVersion>2.0.43</HaleyLogVersion>
+<HaleyRestVersion>3.0.6</HaleyRestVersion>
+<HaleyIOCVersion>3.0.25</HaleyIOCVersion>
+<HaleyLogVersion>2.0.45</HaleyLogVersion>
 
 <HaleyLCAgentVersion>0.0.1</HaleyLCAgentVersion>
 <HaleyLCBaseVersion>0.0.1</HaleyLCBaseVersion>
