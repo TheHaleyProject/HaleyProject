@@ -13,30 +13,17 @@ xcopy ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg 
 )
 
-REM HALEY WORKFLOW
-ECHO PROCESSING HALEY WORKFLOW
-if exist ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg (
-xcopy ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg .\ /i /y
-del /f ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.nupkg 
+REM HALEY LIFECYCLE STATE
+ECHO PROCESSING HALEYLIFECYCLE STATE
+if exist ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.nupkg (
+xcopy ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.nupkg 
 )
 ECHO PROCESSING HALEY WORKFLOW SNUPKG
-if exist ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg (
-xcopy ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg .\ /i /y
-del /f ..\..\HaleyWorkFlow\HaleyWorkFlow\bin\Release\*.snupkg 
+if exist ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.snupkg (
+xcopy ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyLifeCycle.State\HaleyLifeCycleState\bin\Release\*.snupkg 
 )
-
-REM HALEY WORKFLOW API
-ECHO PROCESSING WORKFLOW API DBNUPKG
-if exist ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg (
-xcopy ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg .\ /i /y
-del /f ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.nupkg 
-)
-ECHO PROCESSING HALEY WORKFLOW API SNUPKG
-if exist ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg (
-xcopy ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg .\ /i /y
-del /f ..\..\HaleyWorkFlow.API\HaleyWorkFlowAPI\bin\Release\*.snupkg 
-)
-
 
 REM HALEY DB
 ECHO PROCESSING HALEY DBNUPKG
