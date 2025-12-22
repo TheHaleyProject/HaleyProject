@@ -12,11 +12,12 @@
   
 <HaleyStorageVersion>0.0.4</HaleyStorageVersion>
 <HaleyIOCVersion>3.0.26</HaleyIOCVersion>
+<HaleyLCVersion>0.0.3</HaleyLCVersion>
+	
+<HaleyFlowAgentVersion>0.0.1</HaleyFlowAgentVersion>
+<HaleyFlowBaseVersion>0.0.1</HaleyFlowBaseVersion>
+<HaleyFlowHubVersion>0.0.1</HaleyFlowHubVersion>
 
-<HaleyLCAgentVersion>0.0.1</HaleyLCAgentVersion>
-<HaleyLCBaseVersion>0.0.1</HaleyLCBaseVersion>
-<HaleyLCHubVersion>0.0.1</HaleyLCHubVersion>
-<HaleyLCStateVersion>0.0.3</HaleyLCStateVersion>
 <HaleyRuleEngineVersion>1.2.1</HaleyRuleEngineVersion>
 
 <HaleyMVVMVersion>6.5.4</HaleyMVVMVersion>
