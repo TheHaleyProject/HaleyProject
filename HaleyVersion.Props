@@ -1,6 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <PropertyGroup>
 <HaleyAbstractionsVersion>1.2.33</HaleyAbstractionsVersion>
+<HaleyAbstractionsCoreVersion>0.0.1</HaleyAbstractionsCoreVersion>
 <HaleyExtensionsVersion>2.3.33</HaleyExtensionsVersion>
 
 <HaleyEventsVersion>2.2.25</HaleyEventsVersion>
