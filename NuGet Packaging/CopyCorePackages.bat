@@ -1,6 +1,5 @@
 @echo off
 
-
 REM HALEY MVVM
 ECHO PROCESSING HALEY MVVM NUPKG
 if exist ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.nupkg (
@@ -13,16 +12,16 @@ xcopy ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyMVVM\HaleyMVVM\bin\Release\*.snupkg 
 )
 
-REM HALEY LIFECYCLE 
-ECHO PROCESSING HALEYLIFECYCLE 
-if exist ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.nupkg (
-xcopy ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.nupkg .\ /i /y
-del /f ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.nupkg 
+REM HALEY FLOW ENGINE 
+ECHO PROCESSING HALEY FLOW ENGINE 
+if exist ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.nupkg (
+xcopy ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.nupkg 
 )
 ECHO PROCESSING HALEY LIFECYCLE SNUPKG
-if exist ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.snupkg (
-xcopy ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.snupkg .\ /i /y
-del /f ..\..\HaleyLifeCycle\HaleyLifeCycle\bin\Release\*.snupkg 
+if exist ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.snupkg (
+xcopy ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.snupkg 
 )
 
 REM HALEY DB
