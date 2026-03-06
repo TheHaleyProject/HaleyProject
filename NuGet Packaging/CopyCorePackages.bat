@@ -24,6 +24,19 @@ xcopy ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.snupkg .\ /i /y
 del /f ..\..\HaleyFlow.Engine\HaleyFlowEngine\bin\Release\*.snupkg 
 )
 
+
+REM HALEY FLOW CONSUMER 
+ECHO PROCESSING HALEY FLOW CONSUMER 
+if exist ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.nupkg (
+xcopy ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.nupkg .\ /i /y
+del /f ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.nupkg 
+)
+ECHO PROCESSING HALEY FLOW CONSUMER 
+if exist ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.snupkg (
+xcopy ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.snupkg .\ /i /y
+del /f ..\..\HaleyFlow.Consumer\HaleyFlowConsumer\bin\Release\*.snupkg 
+)
+
 REM HALEY DB
 ECHO PROCESSING HALEY DBNUPKG
 if exist ..\..\HaleyHelpers.DB\HaleyHelpersDB\bin\Release\*.nupkg (
