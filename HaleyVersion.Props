@@ -19,7 +19,7 @@
 <HaleyLogVersion>2.0.61</HaleyLogVersion>
 <HaleyRestVersion>3.0.22</HaleyRestVersion>
   
-<HaleyStorageVersion>0.1.2</HaleyStorageVersion>
+<HaleyStorageVersion>0.1.4</HaleyStorageVersion>
 <HaleyIOCVersion>3.0.32</HaleyIOCVersion>
 <HaleyFlowEngineVersion>0.0.20</HaleyFlowEngineVersion>
 <HaleyFlowConsumerVersion>0.0.9</HaleyFlowConsumerVersion>
