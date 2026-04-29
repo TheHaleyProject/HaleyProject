@@ -8,21 +8,21 @@
 <Copyright>Haley</Copyright>
 <RepositoryType>GIT</RepositoryType>
   
-<HaleyAbstractionsVersion>1.3.8</HaleyAbstractionsVersion>
-<HaleyAbstractionsCoreVersion>0.0.16</HaleyAbstractionsCoreVersion>
-<HaleyExtensionsVersion>2.4.9</HaleyExtensionsVersion>
+<HaleyAbstractionsVersion>1.3.9</HaleyAbstractionsVersion>
+<HaleyAbstractionsCoreVersion>0.0.17</HaleyAbstractionsCoreVersion>
+<HaleyExtensionsVersion>2.4.10</HaleyExtensionsVersion>
 
-<HaleyEventsVersion>2.2.38</HaleyEventsVersion>
-<HaleyHelpersVersion>2.4.9</HaleyHelpersVersion>
-<HaleyHelpersDBVersion>0.1.9</HaleyHelpersDBVersion>
-<HaleyHelpersWebVersion>0.2.6</HaleyHelpersWebVersion>
-<HaleyLogVersion>2.0.63</HaleyLogVersion>
-<HaleyRestVersion>3.0.24</HaleyRestVersion>
+<HaleyEventsVersion>2.2.39</HaleyEventsVersion>
+<HaleyHelpersVersion>2.4.10</HaleyHelpersVersion>
+<HaleyHelpersDBVersion>0.1.10</HaleyHelpersDBVersion>
+<HaleyHelpersWebVersion>0.2.7</HaleyHelpersWebVersion>
+<HaleyLogVersion>2.0.64</HaleyLogVersion>
+<HaleyRestVersion>3.0.25</HaleyRestVersion>
   
-<HaleyStorageVersion>0.1.6</HaleyStorageVersion>
-<HaleyIOCVersion>3.0.34</HaleyIOCVersion>
-<HaleyFlowEngineVersion>0.0.22</HaleyFlowEngineVersion>
-<HaleyFlowConsumerVersion>0.0.11</HaleyFlowConsumerVersion>
+<HaleyStorageVersion>0.1.7</HaleyStorageVersion>
+<HaleyIOCVersion>3.0.35</HaleyIOCVersion>
+<HaleyFlowEngineVersion>0.0.23</HaleyFlowEngineVersion>
+<HaleyFlowConsumerVersion>0.0.12</HaleyFlowConsumerVersion>
 	
 <HaleyFlowAgentVersion>0.0.1</HaleyFlowAgentVersion>
 <HaleyFlowBaseVersion>0.0.1</HaleyFlowBaseVersion>
